@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="description" content="Bracing Effect, Apps for humans">
+        <meta name="keywords" content="iOS,iPhone,iPad,App,Apps,Preen,OCR,Text,Photo,Picture,Image">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Bracing Effect</title>
+
+        <style>
+/*
+YUI 3.13.0 (build 508226d)
+Copyright 2013 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+html{color:#000;background:#FFF}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0}
+table {border-collapse:collapse;border-spacing:0}
+fieldset,img {border:0}
+address,caption,cite,code,dfn,em,strong,th,var {font-style:normal;font-weight:normal}
+ol,ul {list-style:none}
+caption,th {text-align:left}
+h1,h2,h3,h4,h5,h6 {font-size:100%;font-weight:normal}
+q:before,q:after {content:''}
+abbr,acronym {border:0;font-variant:normal}
+sup {vertical-align:text-top}
+sub {vertical-align:text-bottom}
+input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit}
+input,textarea,select{*font-size:100%}
+legend{color:#000}
+#yui3-css-stamp.cssreset {display:none}
+        </style>
+
+        <style>
+html{font-size:71px}
+@media all and (max-width:2544px){html{font-size:70.75px}}
+@media all and (max-width:2535px){html{font-size:70.5px}}
+@media all and (max-width:2526px){html{font-size:70.25px}}
+@media all and (max-width:2517px){html{font-size:70px}}
+@media all and (max-width:2508px){html{font-size:69.75px}}
+@media all and (max-width:2499px){html{font-size:69.5px}}
+@media all and (max-width:2490px){html{font-size:69.25px}}
+@media all and (max-width:2481px){html{font-size:69px}}
+@media all and (max-width:2472px){html{font-size:68.75px}}
+@media all and (max-width:2463px){html{font-size:68.5px}}
+@media all and (max-width:2454px){html{font-size:68.25px}}
+@media all and (max-width:2445px){html{font-size:68px}}
+@media all and (max-width:2436px){html{font-size:67.75px}}
+@media all and (max-width:2427px){html{font-size:67.5px}}
+@media all and (max-width:2418px){html{font-size:67.25px}}
+@media all and (max-width:2409px){html{font-size:67px}}
+@media all and (max-width:2400px){html{font-size:66.75px}}
+@media all and (max-width:2391px){html{font-size:66.5px}}
+@media all and (max-width:2382px){html{font-size:66.25px}}
+@media all and (max-width:2373px){html{font-size:66px}}
+@media all and (max-width:2364px){html{font-size:65.75px}}
+@media all and (max-width:2355px){html{font-size:65.5px}}
+@media all and (max-width:2346px){html{font-size:65.25px}}
+@media all and (max-width:2337px){html{font-size:65px}}
+@media all and (max-width:2328px){html{font-size:64.75px}}
+@media all and (max-width:2319px){html{font-size:64.5px}}
+@media all and (max-width:2310px){html{font-size:64.25px}}
+@media all and (max-width:2301px){html{font-size:64px}}
+@media all and (max-width:2292px){html{font-size:63.75px}}
+@media all and (max-width:2283px){html{font-size:63.5px}}
+@media all and (max-width:2274px){html{font-size:63.25px}}
+@media all and (max-width:2265px){html{font-size:63px}}
+@media all and (max-width:2256px){html{font-size:62.75px}}
+@media all and (max-width:2247px){html{font-size:62.5px}}
+@media all and (max-width:2238px){html{font-size:62.25px}}
+@media all and (max-width:2229px){html{font-size:62px}}
+@media all and (max-width:2220px){html{font-size:61.75px}}
+@media all and (max-width:2211px){html{font-size:61.5px}}
+@media all and (max-width:2202px){html{font-size:61.25px}}
+@media all and (max-width:2193px){html{font-size:61px}}
+@media all and (max-width:2184px){html{font-size:60.75px}}
+@media all and (max-width:2175px){html{font-size:60.5px}}
+@media all and (max-width:2166px){html{font-size:60.25px}}
+@media all and (max-width:2157px){html{font-size:60px}}
+@media all and (max-width:2148px){html{font-size:59.75px}}
+@media all and (max-width:2139px){html{font-size:59.5px}}
+@media all and (max-width:2130px){html{font-size:59.25px}}
+@media all and (max-width:2121px){html{font-size:59px}}
+@media all and (max-width:2112px){html{font-size:58.75px}}
+@media all and (max-width:2103px){html{font-size:58.5px}}
+@media all and (max-width:2094px){html{font-size:58.25px}}
+@media all and (max-width:2085px){html{font-size:58px}}
+@media all and (max-width:2076px){html{font-size:57.75px}}
+@media all and (max-width:2067px){html{font-size:57.5px}}
+@media all and (max-width:2058px){html{font-size:57.25px}}
+@media all and (max-width:2049px){html{font-size:57px}}
+@media all and (max-width:2040px){html{font-size:56.75px}}
+@media all and (max-width:2031px){html{font-size:56.5px}}
+@media all and (max-width:2022px){html{font-size:56.25px}}
+@media all and (max-width:2013px){html{font-size:56px}}
+@media all and (max-width:2004px){html{font-size:55.75px}}
+@media all and (max-width:1995px){html{font-size:55.5px}}
+@media all and (max-width:1986px){html{font-size:55.25px}}
+@media all and (max-width:1977px){html{font-size:55px}}
+@media all and (max-width:1968px){html{font-size:54.75px}}
+@media all and (max-width:1959px){html{font-size:54.5px}}
+@media all and (max-width:1950px){html{font-size:54.25px}}
+@media all and (max-width:1941px){html{font-size:54px}}
+@media all and (max-width:1932px){html{font-size:53.75px}}
+@media all and (max-width:1923px){html{font-size:53.5px}}
+@media all and (max-width:1914px){html{font-size:53.25px}}
+@media all and (max-width:1905px){html{font-size:53px}}
+@media all and (max-width:1896px){html{font-size:52.75px}}
+@media all and (max-width:1887px){html{font-size:52.5px}}
+@media all and (max-width:1878px){html{font-size:52.25px}}
+@media all and (max-width:1869px){html{font-size:52px}}
+@media all and (max-width:1860px){html{font-size:51.75px}}
+@media all and (max-width:1851px){html{font-size:51.5px}}
+@media all and (max-width:1842px){html{font-size:51.25px}}
+@media all and (max-width:1833px){html{font-size:51px}}
+@media all and (max-width:1824px){html{font-size:50.75px}}
+@media all and (max-width:1815px){html{font-size:50.5px}}
+@media all and (max-width:1806px){html{font-size:50.25px}}
+@media all and (max-width:1797px){html{font-size:50px}}
+@media all and (max-width:1788px){html{font-size:49.75px}}
+@media all and (max-width:1779px){html{font-size:49.5px}}
+@media all and (max-width:1770px){html{font-size:49.25px}}
+@media all and (max-width:1761px){html{font-size:49px}}
+@media all and (max-width:1752px){html{font-size:48.75px}}
+@media all and (max-width:1743px){html{font-size:48.5px}}
+@media all and (max-width:1734px){html{font-size:48.25px}}
+@media all and (max-width:1725px){html{font-size:48px}}
+@media all and (max-width:1716px){html{font-size:47.75px}}
+@media all and (max-width:1707px){html{font-size:47.5px}}
+@media all and (max-width:1698px){html{font-size:47.25px}}
+@media all and (max-width:1689px){html{font-size:47px}}
+@media all and (max-width:1680px){html{font-size:46.75px}}
+@media all and (max-width:1671px){html{font-size:46.5px}}
+@media all and (max-width:1662px){html{font-size:46.25px}}
+@media all and (max-width:1653px){html{font-size:46px}}
+@media all and (max-width:1644px){html{font-size:45.75px}}
+@media all and (max-width:1635px){html{font-size:45.5px}}
+@media all and (max-width:1626px){html{font-size:45.25px}}
+@media all and (max-width:1617px){html{font-size:45px}}
+@media all and (max-width:1608px){html{font-size:44.75px}}
+@media all and (max-width:1599px){html{font-size:44.5px}}
+@media all and (max-width:1590px){html{font-size:44.25px}}
+@media all and (max-width:1581px){html{font-size:44px}}
+@media all and (max-width:1572px){html{font-size:43.75px}}
+@media all and (max-width:1563px){html{font-size:43.5px}}
+@media all and (max-width:1554px){html{font-size:43.25px}}
+@media all and (max-width:1545px){html{font-size:43px}}
+@media all and (max-width:1536px){html{font-size:42.75px}}
+@media all and (max-width:1527px){html{font-size:42.5px}}
+@media all and (max-width:1518px){html{font-size:42.25px}}
+@media all and (max-width:1509px){html{font-size:42px}}
+@media all and (max-width:1500px){html{font-size:41.75px}}
+@media all and (max-width:1491px){html{font-size:41.5px}}
+@media all and (max-width:1482px){html{font-size:41.25px}}
+@media all and (max-width:1473px){html{font-size:41px}}
+@media all and (max-width:1464px){html{font-size:40.75px}}
+@media all and (max-width:1455px){html{font-size:40.5px}}
+@media all and (max-width:1446px){html{font-size:40.25px}}
+@media all and (max-width:1437px){html{font-size:40px}}
+@media all and (max-width:1428px){html{font-size:39.75px}}
+@media all and (max-width:1419px){html{font-size:39.5px}}
+@media all and (max-width:1410px){html{font-size:39.25px}}
+@media all and (max-width:1401px){html{font-size:39px}}
+@media all and (max-width:1392px){html{font-size:38.75px}}
+@media all and (max-width:1383px){html{font-size:38.5px}}
+@media all and (max-width:1374px){html{font-size:38.25px}}
+@media all and (max-width:1365px){html{font-size:38px}}
+@media all and (max-width:1356px){html{font-size:37.75px}}
+@media all and (max-width:1347px){html{font-size:37.5px}}
+@media all and (max-width:1338px){html{font-size:37.25px}}
+@media all and (max-width:1329px){html{font-size:37px}}
+@media all and (max-width:1320px){html{font-size:36.75px}}
+@media all and (max-width:1311px){html{font-size:36.5px}}
+@media all and (max-width:1302px){html{font-size:36.25px}}
+@media all and (max-width:1293px){html{font-size:36px}}
+@media all and (max-width:1284px){html{font-size:35.75px}}
+@media all and (max-width:1275px){html{font-size:35.5px}}
+@media all and (max-width:1266px){html{font-size:35.25px}}
+@media all and (max-width:1257px){html{font-size:35px}}
+@media all and (max-width:1248px){html{font-size:34.75px}}
+@media all and (max-width:1239px){html{font-size:34.5px}}
+@media all and (max-width:1230px){html{font-size:34.25px}}
+@media all and (max-width:1221px){html{font-size:34px}}
+@media all and (max-width:1212px){html{font-size:33.75px}}
+@media all and (max-width:1203px){html{font-size:33.5px}}
+@media all and (max-width:1194px){html{font-size:33.25px}}
+@media all and (max-width:1185px){html{font-size:33px}}
+@media all and (max-width:1176px){html{font-size:32.75px}}
+@media all and (max-width:1167px){html{font-size:32.5px}}
+@media all and (max-width:1158px){html{font-size:32.25px}}
+@media all and (max-width:1149px){html{font-size:32px}}
+@media all and (max-width:1140px){html{font-size:31.75px}}
+@media all and (max-width:1131px){html{font-size:31.5px}}
+@media all and (max-width:1122px){html{font-size:31.25px}}
+@media all and (max-width:1113px){html{font-size:31px}}
+@media all and (max-width:1104px){html{font-size:30.75px}}
+@media all and (max-width:1095px){html{font-size:30.5px}}
+@media all and (max-width:1086px){html{font-size:30.25px}}
+@media all and (max-width:1077px){html{font-size:30px}}
+@media all and (max-width:1068px){html{font-size:29.75px}}
+@media all and (max-width:1059px){html{font-size:29.5px}}
+@media all and (max-width:1050px){html{font-size:29.25px}}
+@media all and (max-width:1041px){html{font-size:29px}}
+@media all and (max-width:1032px){html{font-size:28.75px}}
+@media all and (max-width:1023px){html{font-size:28.5px}}
+@media all and (max-width:1014px){html{font-size:28.25px}}
+@media all and (max-width:1005px){html{font-size:28px}}
+@media all and (max-width:996px){html{font-size:27.75px}}
+@media all and (max-width:987px){html{font-size:27.5px}}
+@media all and (max-width:978px){html{font-size:27.25px}}
+@media all and (max-width:969px){html{font-size:27px}}
+@media all and (max-width:960px){html{font-size:26.75px}}
+@media all and (max-width:951px){html{font-size:26.5px}}
+@media all and (max-width:942px){html{font-size:26.25px}}
+@media all and (max-width:933px){html{font-size:26px}}
+@media all and (max-width:924px){html{font-size:25.75px}}
+@media all and (max-width:915px){html{font-size:25.5px}}
+@media all and (max-width:906px){html{font-size:25.25px}}
+@media all and (max-width:897px){html{font-size:25px}}
+@media all and (max-width:888px){html{font-size:24.75px}}
+@media all and (max-width:879px){html{font-size:24.5px}}
+@media all and (max-width:870px){html{font-size:24.25px}}
+@media all and (max-width:861px){html{font-size:24px}}
+@media all and (max-width:852px){html{font-size:23.75px}}
+@media all and (max-width:843px){html{font-size:23.5px}}
+@media all and (max-width:834px){html{font-size:23.25px}}
+@media all and (max-width:825px){html{font-size:23px}}
+@media all and (max-width:816px){html{font-size:22.75px}}
+@media all and (max-width:807px){html{font-size:22.5px}}
+@media all and (max-width:798px){html{font-size:22.25px}}
+@media all and (max-width:789px){html{font-size:22px}}
+@media all and (max-width:780px){html{font-size:21.75px}}
+@media all and (max-width:771px){html{font-size:21.5px}}
+@media all and (max-width:762px){html{font-size:21.25px}}
+@media all and (max-width:753px){html{font-size:21px}}
+@media all and (max-width:744px){html{font-size:20.75px}}
+@media all and (max-width:735px){html{font-size:20.5px}}
+@media all and (max-width:726px){html{font-size:20.25px}}
+@media all and (max-width:717px){html{font-size:20px}}
+@media all and (max-width:708px){html{font-size:19.75px}}
+@media all and (max-width:699px){html{font-size:19.5px}}
+@media all and (max-width:690px){html{font-size:19.25px}}
+@media all and (max-width:681px){html{font-size:19px}}
+@media all and (max-width:672px){html{font-size:18.75px}}
+@media all and (max-width:663px){html{font-size:18.5px}}
+@media all and (max-width:654px){html{font-size:18.25px}}
+@media all and (max-width:645px){html{font-size:18px}}
+@media all and (max-width:636px){html{font-size:17.75px}}
+@media all and (max-width:627px){html{font-size:17.5px}}
+@media all and (max-width:618px){html{font-size:17.25px}}
+@media all and (max-width:609px){html{font-size:17px}}
+@media all and (max-width:600px){html{font-size:16.75px}}
+@media all and (max-width:591px){html{font-size:16.5px}}
+@media all and (max-width:582px){html{font-size:16.25px}}
+@media all and (max-width:573px){html{font-size:16px}}
+@media all and (max-width:564px){html{font-size:15.75px}}
+@media all and (max-width:555px){html{font-size:15.5px}}
+@media all and (max-width:546px){html{font-size:15.25px}}
+@media all and (max-width:537px){html{font-size:15px}}
+@media all and (max-width:528px){html{font-size:14.75px}}
+@media all and (max-width:519px){html{font-size:14.5px}}
+@media all and (max-width:510px){html{font-size:14.25px}}
+@media all and (max-width:501px){html{font-size:14px}}
+@media all and (max-width:492px){html{font-size:13.75px}}
+@media all and (max-width:483px){html{font-size:13.5px}}
+@media all and (max-width:474px){html{font-size:13.25px}}
+@media all and (max-width:465px){html{font-size:13px}}
+@media all and (max-width:456px){html{font-size:12.75px}}
+@media all and (max-width:447px){html{font-size:12.5px}}
+@media all and (max-width:438px){html{font-size:12.25px}}
+@media all and (max-width:429px){html{font-size:12px}}
+@media all and (max-width:420px){html{font-size:11.75px}}
+@media all and (max-width:411px){html{font-size:11.5px}}
+@media all and (max-width:402px){html{font-size:11.25px}}
+@media all and (max-width:393px){html{font-size:11px}}
+@media all and (max-width:384px){html{font-size:10.75px}}
+@media all and (max-width:375px){html{font-size:10.5px}}
+@media all and (max-width:366px){html{font-size:10.25px}}
+@media all and (max-width:357px){html{font-size:10px}}
+@media all and (max-width:348px){html{font-size:9.75px}}
+@media all and (max-width:339px){html{font-size:9.5px}}
+@media all and (max-width:330px){html{font-size:9.25px}}
+@media all and (max-width:321px){html{font-size:9px}}
+@media all and (max-width:312px){html{font-size:8.75px}}
+@media all and (max-width:303px){html{font-size:8.5px}}
+@media all and (max-width:294px){html{font-size:8.25px}}
+@media all and (max-width:285px){html{font-size:8px}}
+@media all and (max-width:276px){html{font-size:7.75px}}
+@media all and (max-width:267px){html{font-size:7.5px}}
+@media all and (max-width:258px){html{font-size:7.25px}}
+@media all and (max-width:249px){html{font-size:7px}}
+@media all and (max-width:240px){html{font-size:6.75px}}
+        </style>
+
+        <style>
+
+@media only screen and (orientation: portrait) and (device-height: 480px) {
+    div.slide div.slide-image {
+        -webkit-background-size: auto 436px;
+        -moz-background-size: auto 436px;
+        -o-background-size: auto 436px;
+        background-size: auto 436px;
+    }
+}
+
+@media only screen and (orientation: portrait) and (device-height: 568px) {
+    div.slide div.slide-image {
+        -webkit-background-size: auto 524px;
+        -moz-background-size: auto 524px;
+        -o-background-size: auto 524px;
+        background-size: auto 524px;
+    }
+}
+
+@media only screen and (orientation: portrait) and (device-height: 1024px) {
+    div.slide div.slide-image {
+        -webkit-background-size: auto 980px;
+        -moz-background-size: auto 980px;
+        -o-background-size: auto 980px;
+        background-size: auto 980px;
+    }
+}
+
+#preen{background-image:url(images/preen640x160.png)}
+#preen-badge{background-image:url(images/badge135x40.png)}
+#charity-image{background-image:url(images/thehumanfund320x640.jpg)}
+#bracingeffect-logo{background-image:url(images/logo660x295.png)}
+
+@media
+only screen and (-webkit-min-device-pixel-ratio:2),
+only screen and (min--moz-device-pixel-ratio:2),
+only screen and (-moz-min-device-pixel-ratio:2),
+only screen and (-o-min-device-pixel-ratio:2/1),
+only screen and (min-device-pixel-ratio:2),
+only screen and (min-resolution:192dpi),
+only screen and (min-resolution:2dppx) {
+    #preen{background-image:url(images/preen1280x320.png)}
+    #preen-badge{background-image:url(images/badge270x80.png)}
+    #charity-image{background-image:url(images/thehumanfund640x1280.jpg)}
+    #bracingeffect-logo{background-image:url(images/logo1320x589.png)}
+}
+
+/*
+Otter photo courtesy of William Warby:
+http://www.flickr.com/photos/wwarby/
+http://www.flickr.com/photos/wwarby/8193362718/
+*/
+#design .slide-image{background-image:url(images/otters320x240.jpg)}
+
+@media
+only screen and (max-width:640px),
+only screen and (max-height:480px) {
+    #design .slide-image{background-image:url(images/otters640x480.jpg)}
+}
+
+@media
+only screen and (min-width:641px) and (max-width:1024px),
+only screen and (min-height:481px) and (max-height:768px) {
+    #design .slide-image{background-image:url(images/otters1024x768.jpg)}
+}
+
+@media
+only screen and (min-width:1025px) and (max-width:1440px),
+only screen and (min-height:769px) and (max-height:1080px) {
+    #design .slide-image{background-image:url(images/otters1440x1080.jpg)}
+}
+
+@media
+only screen and (min-width:1441px) and (max-width:1600px),
+only screen and (min-height:1081px) and (max-height:1200px) {
+    #design .slide-image{background-image:url(images/otters1600x1200.jpg)}
+}
+
+@media
+only screen and (min-width:1601px) and (max-width:2048px),
+only screen and (min-height:1201px) and (max-height:1536px) {
+    #design .slide-image{background-image:url(images/otters2048x1536.jpg)}
+}
+
+@media
+only screen and (min-width:2049px) and (max-width:3200px),
+only screen and (min-height:1537px) and (max-height:2400px) {
+    #design .slide-image{background-image:url(images/otters3200x2400.jpg)}
+}
+
+@media
+only screen and (-webkit-min-device-pixel-ratio:2) and (max-width:640px),
+only screen and (min--moz-device-pixel-ratio:2) and (max-width:640px),
+only screen and (-moz-min-device-pixel-ratio:2) and (max-width:640px),
+only screen and (-o-min-device-pixel-ratio:2/1) and (max-width:640px),
+only screen and (min-device-pixel-ratio:2) and (max-width:640px),
+only screen and (min-resolution:192dpi) and (max-width:640px),
+only screen and (min-resolution:2dppx) and (max-width:640px),
+only screen and (-webkit-min-device-pixel-ratio:2) and (max-height:480px),
+only screen and (min--moz-device-pixel-ratio:2) and (max-height:480px),
+only screen and (-moz-min-device-pixel-ratio:2) and (max-height:480px),
+only screen and (-o-min-device-pixel-ratio:2/1) and (max-height:480px),
+only screen and (min-device-pixel-ratio:2) and (max-height:480px),
+only screen and (min-resolution:192dpi) and (max-height:480px),
+only screen and (min-resolution:2dppx) and (max-height:480px) {
+    #design .slide-image{background-image:url(images/otters1280x960.jpg)}
+}
+
+@media
+only screen and (-webkit-min-device-pixel-ratio:2) and (min-width:641px),
+only screen and (min--moz-device-pixel-ratio:2) and (min-width:641px),
+only screen and (-moz-min-device-pixel-ratio:2) and (min-width:641px),
+only screen and (-o-min-device-pixel-ratio:2/1) and (min-width:641px),
+only screen and (min-device-pixel-ratio:2) and (min-width:641px),
+only screen and (min-resolution:192dpi) and (min-width:641px),
+only screen and (min-resolution:2dppx) and (min-width:641px),
+only screen and (-webkit-min-device-pixel-ratio:2) and (min-height:481px),
+only screen and (min--moz-device-pixel-ratio:2) and (min-height:481px),
+only screen and (-moz-min-device-pixel-ratio:2) and (min-height:481px),
+only screen and (-o-min-device-pixel-ratio:2/1) and (min-height:481px),
+only screen and (min-device-pixel-ratio:2) and (min-height:481px),
+only screen and (min-resolution:192dpi) and (min-height:481px),
+only screen and (min-resolution:2dppx) and (min-height:481px) {
+    #design .slide-image{background-image:url(images/otters2048x1536.jpg)}
+}
+
+/*
+Desert photo courtesy of William Warby:
+http://www.flickr.com/photos/wwarby/
+http://www.flickr.com/photos/wwarby/9641689318/
+*/
+#bracingeffect .slide-image{background-image:url(images/desert320x373.jpg)}
+
+@media
+only screen and (max-width:640px),
+only screen and (max-height:747px) {
+    #bracingeffect .slide-image{background-image:url(images/desert640x747.jpg)}
+}
+
+@media
+only screen and (min-width:641px) and (max-width:1024px),
+only screen and (min-height:748px) and (max-height:1195px) {
+    #bracingeffect .slide-image{background-image:url(images/desert1024x1195.jpg)}
+}
+
+@media
+only screen and (min-width:1025px) and (max-width:1440px),
+only screen and (min-height:1196px) and (max-height:1680px) {
+    #bracingeffect .slide-image{background-image:url(images/desert1440x1680.jpg)}
+}
+
+@media
+only screen and (min-width:1441px) and (max-width:1600px),
+only screen and (min-height:1681px) and (max-height:1866px) {
+    #bracingeffect .slide-image{background-image:url(images/desert1600x1866.jpg)}
+}
+
+@media
+only screen and (min-width:1601px) and (max-width:2048px),
+only screen and (min-height:1867px) and (max-height:2389px) {
+    #bracingeffect .slide-image{background-image:url(images/desert2048x2389.jpg)}
+}
+
+@media
+only screen and (min-width:2049px) and (max-width:3200px),
+only screen and (min-height:2390px) and (max-height:3733px) {
+    #bracingeffect .slide-image{background-image:url(images/desert3200x3733.jpg)}
+}
+
+@media
+only screen and (-webkit-min-device-pixel-ratio:2) and (max-width:640px),
+only screen and (min--moz-device-pixel-ratio:2) and (max-width:640px),
+only screen and (-moz-min-device-pixel-ratio:2) and (max-width:640px),
+only screen and (-o-min-device-pixel-ratio:2/1) and (max-width:640px),
+only screen and (min-device-pixel-ratio:2) and (max-width:640px),
+only screen and (min-resolution:192dpi) and (max-width:640px),
+only screen and (min-resolution:2dppx) and (max-width:640px),
+only screen and (-webkit-min-device-pixel-ratio:2) and (max-height:746px),
+only screen and (min--moz-device-pixel-ratio:2) and (max-height:746px),
+only screen and (-moz-min-device-pixel-ratio:2) and (max-height:746px),
+only screen and (-o-min-device-pixel-ratio:2/1) and (max-height:746px),
+only screen and (min-device-pixel-ratio:2) and (max-height:746px),
+only screen and (min-resolution:192dpi) and (max-height:746px),
+only screen and (min-resolution:2dppx) and (max-height:746px) {
+    #bracingeffect .slide-image{background-image:url(images/desert1280x1493.jpg)}
+}
+
+@media
+only screen and (-webkit-min-device-pixel-ratio:2) and (min-width:641px),
+only screen and (min--moz-device-pixel-ratio:2) and (min-width:641px),
+only screen and (-moz-min-device-pixel-ratio:2) and (min-width:641px),
+only screen and (-o-min-device-pixel-ratio:2/1) and (min-width:641px),
+only screen and (min-device-pixel-ratio:2) and (min-width:641px),
+only screen and (min-resolution:192dpi) and (min-width:641px),
+only screen and (min-resolution:2dppx) and (min-width:641px),
+only screen and (-webkit-min-device-pixel-ratio:2) and (min-height:747px),
+only screen and (min--moz-device-pixel-ratio:2) and (min-height:747px),
+only screen and (-moz-min-device-pixel-ratio:2) and (min-height:747px),
+only screen and (-o-min-device-pixel-ratio:2/1) and (min-height:747px),
+only screen and (min-device-pixel-ratio:2) and (min-height:747px),
+only screen and (min-resolution:192dpi) and (min-height:747px),
+only screen and (min-resolution:2dppx) and (min-height:747px) {
+    #bracingeffect .slide-image{background-image:url(images/desert2048x2389.jpg)}
+}
+
+        </style>
+
+        <style>
+html,
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: normal;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+sup {
+    font-size: 0.75em;
+}
+
+.background-image {
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    color: transparent;
+    display: inline-block;
+    font-size: 0;
+    line-height: 0;
+    text-shadow: none;
+    vertical-align: middle;
+}
+
+.spacer {
+    display: block;
+    height: 0;
+}
+.ratio-1x1 .spacer {padding-top:100%}
+.ratio-1x2 .spacer {padding-top:200%}
+.ratio-2x1 .spacer {padding-top:50%}
+.ratio-3x4 .spacer {padding-top:133%}
+.ratio-4x1 .spacer {padding-top:25%}
+.ratio-4x3 .spacer {padding-top:75%}
+.ratio-5x6 .spacer {padding-top:120%}
+.ratio-6x7 .spacer {padding-top:116.67%}
+.ratio-1x1 > .spacer {padding-top:100%}
+.ratio-1x2 > .spacer {padding-top:200%}
+.ratio-2x1 > .spacer {padding-top:50%}
+.ratio-3x4 > .spacer {padding-top:133%}
+.ratio-4x1 > .spacer {padding-top:25%}
+.ratio-4x3 > .spacer {padding-top:75%}
+.ratio-5x6 > .spacer {padding-top:120%}
+.ratio-6x7 > .spacer {padding-top:116.67%}
+
+.slide {
+    background-color: #000000;
+    color: #ffffff;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.slide .slide-image {
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
+
+#bracingeffect h1,
+#bracingeffect h2 {
+    position: absolute;
+    -webkit-text-shadow: 0 0 0.125em #000000, 0 0 0.25em #000000, 0 0 0.5em #000000, 0 0 1em #000000;
+    -moz-text-shadow: 0 0 0.125em #000000, 0 0 0.25em #000000, 0 0 0.5em #000000, 0 0 1em #000000;
+    -o-text-shadow: 0 0 0.125em #000000, 0 0 0.25em #000000, 0 0 0.5em #000000, 0 0 1em #000000;
+    text-shadow: 0 0 0.125em #000000, 0 0 0.25em #000000, 0 0 0.5em #000000, 0 0 1em #000000;
+}
+
+#bracingeffect h1 {
+    font-size: 1.875em;
+    left: 5%;
+    top: 15%;
+}
+
+#bracingeffect h2 {
+    font-size: 1.625em;
+    right: 5%;
+    bottom: 20%;
+}
+
+#software {
+    background-color: #f7f8f9;
+}
+
+#software .slide-image {
+    background-image: url(images/software-background.jpg);
+    background-position: 0 0;
+    background-repeat: repeat-x;
+    background-size: auto;
+    height: 100%;
+    width: 100%;
+}
+
+#software .header {
+    left: 0;
+    height: 3em;
+    padding: 0.25em 0 0 1%;
+    position: absolute;
+    top: 0;
+    width: 71.5%;
+}
+
+#software .header #preen {
+    background-position: 50% 50%;
+    background-size: 100%;
+    float: left;
+    font-size: 1em;
+    margin: 0 0.25em 0 0;
+    width: 12em;
+}
+
+#software .header p {
+    color: #000000;
+    font-size: 0.65em;
+    padding: 0.5em 1% 0 0;
+}
+
+#software .footer {
+    bottom: 0;
+    height: 50px;
+    left: 0;
+    position: absolute;
+    width: 72.5%;
+}
+
+#software .footer #preen-badge {
+    background-position: 50% 50%;
+    background-size: 100%;
+    float: right;
+    height: 40px;
+    margin: 0 10px 10px 0;
+    width: 135px;
+}
+
+#software .panel {
+    bottom: 50px;
+    left: 0;
+    overflow: visible;
+    position: absolute;
+    top: 3.25em;
+    width: 100%;
+}
+
+#screenshot-swiper {
+    bottom: 5px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 20px;
+    position: absolute;
+    top: 5px;
+    width: 100%;
+}
+
+#screenshot-swiper > * {
+    -webkit-transform: translateZ(0px);
+}
+
+#screenshot-swiper .swiper-wrapper {
+    height: 100%;
+    white-space: nowrap;
+}
+
+#screenshot-swiper .swiper-slide {
+    display: inline;
+}
+
+#screenshot-swiper .swiper-slide img {
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.625);
+    margin: 0 1em 0 1em;
+    max-height: 100%;
+    max-width: 23.75em;
+}
+
+#screenshot-swiper .swiper-slide-last img {
+    margin: 0 11em 0 1em;
+}
+
+#charity {
+    height: auto;
+    min-height: 100%;
+}
+
+#charity h1 {
+    font-size: 1em;
+    left: 5%;
+    position: absolute;
+    top: 1.75em;
+}
+
+#charity-logo {
+    left: 5%;
+    top: 4em;
+    padding: 0 0 0 1em;
+    position: absolute;
+    text-align: right;
+}
+
+#charity-the, #charity-human, #charity-fund, #charity-money {
+    color: #ffffff;
+    font-family: "Times New Roman", Times, serif;
+}
+
+#charity-the span {
+    display: inline-block;
+    padding: 0 0.225em 0 0.125em;
+    text-align: center;
+}
+
+#charity-the span.left {
+    width: 1em;
+}
+
+#charity-the span.right {
+    width: 5.9em;
+}
+
+#charity-the span.underline {
+    border-bottom: 1px #ffff80 solid;
+}
+
+#charity-money span {
+    border-top: 1px #ffff80 solid;
+}
+
+#charity-the, #charity-fund, #charity-money {
+    color: #ffff80;
+}
+
+#charity-the {
+    font-size: 2em;
+}
+
+#charity-human,
+#charity-fund {
+    font-size: 5.25em;
+    line-height: 1em;
+}
+
+#charity-money {
+    font-size: 2em;
+    font-style: italic;
+    line-height: 1.75em;
+}
+
+#charity-image {
+    background-position: 50% 50%;
+    background-size: 100%;
+    font-size: 1em;
+    left: 4%;
+    width: 6em;
+    position: absolute;
+    top: 12em;
+}
+
+#design h1,
+#design h2 {
+    position: absolute;
+    -webkit-text-shadow: 0 0 0.25em #000000, 0 0 0.5em #000000;
+    -moz-text-shadow: 0 0 0.25em #000000, 0 0 0.5em #000000;
+    -o-text-shadow: 0 0 0.25em #000000, 0 0 0.5em #000000;
+    text-shadow: 0 0 0.25em #000000, 0 0 0.5em #000000;
+}
+
+#design h1 {
+    font-size: 2.5em;
+    left: 5%;
+    top: 15%;
+}
+
+#design h2 {
+    font-size: 1.5em;
+    right: 5%;
+    bottom: 10%;
+}
+
+#bracingeffect .panel,
+#design .panel {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 72.5%;
+}
+
+#design .background-image {
+    background-color: #e9e9eb;
+}
+
+#contact {
+    height: 10.5em;
+    min-height: 10.5em;
+    width: 100%;
+}
+
+#contact .footer {
+    background-color: #000000;
+    bottom: 0;
+    color: #ffffff;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    width: 72.5%;
+}
+
+#contact span {
+    margin: 0;
+}
+
+#contact a {
+    color: #007aff;
+}
+
+#contact #bracingeffect-logo {
+    background-position: 50% 50%;
+    background-size: 100%;
+    width: 52%;
+}
+
+#contact .email {
+    font-size: 0.75em;
+    padding: 1em 0 1.5em 0;
+    width: 100%;
+}
+
+#nav-background {
+    background-color: rgba(26, 26, 26, 0.625);
+    height: 1000%;
+    position: fixed;
+    right: 5%;
+    top: -450%;
+    width: 22.5%;
+    z-index: 10;
+}
+
+#nav-header,
+#nav-footer {
+    right: 5%;
+    position: fixed;
+    width: 20%;
+    z-index: 11;
+}
+
+#nav-header {
+    height: 50%;
+    top: 0;
+}
+
+#nav-footer {
+    bottom: 0;
+}
+
+#nav-header .spacer {
+    height: 16%;
+    max-height: 3.2em;
+}
+
+#nav-header .nav-link {
+    height: 24%;
+    max-height: 4.8em;
+}
+
+.nav h1,
+.nav h2 {
+    font-size: 0.875em;
+}
+
+.nav h2#nav-link-contact {
+    font-size: 0.75em;
+    padding: 0 0 1.5em 0;
+}
+
+.nav a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.nav a:hover {
+    cursor: default;
+    text-decoration: none;
+    -webkit-text-shadow: 0 0 0.5em #ffffff;
+    -moz-text-shadow: 0 0 0.5em #ffffff;
+    -o-text-shadow: 0 0 0.5em #ffffff;
+    text-shadow: 0 0 0.5em #ffffff;
+}
+
+
+.nav .active a {
+    -webkit-text-shadow: 0 0 0.5em #000000;
+    -moz-text-shadow: 0 0 0.5em #000000;
+    -o-text-shadow: 0 0 0.5em #000000;
+    text-shadow: 0 0 0.5em #000000;
+}
+
+#nav-link-bracingeffect.active a {color: #007aff}
+#nav-link-software.active a {color: #00ff00}
+#nav-link-charity.active a {color: #ffff00}
+#nav-link-design.active a {color: #ff4500}
+#nav-link-contact.active a {color: #007aff}
+        </style>
+
+        <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+        <script type="text/javascript" src="js/waypoints.min.js"></script>
+        <script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
+        <script type="text/javascript">
+
+var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+if (isMobile) {
+    function addEvent(event, el, func) {
+        if (el.addEventListener) {
+            el.addEventListener(event, func, false);
+        } else if (el.attachEvent) {
+            el.attachEvent('on' + event, func);
+        } else {
+            el['on' + event] = func;
+        }
+    }
+
+    addEvent('load', window, function() {
+        window.scrollTo(0, 0);
+    });
+}
+
+jQuery(document).ready(function($) {
+    var $window = $(window),
+        $htmlbody = $('html,body'),
+        $slides = $('.slide'),
+        $links = $('.nav-link'),
+        $contactSlide = $('#contact'),
+        nextLinkIndex = {},
+        prevLinkIndex = {},
+        linkIndex = {},
+        prevId = null;
+
+    var $link = null;
+    $slides.each(function(i) {
+        prevLinkIndex[this.id] = $link;
+        $link = $links.find('a[href=#' + this.id + ']').parents('.nav-link');
+        linkIndex[this.id] = $link;
+        if (prevId) {
+            nextLinkIndex[prevId] = $link;
+        }
+        prevId = this.id;
+    });
+    nextLinkIndex[prevId] = null;
+
+    var activateLink = function($link) {
+        if ($link && !$link.hasClass('active')) {
+            $links.removeClass('destination').removeClass('active');
+            $link.addClass('active');
+        }
+    }
+
+    $slides.waypoint(function(direction) {
+        var $activeLink = null;
+        if (direction == 'down') {
+            $activeLink = linkIndex[this.id];
+        } else {
+            $activeLink = prevLinkIndex[this.id];
+        }
+        activateLink($activeLink);
+    }, { offset: '50%' });
+
+    $contactSlide.waypoint(function(direction) {
+        if (direction == 'down') {
+            activateLink(linkIndex['contact']);
+        } else {
+            activateLink(linkIndex['design']);
+        }
+    }, {
+        offset: function() {
+            return $.waypoints('viewportHeight') - ($contactSlide.height() * 0.9);
+        }
+    });
+
+    var elements = $.waypoints('above');
+    if (elements && elements.length > 0) {
+        activateLink(linkIndex[elements[elements.length - 1].id]);
+    }
+
+    $links.find('a').click(function(event) {
+        event.preventDefault();
+        var $this = $(this),
+            $parent = $this.parents('.nav-link');
+        if (!$parent.hasClass('active') && !$parent.hasClass('destination')) {
+            $parent.addClass('destination');
+            var scrollTop = $($this.attr('href')).offset().top;
+            $htmlbody.animate({
+                scrollTop: scrollTop
+            }, 500, 'easeInOutQuint');
+        }
+    });
+
+});
+
+        </script>
+    </head>
+    <body>
+        <div id="bracingeffect" class="slide ratio-6x7">
+            <div class="background-image slide-image"><span class="spacer"></span></div>
+            <div class="panel">
+                <h1>Like a glass of ice water</h1>
+                <h2>in the middle of the desert</h2>
+            </div>
+        </div>
+
+        <div id="software" class="slide">
+            <div class="background-image slide-image"></div>
+            <div class="header">
+                <div id="preen" class="background-image ratio-4x1"><span class="spacer"></span></div>
+                <p>
+                    Turn printed text into phone numbers, web addresses,
+                    maps, and contacts. Available for free on the
+                    App Store<sup>TM</sup>.
+                </p>
+            </div>
+            <div class="panel">
+                <div id="screenshot-swiper" class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide swiper-slide-first">
+                            <img src="images/screenshot01.png" id="screenshot01" class="screenshot">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="images/screenshot02.png" id="screenshot02" class="screenshot">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="images/screenshot03.png" id="screenshot03" class="screenshot">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="images/screenshot04.png" id="screenshot04" class="screenshot">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="images/screenshot05.png" id="screenshot05" class="screenshot">
+                        </div>
+                        <div class="swiper-slide swiper-slide-last">
+                            <img src="images/screenshot06.png" id="screenshot06" class="screenshot">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <div id="preen-badge" class="background-image"></div>
+            </div>
+        </div>
+
+        <div id="charity" class="slide ratio-4x3">
+            <span class="spacer"></span>
+            <h1>Bracing Effect is a proud sponsor of</h1>
+            <div id="charity-logo">
+                <div id="charity-the"><span class="underline left"></span><span>THE</span><span class="underline right"></span></div>
+                <div id="charity-human"><span>HUMAN</span></div>
+                <div id="charity-fund"><span>FUND</span></div>
+                <div id="charity-money"><span>Money for people</span></div>
+            </div>
+            <div id="charity-image" class="background-image ratio-1x2"><span class="spacer"></span></div>
+        </div>
+
+        <div id="design" class="slide ratio-4x3">
+            <div class="background-image slide-image"><span class="spacer"></span></div>
+            <div class="panel">
+                <h1>Apps for humans</h1>
+                <h2>Because otters can't read</h2>
+            </div>
+        </div>
+
+        <div id="contact" class="slide">
+            <div class="footer">
+                <div id="bracingeffect-logo" class="background-image ratio-2x1"><span class="spacer"></span></div>
+                <h2 class="email">Contact us at <a href="mailto:support@bracingeffect.com">support@bracingeffect.com</a></h2>
+            </div>
+        </div>
+
+        <div id="nav-background" class="nav">
+        </div>
+
+        <div id="nav-header" class="nav">
+            <div class="spacer"></div>
+            <h1 id="nav-link-bracingeffect" class="nav-link"><a href="#bracingeffect">Bracing Effect</a></h1>
+            <h1 id="nav-link-software" class="nav-link"><a href="#software">Software</a></h1>
+            <h1 id="nav-link-charity" class="nav-link"><a href="#charity">Charity</a></h1>
+            <h1 id="nav-link-design" class="nav-link"><a href="#design">Design</a></h1>
+        </div>
+
+        <div id="nav-footer" class="nav">
+            <h2 id="nav-link-contact" class="nav-link"><a href="#contact">Contact</a></h2>
+        </div>
+    </body>
+</html>
