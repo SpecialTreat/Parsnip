@@ -835,7 +835,7 @@ sup {
 }
 
 #nav-background {
-    background-color: rgba(26, 26, 26, 0.625);
+    background-color: rgba(32, 32, 32, 0.625);
     height: 1000%;
     position: fixed;
     right: 5%;
@@ -939,22 +939,16 @@ jQuery(document).ready(function($) {
         $slides = $('.slide'),
         $links = $('.nav-link'),
         $contactSlide = $('#contact'),
-        nextLinkIndex = {},
+        $prevLink = null,
         prevLinkIndex = {},
-        linkIndex = {},
-        prevId = null;
+        linkIndex = {};
 
-    var $link = null;
+    var $prevLink = null;
     $slides.each(function(i) {
-        prevLinkIndex[this.id] = $link;
-        $link = $links.find('a[href=#' + this.id + ']').parents('.nav-link');
-        linkIndex[this.id] = $link;
-        if (prevId) {
-            nextLinkIndex[prevId] = $link;
-        }
-        prevId = this.id;
+        prevLinkIndex[this.id] = $prevLink;
+        $prevLink = $links.find('a[href=#' + this.id + ']').parents('.nav-link');
+        linkIndex[this.id] = $prevLink;
     });
-    nextLinkIndex[prevId] = null;
 
     var activateLink = function($link) {
         if ($link && !$link.hasClass('active')) {
@@ -963,7 +957,7 @@ jQuery(document).ready(function($) {
         }
     }
 
-    $slides.waypoint(function(direction) {
+    $slides.not('#contact').waypoint(function(direction) {
         var $activeLink = null;
         if (direction == 'down') {
             $activeLink = linkIndex[this.id];
