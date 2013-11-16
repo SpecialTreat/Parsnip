@@ -1,0 +1,901 @@
+#import "PreenNoteController.h"
+
+#import <QuartzCore/QuartzCore.h>
+#import "NSString+Tools.h"
+#import "PreenAlertView.h"
+#import "PreenDB.h"
+#import "PreenNoteImageController.h"
+#import "PreenNoteSheetController.h"
+#import "PreenOcr.h"
+#import "PreenPopoverBackgroundView.h"
+#import "PreenPopoverController.h"
+#import "PreenTextData.h"
+#import "PreenThread.h"
+#import "PreenUI.h"
+#import "UIBarButtonItem+Tools.h"
+#import "UIColor+Tools.h"
+#import "UIDevice+Tools.h"
+#import "UIImage+Drawing.h"
+#import "UIImage+Manipulation.h"
+#import "UIViewController+Tools.h"
+#import "UIView+Tools.h"
+
+
+@implementation PreenNoteController
+{
+    UIBarButtonItem *dismissKeyboardButton;
+    UIBarButtonItem *plusButton;
+    PreenAlertView *alert;
+    UITextView *textView;
+    PreenTouchableView *touchableView;
+    UIScrollView *scrollView;
+    BOOL initialAppearance;
+
+    void (^navigationControllerPushCompletion)(BOOL finished);
+}
+
+static NSString *noteScanningTitle;
+static NSString *noteEmptyTitle;
+static CGFloat scannerMaskAlpha;
+static CGFloat scannerSweepDuration;
+static CGFloat scannerFadeDuration;
+
+static UIEdgeInsets noteSheetPopoverLayoutMargins;
+static UIEdgeInsets noteSheetPopoverContentViewInsets;
+static CGFloat noteSheetPopoverMaskAlpha;
+static BOOL noteSheetPopoverBackgroundClipsToBounds;
+
+static CGSize noteDiscardAlertSize;
+
++ (void)initialize
+{
+    noteScanningTitle = [PreenUI.theme stringForKey:@"Note.ScanningTitle"];
+    noteEmptyTitle = [PreenUI.theme stringForKey:@"Note.EmptyTitle"];
+    scannerMaskAlpha = [PreenUI.theme floatForKey:@"Scanner.MaskAlpha" withDefault:0.5f];
+    scannerSweepDuration = [PreenUI.theme floatForKey:@"Scanner.SweepDuration" withDefault:2.0f];
+    scannerFadeDuration = [PreenUI.theme floatForKey:@"Scanner.FadeDuration" withDefault:0.3f];
+
+    noteSheetPopoverLayoutMargins = [PreenUI.theme edgeInsetsForKey:@"NoteSheetPopover.Margin"];
+    noteSheetPopoverContentViewInsets = [PreenUI.theme edgeInsetsForKey:@"NoteSheetPopover.Padding"];
+    noteSheetPopoverMaskAlpha = [PreenUI.theme floatForKey:@"NoteSheetPopover.MaskAlpha"];
+    noteSheetPopoverBackgroundClipsToBounds = [PreenUI.theme boolForKey:@"NoteSheetPopove.Background.ClipsToBounds" withDefault:YES];
+
+    noteDiscardAlertSize = [PreenUI.theme sizeForKey:@[@"NoteDiscardAlert", @"Alert"] withSubkey:@"BackgroundSize" withDefault:CGSizeMake(240.0f, 120.0f)];
+}
+
+@synthesize note = _note;
+@synthesize popover = _popover;
+@synthesize isDirty = _isDirty;
+@synthesize imageView = _imageView;
+@synthesize imageViewBackground = _imageViewBackground;
+@synthesize scannerView = _scannerView;
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        _isDirty = NO;
+        initialAppearance = YES;
+        self.title = noteScanningTitle;
+        self.manuallyAdjustsViewInsets = YES;
+    }
+    return self;
+}
+
+- (void)loadView
+{
+    self.view = [[UIView alloc] initWithFrame:self.frameForView];
+    self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.view.backgroundColor = [UIColor whiteColor];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    CGRect frame = self.view.bounds;
+
+    scrollView = [[UIScrollView alloc] initWithFrame:frame];
+    scrollView.alwaysBounceHorizontal = NO;
+    scrollView.alwaysBounceVertical = YES;
+    scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    scrollView.backgroundColor = [PreenUI.theme colorForKey:@"Note.BackgroundColor"];
+    scrollView.bounces = YES;
+    scrollView.clipsToBounds = YES;
+
+    dismissKeyboardButton = [PreenUI barButtonItemWithKey:@[@"NavigationBarDismissKeyboardButton", @"NavigationBarButton"] target:self action:@selector(onDismissKeyboardButtonTouch)];
+    plusButton = [PreenUI barButtonItemWithKey:@[@"NavigationBarPlusButton", @"NavigationBarButton"] target:self action:@selector(onPlusButtonTouch)];
+    plusButton.enabled = NO;
+    self.navigationItem.rightBarButtonItem = plusButton;
+
+    UILabel *titleView = [[UILabel alloc] initWithFrame:CGRectZero];
+    self.navigationItem.titleView = [PreenUI styleNavigationBarTitleView:titleView];
+    [self setTitle:self.title];
+    [self updateTitleStyle];
+
+    _imageView = [[UIImageView alloc] init];
+    _imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    _imageView.contentMode = UIViewContentModeScaleAspectFit;
+    _imageView.opaque = YES;
+    _imageView.hidden = YES;
+
+    _imageViewBackground = [[UIView alloc] init];
+    _imageViewBackground.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    _imageViewBackground.backgroundColor = [UIColor blackColor];
+
+    touchableView = [[PreenTouchableView alloc] init];
+    touchableView.delegate = self;
+
+    _scannerView = [[PreenScannerView alloc] init];
+    _scannerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    _scannerView.hidden = YES;
+    _scannerView.maskAlpha = scannerMaskAlpha;
+    _scannerView.sweepDuration = scannerSweepDuration;
+    _scannerView.fadeDuration = scannerFadeDuration;
+
+    textView = [[UITextView alloc] init];
+    textView.font = [PreenUI.theme fontForKey:@"Note.Font"];
+    textView.textColor = [PreenUI.theme colorForKey:@"Note.TextColor"];
+    textView.backgroundColor = [PreenUI.theme colorForKey:@"Note.BackgroundColor"];
+    textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    textView.delegate = self;
+
+    [scrollView addSubview:textView];
+    [scrollView addSubview:_imageViewBackground];
+    [scrollView addSubview:_imageView];
+    [scrollView addSubview:touchableView];
+    [scrollView addSubview:_scannerView];
+    [self.view addSubview:scrollView];
+
+    [self initDeviceListeners];
+}
+
+- (void)dealloc
+{
+    textView.delegate = nil;
+    touchableView.delegate = nil;
+}
+
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    [self layoutSubviews];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    [self layoutSubviews];
+    if (self.popover) {
+        CGFloat arrowHeight = [PreenPopoverBackgroundView arrowHeight];
+        CGRect buttonFrame = plusButton.internalView.frame;
+        buttonFrame = [self.navigationController.view convertRect:buttonFrame fromView:self.navigationController.navigationBar];
+        buttonFrame.size.height = buttonFrame.size.height - (arrowHeight - self.popover.popoverLayoutMargins.top);
+
+        [self.popover presentPopoverFromRect:buttonFrame
+                                      inView:self.navigationController.view
+                    permittedArrowDirections:UIPopoverArrowDirectionUp
+                                    animated:NO];
+        self.popover.backgroundView.clipsToBounds = noteSheetPopoverBackgroundClipsToBounds;
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+
+    if (initialAppearance) {
+        initialAppearance = NO;
+        UIEdgeInsets insets = self.insetsForView;
+        scrollView.contentOffset = CGPointMake(0.0f - insets.left, 0.0f - insets.top);
+    }
+    [self layoutSubviews];
+
+    if (self.popover) {
+        [UIView animateWithDuration:UINavigationControllerHideShowBarDuration animations:^{
+            self.popover.view.alpha = 1.0f;
+        }];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
+
+- (void)layoutSubviews
+{
+    CGRect frame = [self boundsForViewStatusBarHidden:YES];
+    UIEdgeInsets insets = self.insetsForView;
+    scrollView.contentInset = insets;
+    scrollView.scrollIndicatorInsets = insets;
+
+    if (_note) {
+        [self layoutForImage:_note.croppedImage inFrame:frame];
+    }
+}
+
+- (void)layoutForImage:(UIImage *)image inFrame:(CGRect)frame
+{
+    CGRect imageViewFrame = [self frameForImage:image inFrame:frame];
+    _imageView.frame = imageViewFrame;
+    _imageViewBackground.frame = imageViewFrame;
+    _scannerView.frame = imageViewFrame;
+    touchableView.frame = imageViewFrame;
+
+    [self layoutTextView];
+}
+
+- (void)layoutTextView
+{
+    CGRect textViewFrame = [self frameForTextView];
+    if (!CGRectEqualToRect(textViewFrame, textView.frame)) {
+        textView.frame = textViewFrame;
+    }
+    CGSize scrollViewContentSize = CGSizeMake(scrollView.frame.size.width, _imageView.frame.size.height + textView.frame.size.height);
+    if (!CGSizeEqualToSize(scrollViewContentSize, scrollView.contentSize)) {
+        scrollView.contentSize = scrollViewContentSize;
+    }
+}
+
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    if (navigationControllerPushCompletion) {
+        navigationControllerPushCompletion(YES);
+        navigationControllerPushCompletion = nil;
+    }
+}
+
+- (void)initDeviceListeners
+{
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+
+    [notificationCenter addObserver:self
+                           selector:@selector(onKeyboardDidShow:)
+                               name:UIKeyboardDidShowNotification
+                             object:nil];
+
+    [notificationCenter addObserver:self
+                           selector:@selector(onKeyboardWillHide:)
+                               name:UIKeyboardWillHideNotification
+                             object:nil];
+
+    [notificationCenter addObserver:self
+                           selector:@selector(onKeyboardWillShow:)
+                               name:UIKeyboardWillShowNotification
+                             object:nil];
+}
+
+- (void)onKeyboardDidShow:(NSNotification *)notification
+{
+    CGSize keyboardSize = [[notification.userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    CGFloat keyboardHeight = keyboardSize.height;
+    if (keyboardSize.height > keyboardSize.width) {
+        keyboardHeight = keyboardSize.width;
+    }
+    CGRect frame = self.view.bounds;
+    frame.size.height -= keyboardHeight;
+    scrollView.frame = frame;
+    [self layoutTextView];
+}
+
+- (void)onKeyboardWillHide:(NSNotification *)notification
+{
+    [self.navigationItem setRightBarButtonItem:plusButton animated:YES];
+    scrollView.frame = self.view.bounds;
+    [self layoutTextView];
+    touchableView.userInteractionEnabled = YES;
+}
+
+- (void)onKeyboardWillShow:(NSNotification *)notification
+{
+    touchableView.userInteractionEnabled = NO;
+    [self.navigationItem setRightBarButtonItem:dismissKeyboardButton animated:YES];
+}
+
+- (UILabel *)titleView
+{
+    return (UILabel *)self.navigationItem.titleView;
+}
+
+- (void)setTitle:(NSString *)title
+{
+    [super setTitle:title];
+    self.titleView.text = title;
+}
+
+- (NSString *)title
+{
+    return [super title];
+}
+
+- (void)updateTitle:(NSString *)title animated:(BOOL)animated
+{
+    if (title) {
+        title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        UILabel *titleView = self.titleView;
+        if ([title isEqualToString:@""]) {
+            title = noteEmptyTitle;
+        }
+        if (![title isEqualToString:titleView.text]) {
+            if (animated) {
+                UILabel *cloneTitleView = [[UILabel alloc] initWithFrame:titleView.frame];
+                cloneTitleView.backgroundColor = titleView.backgroundColor;
+                cloneTitleView.font = titleView.font;
+                cloneTitleView.textAlignment = titleView.textAlignment;
+                cloneTitleView.textColor = titleView.textColor;
+                cloneTitleView.text = titleView.text;
+                cloneTitleView.center = titleView.center;
+                [titleView.superview addSubview:cloneTitleView];
+                titleView.alpha = 0.0f;
+                self.title = title;
+                [titleView sizeToFit];
+
+                [UIView animateWithDuration:UINavigationControllerHideShowBarDuration animations:^{
+                    cloneTitleView.alpha = 0.0f;
+                    titleView.alpha = 1.0f;
+                } completion:^(BOOL finished) {
+                    [cloneTitleView removeFromSuperview];
+                }];
+            } else {
+                self.title = title;
+                [titleView sizeToFit];
+            }
+        }
+    }
+}
+
+- (void)updateTitleStyle
+{
+    if (_isDirty || !_note.userSaved) {
+        [self.titleView setFont:[PreenUI.theme fontForKey:@[@"NoteNavigationBar.UnsavedTitle", @"NavigationBar.Title"] withSubkey:@"Font"]];
+    } else {
+        [self.titleView setFont:[PreenUI.theme fontForKey:@"NavigationBar.Title.Font"]];
+    }
+    [self.titleView sizeToFit];
+}
+
+- (void)setIsDirty:(BOOL)isDirty
+{
+    _isDirty = isDirty;
+    [self updateTitleStyle];
+}
+
+- (void)touchableViewOnTouch:(PreenTouchableView *)view
+{
+    [self dismissKeyboard];
+
+    PreenNoteImageController *noteImageController = [[PreenNoteImageController alloc] init];
+    [noteImageController view];
+    noteImageController.note = _note;
+
+    if (!CGRectEqualToRect(_note.croppedImageFrame, CGRectZero)) {
+        CGRect frame = noteImageController.scrollContentFrame;
+
+        // UIImageView *imageView = [[UIImageView alloc] initWithImage:_note.rawImage];
+        UIView *imageView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, _note.rawImage.size.width, _note.rawImage.size.height)];
+        UIView *cropViewContainer = [[UIView alloc] initWithFrame:frame];
+
+        UIImageView *cropView = [[UIImageView alloc] initWithImage:_note.croppedImage];
+        cropView.frame = CGRectOffset(_note.croppedImageFrame, frame.size.width / 2.0f, frame.size.height / 2.0f);
+
+        UIView *borderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cropView.frame.size.width, cropView.frame.size.height)];
+        borderView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        borderView.alpha = 0.0f;
+        borderView.layer.borderColor = [UIColor whiteColor].CGColor;
+        borderView.layer.borderWidth = 1.0f / [UIScreen mainScreen].scale;
+
+        [cropView addSubview:borderView];
+        [cropViewContainer addSubview:cropView];
+
+        cropViewContainer.transform = CGAffineTransformInvert(_note.croppedImageTransform);
+        cropViewContainer.center = CGPointMake(imageView.bounds.size.width / 2.0f, imageView.bounds.size.height / 2.0f);
+        [imageView addSubview:cropViewContainer];
+
+        CGFloat scale = _imageView.frame.size.height / cropView.frame.size.height;
+        imageView.transform = CGAffineTransformScale(_note.croppedImageTransform, scale, scale);
+        [self.navigationController.view addSubview:imageView];
+
+        CGPoint desiredCenter = [self.navigationController.view convertPoint:_imageView.center fromView:scrollView];
+        CGPoint actualCenter = [self.navigationController.view convertPoint:cropView.center fromView:cropViewContainer];
+        CGPoint offset = CGPointMake(desiredCenter.x - actualCenter.x, desiredCenter.y - actualCenter.y);
+
+        imageView.center = CGPointMake(imageView.center.x + offset.x, imageView.center.y + offset.y);
+
+        UIView *selfImageView = _imageView;
+        selfImageView.hidden = YES;
+        NSObject<UINavigationControllerDelegate> *navigationControllerDelegate = self.navigationController.delegate;
+        UINavigationController *navigationController = self.navigationController;
+        navigationControllerPushCompletion = ^(BOOL finished) {
+            selfImageView.hidden = NO;
+            noteImageController.cropView.hidden = NO;
+            noteImageController.spotlightView.hidden = NO;
+            [imageView removeFromSuperview];
+            navigationController.delegate = navigationControllerDelegate;
+        };
+
+        noteImageController.cropView.hidden = YES;
+        noteImageController.spotlightView.hidden = YES;
+        CGFloat zoomScale = noteImageController.scrollView.zoomScale;
+        [UIView animateWithDuration:UINavigationControllerHideShowBarDuration animations:^{
+            imageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, zoomScale, zoomScale);
+            imageView.center = CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame));
+            borderView.alpha = 1.0f;
+        }];
+        self.navigationController.delegate = self;
+    }
+
+    [self.navigationController pushViewController:noteImageController animated:YES];
+}
+
+- (void)setNote:(PreenNote *)note
+{
+    _note = note;
+    if ([self isViewLoaded]) {
+        CGRect imageViewFrame = [self frameForImage:_note.croppedImage inFrame:scrollView.frame];
+        _imageView.frame = imageViewFrame;
+        _imageViewBackground.frame = imageViewFrame;
+        _scannerView.frame = imageViewFrame;
+        touchableView.frame = imageViewFrame;
+
+        _imageView.image = _note.croppedImage;
+        if (_note.postOcrText) {
+            [self updateTitle:_note.text.firstLine animated:NO];
+        }
+        [self updateTitleStyle];
+        [self updateText:_note.text];
+
+        if(_imageView.image) {
+            _imageView.hidden = NO;
+        }
+
+        if(_note.text) {
+            plusButton.enabled = YES;
+        }
+    }
+}
+
+- (CGFloat)viewableHeight
+{
+    CGFloat height = self.view.bounds.size.height;
+    UIEdgeInsets insets = self.insetsForView;
+    height -= (insets.top + insets.bottom);
+    return height;
+}
+
+- (BOOL)isImageLetterboxed:(UIImage *)image inFrame:(CGRect)frame
+{
+    if(image) {
+        CGFloat width = frame.size.width;
+        CGFloat height = floor(([UIScreen mainScreen].bounds.size.height - 64.0f) / 2.0f);
+        return (image.size.width / image.size.height) < (width / height);
+    } else {
+        return YES;
+    }
+}
+
+- (CGRect)frameForImage:(UIImage *)image inFrame:(CGRect)frame
+{
+    CGFloat width = frame.size.width;
+    if(!image || [self isImageLetterboxed:image inFrame:frame]) {
+        CGFloat imageHeight = floor(([UIScreen mainScreen].bounds.size.height - 64.0f) / 2.0f);
+        return [UIView alignRect:CGRectMake(frame.origin.x, frame.origin.y, width, imageHeight)];
+    } else {
+        CGFloat imageHeight = width * (image.size.height / image.size.width);
+        return [UIView alignRect:CGRectMake(frame.origin.x, frame.origin.y, width, imageHeight)];
+    }
+}
+
+- (CGRect)frameForTextView
+{
+    CGFloat width = scrollView.frame.size.width;
+    CGFloat height = self.viewableHeight;
+    CGFloat xInsets = 10.0f + textView.contentInset.left + textView.contentInset.right;
+    CGFloat yInsets = textView.contentInset.top + textView.contentInset.bottom;
+    CGFloat textViewHeight = 0.0f;
+    NSString *text = [NSString stringWithFormat:@".%@.", textView.text];
+    if ([NSString instancesRespondToSelector:@selector(boundingRectWithSize:options:attributes:context:)]) {
+        xInsets += textView.textContainerInset.left + textView.textContainerInset.right;
+        yInsets += textView.textContainerInset.top + textView.textContainerInset.bottom;
+        CGRect textFrame = [text boundingRectWithSize:CGSizeMake(width - xInsets, FLT_MAX)
+                                              options:NSStringDrawingUsesLineFragmentOrigin
+                                           attributes:@{UITextAttributeFont: textView.font,
+                                                        UITextAttributeTextColor: textView.textColor}
+                                              context:nil];
+        textViewHeight = ceil(textFrame.origin.y + textFrame.size.height + yInsets);
+
+    } else {
+        yInsets += 16.0f;
+        CGSize textSize = [text sizeWithFont:textView.font
+                           constrainedToSize:CGSizeMake(width - xInsets, FLT_MAX)
+                               lineBreakMode:NSLineBreakByWordWrapping];
+        textViewHeight = ceil(textSize.height + yInsets);
+    }
+    textViewHeight = MAX(textViewHeight, height - _imageView.frame.size.height);
+    return [UIView alignRect:CGRectMake(0, _imageView.frame.origin.y + _imageView.frame.size.height, width, textViewHeight)];
+}
+
+- (void)ocr:(PreenNote *)value
+{
+    self.note = value;
+    self.isDirty = YES;
+    [_scannerView show:NO];
+
+    PreenOcr *ocr = [[PreenOcr alloc] init];
+    [ocr preOcr:_note.croppedImage completion:^(UIImage *preOcrImage) {
+        // NSLog(@"PRE OCR");
+        
+        _note.preOcrImage = preOcrImage;
+        _note.preOcrImageTimestamp = [NSDate date];
+
+        [ocr ocr:_note.preOcrImage completion:^(NSString *ocrText, UIImage *ocrImage, NSString* hocrText) {
+            // NSLog(@"OCR");
+
+            _note.ocrImage = ocrImage;
+            _note.ocrImageTimestamp = [NSDate date];
+
+            _note.ocrText = ocrText;
+            _note.ocrTextTimestamp = [NSDate date];
+
+            _note.hocrText = hocrText;
+            _note.hocrTextTimestamp = [NSDate date];
+
+            [ocr postOcr:ocrText completion:^(NSString *postOcrText) {
+                // NSLog(@"POST OCR");
+
+                _note.postOcrText = postOcrText;
+                _note.postOcrTextTimestamp = [NSDate date];
+
+                [PreenThread background:^{
+                    [_note dataTypes];
+
+                    _note.thumbnailImage = [PreenNote createThumbnail:_note.croppedImage];
+                    _note.thumbnailImageTimestamp = [NSDate date];
+                    
+                    if (![NSString isEmpty:_note.text]) {
+                        [PreenNote replaceMostRecentDraft:_note];
+                    }
+
+                    [PreenThread main:^{
+                        [self updateText:_note.text];
+                        [self updateTitle:_note.text.firstLine animated:YES];
+                        plusButton.enabled = YES;
+                        [_scannerView hide:YES completion:^(BOOL finished) {
+
+                        }];
+                    }];
+                }];
+            }];
+        }];
+    }];
+}
+
+- (void)onDismissKeyboardButtonTouch
+{
+    [self updateTitle:_note.text.firstLine animated:YES];
+    if (self.isDirty && _note.userText) {
+        _note.userSaved = YES;
+        if([PreenDB save:_note]) {
+            self.isDirty = NO;
+        }
+    }
+    [self dismissKeyboard];
+}
+
+- (void)onPlusButtonTouch
+{
+    [self showNoteSheet];
+}
+
+- (void)showNoteSheet
+{
+    if(!self.popover) {
+        PreenNoteSheetController *viewController = [[PreenNoteSheetController alloc] init];
+        viewController.delegate = self;
+        viewController.note = self.note;
+        self.popover = [[PreenPopoverController alloc] initWithContentViewController:viewController];
+        self.popover.parentView = self.view;
+        self.popover.popoverBackgroundViewClass = [PreenPopoverBackgroundView class];
+        self.popover.popoverLayoutMargins = noteSheetPopoverLayoutMargins;
+        self.popover.contentViewInsets = noteSheetPopoverContentViewInsets;
+        self.popover.maskAlpha = noteSheetPopoverMaskAlpha;
+        self.popover.shadowColor = [PreenUI.theme colorForKey:@"NoteSheetPopover.ShadowColor"];
+        self.popover.delegate = self;
+
+        CGFloat arrowHeight = [PreenPopoverBackgroundView arrowHeight];
+        CGRect buttonFrame = plusButton.internalView.frame;
+        buttonFrame = [self.navigationController.view convertRect:buttonFrame fromView:self.navigationController.navigationBar];
+        buttonFrame.size.height = buttonFrame.size.height - (arrowHeight - self.popover.popoverLayoutMargins.top);
+
+        [self.popover presentPopoverFromRect:buttonFrame
+                                      inView:self.navigationController.view
+                    permittedArrowDirections:UIPopoverArrowDirectionUp
+                                    animated:YES];
+        self.popover.backgroundView.clipsToBounds = noteSheetPopoverBackgroundClipsToBounds;
+
+    }
+}
+
+- (void)dismissKeyboard
+{
+    [textView resignFirstResponder];
+}
+
+- (void)dismissPopover
+{
+    [self dismissPopover:YES];
+}
+
+- (void)dismissPopover:(BOOL)animated
+{
+    if(self.popover) {
+        [self.popover dismissPopoverAnimated:animated];
+        if ([self.popover.contentViewController respondsToSelector:@selector(delegate)]) {
+            ((PreenNoteSheetController *)self.popover.contentViewController).delegate = nil;
+        }
+        self.popover.delegate = nil;
+        self.popover = nil;
+    }
+}
+
+- (void)updateText:(NSString *)text
+{
+    textView.hidden = YES;
+    textView.text = text;
+    [self layoutTextView];
+    [self showTextView:YES];
+}
+
+- (void)showTextView:(BOOL)animated
+{
+    [self showTextView:animated completion:nil];
+}
+
+- (void)showTextView:(BOOL)animated completion:(void(^)(BOOL finished))completion
+{
+    if(animated) {
+        textView.alpha = 0.0f;
+        textView.hidden = NO;
+        [UIView animateWithDuration:UINavigationControllerHideShowBarDuration
+                         animations:^{ textView.alpha = 1.0f; }
+                         completion:completion];
+    } else {
+        textView.alpha = 1.0f;
+        textView.hidden = NO;
+        if(completion) {
+            completion(YES);
+        }
+    }
+}
+
+- (void)popoverControllerDidDismissPopover:(PreenPopoverController *)popoverController
+{
+    self.popover = nil;
+}
+
+- (BOOL)popoverControllerShouldDismissPopover:(PreenPopoverController *)popoverController
+{
+    return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)view
+{
+    _note.userText = textView.text;
+    _note.userTextTimestamp = [NSDate date];
+    if (!self.isDirty) {
+        self.isDirty = YES;
+    }
+    [self layoutTextView];
+}
+
+- (void)unknownPersonViewController:(ABUnknownPersonViewController *)unknownPersonView didResolveToPerson:(ABRecordRef)person
+{
+
+}
+
+- (void)noteSheet:(PreenNoteSheetController *)controller keep:(PreenNote *)note
+{
+    [self dismissPopover:YES];
+    note.userSaved = YES;
+    [PreenDB save:note];
+    self.isDirty = NO;
+}
+
+- (void)noteSheet:(PreenNoteSheetController *)controller copy:(PreenNote *)note
+{
+    [self dismissPopover:YES];
+    [UIPasteboard generalPasteboard].string = textView.text;
+}
+
+- (void)noteSheet:(PreenNoteSheetController *)controller archive:(PreenNote *)note
+{
+    [self dismissPopover:YES];
+    note.archived = YES;
+    note.userSaved = YES;
+    [PreenDB save:note];
+    self.isDirty = NO;
+    [self popToRoot];
+}
+
+- (void)noteSheet:(PreenNoteSheetController *)controller unarchive:(PreenNote *)note
+{
+    [self dismissPopover:YES];
+    note.archived = NO;
+    note.userSaved = YES;
+    [PreenDB save:note];
+    self.isDirty = NO;
+}
+
+- (void)noteSheet:(PreenNoteSheetController *)controller discard:(PreenNote *)note
+{
+    alert = [[PreenAlertView alloc] initWithFrame:self.popover.parentView.bounds];
+    alert.shadowRadius = self.popover.shadowRadius;
+    alert.shadowOffset = self.popover.shadowOffset;
+    alert.shadowOpacity = self.popover.shadowOpacity;
+    alert.shadowColor = self.popover.shadowColor;
+    alert.size = noteDiscardAlertSize;
+
+    UIButton *discardButton = [PreenUI buttonWithKey:@[@"NoteDiscardAlertDiscardButton", @"AlertWarningButton", @"AlertButton"] target:self action:@selector(onAlertDiscardButtonTouch:event:)];
+    UIButton *cancelButton = [PreenUI buttonWithKey:@[@"NoteDiscardAlertCancelButton", @"AlertButton"] target:self action:@selector(onAlertCancelButtonTouch:event:)];
+
+    alert.buttons = @[discardButton, cancelButton];
+
+    [self.navigationController.view addSubview:alert];
+    [alert show:^{
+        self.popover.backgroundView.alpha = 0.0f;
+    } completion:^(BOOL finished) {
+        self.popover.backgroundView.hidden = YES;
+    }];
+}
+
+- (void)onAlertDiscardButtonTouch:(UIButton *)sender event:(UIEvent *)event
+{
+    [self dismissPopover:YES];
+    [alert hide:nil completion:^(BOOL finished) {
+        [alert removeFromSuperview];
+        alert = nil;
+    }];
+    [PreenDB remove:_note];
+    [self popToRoot];
+}
+
+- (void)onAlertCancelButtonTouch:(UIButton *)sender event:(UIEvent *)event
+{
+    self.popover.backgroundView.alpha = 0.0f;
+    self.popover.backgroundView.hidden = NO;
+    [alert hide:^{
+        self.popover.backgroundView.alpha = 1.0f;
+    } completion:^(BOOL finished) {
+        [alert removeFromSuperview];
+        alert = nil;
+    }];
+}
+
+- (void)noteSheet:(PreenNoteSheetController *)controller contact:(PreenNote *)note
+{
+    ABRecordRef person = [note createPerson];
+    [self performSelectorOnMainThread:@selector(showContact:) withObject:(__bridge id)person waitUntilDone:NO];
+}
+
+- (void)noteSheet:(PreenNoteSheetController *)controller
+          contact:(PreenNote *)note
+             text:(NSString *)text
+      phoneNumber:(NSString *)phoneNumber
+{
+    ABRecordRef person = [PreenTextData createPersonWithDataTypes:@{@"PhoneNumber": @[@[text, phoneNumber]]}];
+    [self performSelectorOnMainThread:@selector(showContact:) withObject:(__bridge id)person waitUntilDone:NO];
+}
+
+- (void)noteSheet:(PreenNoteSheetController *)controller
+          contact:(PreenNote *)note
+             text:(NSString *)text
+              url:(NSURL *)url
+{
+    ABRecordRef person = [PreenTextData createPersonWithDataTypes:@{@"URL": @[@[text, url]]}];
+    [self performSelectorOnMainThread:@selector(showContact:) withObject:(__bridge id)person waitUntilDone:NO];
+}
+
+- (void)noteSheet:(PreenNoteSheetController *)controller
+          contact:(PreenNote *)note
+             text:(NSString *)text
+            email:(NSURL *)email
+{
+    ABRecordRef person = [PreenTextData createPersonWithDataTypes:@{@"Email": @[@[text, email]]}];
+    [self performSelectorOnMainThread:@selector(showContact:) withObject:(__bridge id)person waitUntilDone:NO];
+}
+
+- (void)noteSheet:(PreenNoteSheetController *)controller
+          contact:(PreenNote *)note
+             text:(NSString *)text
+          address:(NSDictionary *)components
+{
+    ABRecordRef person = [PreenTextData createPersonWithDataTypes:@{@"Address": @[@[text, components]]}];
+    [self performSelectorOnMainThread:@selector(showContact:) withObject:(__bridge id)person waitUntilDone:NO];
+}
+
+- (void)noteSheet:(PreenNoteSheetController *)controller
+         calendar:(PreenNote *)note
+             text:(NSString *)text
+             date:(NSDate *)date
+         duration:(NSTimeInterval)duration
+         timeZone:(NSTimeZone *)timeZone
+{
+    EKEventStore *eventStore = [[EKEventStore alloc] init];
+    [eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
+        if(granted) {
+            EKEvent *event = [EKEvent eventWithEventStore:eventStore];
+            event.startDate = date;
+            event.timeZone = timeZone;
+            if(duration) {
+                event.endDate = [date dateByAddingTimeInterval:duration];
+            } else {
+                event.endDate = [date dateByAddingTimeInterval:3600.0];
+            }
+            NSString *title = note.text.firstLine;
+            if(![title isEqualToString:text]) {
+                event.title = title;
+            }
+            event.notes = [NSString stringWithFormat:@"%@\n\n%@", [PreenUI.theme stringForKey:@"CreateContactNote"], note.text];
+
+            [self performSelectorOnMainThread:@selector(showCalendar:) withObject:@[event, eventStore] waitUntilDone:NO];
+        }
+    }];
+}
+
+- (void)showContact:(ABRecordRef)person
+{
+    ABUnknownPersonViewController *controller = [[ABUnknownPersonViewController alloc] init];
+    controller.allowsActions = YES;
+    controller.allowsAddingToAddressBook = YES;
+    controller.displayedPerson = person;
+    controller.unknownPersonViewDelegate = self;
+
+    CFRelease(person);
+
+    if (!UIDevice.isIOS7) {
+        UIScrollView *view = controller.topScrollView;
+        if (view) {
+            UIEdgeInsets insets = [self insetsForViewStatusBarHidden:YES];
+            view.contentInset = insets;
+            view.scrollIndicatorInsets = insets;
+        }
+    }
+
+    @synchronized(self) {
+        [self.navigationController pushViewController:controller animated:YES];
+        [UIView animateWithDuration:UINavigationControllerHideShowBarDuration animations:^{
+            self.popover.view.alpha = 0.0f;
+        }];
+    }
+}
+
+- (void)showCalendar:(NSArray *)args
+{
+    EKEvent *event = args[0];
+    EKEventStore *eventStore = args[1];
+
+    EKEventEditViewController* controller = [[EKEventEditViewController alloc] init];
+    controller.editViewDelegate = self;
+    controller.event = event;
+    controller.eventStore = eventStore;
+
+    @synchronized(self) {
+        [self presentViewController:controller animated:YES completion:nil];
+    }
+}
+
+- (void)eventEditViewController:(EKEventEditViewController *)controller didCompleteWithAction:(EKEventEditViewAction)action
+{
+    @synchronized(self) {
+        [controller dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
+- (EKCalendar *)eventEditViewControllerDefaultCalendarForNewEvents:(EKEventEditViewController *)controller
+{
+    return controller.eventStore.defaultCalendarForNewEvents;
+}
+
+@end

@@ -1,0 +1,19 @@
+#import <UIKit/UIKit.h>
+#import "allheaders.h"
+#import "baseapi.h"
+#import "environ.h"
+#import "imageio.h"
+
+
+@interface UIImage (Pix)
+
+- (UIImage *)otsuThreshold;
+
+/**
+ * Must call pixFreeData(pix) and free(pix) on returned (Pix *).
+ */
+- (Pix *)pix;
+
++ (UIImage *)imageFromPix:(Pix *)pix;
+
+@end
