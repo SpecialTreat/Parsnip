@@ -1,7 +1,7 @@
 #!/bin/sh
 # build.sh
 
-GLOBAL_OUTDIR="`pwd`/../Preen/Dependencies"
+GLOBAL_OUTDIR="`pwd`/../Parsnip/Dependencies"
 LOCAL_OUTDIR="./outdir"
 LEPTON_LIB="`pwd`/leptonica"
 
