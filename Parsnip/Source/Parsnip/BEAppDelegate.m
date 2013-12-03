@@ -30,8 +30,6 @@
         [BEDB loadInitialData];
     }
 
-    [BEUI styleApp:self];
-
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
     self.sidePanelController = [self styleSidePanelController:[[JASidePanelController alloc] init]];
@@ -47,6 +45,8 @@
     BENavigationController *rootViewController = [[BENavigationController alloc] initWithRootViewController:self.sidePanelController];
     [BEUI styleNavigationBar:rootViewController.navigationBar];
     self.window.rootViewController = rootViewController;
+
+    [BEUI styleApp:self];
 
     [self.window makeKeyAndVisible];
     return YES;

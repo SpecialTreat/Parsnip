@@ -1039,6 +1039,9 @@
 		DAD6E39A184AC18200D675B1 /* Parsnip */ = {
 			isa = PBXGroup;
 			children = (
+				DAD6E3A9184AC18200D675B1 /* Model */,
+				DAD6E3C5184AC18200D675B1 /* Views */,
+				DAD6E3B0184AC18200D675B1 /* View Controllers */,
 				DAD6E39B184AC18200D675B1 /* BEAppDelegate.h */,
 				DAD6E39C184AC18200D675B1 /* BEAppDelegate.m */,
 				DAD6E39D184AC18200D675B1 /* BEConstants.h */,
@@ -1053,9 +1056,6 @@
 				DAD6E3A6184AC18200D675B1 /* BEThread.m */,
 				DAD6E3A7184AC18200D675B1 /* BEUI.h */,
 				DAD6E3A8184AC18200D675B1 /* BEUI.m */,
-				DAD6E3A9184AC18200D675B1 /* Model */,
-				DAD6E3B0184AC18200D675B1 /* View Controllers */,
-				DAD6E3C5184AC18200D675B1 /* Views */,
 			);
 			path = Parsnip;
 			sourceTree = "<group>";

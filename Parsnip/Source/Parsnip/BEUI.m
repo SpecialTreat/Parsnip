@@ -92,7 +92,7 @@ static UIStatusBarStyle themeStatusBarStyle;
 
 + (void)styleApp:(BEAppDelegate *)app
 {
-    if ([app.window respondsToSelector:@selector(tintColor)]) {
+    if ([app.window respondsToSelector:@selector(setTintColor:)]) {
         app.window.tintColor = [theme colorForKey:@"TintColor"];
     }
     [BEUI styleStatusBar];

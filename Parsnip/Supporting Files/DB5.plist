@@ -19,11 +19,11 @@
 		<key>UnarchiveText</key>
 		<string>UNARCHIVE</string>
 		<key>TintColor</key>
-		<string>007aff</string>
+		<string>40c000</string>
 		<key>SelectedTintColor</key>
-		<string>007aff40</string>
+		<string>40c00060</string>
 		<key>TintStartColor</key>
-		<string>00aaff</string>
+		<string>@TintColor</string>
 		<key>TintEndColor</key>
 		<string>@TintColor</string>
 		<key>NoteThumbnailSize</key>
@@ -245,7 +245,7 @@
 			<key>BackgroundImage</key>
 			<dict>
 				<key>Color</key>
-				<string>00000080</string>
+				<string>00000060</string>
 			</dict>
 			<key>ClipsToBounds</key>
 			<true/>
