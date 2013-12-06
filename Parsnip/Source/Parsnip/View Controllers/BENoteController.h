@@ -42,10 +42,6 @@
 - (void)unknownPersonViewController:(ABUnknownPersonViewController *)unknownPersonView
                  didResolveToPerson:(ABRecordRef)person;
 
-- (void)noteSheet:(BENoteSheetController *)controller keep:(BENote *)note;
-- (void)noteSheet:(BENoteSheetController *)controller copy:(BENote *)note;
-- (void)noteSheet:(BENoteSheetController *)controller archive:(BENote *)note;
-- (void)noteSheet:(BENoteSheetController *)controller discard:(BENote *)note;
 - (void)noteSheet:(BENoteSheetController *)controller contact:(BENote *)note;
 - (void)noteSheet:(BENoteSheetController *)controller
          calendar:(BENote *)note

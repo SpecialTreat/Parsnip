@@ -43,7 +43,7 @@
     return [image thumbnail:[BEUI.theme sizeForKey:@"NoteThumbnailSize"]];
 }
 
-+ (void)replaceMostRecentDraft:(BENote *)note
++ (void)replaceMostRecentDrafts:(BENote *)note
 {
     [BEDB.queue inTransaction:^(FMDatabase *db, BOOL *rollback) {
         NSString *column = BENote.propertyToColumnMap[@"userSaved"];
@@ -119,7 +119,7 @@
 
 - (NSString *)text
 {
-    if(self.userText) {
+    if (self.userText) {
         return self.userText;
     } else if(self.postOcrText) {
         return self.postOcrText;
@@ -130,7 +130,7 @@
 
 - (NSDictionary *)dataTypes
 {
-    if([self isDataTypesStale]) {
+    if([self isDataTypesStale] && self.text) {
         dataTypesText = self.text;
         _dataTypes = [BETextData detectDataTypes:dataTypesText stripEmpty:YES];
     }

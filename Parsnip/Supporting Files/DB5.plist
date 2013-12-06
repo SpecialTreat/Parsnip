@@ -65,6 +65,14 @@
 				<string>d9d9d9</string>
 			</dict>
 		</dict>
+		<key>AlertCancelButton</key>
+		<dict>
+			<key>Title</key>
+			<dict>
+				<key>Text</key>
+				<string>CANCEL</string>
+			</dict>
+		</dict>
 		<key>AlertWarningButton</key>
 		<dict>
 			<key>Title</key>
@@ -670,6 +678,8 @@
 		<dict/>
 		<key>NoteSheetTableCell</key>
 		<dict>
+			<key>BackgroundColor</key>
+			<string>ffffff00</string>
 			<key>Padding</key>
 			<dict>
 				<key>Left</key>
@@ -746,168 +756,6 @@
 			<key>Image</key>
 			<string>NoteSheetSafariButton.png</string>
 		</dict>
-		<key>NoteSheetToolbar</key>
-		<dict>
-			<key>Height</key>
-			<integer>76</integer>
-			<key>Spacer</key>
-			<integer>25</integer>
-			<key>BorderColor</key>
-			<dict>
-				<key>Bottom</key>
-				<string>b2b2b2</string>
-			</dict>
-			<key>Border</key>
-			<dict>
-				<key>Bottom</key>
-				<integer>1</integer>
-			</dict>
-			<key>BackgroundImage</key>
-			<dict>
-				<key>Height</key>
-				<string>76</string>
-				<key>Color</key>
-				<string>00000000</string>
-			</dict>
-			<key>Margin</key>
-			<dict>
-				<key>Left</key>
-				<integer>-8</integer>
-				<key>Right</key>
-				<integer>-8</integer>
-			</dict>
-		</dict>
-		<key>NoteSheetToolbarButton</key>
-		<dict>
-			<key>Height</key>
-			<integer>60</integer>
-			<key>Width</key>
-			<integer>60</integer>
-			<key>Title</key>
-			<dict>
-				<key>AdjustsFontSize</key>
-				<true/>
-				<key>TextColor</key>
-				<string>606060</string>
-				<key>Font</key>
-				<dict>
-					<key>Bold</key>
-					<true/>
-					<key>Size</key>
-					<integer>10</integer>
-				</dict>
-				<key>Margin</key>
-				<dict>
-					<key>Top</key>
-					<integer>40</integer>
-				</dict>
-			</dict>
-			<key>SelectedTitle</key>
-			<dict>
-				<key>TextColor</key>
-				<string>@TintColor</string>
-			</dict>
-			<key>BackgroundImage</key>
-			<dict>
-				<key>Color</key>
-				<string>606060</string>
-			</dict>
-			<key>SelectedBackgroundImage</key>
-			<dict>
-				<key>Color</key>
-				<string>@TintColor</string>
-			</dict>
-		</dict>
-		<key>NoteSheetToolbarSaveButton</key>
-		<dict>
-			<key>Title</key>
-			<dict>
-				<key>Text</key>
-				<string>KEEP</string>
-			</dict>
-			<key>BackgroundImage</key>
-			<dict>
-				<key>Template</key>
-				<string>NoteSheetSaveButton.png</string>
-			</dict>
-			<key>SelectedBackgroundImage</key>
-			<dict>
-				<key>Template</key>
-				<string>NoteSheetSaveButton.png</string>
-			</dict>
-		</dict>
-		<key>NoteSheetToolbarDeleteButton</key>
-		<dict>
-			<key>Title</key>
-			<dict>
-				<key>Text</key>
-				<string>@DeleteText</string>
-			</dict>
-			<key>BackgroundImage</key>
-			<dict>
-				<key>Template</key>
-				<string>NoteSheetDeleteButton.png</string>
-			</dict>
-			<key>SelectedBackgroundImage</key>
-			<dict>
-				<key>Template</key>
-				<string>NoteSheetDeleteButton.png</string>
-			</dict>
-		</dict>
-		<key>NoteSheetToolbarCopyButton</key>
-		<dict>
-			<key>Title</key>
-			<dict>
-				<key>Text</key>
-				<string>COPY</string>
-			</dict>
-			<key>BackgroundImage</key>
-			<dict>
-				<key>Template</key>
-				<string>NoteSheetCopyButton.png</string>
-			</dict>
-			<key>SelectedBackgroundImage</key>
-			<dict>
-				<key>Template</key>
-				<string>NoteSheetCopyButton.png</string>
-			</dict>
-		</dict>
-		<key>NoteSheetToolbarArchiveButton</key>
-		<dict>
-			<key>Title</key>
-			<dict>
-				<key>Text</key>
-				<string>@ArchiveText</string>
-			</dict>
-			<key>BackgroundImage</key>
-			<dict>
-				<key>Template</key>
-				<string>NoteSheetArchiveButton.png</string>
-			</dict>
-			<key>SelectedBackgroundImage</key>
-			<dict>
-				<key>Template</key>
-				<string>NoteSheetArchiveButton.png</string>
-			</dict>
-		</dict>
-		<key>NoteSheetToolbarUnarchiveButton</key>
-		<dict>
-			<key>Title</key>
-			<dict>
-				<key>Text</key>
-				<string>@UnarchiveText</string>
-			</dict>
-			<key>BackgroundImage</key>
-			<dict>
-				<key>Template</key>
-				<string>NoteSheetUnarchiveButton.png</string>
-			</dict>
-			<key>SelectedBackgroundImage</key>
-			<dict>
-				<key>Template</key>
-				<string>NoteSheetUnarchiveButton.png</string>
-			</dict>
-		</dict>
 		<key>Note</key>
 		<dict>
 			<key>ScanningTitle</key>
@@ -924,20 +772,67 @@
 				<integer>14</integer>
 			</dict>
 		</dict>
+		<key>NoteArchiveAlert</key>
+		<dict>
+			<key>BackgroundHeight</key>
+			<integer>120</integer>
+			<key>BackgroundWidth</key>
+			<integer>240</integer>
+			<key>MaskAlpha</key>
+			<real>0.5</real>
+			<key>ShadowColor</key>
+			<string>00000000</string>
+		</dict>
+		<key>NoteArchiveAlertArchiveButton</key>
+		<dict>
+			<key>Title</key>
+			<dict>
+				<key>Text</key>
+				<string>@ArchiveText</string>
+			</dict>
+			<key>BackgroundImage</key>
+			<dict>
+				<key>Width</key>
+				<string>240</string>
+				<key>Height</key>
+				<integer>60</integer>
+				<key>Color</key>
+				<string>ffffff00</string>
+				<key>Border</key>
+				<dict>
+					<key>Top</key>
+					<integer>0</integer>
+					<key>Right</key>
+					<integer>0</integer>
+					<key>Bottom</key>
+					<integer>1</integer>
+					<key>Left</key>
+					<integer>0</integer>
+				</dict>
+				<key>BorderColor</key>
+				<dict>
+					<key>Bottom</key>
+					<string>c0c0c0</string>
+				</dict>
+			</dict>
+			<key>SelectedBackgroundImage</key>
+			<dict>
+				<key>Width</key>
+				<string>240</string>
+				<key>Height</key>
+				<string>60</string>
+			</dict>
+		</dict>
 		<key>NoteDiscardAlert</key>
 		<dict>
 			<key>BackgroundHeight</key>
 			<integer>120</integer>
 			<key>BackgroundWidth</key>
 			<integer>240</integer>
-		</dict>
-		<key>NoteDiscardAlertCancelButton</key>
-		<dict>
-			<key>Title</key>
-			<dict>
-				<key>Text</key>
-				<string>CANCEL</string>
-			</dict>
+			<key>MaskAlpha</key>
+			<real>0.5</real>
+			<key>ShadowColor</key>
+			<string>00000000</string>
 		</dict>
 		<key>NoteDiscardAlertDiscardButton</key>
 		<dict>
@@ -1136,6 +1031,156 @@
 				<string>333333</string>
 			</dict>
 		</dict>
+		<key>NoteToolbar</key>
+		<dict>
+			<key>Height</key>
+			<integer>49</integer>
+			<key>Spacer</key>
+			<integer>25</integer>
+			<key>Margin</key>
+			<dict>
+				<key>Left</key>
+				<integer>-8</integer>
+				<key>Right</key>
+				<integer>-8</integer>
+			</dict>
+		</dict>
+		<key>NoteToolbarButton</key>
+		<dict>
+			<key>Height</key>
+			<integer>49</integer>
+			<key>Width</key>
+			<integer>60</integer>
+			<key>Title</key>
+			<dict>
+				<key>AdjustsFontSize</key>
+				<true/>
+				<key>TextColor</key>
+				<string>606060</string>
+				<key>Font</key>
+				<dict>
+					<key>Bold</key>
+					<true/>
+					<key>Size</key>
+					<integer>10</integer>
+				</dict>
+				<key>Margin</key>
+				<dict>
+					<key>Top</key>
+					<integer>29</integer>
+				</dict>
+			</dict>
+			<key>SelectedTitle</key>
+			<dict>
+				<key>TextColor</key>
+				<string>@TintColor</string>
+			</dict>
+			<key>DisabledTitle</key>
+			<dict>
+				<key>TextColor</key>
+				<string>60606060</string>
+			</dict>
+			<key>BackgroundImage</key>
+			<dict>
+				<key>Color</key>
+				<string>606060</string>
+			</dict>
+			<key>SelectedBackgroundImage</key>
+			<dict>
+				<key>Color</key>
+				<string>@TintColor</string>
+			</dict>
+		</dict>
+		<key>NoteToolbarSaveButton</key>
+		<dict>
+			<key>Title</key>
+			<dict>
+				<key>Text</key>
+				<string>KEEP</string>
+			</dict>
+			<key>BackgroundImage</key>
+			<dict>
+				<key>Template</key>
+				<string>NoteSaveButton.png</string>
+			</dict>
+			<key>SelectedBackgroundImage</key>
+			<dict>
+				<key>Template</key>
+				<string>NoteSaveButton.png</string>
+			</dict>
+		</dict>
+		<key>NoteToolbarDeleteButton</key>
+		<dict>
+			<key>Title</key>
+			<dict>
+				<key>Text</key>
+				<string>@DeleteText</string>
+			</dict>
+			<key>BackgroundImage</key>
+			<dict>
+				<key>Template</key>
+				<string>NoteDeleteButton.png</string>
+			</dict>
+			<key>SelectedBackgroundImage</key>
+			<dict>
+				<key>Template</key>
+				<string>NoteDeleteButton.png</string>
+			</dict>
+		</dict>
+		<key>NoteToolbarCopyButton</key>
+		<dict>
+			<key>Title</key>
+			<dict>
+				<key>Text</key>
+				<string>COPY</string>
+			</dict>
+			<key>BackgroundImage</key>
+			<dict>
+				<key>Template</key>
+				<string>NoteCopyButton.png</string>
+			</dict>
+			<key>SelectedBackgroundImage</key>
+			<dict>
+				<key>Template</key>
+				<string>NoteCopyButton.png</string>
+			</dict>
+		</dict>
+		<key>NoteToolbarArchiveButton</key>
+		<dict>
+			<key>Title</key>
+			<dict>
+				<key>Text</key>
+				<string>@ArchiveText</string>
+			</dict>
+			<key>BackgroundImage</key>
+			<dict>
+				<key>Template</key>
+				<string>NoteArchiveButton.png</string>
+			</dict>
+			<key>SelectedBackgroundImage</key>
+			<dict>
+				<key>Template</key>
+				<string>NoteArchiveButton.png</string>
+			</dict>
+		</dict>
+		<key>NoteToolbarUnarchiveButton</key>
+		<dict>
+			<key>Title</key>
+			<dict>
+				<key>Text</key>
+				<string>@UnarchiveText</string>
+			</dict>
+			<key>BackgroundImage</key>
+			<dict>
+				<key>Template</key>
+				<string>NoteUnarchiveButton.png</string>
+			</dict>
+			<key>SelectedBackgroundImage</key>
+			<dict>
+				<key>Template</key>
+				<string>NoteUnarchiveButton.png</string>
+			</dict>
+		</dict>
 		<key>PopoverBackground</key>
 		<dict>
 			<key>ArrowBase</key>
@@ -1146,18 +1191,8 @@
 			<integer>6</integer>
 			<key>Padding</key>
 			<integer>8</integer>
-			<key>UpArrowGradientTopColor</key>
-			<string>ffffff</string>
-			<key>UpArrowGradientBottomColor</key>
-			<string>ffffff</string>
-			<key>GradientTopColor</key>
-			<string>ffffff</string>
-			<key>GradientBottomColor</key>
-			<string>f0f0f0</string>
-			<key>GradientHeight</key>
-			<integer>38</integer>
 			<key>BackgroundColor</key>
-			<string>f0f0f0</string>
+			<string>ffffff</string>
 		</dict>
 		<key>Scanner</key>
 		<dict>
@@ -1288,14 +1323,42 @@
 				</dict>
 			</dict>
 		</dict>
-		<key>NoteSheetToolbar</key>
+		<key>NoteToolbar</key>
 		<dict>
+			<key>BackgroundImage</key>
+			<dict>
+				<key>Height</key>
+				<integer>49</integer>
+				<key>StartColor</key>
+				<string>fbfbfb</string>
+				<key>EndColor</key>
+				<string>f6f6f6</string>
+			</dict>
 			<key>Margin</key>
 			<dict>
 				<key>Left</key>
 				<integer>-4</integer>
 				<key>Right</key>
 				<integer>-4</integer>
+			</dict>
+			<key>ShadowImage</key>
+			<dict>
+				<key>Height</key>
+				<integer>2</integer>
+				<key>Width</key>
+				<integer>1</integer>
+				<key>Color</key>
+				<string>66666600</string>
+				<key>Border</key>
+				<dict>
+					<key>Bottom</key>
+					<integer>1</integer>
+				</dict>
+				<key>BorderColor</key>
+				<dict>
+					<key>Bottom</key>
+					<string>66666680</string>
+				</dict>
 			</dict>
 		</dict>
 	</dict>

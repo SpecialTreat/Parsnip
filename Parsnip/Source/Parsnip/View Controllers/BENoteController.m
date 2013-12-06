@@ -23,6 +23,13 @@
 
 @implementation BENoteController
 {
+//    UIBarButtonItem *keepButton;
+    UIBarButtonItem *copyButton;
+    UIBarButtonItem *archiveButton;
+    UIBarButtonItem *unarchiveButton;
+    UIBarButtonItem *discardButton;
+    UIToolbar *toolbar;
+
     UIBarButtonItem *dismissKeyboardButton;
     UIBarButtonItem *plusButton;
     BEAlertView *alert;
@@ -40,6 +47,11 @@ static CGFloat scannerMaskAlpha;
 static CGFloat scannerSweepDuration;
 static CGFloat scannerFadeDuration;
 
+static CGFloat toolbarButtonWidth;
+static CGFloat toolbarHeight;
+static CGFloat toolbarSpacer;
+static UIEdgeInsets toolbarMargin;
+
 static UIEdgeInsets noteSheetPopoverLayoutMargins;
 static UIEdgeInsets noteSheetPopoverContentViewInsets;
 static CGFloat noteSheetPopoverMaskAlpha;
@@ -55,10 +67,15 @@ static CGSize noteDiscardAlertSize;
     scannerSweepDuration = [BEUI.theme floatForKey:@"Scanner.SweepDuration" withDefault:2.0f];
     scannerFadeDuration = [BEUI.theme floatForKey:@"Scanner.FadeDuration" withDefault:0.3f];
 
+    toolbarButtonWidth = [BEUI.theme floatForKey:@"NoteToolbarButton.Width"];
+    toolbarSpacer = [BEUI.theme floatForKey:@"NoteToolbar.Spacer"];
+    toolbarHeight = [BEUI.theme floatForKey:@"NoteToolbar.Height"];
+    toolbarMargin = [BEUI.theme edgeInsetsForKey:@"NoteToolbar.Margin"];
+
     noteSheetPopoverLayoutMargins = [BEUI.theme edgeInsetsForKey:@"NoteSheetPopover.Margin"];
     noteSheetPopoverContentViewInsets = [BEUI.theme edgeInsetsForKey:@"NoteSheetPopover.Padding"];
     noteSheetPopoverMaskAlpha = [BEUI.theme floatForKey:@"NoteSheetPopover.MaskAlpha"];
-    noteSheetPopoverBackgroundClipsToBounds = [BEUI.theme boolForKey:@"NoteSheetPopove.Background.ClipsToBounds" withDefault:YES];
+    noteSheetPopoverBackgroundClipsToBounds = [BEUI.theme boolForKey:@"NoteSheetPopover.Background.ClipsToBounds" withDefault:YES];
 
     noteDiscardAlertSize = [BEUI.theme sizeForKey:@[@"NoteDiscardAlert", @"Alert"] withSubkey:@"BackgroundSize" withDefault:CGSizeMake(240.0f, 120.0f)];
 }
@@ -95,7 +112,7 @@ static CGSize noteDiscardAlertSize;
 
     CGRect frame = self.view.bounds;
 
-    scrollView = [[UIScrollView alloc] initWithFrame:frame];
+    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, frame.size.height - toolbarHeight)];
     scrollView.alwaysBounceHorizontal = NO;
     scrollView.alwaysBounceVertical = YES;
     scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -140,12 +157,35 @@ static CGSize noteDiscardAlertSize;
     textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     textView.delegate = self;
 
+//    keepButton = [BEUI barButtonItemWithKey:@[@"NoteToolbarSaveButton", @"NoteToolbarButton"] target:self action:@selector(onKeepButtonTouch:event:)];
+    copyButton = [BEUI barButtonItemWithKey:@[@"NoteToolbarCopyButton", @"NoteToolbarButton"] target:self action:@selector(onCopyButtonTouch:event:)];
+    archiveButton = [BEUI barButtonItemWithKey:@[@"NoteToolbarArchiveButton", @"NoteToolbarButton"] target:self action:@selector(onArchiveButtonTouch:event:)];
+    unarchiveButton = [BEUI barButtonItemWithKey:@[@"NoteToolbarUnarchiveButton", @"NoteToolbarButton"] target:self action:@selector(onUnarchiveButtonTouch:event:)];
+    discardButton = [BEUI barButtonItemWithKey:@[@"NoteToolbarDeleteButton", @"NoteToolbarButton"] target:self action:@selector(onDiscardButtonTouch:event:)];
+
+    BOOL hasNote = !!_note;
+    copyButton.enabled = hasNote;
+    archiveButton.enabled = hasNote;
+    unarchiveButton.enabled = hasNote;
+    discardButton.enabled = hasNote;
+
+    toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(toolbarMargin.left,
+                                                          frame.size.height - toolbarHeight + toolbarMargin.top,
+                                                          frame.size.width - (toolbarMargin.left + toolbarMargin.right),
+                                                          toolbarHeight - (toolbarMargin.top + toolbarMargin.bottom))];
+    toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    [toolbar setBackgroundImage:[BEUI.theme imageForKey:@"NoteToolbar.BackgroundImage"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    [toolbar setShadowImage:[BEUI.theme imageForKey:@"NoteToolbar.ShadowImage"] forToolbarPosition:UIToolbarPositionAny];
+
+    [self updateToolbarButtonsAnimated:NO];
+
     [scrollView addSubview:textView];
     [scrollView addSubview:_imageViewBackground];
     [scrollView addSubview:_imageView];
     [scrollView addSubview:touchableView];
     [scrollView addSubview:_scannerView];
     [self.view addSubview:scrollView];
+    [self.view addSubview:toolbar];
 
     [self initDeviceListeners];
 }
@@ -197,6 +237,11 @@ static CGSize noteDiscardAlertSize;
             self.popover.view.alpha = 1.0f;
         }];
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -349,12 +394,38 @@ static CGSize noteDiscardAlertSize;
 
 - (void)updateTitleStyle
 {
-    if (_isDirty || !_note.userSaved) {
-        [self.titleView setFont:[BEUI.theme fontForKey:@[@"NoteNavigationBar.UnsavedTitle", @"NavigationBar.Title"] withSubkey:@"Font"]];
+//    if (_isDirty || !_note.userSaved) {
+//        [self.titleView setFont:[BEUI.theme fontForKey:@[@"NoteNavigationBar.UnsavedTitle", @"NavigationBar.Title"] withSubkey:@"Font"]];
+//    } else {
+//        [self.titleView setFont:[BEUI.theme fontForKey:@"NavigationBar.Title.Font"]];
+//    }
+//    [self.titleView sizeToFit];
+}
+
+- (void)updateToolbarButtonsAnimated:(BOOL)animated
+{
+    NSArray *items = nil;
+    if (_note.archived) {
+        items = @[//keepButton,
+                  [UIBarButtonItem spacer],
+                  copyButton,
+                  [UIBarButtonItem spacer],
+                  unarchiveButton,
+                  [UIBarButtonItem spacer],
+                  discardButton,
+                  [UIBarButtonItem spacer]];
     } else {
-        [self.titleView setFont:[BEUI.theme fontForKey:@"NavigationBar.Title.Font"]];
+        items = @[//keepButton,
+                  [UIBarButtonItem spacer],
+                  copyButton,
+                  [UIBarButtonItem spacer],
+                  archiveButton,
+                  [UIBarButtonItem spacer],
+                  discardButton,
+                  [UIBarButtonItem spacer]];
     }
-    [self.titleView sizeToFit];
+
+    [toolbar setItems:items animated:animated];
 }
 
 - (void)setIsDirty:(BOOL)isDirty
@@ -451,25 +522,26 @@ static CGSize noteDiscardAlertSize;
             _imageView.hidden = NO;
         }
 
-        if(_note.text) {
-            plusButton.enabled = YES;
-        }
+        plusButton.enabled = _note.hasDataTypes;
+        copyButton.enabled = YES;
+        archiveButton.enabled = YES;
+        unarchiveButton.enabled = YES;
+        discardButton.enabled = YES;
+
+        [self updateToolbarButtonsAnimated:NO];
     }
 }
 
 - (CGFloat)viewableHeight
 {
-    CGFloat height = self.view.bounds.size.height;
-    UIEdgeInsets insets = self.insetsForView;
-    height -= (insets.top + insets.bottom);
-    return height;
+    return scrollView.frame.size.height - scrollView.contentInset.top - scrollView.contentInset.bottom;
 }
 
 - (BOOL)isImageLetterboxed:(UIImage *)image inFrame:(CGRect)frame
 {
     if(image) {
         CGFloat width = frame.size.width;
-        CGFloat height = floor(([UIScreen mainScreen].bounds.size.height - 64.0f) / 2.0f);
+        CGFloat height = floor(([UIScreen mainScreen].bounds.size.height - 64.0f - toolbarHeight) / 2.0f);
         return (image.size.width / image.size.height) < (width / height);
     } else {
         return YES;
@@ -480,7 +552,7 @@ static CGSize noteDiscardAlertSize;
 {
     CGFloat width = frame.size.width;
     if(!image || [self isImageLetterboxed:image inFrame:frame]) {
-        CGFloat imageHeight = floor(([UIScreen mainScreen].bounds.size.height - 64.0f) / 2.0f);
+        CGFloat imageHeight = floor(([UIScreen mainScreen].bounds.size.height - 64.0f - toolbarHeight) / 2.0f);
         return [UIView alignRect:CGRectMake(frame.origin.x, frame.origin.y, width, imageHeight)];
     } else {
         CGFloat imageHeight = width * (image.size.height / image.size.width);
@@ -520,6 +592,10 @@ static CGSize noteDiscardAlertSize;
 - (void)ocr:(BENote *)value
 {
     self.note = value;
+    copyButton.enabled = NO;
+    archiveButton.enabled = NO;
+    unarchiveButton.enabled = NO;
+    discardButton.enabled = NO;
     self.isDirty = YES;
     [_scannerView show:NO];
 
@@ -554,14 +630,21 @@ static CGSize noteDiscardAlertSize;
                     _note.thumbnailImage = [BENote createThumbnail:_note.croppedImage];
                     _note.thumbnailImageTimestamp = [NSDate date];
                     
-                    if (![NSString isEmpty:_note.text]) {
-                        [BENote replaceMostRecentDraft:_note];
+//                    if (![NSString isEmpty:_note.text]) {
+//                        [BENote replaceMostRecentDrafts:_note];
+//                    }
+                    if([BEDB save:_note]) {
+                        self.isDirty = NO;
                     }
 
                     [BEThread main:^{
                         [self updateText:_note.text];
                         [self updateTitle:_note.text.firstLine animated:YES];
-                        plusButton.enabled = YES;
+                        plusButton.enabled = _note.hasDataTypes;
+                        copyButton.enabled = YES;
+                        archiveButton.enabled = YES;
+                        unarchiveButton.enabled = YES;
+                        discardButton.enabled = YES;
                         [_scannerView hide:YES completion:^(BOOL finished) {
 
                         }];
@@ -695,79 +778,102 @@ static CGSize noteDiscardAlertSize;
 
 }
 
-- (void)noteSheet:(BENoteSheetController *)controller keep:(BENote *)note
+- (void)onKeepButtonTouch:(UIButton *)sender event:(UIEvent *)event
 {
-    [self dismissPopover:YES];
-    note.userSaved = YES;
-    [BEDB save:note];
+    _note.userSaved = YES;
+    [BEDB save:_note];
     self.isDirty = NO;
 }
 
-- (void)noteSheet:(BENoteSheetController *)controller copy:(BENote *)note
+- (void)onCopyButtonTouch:(UIButton *)sender event:(UIEvent *)event
 {
-    [self dismissPopover:YES];
+    if (!_note) {
+        return;
+    }
     [UIPasteboard generalPasteboard].string = textView.text;
 }
 
-- (void)noteSheet:(BENoteSheetController *)controller archive:(BENote *)note
+- (void)onArchiveButtonTouch:(UIButton *)sender event:(UIEvent *)event
 {
-    [self dismissPopover:YES];
-    note.archived = YES;
-    note.userSaved = YES;
-    [BEDB save:note];
-    self.isDirty = NO;
-    [self popToRoot];
-}
-
-- (void)noteSheet:(BENoteSheetController *)controller unarchive:(BENote *)note
-{
-    [self dismissPopover:YES];
-    note.archived = NO;
-    note.userSaved = YES;
-    [BEDB save:note];
-    self.isDirty = NO;
-}
-
-- (void)noteSheet:(BENoteSheetController *)controller discard:(BENote *)note
-{
-    alert = [[BEAlertView alloc] initWithFrame:self.popover.parentView.bounds];
-    alert.shadowRadius = self.popover.shadowRadius;
-    alert.shadowOffset = self.popover.shadowOffset;
-    alert.shadowOpacity = self.popover.shadowOpacity;
-    alert.shadowColor = self.popover.shadowColor;
+    if (!_note) {
+        return;
+    }
+    alert = [[BEAlertView alloc] initWithFrame:self.view.bounds];
+    alert.maskAlpha = [BEUI.theme floatForKey:@"NoteArchiveAlert.MaskAlpha"];
+    alert.shadowColor = [BEUI.theme colorForKey:@"NoteArchiveAlert.ShadowColor"];
     alert.size = noteDiscardAlertSize;
 
-    UIButton *discardButton = [BEUI buttonWithKey:@[@"NoteDiscardAlertDiscardButton", @"AlertWarningButton", @"AlertButton"] target:self action:@selector(onAlertDiscardButtonTouch:event:)];
-    UIButton *cancelButton = [BEUI buttonWithKey:@[@"NoteDiscardAlertCancelButton", @"AlertButton"] target:self action:@selector(onAlertCancelButtonTouch:event:)];
+    UIButton *confirmButton = [BEUI buttonWithKey:@[@"NoteArchiveAlertArchiveButton", @"AlertButton"] target:self action:@selector(onAlertArchiveButtonTouch:event:)];
+    UIButton *cancelButton = [BEUI buttonWithKey:@[@"AlertCancelButton", @"AlertButton"] target:self action:@selector(onAlertCancelButtonTouch:event:)];
 
-    alert.buttons = @[discardButton, cancelButton];
+    alert.buttons = @[confirmButton, cancelButton];
 
     [self.navigationController.view addSubview:alert];
-    [alert show:^{
-        self.popover.backgroundView.alpha = 0.0f;
-    } completion:^(BOOL finished) {
-        self.popover.backgroundView.hidden = YES;
-    }];
+    [alert show:nil completion:nil];
 }
 
-- (void)onAlertDiscardButtonTouch:(UIButton *)sender event:(UIEvent *)event
+- (void)onUnarchiveButtonTouch:(UIButton *)sender event:(UIEvent *)event
 {
-    [self dismissPopover:YES];
+    if (!_note) {
+        return;
+    }
+    _note.archived = NO;
+    _note.userSaved = YES;
+    if([BEDB save:_note]) {
+        self.isDirty = NO;
+        [self updateToolbarButtonsAnimated:YES];
+    }
+}
+
+- (void)onDiscardButtonTouch:(UIButton *)sender event:(UIEvent *)event
+{
+    if (!_note) {
+        return;
+    }
+    alert = [[BEAlertView alloc] initWithFrame:self.view.bounds];
+    alert.maskAlpha = [BEUI.theme floatForKey:@"NoteDiscardAlert.MaskAlpha"];
+    alert.shadowColor = [BEUI.theme colorForKey:@"NoteDiscardAlert.ShadowColor"];
+    alert.size = noteDiscardAlertSize;
+
+    UIButton *confirmButton = [BEUI buttonWithKey:@[@"NoteDiscardAlertDiscardButton", @"AlertWarningButton", @"AlertButton"] target:self action:@selector(onAlertDiscardButtonTouch:event:)];
+    UIButton *cancelButton = [BEUI buttonWithKey:@[@"AlertCancelButton", @"AlertButton"] target:self action:@selector(onAlertCancelButtonTouch:event:)];
+
+    alert.buttons = @[confirmButton, cancelButton];
+
+    [self.navigationController.view addSubview:alert];
+    [alert show:nil completion:nil];
+}
+
+- (void)onAlertArchiveButtonTouch:(UIButton *)sender event:(UIEvent *)event
+{
     [alert hide:nil completion:^(BOOL finished) {
         [alert removeFromSuperview];
         alert = nil;
     }];
-    [BEDB remove:_note];
-    [self popToRoot];
+
+    _note.archived = YES;
+    _note.userSaved = YES;
+    [BEDB save:_note];
+    self.isDirty = NO;
+    if([BEDB save:_note]) {
+        [self popToRoot];
+    }
+}
+
+- (void)onAlertDiscardButtonTouch:(UIButton *)sender event:(UIEvent *)event
+{
+    [alert hide:nil completion:^(BOOL finished) {
+        [alert removeFromSuperview];
+        alert = nil;
+    }];
+    if ([BEDB remove:_note]) {
+        [self popToRoot];
+    }
 }
 
 - (void)onAlertCancelButtonTouch:(UIButton *)sender event:(UIEvent *)event
 {
-    self.popover.backgroundView.alpha = 0.0f;
-    self.popover.backgroundView.hidden = NO;
-    [alert hide:^{
-        self.popover.backgroundView.alpha = 1.0f;
-    } completion:^(BOOL finished) {
+    [alert hide:nil completion:^(BOOL finished) {
         [alert removeFromSuperview];
         alert = nil;
     }];

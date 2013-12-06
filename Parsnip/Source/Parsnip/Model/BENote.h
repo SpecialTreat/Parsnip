@@ -6,7 +6,7 @@
 @interface BENote : BEModel
 
 + (UIImage *)createThumbnail:(UIImage *)image;
-+ (void)replaceMostRecentDraft:(BENote *)note;
++ (void)replaceMostRecentDrafts:(BENote *)note;
 
 @property (nonatomic) NSUInteger pk;
 

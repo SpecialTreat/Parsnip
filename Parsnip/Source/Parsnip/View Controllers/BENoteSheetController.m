@@ -15,14 +15,6 @@
 
 @implementation BENoteSheetController
 {
-    UIBarButtonItem *keepButton;
-    UIBarButtonItem *copyButton;
-    UIBarButtonItem *archiveButton;
-    UIBarButtonItem *unarchiveButton;
-    UIBarButtonItem *discardButton;
-    UIToolbar *toolbar;
-    UIView *toolbarBorder;
-    
     UITableView *tableView;
 }
 
@@ -32,12 +24,6 @@ static CGFloat tableCellButtonHeight;
 static UIEdgeInsets tableCellButtonMargin;
 static UIEdgeInsets tableCellPadding;
 
-static UIEdgeInsets toolbarBorderSize;
-static CGFloat toolbarButtonWidth;
-static CGFloat toolbarHeight;
-static UIEdgeInsets toolbarMargin;
-static CGFloat toolbarSpacer;
-
 + (void)initialize
 {
     popoverScreenPercentage = [BEUI.theme floatForKey:@"NoteSheetPopover.ScreenPercentage"];
@@ -45,12 +31,6 @@ static CGFloat toolbarSpacer;
     tableCellButtonHeight = [BEUI.theme floatForKey:@"NoteSheetTableCellButton.Height"];
     tableCellButtonMargin = [BEUI.theme edgeInsetsForKey:@"NoteSheetTableCellButton.Margin"];
     tableCellPadding = [BEUI.theme edgeInsetsForKey:@[@"NoteSheetTableCell", @"TableCell"] withSubkey:@"Padding"];
-
-    toolbarButtonWidth = [BEUI.theme floatForKey:@"NoteSheetToolbarButton.Width"];
-    toolbarSpacer = [BEUI.theme floatForKey:@"NoteSheetToolbar.Spacer"];
-    toolbarHeight = [BEUI.theme floatForKey:@"NoteSheetToolbar.Height"];
-    toolbarMargin = [BEUI.theme edgeInsetsForKey:@"NoteSheetToolbar.Margin"];
-    toolbarBorderSize = [BEUI.theme edgeInsetsForKey:@"NoteSheetToolbar.Border"];
 }
 
 @synthesize note = _note;
@@ -67,9 +47,7 @@ static CGFloat toolbarSpacer;
 
 - (CGSize)preferredSize
 {
-    NSUInteger numberOfRows = self.numberOfRows;
-    return CGSizeMake((toolbarButtonWidth * 4.0f) + (toolbarSpacer * 3.0f),
-                      toolbarHeight + (numberOfRows * tableView.rowHeight));
+    return CGSizeMake(self.view.frame.size.width, self.numberOfRows * tableView.rowHeight);
 }
 
 - (CGSize)contentSizeForViewInPopover
@@ -92,45 +70,8 @@ static CGFloat toolbarSpacer;
 
     CGRect frame = self.view.bounds;
 
-    keepButton = [BEUI barButtonItemWithKey:@[@"NoteSheetToolbarSaveButton", @"NoteSheetToolbarButton"] target:self action:@selector(onKeepButtonTouch:event:)];
-    copyButton = [BEUI barButtonItemWithKey:@[@"NoteSheetToolbarCopyButton", @"NoteSheetToolbarButton"] target:self action:@selector(onCopyButtonTouch:event:)];
-    archiveButton = [BEUI barButtonItemWithKey:@[@"NoteSheetToolbarArchiveButton", @"NoteSheetToolbarButton"] target:self action:@selector(onArchiveButtonTouch:event:)];
-    unarchiveButton = [BEUI barButtonItemWithKey:@[@"NoteSheetToolbarUnarchiveButton", @"NoteSheetToolbarButton"] target:self action:@selector(onUnarchiveButtonTouch:event:)];
-    discardButton = [BEUI barButtonItemWithKey:@[@"NoteSheetToolbarDeleteButton", @"NoteSheetToolbarButton"] target:self action:@selector(onDiscardButtonTouch:event:)];
-
-    toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(toolbarMargin.left,
-                                                          toolbarMargin.top,
-                                                          frame.size.width - (toolbarMargin.left + toolbarMargin.right),
-                                                          toolbarHeight - (toolbarMargin.top + toolbarMargin.bottom))];
-    toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    toolbar.clipsToBounds = YES;
-    [toolbar setBackgroundImage:[BEUI.theme imageForKey:@"NoteSheetToolbar.BackgroundImage"] forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-    if (_note.archived) {
-        toolbar.items = @[keepButton,
-                          [UIBarButtonItem spacer],
-                          copyButton,
-                          [UIBarButtonItem spacer],
-                          unarchiveButton,
-                          [UIBarButtonItem spacer],
-                          discardButton];
-    } else {
-        toolbar.items = @[keepButton,
-                          [UIBarButtonItem spacer],
-                          copyButton,
-                          [UIBarButtonItem spacer],
-                          archiveButton,
-                          [UIBarButtonItem spacer],
-                          discardButton];
-    }
-
-    NSDictionary *borderColor = [BEUI.theme borderColorForKey:@"NoteSheetToolbar.BorderColor"];
-    CGFloat borderHeight = toolbarBorderSize.bottom / [UIScreen mainScreen].scale;
-    toolbarBorder = [[UIView alloc]initWithFrame:CGRectMake(0, toolbarHeight, frame.size.width, borderHeight)];
-    toolbarBorder.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    toolbarBorder.backgroundColor = borderColor[@"bottom"];
-
-    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, toolbarHeight, frame.size.width, frame.size.height - toolbarHeight)];
-    tableView.backgroundColor = [UIColor whiteColor];
+    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+    tableView.backgroundColor = [BEUI.theme colorForKey:@[@"NoteSheetTableCell", @"TableCell"] withSubkey:@"BackgroundColor"];
     tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     tableView.alwaysBounceVertical = YES;
     tableView.bounces = YES;
@@ -143,9 +84,7 @@ static CGFloat toolbarSpacer;
                           tableCellButtonMargin.top + tableCellButtonMargin.bottom +
                           tableCellPadding.top + tableCellPadding.bottom;
 
-    [self.view addSubview:toolbar];
     [self.view addSubview:tableView];
-    [self.view addSubview:toolbarBorder];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -337,66 +276,12 @@ static CGFloat toolbarSpacer;
 {
     _note = note;
     if (self.isViewLoaded) {
-        if (_note.archived) {
-            toolbar.items = @[keepButton,
-                              [UIBarButtonItem spacer],
-                              copyButton,
-                              [UIBarButtonItem spacer],
-                              unarchiveButton,
-                              [UIBarButtonItem spacer],
-                              discardButton];
-        } else {
-            toolbar.items = @[keepButton,
-                              [UIBarButtonItem spacer],
-                              copyButton,
-                              [UIBarButtonItem spacer],
-                              archiveButton,
-                              [UIBarButtonItem spacer],
-                              discardButton];
-        }
         [tableView reloadData];
         if (self.numberOfRows) {
             tableView.hidden = NO;
-            toolbarBorder.hidden = NO;
         } else {
             tableView.hidden = YES;
-            toolbarBorder.hidden = YES;
         }
-    }
-}
-
-- (void)onKeepButtonTouch:(UIButton *)sender event:(UIEvent *)event
-{
-    @synchronized(self) {
-        [self.delegate noteSheet:self keep:self.note];
-    }
-}
-
-- (void)onCopyButtonTouch:(UIButton *)sender event:(UIEvent *)event
-{
-    @synchronized(self) {
-        [self.delegate noteSheet:self copy:self.note];
-    }
-}
-
-- (void)onArchiveButtonTouch:(UIButton *)sender event:(UIEvent *)event
-{
-    @synchronized(self) {
-        [self.delegate noteSheet:self archive:self.note];
-    }
-}
-
-- (void)onUnarchiveButtonTouch:(UIButton *)sender event:(UIEvent *)event
-{
-    @synchronized(self) {
-        [self.delegate noteSheet:self unarchive:self.note];
-    }
-}
-
-- (void)onDiscardButtonTouch:(UIButton *)sender event:(UIEvent *)event
-{
-    @synchronized(self) {
-        [self.delegate noteSheet:self discard:self.note];
     }
 }
 

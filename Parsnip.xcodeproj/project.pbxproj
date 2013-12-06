@@ -59,16 +59,6 @@
 		DA0E14DE1838786A0073AF61 /* NoteSheetMessageButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA0E138B1838786A0073AF61 /* NoteSheetMessageButton@2x.png */; };
 		DA0E14E01838786A0073AF61 /* NoteSheetSafariButton.png in Resources */ = {isa = PBXBuildFile; fileRef = DA0E138D1838786A0073AF61 /* NoteSheetSafariButton.png */; };
 		DA0E14E21838786A0073AF61 /* NoteSheetSafariButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA0E138F1838786A0073AF61 /* NoteSheetSafariButton@2x.png */; };
-		DA0E14E41838786A0073AF61 /* NoteSheetArchiveButton.png in Resources */ = {isa = PBXBuildFile; fileRef = DA0E13921838786A0073AF61 /* NoteSheetArchiveButton.png */; };
-		DA0E14E61838786A0073AF61 /* NoteSheetArchiveButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA0E13941838786A0073AF61 /* NoteSheetArchiveButton@2x.png */; };
-		DA0E14E81838786A0073AF61 /* NoteSheetCopyButton.png in Resources */ = {isa = PBXBuildFile; fileRef = DA0E13961838786A0073AF61 /* NoteSheetCopyButton.png */; };
-		DA0E14EA1838786A0073AF61 /* NoteSheetCopyButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA0E13981838786A0073AF61 /* NoteSheetCopyButton@2x.png */; };
-		DA0E14EC1838786A0073AF61 /* NoteSheetDeleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = DA0E139A1838786A0073AF61 /* NoteSheetDeleteButton.png */; };
-		DA0E14EE1838786A0073AF61 /* NoteSheetDeleteButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA0E139C1838786A0073AF61 /* NoteSheetDeleteButton@2x.png */; };
-		DA0E14F01838786A0073AF61 /* NoteSheetSaveButton.png in Resources */ = {isa = PBXBuildFile; fileRef = DA0E139E1838786A0073AF61 /* NoteSheetSaveButton.png */; };
-		DA0E14F21838786A0073AF61 /* NoteSheetSaveButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA0E13A01838786A0073AF61 /* NoteSheetSaveButton@2x.png */; };
-		DA0E14F41838786A0073AF61 /* NoteSheetUnarchiveButton.png in Resources */ = {isa = PBXBuildFile; fileRef = DA0E13A21838786A0073AF61 /* NoteSheetUnarchiveButton.png */; };
-		DA0E14F61838786A0073AF61 /* NoteSheetUnarchiveButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA0E13A41838786A0073AF61 /* NoteSheetUnarchiveButton@2x.png */; };
 		DA0E14F81838786A0073AF61 /* BECameraView_Simulator.png in Resources */ = {isa = PBXBuildFile; fileRef = DA0E13A61838786A0073AF61 /* BECameraView_Simulator.png */; };
 		DA0E14F91838786A0073AF61 /* BECameraView_SimulatorCropped.png in Resources */ = {isa = PBXBuildFile; fileRef = DA0E13A71838786A0073AF61 /* BECameraView_SimulatorCropped.png */; };
 		DA0E14FA1838786A0073AF61 /* HandleBottomLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = DA0E13A91838786A0073AF61 /* HandleBottomLeft.png */; };
@@ -162,6 +152,16 @@
 		DA7F70881734C92500A03C3D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA7F70801734C92500A03C3D /* QuartzCore.framework */; };
 		DA7F708A1734CB2A00A03C3D /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA7F70891734CB2A00A03C3D /* CoreVideo.framework */; };
 		DA7F70921734EC9F00A03C3D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA7F70911734EC9F00A03C3D /* libz.dylib */; };
+		DAA243D81851895600B04654 /* NoteArchiveButton.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA243C41851895600B04654 /* NoteArchiveButton.png */; };
+		DAA243DA1851895600B04654 /* NoteArchiveButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA243C61851895600B04654 /* NoteArchiveButton@2x.png */; };
+		DAA243DC1851895600B04654 /* NoteCopyButton.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA243C81851895600B04654 /* NoteCopyButton.png */; };
+		DAA243DE1851895600B04654 /* NoteCopyButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA243CA1851895600B04654 /* NoteCopyButton@2x.png */; };
+		DAA243E01851895600B04654 /* NoteDeleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA243CC1851895600B04654 /* NoteDeleteButton.png */; };
+		DAA243E21851895600B04654 /* NoteDeleteButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA243CE1851895600B04654 /* NoteDeleteButton@2x.png */; };
+		DAA243E41851895600B04654 /* NoteSaveButton.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA243D01851895600B04654 /* NoteSaveButton.png */; };
+		DAA243E61851895600B04654 /* NoteSaveButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA243D21851895600B04654 /* NoteSaveButton@2x.png */; };
+		DAA243E81851895600B04654 /* NoteUnarchiveButton.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA243D41851895600B04654 /* NoteUnarchiveButton.png */; };
+		DAA243EA1851895600B04654 /* NoteUnarchiveButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA243D61851895600B04654 /* NoteUnarchiveButton@2x.png */; };
 		DABFDA3D17DF3D4900183CB5 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DABFDA3B17DF3D4700183CB5 /* AddressBook.framework */; };
 		DABFDA3E17DF3D4900183CB5 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DABFDA3C17DF3D4800183CB5 /* AddressBookUI.framework */; };
 		DAD6E3DC184AC18200D675B1 /* BEAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6E39C184AC18200D675B1 /* BEAppDelegate.m */; };
@@ -326,16 +326,6 @@
 		DA0E138B1838786A0073AF61 /* NoteSheetMessageButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NoteSheetMessageButton@2x.png"; sourceTree = "<group>"; };
 		DA0E138D1838786A0073AF61 /* NoteSheetSafariButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoteSheetSafariButton.png; sourceTree = "<group>"; };
 		DA0E138F1838786A0073AF61 /* NoteSheetSafariButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NoteSheetSafariButton@2x.png"; sourceTree = "<group>"; };
-		DA0E13921838786A0073AF61 /* NoteSheetArchiveButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoteSheetArchiveButton.png; sourceTree = "<group>"; };
-		DA0E13941838786A0073AF61 /* NoteSheetArchiveButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NoteSheetArchiveButton@2x.png"; sourceTree = "<group>"; };
-		DA0E13961838786A0073AF61 /* NoteSheetCopyButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoteSheetCopyButton.png; sourceTree = "<group>"; };
-		DA0E13981838786A0073AF61 /* NoteSheetCopyButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NoteSheetCopyButton@2x.png"; sourceTree = "<group>"; };
-		DA0E139A1838786A0073AF61 /* NoteSheetDeleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoteSheetDeleteButton.png; sourceTree = "<group>"; };
-		DA0E139C1838786A0073AF61 /* NoteSheetDeleteButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NoteSheetDeleteButton@2x.png"; sourceTree = "<group>"; };
-		DA0E139E1838786A0073AF61 /* NoteSheetSaveButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoteSheetSaveButton.png; sourceTree = "<group>"; };
-		DA0E13A01838786A0073AF61 /* NoteSheetSaveButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NoteSheetSaveButton@2x.png"; sourceTree = "<group>"; };
-		DA0E13A21838786A0073AF61 /* NoteSheetUnarchiveButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoteSheetUnarchiveButton.png; sourceTree = "<group>"; };
-		DA0E13A41838786A0073AF61 /* NoteSheetUnarchiveButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NoteSheetUnarchiveButton@2x.png"; sourceTree = "<group>"; };
 		DA0E13A61838786A0073AF61 /* BECameraView_Simulator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BECameraView_Simulator.png; sourceTree = "<group>"; };
 		DA0E13A71838786A0073AF61 /* BECameraView_SimulatorCropped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BECameraView_SimulatorCropped.png; sourceTree = "<group>"; };
 		DA0E13A91838786A0073AF61 /* HandleBottomLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HandleBottomLeft.png; sourceTree = "<group>"; };
@@ -458,6 +448,16 @@
 		DA7F70801734C92500A03C3D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		DA7F70891734CB2A00A03C3D /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		DA7F70911734EC9F00A03C3D /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		DAA243C41851895600B04654 /* NoteArchiveButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoteArchiveButton.png; sourceTree = "<group>"; };
+		DAA243C61851895600B04654 /* NoteArchiveButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NoteArchiveButton@2x.png"; sourceTree = "<group>"; };
+		DAA243C81851895600B04654 /* NoteCopyButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoteCopyButton.png; sourceTree = "<group>"; };
+		DAA243CA1851895600B04654 /* NoteCopyButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NoteCopyButton@2x.png"; sourceTree = "<group>"; };
+		DAA243CC1851895600B04654 /* NoteDeleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoteDeleteButton.png; sourceTree = "<group>"; };
+		DAA243CE1851895600B04654 /* NoteDeleteButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NoteDeleteButton@2x.png"; sourceTree = "<group>"; };
+		DAA243D01851895600B04654 /* NoteSaveButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoteSaveButton.png; sourceTree = "<group>"; };
+		DAA243D21851895600B04654 /* NoteSaveButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NoteSaveButton@2x.png"; sourceTree = "<group>"; };
+		DAA243D41851895600B04654 /* NoteUnarchiveButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoteUnarchiveButton.png; sourceTree = "<group>"; };
+		DAA243D61851895600B04654 /* NoteUnarchiveButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NoteUnarchiveButton@2x.png"; sourceTree = "<group>"; };
 		DABFDA3B17DF3D4700183CB5 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		DABFDA3C17DF3D4800183CB5 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		DAD6E39B184AC18200D675B1 /* BEAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEAppDelegate.h; sourceTree = "<group>"; };
@@ -743,6 +743,7 @@
 				DA0E13531838786A0073AF61 /* BarButtonItem */,
 				DA0E13651838786A0073AF61 /* FocusBox */,
 				DA0E136C1838786A0073AF61 /* NoteSheet */,
+				DAA243C31851895600B04654 /* NoteToolbar */,
 				DA0E13A81838786A0073AF61 /* ReticleView */,
 				DA0E13C11838786A0073AF61 /* Toolbar */,
 				DA0E134B1838786A0073AF61 /* ArchiveIcon.png */,
@@ -810,26 +811,8 @@
 				DA0E138B1838786A0073AF61 /* NoteSheetMessageButton@2x.png */,
 				DA0E138D1838786A0073AF61 /* NoteSheetSafariButton.png */,
 				DA0E138F1838786A0073AF61 /* NoteSheetSafariButton@2x.png */,
-				DA0E13911838786A0073AF61 /* Toolbar */,
 			);
 			path = NoteSheet;
-			sourceTree = "<group>";
-		};
-		DA0E13911838786A0073AF61 /* Toolbar */ = {
-			isa = PBXGroup;
-			children = (
-				DA0E13921838786A0073AF61 /* NoteSheetArchiveButton.png */,
-				DA0E13941838786A0073AF61 /* NoteSheetArchiveButton@2x.png */,
-				DA0E13961838786A0073AF61 /* NoteSheetCopyButton.png */,
-				DA0E13981838786A0073AF61 /* NoteSheetCopyButton@2x.png */,
-				DA0E139A1838786A0073AF61 /* NoteSheetDeleteButton.png */,
-				DA0E139C1838786A0073AF61 /* NoteSheetDeleteButton@2x.png */,
-				DA0E139E1838786A0073AF61 /* NoteSheetSaveButton.png */,
-				DA0E13A01838786A0073AF61 /* NoteSheetSaveButton@2x.png */,
-				DA0E13A21838786A0073AF61 /* NoteSheetUnarchiveButton.png */,
-				DA0E13A41838786A0073AF61 /* NoteSheetUnarchiveButton@2x.png */,
-			);
-			path = Toolbar;
 			sourceTree = "<group>";
 		};
 		DA0E13A81838786A0073AF61 /* ReticleView */ = {
@@ -1036,6 +1019,23 @@
 			name = Libs;
 			sourceTree = "<group>";
 		};
+		DAA243C31851895600B04654 /* NoteToolbar */ = {
+			isa = PBXGroup;
+			children = (
+				DAA243C41851895600B04654 /* NoteArchiveButton.png */,
+				DAA243C61851895600B04654 /* NoteArchiveButton@2x.png */,
+				DAA243C81851895600B04654 /* NoteCopyButton.png */,
+				DAA243CA1851895600B04654 /* NoteCopyButton@2x.png */,
+				DAA243CC1851895600B04654 /* NoteDeleteButton.png */,
+				DAA243CE1851895600B04654 /* NoteDeleteButton@2x.png */,
+				DAA243D01851895600B04654 /* NoteSaveButton.png */,
+				DAA243D21851895600B04654 /* NoteSaveButton@2x.png */,
+				DAA243D41851895600B04654 /* NoteUnarchiveButton.png */,
+				DAA243D61851895600B04654 /* NoteUnarchiveButton@2x.png */,
+			);
+			path = NoteToolbar;
+			sourceTree = "<group>";
+		};
 		DAD6E39A184AC18200D675B1 /* Parsnip */ = {
 			isa = PBXGroup;
 			children = (
@@ -1202,12 +1202,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA0E14A11838786A0073AF61 /* ArchiveIcon.png in Resources */,
+				DAA243DA1851895600B04654 /* NoteArchiveButton@2x.png in Resources */,
 				DA0E15141838786A0073AF61 /* ToolbarArchiveButton@2x.png in Resources */,
-				DA0E14EA1838786A0073AF61 /* NoteSheetCopyButton@2x.png in Resources */,
 				DA0E14D21838786A0073AF61 /* NoteSheetEmailButton@2x.png in Resources */,
-				DA0E14F01838786A0073AF61 /* NoteSheetSaveButton.png in Resources */,
 				DA0E14BC1838786A0073AF61 /* FocusBox@2x.png in Resources */,
 				DA0E14FD1838786A0073AF61 /* HandleBottomRight@2x.png in Resources */,
+				DAA243E01851895600B04654 /* NoteDeleteButton.png in Resources */,
 				DA0E14B51838786A0073AF61 /* CaptureViewCameraButton.png in Resources */,
 				DA0E14FA1838786A0073AF61 /* HandleBottomLeft.png in Resources */,
 				DA0E14CC1838786A0073AF61 /* NoteSheetDateButton.png in Resources */,
@@ -1215,21 +1215,23 @@
 				DA0E14DE1838786A0073AF61 /* NoteSheetMessageButton@2x.png in Resources */,
 				DA0E150C1838786A0073AF61 /* ToggleFlashButton.png in Resources */,
 				DA0E15021838786A0073AF61 /* HandleTopRight.png in Resources */,
+				DAA243EA1851895600B04654 /* NoteUnarchiveButton@2x.png in Resources */,
 				DA0E14F81838786A0073AF61 /* BECameraView_Simulator.png in Resources */,
 				DA0E152C1838786A0073AF61 /* ToolbarOkButton.png in Resources */,
 				DA0E15801838786B0073AF61 /* AppImages.xcassets in Resources */,
 				DA0E15821838786B0073AF61 /* InfoPlist.strings in Resources */,
 				DA0E15101838786A0073AF61 /* ToggleFlashButtonSelected.png in Resources */,
+				DAA243E61851895600B04654 /* NoteSaveButton@2x.png in Resources */,
 				DA0E15121838786A0073AF61 /* ToolbarArchiveButton.png in Resources */,
 				DA0E152A1838786A0073AF61 /* ToolbarOcrImageButton.png in Resources */,
 				DA0E15381838786A0073AF61 /* ToolbarPlusButton@2x.png in Resources */,
 				DA0E153A1838786A0073AF61 /* ToolbarSpotlightImageButton.png in Resources */,
 				DA0E14AB1838786A0073AF61 /* BarButtonItemBackBackground@2x.png in Resources */,
 				DA0E14D61838786A0073AF61 /* NoteSheetGoogleMapsButton@2x.png in Resources */,
+				DAA243E41851895600B04654 /* NoteSaveButton.png in Resources */,
 				DA0E15351838786A0073AF61 /* ToolbarPhotoLibraryButtonSelected@2x.png in Resources */,
 				DA0E14C01838786A0073AF61 /* NoteSheetCallButton.png in Resources */,
 				DA0E150E1838786A0073AF61 /* ToggleFlashButton@2x.png in Resources */,
-				DA0E14F21838786A0073AF61 /* NoteSheetSaveButton@2x.png in Resources */,
 				DA0E15321838786A0073AF61 /* ToolbarPhotoLibraryButton@2x.png in Resources */,
 				DA0E15201838786A0073AF61 /* ToolbarCancelButton@2x.png in Resources */,
 				DA0E14C61838786A0073AF61 /* NoteSheetChromeButton@2x.png in Resources */,
@@ -1244,24 +1246,28 @@
 				DA0E14E01838786A0073AF61 /* NoteSheetSafariButton.png in Resources */,
 				DA0E14C21838786A0073AF61 /* NoteSheetCallButton@2x.png in Resources */,
 				DA0E153B1838786A0073AF61 /* ToolbarSpotlightImageButton@2x.png in Resources */,
+				DAA243D81851895600B04654 /* NoteArchiveButton.png in Resources */,
 				DA0E14FE1838786A0073AF61 /* HandleTopLeft.png in Resources */,
 				DA0E15221838786A0073AF61 /* ToolbarDismissKeyboardButton.png in Resources */,
 				DA0E14B71838786A0073AF61 /* CaptureViewCameraButton@2x.png in Resources */,
 				DA0E14B11838786A0073AF61 /* NavigationBarBackIndicator.png in Resources */,
 				DA0E1598183884E50073AF61 /* tessdata in Resources */,
 				DA0E151E1838786A0073AF61 /* ToolbarCancelButton.png in Resources */,
+				DAA243E21851895600B04654 /* NoteDeleteButton@2x.png in Resources */,
 				DA0E15361838786A0073AF61 /* ToolbarPlusButton.png in Resources */,
 				DA0E15041838786A0073AF61 /* ScanLine.png in Resources */,
+				DAA243E81851895600B04654 /* NoteUnarchiveButton.png in Resources */,
 				DA0E150A1838786A0073AF61 /* TableCellAccessory@2x.png in Resources */,
 				DA0E15161838786A0073AF61 /* ToolbarBackButton.png in Resources */,
 				DA0E152E1838786A0073AF61 /* ToolbarOkButton@2x.png in Resources */,
+				DAA243DE1851895600B04654 /* NoteCopyButton@2x.png in Resources */,
 				DA0E159A183884F10073AF61 /* InitialData in Resources */,
 				DA0E14FB1838786A0073AF61 /* HandleBottomLeft@2x.png in Resources */,
-				DA0E14F61838786A0073AF61 /* NoteSheetUnarchiveButton@2x.png in Resources */,
 				DA0E14A51838786A0073AF61 /* ArrowRight.png in Resources */,
 				DA0E15301838786A0073AF61 /* ToolbarPhotoLibraryButton.png in Resources */,
 				DA0E14FC1838786A0073AF61 /* HandleBottomRight.png in Resources */,
 				DA0E15341838786A0073AF61 /* ToolbarPhotoLibraryButtonSelected.png in Resources */,
+				DAA243DC1851895600B04654 /* NoteCopyButton.png in Resources */,
 				DA0E14CA1838786A0073AF61 /* NoteSheetContactButton@2x.png in Resources */,
 				DA0E14BE1838786A0073AF61 /* FocusBoxGlow.png in Resources */,
 				DA0E14A91838786A0073AF61 /* BarButtonItemBackBackground.png in Resources */,
@@ -1269,23 +1275,17 @@
 				DA0E14DC1838786A0073AF61 /* NoteSheetMessageButton.png in Resources */,
 				DA0E14C81838786A0073AF61 /* NoteSheetContactButton.png in Resources */,
 				DA0E15031838786A0073AF61 /* HandleTopRight@2x.png in Resources */,
-				DA0E14EC1838786A0073AF61 /* NoteSheetDeleteButton.png in Resources */,
 				DA0E14D81838786A0073AF61 /* NoteSheetMapButton.png in Resources */,
 				DA0E15001838786A0073AF61 /* HandleTopLeft@2x.png in Resources */,
 				DA0E15241838786A0073AF61 /* ToolbarDismissKeyboardButton@2x.png in Resources */,
-				DA0E14E81838786A0073AF61 /* NoteSheetCopyButton.png in Resources */,
 				DA0E14B31838786A0073AF61 /* NavigationBarBackIndicator@2x.png in Resources */,
 				DA0E14D41838786A0073AF61 /* NoteSheetGoogleMapsButton.png in Resources */,
 				DA0E14BA1838786A0073AF61 /* FocusBox.png in Resources */,
-				DA0E14E41838786A0073AF61 /* NoteSheetArchiveButton.png in Resources */,
-				DA0E14EE1838786A0073AF61 /* NoteSheetDeleteButton@2x.png in Resources */,
 				DA0E14AF1838786A0073AF61 /* BarButtonItemBackground@2x.png in Resources */,
-				DA0E14F41838786A0073AF61 /* NoteSheetUnarchiveButton.png in Resources */,
 				DA0E15111838786A0073AF61 /* ToggleFlashButtonSelected@2x.png in Resources */,
 				DA0E14AD1838786A0073AF61 /* BarButtonItemBackground.png in Resources */,
 				DA0E152B1838786A0073AF61 /* ToolbarOcrImageButton@2x.png in Resources */,
 				DA0E15261838786A0073AF61 /* ToolbarNormalImageButton.png in Resources */,
-				DA0E14E61838786A0073AF61 /* NoteSheetArchiveButton@2x.png in Resources */,
 				DA0E14C41838786A0073AF61 /* NoteSheetChromeButton.png in Resources */,
 				DA0E14F91838786A0073AF61 /* BECameraView_SimulatorCropped.png in Resources */,
 				DA0E15081838786A0073AF61 /* TableCellAccessory.png in Resources */,

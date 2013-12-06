@@ -197,10 +197,10 @@ static UIStatusBarStyle themeStatusBarStyle;
     [BEPopoverBackgroundView setArrowHeight:[theme floatForKey:@"PopoverBackground.ArrowHeight" withDefault:17.0f]];
     [BEPopoverBackgroundView setCornerRadius:[theme floatForKey:@"PopoverBackground.CornerRadius" withDefault:6.0f]];
     [BEPopoverBackgroundView setContentViewInsets:[theme edgeInsetsForKey:@"PopoverBackground.Padding" withDefault:UIEdgeInsetsMake(10.0f, 10.0f, 10.0f, 10.0f)]];
-    [BEPopoverBackgroundView setUpArrowGradientTopColor:[theme colorForKey:@"PopoverBackground.UpArrowGradientTopColor" withDefault:[UIColor whiteColor]]];
-    [BEPopoverBackgroundView setUpArrowGradientBottomColor:[theme colorForKey:@"PopoverBackground.UpArrowGradientBottomColor" withDefault:[UIColor whiteColor]]];
-    [BEPopoverBackgroundView setGradientTopColor:[theme colorForKey:@"PopoverBackground.GradientTopColor" withDefault:[UIColor whiteColor]]];
-    [BEPopoverBackgroundView setGradientBottomColor:[theme colorForKey:@"PopoverBackground.GradientBottomColor" withDefault:[UIColor whiteColor]]];
+    [BEPopoverBackgroundView setUpArrowGradientTopColor:[theme colorForKey:@"PopoverBackground.UpArrowGradientTopColor" withDefault:nil]];
+    [BEPopoverBackgroundView setUpArrowGradientBottomColor:[theme colorForKey:@"PopoverBackground.UpArrowGradientBottomColor" withDefault:nil]];
+    [BEPopoverBackgroundView setGradientTopColor:[theme colorForKey:@"PopoverBackground.GradientTopColor" withDefault:nil]];
+    [BEPopoverBackgroundView setGradientBottomColor:[theme colorForKey:@"PopoverBackground.GradientBottomColor" withDefault:nil]];
     [BEPopoverBackgroundView setGradientHeight:[theme floatForKey:@"PopoverBackground.GradientHeight" withDefault:74.0f]];
     [BEPopoverBackgroundView setBackgroundColor:[theme colorForKey:@"PopoverBackground.BackgroundColor" withDefault:[UIColor whiteColor]]];
 }
@@ -250,6 +250,9 @@ static UIStatusBarStyle themeStatusBarStyle;
 
     UIColor *selectedTitleColor = [theme colorForKey:key withSubkey:@"SelectedTitle.TextColor" withDefault:nil];
     [button setTitleColor:selectedTitleColor forState:UIControlStateSelected];
+
+    UIColor *disabledTitleColor = [theme colorForKey:key withSubkey:@"DisabledTitle.TextColor" withDefault:nil];
+    [button setTitleColor:disabledTitleColor forState:UIControlStateDisabled];
 
     UIColor *highlightedTitleColor = [theme colorForKey:key withSubkey:@"HighlightedTitle.TextColor" withDefault:selectedTitleColor];
     [button setTitleColor:highlightedTitleColor forState:UIControlStateHighlighted];
@@ -336,15 +339,6 @@ static UIStatusBarStyle themeStatusBarStyle;
         [BEUI barButtonItemWithKey:@[@"NavigationBarOcrImageButton", @"NavigationBarBlackButton"] target:nil action:nil];
         [BEUI barButtonItemWithKey:@[@"NavigationBarSpotlightImageButton", @"NavigationBarBlackButton"] target:nil action:nil];
 
-        // BENoteSheetController
-        [theme imageForKey:@"NoteSheetToolbar.BackgroundImage"];
-        [theme borderColorForKey:@"NoteSheetToolbar.BorderColor"];
-        [BEUI barButtonItemWithKey:@[@"NoteSheetToolbarSaveButton", @"NoteSheetToolbarButton"] target:nil action:nil];
-        [BEUI barButtonItemWithKey:@[@"NoteSheetToolbarCopyButton", @"NoteSheetToolbarButton"] target:nil action:nil];
-        [BEUI barButtonItemWithKey:@[@"NoteSheetToolbarArchiveButton", @"NoteSheetToolbarButton"] target:nil action:nil];
-        [BEUI barButtonItemWithKey:@[@"NoteSheetToolbarUnarchiveButton", @"NoteSheetToolbarButton"] target:nil action:nil];
-        [BEUI barButtonItemWithKey:@[@"NoteSheetToolbarDeleteButton", @"NoteSheetToolbarButton"] target:nil action:nil];
-
         // BENoteSheetTableViewCell
         key = @[@"NoteSheetTableCell", @"TableCell"];
         [theme colorForKey:key withSubkey:@"BackgroundColor"];
@@ -385,6 +379,13 @@ static UIStatusBarStyle themeStatusBarStyle;
         [theme colorForKey:@"Note.TextColor"];
         [theme colorForKey:@"Note.BackgroundColor"];
         [theme fontForKey:@[@"NoteNavigationBar.UnsavedTitle", @"NavigationBar.Title"] withSubkey:@"Font"];
+        [theme imageForKey:@"NoteToolbar.BackgroundImage"];
+        [theme imageForKey:@"NoteToolbar.ShadowImage"];
+//        [BEUI barButtonItemWithKey:@[@"NoteToolbarSaveButton", @"NoteToolbarButton"] target:nil action:nil];
+        [BEUI barButtonItemWithKey:@[@"NoteToolbarCopyButton", @"NoteToolbarButton"] target:nil action:nil];
+        [BEUI barButtonItemWithKey:@[@"NoteToolbarArchiveButton", @"NoteToolbarButton"] target:nil action:nil];
+        [BEUI barButtonItemWithKey:@[@"NoteToolbarUnarchiveButton", @"NoteToolbarButton"] target:nil action:nil];
+        [BEUI barButtonItemWithKey:@[@"NoteToolbarDeleteButton", @"NoteToolbarButton"] target:nil action:nil];
         [BEUI barButtonItemWithKey:@[@"NavigationBarDismissKeyboardButton", @"NavigationBarButton"] target:nil action:nil];
         [BEUI barButtonItemWithKey:@[@"NavigationBarPlusButton", @"NavigationBarButton"] target:nil action:nil];
         [BEUI buttonWithKey:@[@"NoteDiscardAlertDiscardButton", @"AlertWarningButton", @"AlertButton"] target:nil action:nil];
