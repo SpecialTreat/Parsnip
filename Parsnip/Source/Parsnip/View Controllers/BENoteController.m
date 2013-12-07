@@ -399,7 +399,7 @@ static CGSize noteDiscardAlertSize;
 //    } else {
 //        [self.titleView setFont:[BEUI.theme fontForKey:@"NavigationBar.Title.Font"]];
 //    }
-//    [self.titleView sizeToFit];
+    [self.titleView sizeToFit];
 }
 
 - (void)updateToolbarButtonsAnimated:(BOOL)animated
@@ -522,7 +522,7 @@ static CGSize noteDiscardAlertSize;
             _imageView.hidden = NO;
         }
 
-        plusButton.enabled = _note.hasDataTypes;
+        plusButton.enabled = YES;
         copyButton.enabled = YES;
         archiveButton.enabled = YES;
         unarchiveButton.enabled = YES;
@@ -592,6 +592,7 @@ static CGSize noteDiscardAlertSize;
 - (void)ocr:(BENote *)value
 {
     self.note = value;
+    plusButton.enabled = NO;
     copyButton.enabled = NO;
     archiveButton.enabled = NO;
     unarchiveButton.enabled = NO;
@@ -640,7 +641,7 @@ static CGSize noteDiscardAlertSize;
                     [BEThread main:^{
                         [self updateText:_note.text];
                         [self updateTitle:_note.text.firstLine animated:YES];
-                        plusButton.enabled = _note.hasDataTypes;
+                        plusButton.enabled = YES;
                         copyButton.enabled = YES;
                         archiveButton.enabled = YES;
                         unarchiveButton.enabled = YES;

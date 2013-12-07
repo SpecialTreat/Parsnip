@@ -60,6 +60,9 @@
 
 
 @implementation BENoteTableController
+{
+    BOOL isFirstAppearance;
+}
 
 static NSDateFormatter *dateToStringFormatter;
 static NSDateFormatter *stringToDateFormatter;
@@ -102,6 +105,7 @@ static UIEdgeInsets tableSectionHeaderPadding;
         noteQueryPageSize = MAX(20, 3.0f * ([UIScreen mainScreen].bounds.size.height / BENoteTableViewCell.preferredHeight));
         tableSectionQueryPageSize = noteQueryPageSize / 2;
         statusBarHidden = YES;
+        isFirstAppearance = YES;
 
         tableSectionQuery = [self getTableSectionQuery];
         tableSectionCountQuery = [self getTableSectionCountQuery];
@@ -110,6 +114,8 @@ static UIEdgeInsets tableSectionHeaderPadding;
 
         self.title = noteTableTitle;
         self.manuallyAdjustsViewInsets = YES;
+
+        [self refreshCache];
     }
     return self;
 }
@@ -235,13 +241,21 @@ static UIEdgeInsets tableSectionHeaderPadding;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+
     UIEdgeInsets insets = [self insetsForViewStatusBarHidden:YES];
     _tableView.contentInset = insets;
     _tableView.scrollIndicatorInsets = insets;
+
     statusBarHidden = ([UIApplication sharedApplication].statusBarHidden ||
                        (self.sidePanelController.visiblePanel != self.navigationController));
 
-    [self refreshCache];
+    if (!isFirstAppearance) {
+        [self refreshCache];
+    } else {
+        [_tableView reloadData];
+    }
+
+    isFirstAppearance = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -329,6 +343,7 @@ static UIEdgeInsets tableSectionHeaderPadding;
                     currentDate = noteDate;
                     row = 0;
                 }
+                [currentNote thumbnailImage];
                 [self.notes setObject:currentNote forKey:[BENoteTableKey keyWithDate:currentDate row:row]];
                 row++;
             }

@@ -47,7 +47,7 @@ static UIEdgeInsets tableCellPadding;
 
 - (CGSize)preferredSize
 {
-    return CGSizeMake(self.view.frame.size.width, self.numberOfRows * tableView.rowHeight);
+    return CGSizeMake(MAX(self.view.frame.size.width / 2.0f, 320.0f), self.numberOfRows * tableView.rowHeight);
 }
 
 - (CGSize)contentSizeForViewInPopover
@@ -101,11 +101,11 @@ static UIEdgeInsets tableCellPadding;
 - (NSInteger)numberOfRows
 {
     NSDictionary *dataTypes = self.note.dataTypes;
-    NSUInteger count = [dataTypes[@"PhoneNumber"] count];
+    NSUInteger count = 1;
+    count += [dataTypes[@"PhoneNumber"] count];
     count += [dataTypes[@"Address"] count];
     count += [dataTypes[@"Email"] count];
     count += [dataTypes[@"URL"] count];
-    count += (count)? 1: 0;
     count += [dataTypes[@"Date"] count];
     return count;
 }
@@ -131,7 +131,7 @@ static UIEdgeInsets tableCellPadding;
 {
     NSDictionary *dataTypes = _note.dataTypes;
     if (section == 0) {
-        return (self.note.hasPerson)? 1: 0;
+        return 1;
     } else if (section == 1) {
         return [dataTypes[@"PhoneNumber"] count];
     } else if (section == 2) {
@@ -156,15 +156,13 @@ static UIEdgeInsets tableCellPadding;
 {
     BENoteSheetTableViewCell *cell;
     if (indexPath.section == 0) {
-        if (self.note.hasPerson) {
-            cell = [[BENoteSheetTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
-            cell.type = @"Contact";
-            cell.text = @"Add Contact";
+        cell = [[BENoteSheetTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
+        cell.type = @"Contact";
+        cell.text = @"Add Contact";
 
-            [cell addButtonWithKey:@"NoteSheetTableCellContactButton"
-                            target:self
-                            action:@selector(onContactButtonTouch:event:)];
-        }
+        [cell addButtonWithKey:@"NoteSheetTableCellContactButton"
+                        target:self
+                        action:@selector(onContactButtonTouch:event:)];
     } else if (indexPath.section == 1) {
         NSArray *data = self.note.dataTypes[@"PhoneNumber"][indexPath.row];
         if (data) {

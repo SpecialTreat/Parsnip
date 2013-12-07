@@ -118,39 +118,43 @@ const int MAX_DETECT_COUNT = 100;
                                         @"Email": [NSMutableArray array],
                                         @"PhoneNumber": [NSMutableArray array],
                                         @"TransitInformation": [NSMutableArray array]};
+    __block NSMutableDictionary *matches = [NSMutableDictionary dictionary];
 
     __block NSUInteger count = 0;
     [detector enumerateMatchesInString:text
                                options:0
                                  range:range
-                            usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop){
+                            usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop) {
                                 NSString *matchText = [text substringWithRange:match.range];
-                                if(match.resultType == NSTextCheckingTypeDate) {
-                                    if(![matchText numberOfMatches:@"^\\d{1,2}\\s*[hH]"]) {
-                                        NSArray *components;
-                                        if(match.timeZone) {
-                                            components = @[matchText, match.date, [NSNumber numberWithDouble:match.duration], match.timeZone];
-                                        } else {
-                                            components = @[matchText, match.date, [NSNumber numberWithDouble:match.duration], [NSTimeZone defaultTimeZone]];
+                                if (!matches[matchText]) {
+                                    matches[matchText] = matchText;
+                                    if(match.resultType == NSTextCheckingTypeDate) {
+                                        if(![matchText numberOfMatches:@"^\\d{1,2}\\s*[hH]"]) {
+                                            NSArray *components;
+                                            if(match.timeZone) {
+                                                components = @[matchText, match.date, [NSNumber numberWithDouble:match.duration], match.timeZone];
+                                            } else {
+                                                components = @[matchText, match.date, [NSNumber numberWithDouble:match.duration], [NSTimeZone defaultTimeZone]];
+                                            }
+                                            [dataTypes[@"Date"] addObject:components];
                                         }
-                                        [dataTypes[@"Date"] addObject:components];
+                                    } else if(match.resultType == NSTextCheckingTypeAddress) {
+                                        [dataTypes[@"Address"] addObject:@[matchText, match.addressComponents]];
+                                    } else if(match.resultType == NSTextCheckingTypeLink) {
+                                        if([match.URL.scheme isEqualToString:@"mailto"]) {
+                                            [dataTypes[@"Email"] addObject:@[matchText, match.URL]];
+                                        } else {
+                                            [dataTypes[@"URL"] addObject:@[matchText, match.URL]];
+                                        }
+                                    } else if(match.resultType == NSTextCheckingTypePhoneNumber) {
+                                        NSString *phoneNumber = [match.phoneNumber replace:@"[^0-9+\\-\\.]" with:@""];
+                                        [dataTypes[@"PhoneNumber"] addObject:@[matchText, phoneNumber]];
+                                    } else if(match.resultType == NSTextCheckingTypeTransitInformation) {
+                                        [dataTypes[@"TransitInformation"] addObject:@[matchText, match.components]];
                                     }
-                                } else if(match.resultType == NSTextCheckingTypeAddress) {
-                                    [dataTypes[@"Address"] addObject:@[matchText, match.addressComponents]];
-                                } else if(match.resultType == NSTextCheckingTypeLink) {
-                                    if([match.URL.scheme isEqualToString:@"mailto"]) {
-                                        [dataTypes[@"Email"] addObject:@[matchText, match.URL]];
-                                    } else {
-                                        [dataTypes[@"URL"] addObject:@[matchText, match.URL]];
+                                    if(++count >= MAX_DETECT_COUNT) {
+                                        *stop = YES;
                                     }
-                                } else if(match.resultType == NSTextCheckingTypePhoneNumber) {
-                                    NSString *phoneNumber = [match.phoneNumber replace:@"[^0-9+\\-\\.]" with:@""];
-                                    [dataTypes[@"PhoneNumber"] addObject:@[matchText, phoneNumber]];
-                                } else if(match.resultType == NSTextCheckingTypeTransitInformation) {
-                                    [dataTypes[@"TransitInformation"] addObject:@[matchText, match.components]];
-                                }
-                                if(++count >= MAX_DETECT_COUNT) {
-                                    *stop = YES;
                                 }
                             }];
     return dataTypes;

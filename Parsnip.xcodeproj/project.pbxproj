@@ -162,6 +162,8 @@
 		DAA243E61851895600B04654 /* NoteSaveButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA243D21851895600B04654 /* NoteSaveButton@2x.png */; };
 		DAA243E81851895600B04654 /* NoteUnarchiveButton.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA243D41851895600B04654 /* NoteUnarchiveButton.png */; };
 		DAA243EA1851895600B04654 /* NoteUnarchiveButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA243D61851895600B04654 /* NoteUnarchiveButton@2x.png */; };
+		DAA243ED18530C7600B04654 /* BECameraView_Simulator_r4.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA243EC18530C7600B04654 /* BECameraView_Simulator_r4.png */; };
+		DAA243EF185317C500B04654 /* BECameraView_Simulator_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA243EE185317C500B04654 /* BECameraView_Simulator_iPad.png */; };
 		DABFDA3D17DF3D4900183CB5 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DABFDA3B17DF3D4700183CB5 /* AddressBook.framework */; };
 		DABFDA3E17DF3D4900183CB5 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DABFDA3C17DF3D4800183CB5 /* AddressBookUI.framework */; };
 		DAD6E3DC184AC18200D675B1 /* BEAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6E39C184AC18200D675B1 /* BEAppDelegate.m */; };
@@ -458,6 +460,8 @@
 		DAA243D21851895600B04654 /* NoteSaveButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NoteSaveButton@2x.png"; sourceTree = "<group>"; };
 		DAA243D41851895600B04654 /* NoteUnarchiveButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoteUnarchiveButton.png; sourceTree = "<group>"; };
 		DAA243D61851895600B04654 /* NoteUnarchiveButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NoteUnarchiveButton@2x.png"; sourceTree = "<group>"; };
+		DAA243EC18530C7600B04654 /* BECameraView_Simulator_r4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BECameraView_Simulator_r4.png; sourceTree = "<group>"; };
+		DAA243EE185317C500B04654 /* BECameraView_Simulator_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BECameraView_Simulator_iPad.png; sourceTree = "<group>"; };
 		DABFDA3B17DF3D4700183CB5 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		DABFDA3C17DF3D4800183CB5 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		DAD6E39B184AC18200D675B1 /* BEAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEAppDelegate.h; sourceTree = "<group>"; };
@@ -753,6 +757,8 @@
 				DA0E13601838786A0073AF61 /* CaptureViewCameraButton.png */,
 				DA0E13621838786A0073AF61 /* CaptureViewCameraButton@2x.png */,
 				DA0E13A61838786A0073AF61 /* BECameraView_Simulator.png */,
+				DAA243EC18530C7600B04654 /* BECameraView_Simulator_r4.png */,
+				DAA243EE185317C500B04654 /* BECameraView_Simulator_iPad.png */,
 				DA0E13A71838786A0073AF61 /* BECameraView_SimulatorCropped.png */,
 				DA0E13B31838786A0073AF61 /* ScanLine.png */,
 				DA0E13B51838786A0073AF61 /* ScanLine@2x.png */,
@@ -1256,6 +1262,7 @@
 				DAA243E21851895600B04654 /* NoteDeleteButton@2x.png in Resources */,
 				DA0E15361838786A0073AF61 /* ToolbarPlusButton.png in Resources */,
 				DA0E15041838786A0073AF61 /* ScanLine.png in Resources */,
+				DAA243ED18530C7600B04654 /* BECameraView_Simulator_r4.png in Resources */,
 				DAA243E81851895600B04654 /* NoteUnarchiveButton.png in Resources */,
 				DA0E150A1838786A0073AF61 /* TableCellAccessory@2x.png in Resources */,
 				DA0E15161838786A0073AF61 /* ToolbarBackButton.png in Resources */,
@@ -1281,6 +1288,7 @@
 				DA0E14B31838786A0073AF61 /* NavigationBarBackIndicator@2x.png in Resources */,
 				DA0E14D41838786A0073AF61 /* NoteSheetGoogleMapsButton.png in Resources */,
 				DA0E14BA1838786A0073AF61 /* FocusBox.png in Resources */,
+				DAA243EF185317C500B04654 /* BECameraView_Simulator_iPad.png in Resources */,
 				DA0E14AF1838786A0073AF61 /* BarButtonItemBackground@2x.png in Resources */,
 				DA0E15111838786A0073AF61 /* ToggleFlashButtonSelected@2x.png in Resources */,
 				DA0E14AD1838786A0073AF61 /* BarButtonItemBackground.png in Resources */,
