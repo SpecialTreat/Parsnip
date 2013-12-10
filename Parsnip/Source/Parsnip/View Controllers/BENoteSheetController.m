@@ -4,6 +4,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "NSString+Tools.h"
 #import "BEAlertView.h"
+#import "BEInAppPurchaser.h"
 #import "BENoteSheetTableViewCell.h"
 #import "BEUI.h"
 #import "UIBarButtonItem+Tools.h"
@@ -248,24 +249,28 @@ static UIEdgeInsets tableCellPadding;
 - (void)tableView:(UITableView *)view didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     @synchronized(self) {
-        if (indexPath.section == 0) {
-            [self.delegate noteSheet:self contact:self.note];
-        } else if (indexPath.section == 1) {
-            NSArray *data = self.note.dataTypes[@"PhoneNumber"][indexPath.row];
-            [self.delegate noteSheet:self contact:self.note text:data[0] phoneNumber:data[1]];
-        } else if (indexPath.section == 2) {
-            NSArray *data = self.note.dataTypes[@"Address"][indexPath.row];
-            [self.delegate noteSheet:self contact:self.note text:data[0] address:data[1]];
-        } else if (indexPath.section == 3) {
-            NSArray *data = self.note.dataTypes[@"Email"][indexPath.row];
-            [self.delegate noteSheet:self contact:self.note text:data[0] email:data[1]];
-        } else if (indexPath.section == 4) {
-            NSArray *data = self.note.dataTypes[@"URL"][indexPath.row];
-            [self.delegate noteSheet:self contact:self.note text:data[0] url:data[1]];
-        } else if (indexPath.section == 5) {
-            NSArray *data = self.note.dataTypes[@"Date"][indexPath.row];
-            [self.delegate noteSheet:self calendar:self.note text:data[0] date:data[1] duration:[data[2] doubleValue] timeZone:data[3]];
-        }
+        [BEInAppPurchaser.parsnipPurchaser checkForProduct:BEInAppPurchaserParsnipPro completion:^(BOOL success) {
+            if (success) {
+                if (indexPath.section == 0) {
+                    [self.delegate noteSheet:self contact:self.note];
+                } else if (indexPath.section == 1) {
+                    NSArray *data = self.note.dataTypes[@"PhoneNumber"][indexPath.row];
+                    [self.delegate noteSheet:self contact:self.note text:data[0] phoneNumber:data[1]];
+                } else if (indexPath.section == 2) {
+                    NSArray *data = self.note.dataTypes[@"Address"][indexPath.row];
+                    [self.delegate noteSheet:self contact:self.note text:data[0] address:data[1]];
+                } else if (indexPath.section == 3) {
+                    NSArray *data = self.note.dataTypes[@"Email"][indexPath.row];
+                    [self.delegate noteSheet:self contact:self.note text:data[0] email:data[1]];
+                } else if (indexPath.section == 4) {
+                    NSArray *data = self.note.dataTypes[@"URL"][indexPath.row];
+                    [self.delegate noteSheet:self contact:self.note text:data[0] url:data[1]];
+                } else if (indexPath.section == 5) {
+                    NSArray *data = self.note.dataTypes[@"Date"][indexPath.row];
+                    [self.delegate noteSheet:self calendar:self.note text:data[0] date:data[1] duration:[data[2] doubleValue] timeZone:data[3]];
+                }
+            }
+        }];
         [view deselectRowAtIndexPath:indexPath animated:YES];
     }
 }
@@ -285,84 +290,120 @@ static UIEdgeInsets tableCellPadding;
 
 - (void)onDateButtonTouch:(UIButton *)sender event:(UIEvent *)event
 {
-    BENoteSheetTableViewCell *cell = [self parentCell:sender];
-    if(cell) {
-        NSString *text = cell.text;
-        NSDate *date = cell.date;
-        NSTimeInterval duration = cell.duration;
-        NSTimeZone *timeZone = cell.timeZone;
-        @synchronized(self) {
-            [self.delegate noteSheet:self calendar:self.note text:text date:date duration:duration timeZone:timeZone];
+    [BEInAppPurchaser.parsnipPurchaser checkForProduct:BEInAppPurchaserParsnipPro completion:^(BOOL success) {
+        if (success) {
+            BENoteSheetTableViewCell *cell = [self parentCell:sender];
+            if(cell) {
+                NSString *text = cell.text;
+                NSDate *date = cell.date;
+                NSTimeInterval duration = cell.duration;
+                NSTimeZone *timeZone = cell.timeZone;
+                @synchronized(self) {
+                    [self.delegate noteSheet:self calendar:self.note text:text date:date duration:duration timeZone:timeZone];
+                }
+            }
         }
-    }
+    }];
 }
 
 - (void)onMapButtonTouch:(UIButton *)sender event:(UIEvent *)event
 {
-    BENoteSheetTableViewCell *cell = [self parentCell:sender];
-    if(cell) {
-        [UIDevice openInMaps:cell.text];
-    }
+    [BEInAppPurchaser.parsnipPurchaser checkForProduct:BEInAppPurchaserParsnipPro completion:^(BOOL success) {
+        if (success) {
+            BENoteSheetTableViewCell *cell = [self parentCell:sender];
+            if(cell) {
+                [UIDevice openInMaps:cell.text];
+            }
+        }
+    }];
 }
 
 - (void)onGoogleMapsButtonTouch:(UIButton *)sender event:(UIEvent *)event
 {
-    BENoteSheetTableViewCell *cell = [self parentCell:sender];
-    if(cell) {
-        [UIDevice openInGoogleMaps:cell.text];
-    }
+    [BEInAppPurchaser.parsnipPurchaser checkForProduct:BEInAppPurchaserParsnipPro completion:^(BOOL success) {
+        if (success) {
+            BENoteSheetTableViewCell *cell = [self parentCell:sender];
+            if(cell) {
+                [UIDevice openInGoogleMaps:cell.text];
+            }
+        }
+    }];
 }
 
 - (void)onEmailButtonTouch:(UIButton *)sender event:(UIEvent *)event
 {
-    BENoteSheetTableViewCell *cell = [self parentCell:sender];
-    if(cell) {
-        [[UIApplication sharedApplication] openURL:cell.URL];
-    }
+    [BEInAppPurchaser.parsnipPurchaser checkForProduct:BEInAppPurchaserParsnipPro completion:^(BOOL success) {
+        if (success) {
+            BENoteSheetTableViewCell *cell = [self parentCell:sender];
+            if(cell) {
+                [[UIApplication sharedApplication] openURL:cell.URL];
+            }
+        }
+    }];
 }
 
 - (void)onChromeButtonTouch:(UIButton *)sender event:(UIEvent *)event
 {
-    BENoteSheetTableViewCell *cell = [self parentCell:sender];
-    if(cell) {
-        [UIDevice openInChrome:cell.URL createNewTab:YES];
-    }
+    [BEInAppPurchaser.parsnipPurchaser checkForProduct:BEInAppPurchaserParsnipPro completion:^(BOOL success) {
+        if (success) {
+            BENoteSheetTableViewCell *cell = [self parentCell:sender];
+            if(cell) {
+                [UIDevice openInChrome:cell.URL createNewTab:YES];
+            }
+        }
+    }];
 }
 
 - (void)onSafariButtonTouch:(UIButton *)sender event:(UIEvent *)event
 {
-    BENoteSheetTableViewCell *cell = [self parentCell:sender];
-    if(cell) {
-        [[UIApplication sharedApplication] openURL:cell.URL];
-    }
+    [BEInAppPurchaser.parsnipPurchaser checkForProduct:BEInAppPurchaserParsnipPro completion:^(BOOL success) {
+        if (success) {
+            BENoteSheetTableViewCell *cell = [self parentCell:sender];
+            if(cell) {
+                [[UIApplication sharedApplication] openURL:cell.URL];
+            }
+        }
+    }];
 }
 
 - (void)onCallButtonTouch:(UIButton *)sender event:(UIEvent *)event
 {
-    BENoteSheetTableViewCell *cell = [self parentCell:sender];
-    if(cell) {
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", cell.phoneNumber]];
-        [[UIApplication sharedApplication] openURL:url];
-    }
+    [BEInAppPurchaser.parsnipPurchaser checkForProduct:BEInAppPurchaserParsnipPro completion:^(BOOL success) {
+        if (success) {
+            BENoteSheetTableViewCell *cell = [self parentCell:sender];
+            if(cell) {
+                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", cell.phoneNumber]];
+                [[UIApplication sharedApplication] openURL:url];
+            }
+        }
+    }];
 }
 
 - (void)onMessageButtonTouch:(UIButton *)sender event:(UIEvent *)event
 {
-    BENoteSheetTableViewCell *cell = [self parentCell:sender];
-    if(cell) {
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"sms:%@", cell.phoneNumber]];
-        [[UIApplication sharedApplication] openURL:url];
-    }
+    [BEInAppPurchaser.parsnipPurchaser checkForProduct:BEInAppPurchaserParsnipPro completion:^(BOOL success) {
+        if (success) {
+            BENoteSheetTableViewCell *cell = [self parentCell:sender];
+            if(cell) {
+                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"sms:%@", cell.phoneNumber]];
+                [[UIApplication sharedApplication] openURL:url];
+            }
+        }
+    }];
 }
 
 - (void)onContactButtonTouch:(UIButton *)sender event:(UIEvent *)event
 {
-    BENoteSheetTableViewCell *cell = [self parentCell:sender];
-    if(cell) {
-        @synchronized(self) {
-            [self.delegate noteSheet:self contact:self.note];
+    [BEInAppPurchaser.parsnipPurchaser checkForProduct:BEInAppPurchaserParsnipPro completion:^(BOOL success) {
+        if (success) {
+            BENoteSheetTableViewCell *cell = [self parentCell:sender];
+            if(cell) {
+                @synchronized(self) {
+                    [self.delegate noteSheet:self contact:self.note];
+                }
+            }
         }
-    }
+    }];
 }
 
 - (BENoteSheetTableViewCell *)parentCell:(UIButton *)button

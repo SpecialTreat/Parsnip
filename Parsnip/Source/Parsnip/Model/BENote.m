@@ -165,7 +165,7 @@
     NSString *name = self.text.firstLine;
     ABRecordSetValue(person, kABPersonFirstNameProperty, (__bridge CFStringRef)name, nil);
 
-    NSString *note = [BEUI.theme stringForKey:@"CreateContactNote"];
+    NSString *note = [BEUI.theme stringForKey:@"CreateContactNoteText"];
     ABRecordSetValue(person, kABPersonNoteProperty, (__bridge CFStringRef)note, nil);
 
     return person;

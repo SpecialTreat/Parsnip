@@ -1,5 +1,6 @@
 #import <UIKit/UIKit.h>
 
+
 @interface BEAlertView : UIView
 
 + (CGFloat)showAnimationScale;

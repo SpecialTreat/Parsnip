@@ -4,6 +4,7 @@
 #import "NSString+Tools.h"
 #import "BEAlertView.h"
 #import "BEDB.h"
+#import "BEInAppPurchaser.h"
 #import "BENoteImageController.h"
 #import "BENoteSheetController.h"
 #import "BEOcr.h"
@@ -27,7 +28,7 @@
     UIBarButtonItem *copyButton;
     UIBarButtonItem *archiveButton;
     UIBarButtonItem *unarchiveButton;
-    UIBarButtonItem *discardButton;
+    UIBarButtonItem *deleteButton;
     UIToolbar *toolbar;
 
     UIBarButtonItem *dismissKeyboardButton;
@@ -37,6 +38,8 @@
     BETouchableView *touchableView;
     UIScrollView *scrollView;
     BOOL initialAppearance;
+
+    NSArray *_products;
 
     void (^navigationControllerPushCompletion)(BOOL finished);
 }
@@ -57,7 +60,7 @@ static UIEdgeInsets noteSheetPopoverContentViewInsets;
 static CGFloat noteSheetPopoverMaskAlpha;
 static BOOL noteSheetPopoverBackgroundClipsToBounds;
 
-static CGSize noteDiscardAlertSize;
+static CGSize noteDeleteAlertSize;
 
 + (void)initialize
 {
@@ -77,7 +80,7 @@ static CGSize noteDiscardAlertSize;
     noteSheetPopoverMaskAlpha = [BEUI.theme floatForKey:@"NoteSheetPopover.MaskAlpha"];
     noteSheetPopoverBackgroundClipsToBounds = [BEUI.theme boolForKey:@"NoteSheetPopover.Background.ClipsToBounds" withDefault:YES];
 
-    noteDiscardAlertSize = [BEUI.theme sizeForKey:@[@"NoteDiscardAlert", @"Alert"] withSubkey:@"BackgroundSize" withDefault:CGSizeMake(240.0f, 120.0f)];
+    noteDeleteAlertSize = [BEUI.theme sizeForKey:@[@"NoteDeleteAlert", @"Alert"] withSubkey:@"BackgroundSize" withDefault:CGSizeMake(240.0f, 120.0f)];
 }
 
 @synthesize note = _note;
@@ -161,13 +164,13 @@ static CGSize noteDiscardAlertSize;
     copyButton = [BEUI barButtonItemWithKey:@[@"NoteToolbarCopyButton", @"NoteToolbarButton"] target:self action:@selector(onCopyButtonTouch:event:)];
     archiveButton = [BEUI barButtonItemWithKey:@[@"NoteToolbarArchiveButton", @"NoteToolbarButton"] target:self action:@selector(onArchiveButtonTouch:event:)];
     unarchiveButton = [BEUI barButtonItemWithKey:@[@"NoteToolbarUnarchiveButton", @"NoteToolbarButton"] target:self action:@selector(onUnarchiveButtonTouch:event:)];
-    discardButton = [BEUI barButtonItemWithKey:@[@"NoteToolbarDeleteButton", @"NoteToolbarButton"] target:self action:@selector(onDiscardButtonTouch:event:)];
+    deleteButton = [BEUI barButtonItemWithKey:@[@"NoteToolbarDeleteButton", @"NoteToolbarButton"] target:self action:@selector(onDeleteButtonTouch:event:)];
 
     BOOL hasNote = !!_note;
     copyButton.enabled = hasNote;
     archiveButton.enabled = hasNote;
     unarchiveButton.enabled = hasNote;
-    discardButton.enabled = hasNote;
+    deleteButton.enabled = hasNote;
 
     toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(toolbarMargin.left,
                                                           frame.size.height - toolbarHeight + toolbarMargin.top,
@@ -412,7 +415,7 @@ static CGSize noteDiscardAlertSize;
                   [UIBarButtonItem spacer],
                   unarchiveButton,
                   [UIBarButtonItem spacer],
-                  discardButton,
+                  deleteButton,
                   [UIBarButtonItem spacer]];
     } else {
         items = @[//keepButton,
@@ -421,7 +424,7 @@ static CGSize noteDiscardAlertSize;
                   [UIBarButtonItem spacer],
                   archiveButton,
                   [UIBarButtonItem spacer],
-                  discardButton,
+                  deleteButton,
                   [UIBarButtonItem spacer]];
     }
 
@@ -526,7 +529,7 @@ static CGSize noteDiscardAlertSize;
         copyButton.enabled = YES;
         archiveButton.enabled = YES;
         unarchiveButton.enabled = YES;
-        discardButton.enabled = YES;
+        deleteButton.enabled = YES;
 
         [self updateToolbarButtonsAnimated:NO];
     }
@@ -596,7 +599,7 @@ static CGSize noteDiscardAlertSize;
     copyButton.enabled = NO;
     archiveButton.enabled = NO;
     unarchiveButton.enabled = NO;
-    discardButton.enabled = NO;
+    deleteButton.enabled = NO;
     self.isDirty = YES;
     [_scannerView show:NO];
 
@@ -645,7 +648,7 @@ static CGSize noteDiscardAlertSize;
                         copyButton.enabled = YES;
                         archiveButton.enabled = YES;
                         unarchiveButton.enabled = YES;
-                        discardButton.enabled = YES;
+                        deleteButton.enabled = YES;
                         [_scannerView hide:YES completion:^(BOOL finished) {
 
                         }];
@@ -788,10 +791,14 @@ static CGSize noteDiscardAlertSize;
 
 - (void)onCopyButtonTouch:(UIButton *)sender event:(UIEvent *)event
 {
-    if (!_note) {
-        return;
-    }
-    [UIPasteboard generalPasteboard].string = textView.text;
+    [BEInAppPurchaser.parsnipPurchaser checkForProduct:BEInAppPurchaserParsnipPro completion:^(BOOL success) {
+        if (success) {
+            if (!_note) {
+                return;
+            }
+            [UIPasteboard generalPasteboard].string = textView.text;
+        }
+    }];
 }
 
 - (void)onArchiveButtonTouch:(UIButton *)sender event:(UIEvent *)event
@@ -800,9 +807,9 @@ static CGSize noteDiscardAlertSize;
         return;
     }
     alert = [[BEAlertView alloc] initWithFrame:self.view.bounds];
-    alert.maskAlpha = [BEUI.theme floatForKey:@"NoteArchiveAlert.MaskAlpha"];
-    alert.shadowColor = [BEUI.theme colorForKey:@"NoteArchiveAlert.ShadowColor"];
-    alert.size = noteDiscardAlertSize;
+    alert.maskAlpha = [BEUI.theme floatForKey:@"Alert.MaskAlpha"];
+    alert.shadowColor = [BEUI.theme colorForKey:@"Alert.ShadowColor"];
+    alert.size = noteDeleteAlertSize;
 
     UIButton *confirmButton = [BEUI buttonWithKey:@[@"NoteArchiveAlertArchiveButton", @"AlertButton"] target:self action:@selector(onAlertArchiveButtonTouch:event:)];
     UIButton *cancelButton = [BEUI buttonWithKey:@[@"AlertCancelButton", @"AlertButton"] target:self action:@selector(onAlertCancelButtonTouch:event:)];
@@ -826,18 +833,18 @@ static CGSize noteDiscardAlertSize;
     }
 }
 
-- (void)onDiscardButtonTouch:(UIButton *)sender event:(UIEvent *)event
+- (void)onDeleteButtonTouch:(UIButton *)sender event:(UIEvent *)event
 {
     if (!_note) {
         return;
     }
     alert = [[BEAlertView alloc] initWithFrame:self.view.bounds];
-    alert.maskAlpha = [BEUI.theme floatForKey:@"NoteDiscardAlert.MaskAlpha"];
-    alert.shadowColor = [BEUI.theme colorForKey:@"NoteDiscardAlert.ShadowColor"];
-    alert.size = noteDiscardAlertSize;
+    alert.maskAlpha = [BEUI.theme floatForKey:@"Alert.MaskAlpha"];
+    alert.shadowColor = [BEUI.theme colorForKey:@"Alert.ShadowColor"];
+    alert.size = noteDeleteAlertSize;
 
-    UIButton *confirmButton = [BEUI buttonWithKey:@[@"NoteDiscardAlertDiscardButton", @"AlertWarningButton", @"AlertButton"] target:self action:@selector(onAlertDiscardButtonTouch:event:)];
-    UIButton *cancelButton = [BEUI buttonWithKey:@[@"AlertCancelButton", @"AlertButton"] target:self action:@selector(onAlertCancelButtonTouch:event:)];
+    UIButton *confirmButton = [BEUI buttonWithKey:@[@"NoteDeleteAlertDeleteButton", @"AlertWarningButton", @"AlertButton"] target:self action:@selector(onAlertDeleteButtonTouch:event:)];
+    UIButton *cancelButton = [BEUI buttonWithKey:@[@"NoteDeleteAlertCancelButton", @"AlertCancelButton", @"AlertButton"] target:self action:@selector(onAlertCancelButtonTouch:event:)];
 
     alert.buttons = @[confirmButton, cancelButton];
 
@@ -861,7 +868,7 @@ static CGSize noteDiscardAlertSize;
     }
 }
 
-- (void)onAlertDiscardButtonTouch:(UIButton *)sender event:(UIEvent *)event
+- (void)onAlertDeleteButtonTouch:(UIButton *)sender event:(UIEvent *)event
 {
     [alert hide:nil completion:^(BOOL finished) {
         [alert removeFromSuperview];
@@ -944,7 +951,7 @@ static CGSize noteDiscardAlertSize;
             if(![title isEqualToString:text]) {
                 event.title = title;
             }
-            event.notes = [NSString stringWithFormat:@"%@\n\n%@", [BEUI.theme stringForKey:@"CreateContactNote"], note.text];
+            event.notes = [NSString stringWithFormat:@"%@\n\n%@", [BEUI.theme stringForKey:@"CreateContactNoteText"], note.text];
 
             [self performSelectorOnMainThread:@selector(showCalendar:) withObject:@[event, eventStore] waitUntilDone:NO];
         }

@@ -131,8 +131,9 @@
 		DA0E15831838786B0073AF61 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0E14791838786A0073AF61 /* main.m */; };
 		DA0E1598183884E50073AF61 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = DA0E1597183884E50073AF61 /* tessdata */; };
 		DA0E159A183884F10073AF61 /* InitialData in Resources */ = {isa = PBXBuildFile; fileRef = DA0E1599183884F10073AF61 /* InitialData */; };
-		DA0E159C183887520073AF61 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA0E159B183887520073AF61 /* opencv2.framework */; };
 		DA2AA9EE17ACD45500E211D9 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA2AA9ED17ACD45500E211D9 /* libsqlite3.dylib */; };
+		DA623B4B1855526D0067008B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA623B4A1855526D0067008B /* StoreKit.framework */; };
+		DA623B4E185554930067008B /* BEInAppPurchaser.m in Sources */ = {isa = PBXBuildFile; fileRef = DA623B4D185554930067008B /* BEInAppPurchaser.m */; };
 		DA66FC9017F7B4620084FA59 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1790CB17C72379002AA8EC /* EventKit.framework */; };
 		DA66FC9117F7B4620084FA59 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1790CD17C7E900002AA8EC /* EventKitUI.framework */; };
 		DA7F6EEC17348C4800A03C3D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA7F6EEB17348C4800A03C3D /* UIKit.framework */; };
@@ -198,6 +199,9 @@
 		DAD6E3F9184AC18200D675B1 /* BETouchableView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6E3D9184AC18200D675B1 /* BETouchableView.m */; };
 		DAD6E3FA184AC18200D675B1 /* BEZoomableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6E3DB184AC18200D675B1 /* BEZoomableImageView.m */; };
 		DADDC3A617B0AEFB00C0A9AD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DADDC3A517B0AEFB00C0A9AD /* MobileCoreServices.framework */; };
+		DAE46AFF1856F1A10007243C /* BEDialogView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE46AFE1856F1A10007243C /* BEDialogView.m */; };
+		DAE46B03185765AA0007243C /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE46B02185765AA0007243C /* Reachability.m */; };
+		DAE46B05185765DC0007243C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAE46B04185765DC0007243C /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -430,6 +434,9 @@
 		DA1790CB17C72379002AA8EC /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		DA1790CD17C7E900002AA8EC /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		DA2AA9ED17ACD45500E211D9 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		DA623B4A1855526D0067008B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		DA623B4C185554930067008B /* BEInAppPurchaser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEInAppPurchaser.h; sourceTree = "<group>"; };
+		DA623B4D185554930067008B /* BEInAppPurchaser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEInAppPurchaser.m; sourceTree = "<group>"; };
 		DA7F6EE817348C4800A03C3D /* Parsnip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Parsnip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA7F6EEB17348C4800A03C3D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DA7F6EED17348C4800A03C3D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -527,6 +534,11 @@
 		DAD6E3DA184AC18200D675B1 /* BEZoomableImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEZoomableImageView.h; sourceTree = "<group>"; };
 		DAD6E3DB184AC18200D675B1 /* BEZoomableImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEZoomableImageView.m; sourceTree = "<group>"; };
 		DADDC3A517B0AEFB00C0A9AD /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		DAE46AFD1856F1A10007243C /* BEDialogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEDialogView.h; sourceTree = "<group>"; };
+		DAE46AFE1856F1A10007243C /* BEDialogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEDialogView.m; sourceTree = "<group>"; };
+		DAE46B01185765AA0007243C /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		DAE46B02185765AA0007243C /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		DAE46B04185765DC0007243C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -534,6 +546,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAE46B05185765DC0007243C /* SystemConfiguration.framework in Frameworks */,
+				DA623B4B1855526D0067008B /* StoreKit.framework in Frameworks */,
 				DA0E14871838786A0073AF61 /* liblept.a in Frameworks */,
 				DA66FC9017F7B4620084FA59 /* EventKit.framework in Frameworks */,
 				DA0E148D1838786A0073AF61 /* libtesseract_classify.a in Frameworks */,
@@ -552,7 +566,6 @@
 				DA7F70851734C92500A03C3D /* CoreMotion.framework in Frameworks */,
 				DA0E14911838786A0073AF61 /* libtesseract_image.a in Frameworks */,
 				DA7F70871734C92500A03C3D /* OpenGLES.framework in Frameworks */,
-				DA0E159C183887520073AF61 /* opencv2.framework in Frameworks */,
 				DA7F70861734C92500A03C3D /* ImageIO.framework in Frameworks */,
 				DA7F708A1734CB2A00A03C3D /* CoreVideo.framework in Frameworks */,
 				DA7F70821734C92500A03C3D /* AVFoundation.framework in Frameworks */,
@@ -874,6 +887,7 @@
 				DA0E141C1838786A0073AF61 /* DB5 */,
 				DA0E14211838786A0073AF61 /* FMDB */,
 				DA0E142C1838786A0073AF61 /* JASidePanels */,
+				DAE46B00185765AA0007243C /* Reachability */,
 				DAD6E39A184AC18200D675B1 /* Parsnip */,
 			);
 			path = Source;
@@ -990,6 +1004,8 @@
 		DA7F6EEA17348C4800A03C3D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DAE46B04185765DC0007243C /* SystemConfiguration.framework */,
+				DA623B4A1855526D0067008B /* StoreKit.framework */,
 				DABFDA3B17DF3D4700183CB5 /* AddressBook.framework */,
 				DABFDA3C17DF3D4800183CB5 /* AddressBookUI.framework */,
 				DA1790CD17C7E900002AA8EC /* EventKitUI.framework */,
@@ -1054,6 +1070,8 @@
 				DAD6E39E184AC18200D675B1 /* BEConstants.m */,
 				DAD6E39F184AC18200D675B1 /* BEDevice.h */,
 				DAD6E3A0184AC18200D675B1 /* BEDevice.m */,
+				DA623B4C185554930067008B /* BEInAppPurchaser.h */,
+				DA623B4D185554930067008B /* BEInAppPurchaser.m */,
 				DAD6E3A1184AC18200D675B1 /* BEOcr.h */,
 				DAD6E3A2184AC18200D675B1 /* BEOcr.mm */,
 				DAD6E3A3184AC18200D675B1 /* BETextData.h */,
@@ -1113,6 +1131,8 @@
 				DAD6E3C7184AC18200D675B1 /* BEAlertView.m */,
 				DAD6E3C8184AC18200D675B1 /* BECameraView.h */,
 				DAD6E3C9184AC18200D675B1 /* BECameraView.m */,
+				DAE46AFD1856F1A10007243C /* BEDialogView.h */,
+				DAE46AFE1856F1A10007243C /* BEDialogView.m */,
 				DAD6E3CA184AC18200D675B1 /* BECroppableImageView.h */,
 				DAD6E3CB184AC18200D675B1 /* BECroppableImageView.m */,
 				DAD6E3CC184AC18200D675B1 /* BEDraggableImageView.h */,
@@ -1133,6 +1153,15 @@
 				DAD6E3DB184AC18200D675B1 /* BEZoomableImageView.m */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		DAE46B00185765AA0007243C /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				DAE46B01185765AA0007243C /* Reachability.h */,
+				DAE46B02185765AA0007243C /* Reachability.m */,
+			);
+			path = Reachability;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1334,6 +1363,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAD6E3E8184AC18200D675B1 /* BECropController.m in Sources */,
+				DAE46AFF1856F1A10007243C /* BEDialogView.m in Sources */,
 				DA0E15511838786A0073AF61 /* UIImage+Manipulation.m in Sources */,
 				DAD6E3DC184AC18200D675B1 /* BEAppDelegate.m in Sources */,
 				DAD6E3EB184AC18200D675B1 /* BENoteController.m in Sources */,
@@ -1352,6 +1382,8 @@
 				DA0E15481838786A0073AF61 /* NSObject+Bindable.m in Sources */,
 				DAD6E3E9184AC18200D675B1 /* BEInfoController.m in Sources */,
 				DA0E154F1838786A0073AF61 /* UIDevice+Tools.m in Sources */,
+				DAE46B03185765AA0007243C /* Reachability.m in Sources */,
+				DA623B4E185554930067008B /* BEInAppPurchaser.m in Sources */,
 				DA0E15551838786A0073AF61 /* UIView+Tools.m in Sources */,
 				DA0E154D1838786A0073AF61 /* UIBezierPath+Tools.m in Sources */,
 				DA0E154E1838786A0073AF61 /* UIColor+Tools.m in Sources */,
@@ -1514,6 +1546,7 @@
 					"$(SRCROOT)/Parsnip/Dependencies/lib",
 				);
 				PRODUCT_NAME = Parsnip;
+				PROVISIONING_PROFILE = "D569C112-8EC1-4B82-9AA4-01424EDF35F6";
 				USER_HEADER_SEARCH_PATHS = "/usr/include/libxml2/**";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1542,6 +1575,7 @@
 					"$(SRCROOT)/Parsnip/Dependencies/lib",
 				);
 				PRODUCT_NAME = Parsnip;
+				PROVISIONING_PROFILE = "D569C112-8EC1-4B82-9AA4-01424EDF35F6";
 				USER_HEADER_SEARCH_PATHS = "/usr/include/libxml2/**";
 				WRAPPER_EXTENSION = app;
 			};

@@ -1,6 +1,7 @@
 #import "BEUI.h"
 
 #import "BEAlertView.h"
+#import "BEDialogView.h"
 #import "BEPopoverBackgroundView.h"
 #import "BEThread.h"
 #import "UIColor+Tools.h"
@@ -98,6 +99,7 @@ static UIStatusBarStyle themeStatusBarStyle;
     [BEUI styleStatusBar];
     [BEUI styleNavigationBarAppearance];
     [BEUI styleAlertView];
+    [BEUI styleDialogView];
     [BEUI stylePopoverBackgroundView];
 }
 
@@ -189,6 +191,20 @@ static UIStatusBarStyle themeStatusBarStyle;
     [BEAlertView setShowAnimationScale:[BEUI.theme floatForKey:@"Alert.ShowAnimationScale" withDefault:1.4f]];
     [BEAlertView setHideAnimationScale:[BEUI.theme floatForKey:@"Alert.HideAnimationScale" withDefault:0.8f]];
     [BEAlertView setCornerRadii:[BEUI.theme cornerRadiiForKey:@"Alert.CornerRadius" withDefault:@[@0.0f, @0.0f, @0.0f, @0.0f]]];
+}
+
++ (void)styleDialogView
+{
+    [BEDialogView setShowAnimationScale:[BEUI.theme floatForKey:@"Dialog.ShowAnimationScale" withDefault:1.4f]];
+    [BEDialogView setHideAnimationScale:[BEUI.theme floatForKey:@"Dialog.HideAnimationScale" withDefault:0.8f]];
+    [BEDialogView setCornerRadii:[BEUI.theme cornerRadiiForKey:@"Dialog.CornerRadius" withDefault:@[@0.0f, @0.0f, @0.0f, @0.0f]]];
+    [BEDialogView setButtonHeight:[BEUI.theme floatForKey:@"DialogButton.Height" withDefault:60.0f]];
+    [BEDialogView setTitleColor:[BEUI.theme colorForKey:@"Dialog.Title.TextColor" withDefault:[UIColor blackColor]]];
+    [BEDialogView setTitleFont:[BEUI.theme fontForKey:@"Dialog.Title.Font"]];
+    [BEDialogView setTitleMargin:[BEUI.theme edgeInsetsForKey:@"Dialog.Title.Margin"]];
+    [BEDialogView setDescriptionColor:[BEUI.theme colorForKey:@"Dialog.Description.TextColor" withDefault:[UIColor blackColor]]];
+    [BEDialogView setDescriptionFont:[BEUI.theme fontForKey:@"Dialog.Description.Font"]];
+    [BEDialogView setDescriptionMargin:[BEUI.theme edgeInsetsForKey:@"Dialog.Description.Margin"]];
 }
 
 + (void)stylePopoverBackgroundView
@@ -388,8 +404,8 @@ static UIStatusBarStyle themeStatusBarStyle;
         [BEUI barButtonItemWithKey:@[@"NoteToolbarDeleteButton", @"NoteToolbarButton"] target:nil action:nil];
         [BEUI barButtonItemWithKey:@[@"NavigationBarDismissKeyboardButton", @"NavigationBarButton"] target:nil action:nil];
         [BEUI barButtonItemWithKey:@[@"NavigationBarPlusButton", @"NavigationBarButton"] target:nil action:nil];
-        [BEUI buttonWithKey:@[@"NoteDiscardAlertDiscardButton", @"AlertWarningButton", @"AlertButton"] target:nil action:nil];
-        [BEUI buttonWithKey:@[@"NoteDiscardAlertCancelButton", @"AlertButton"] target:nil action:nil];
+        [BEUI buttonWithKey:@[@"NoteDeleteAlertDeleteButton", @"AlertWarningButton", @"AlertButton"] target:nil action:nil];
+        [BEUI buttonWithKey:@[@"NoteDeleteAlertCancelButton", @"AlertCancelButton", @"AlertButton"] target:nil action:nil];
     }];
 }
 

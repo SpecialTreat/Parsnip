@@ -6,18 +6,22 @@
 	<dict>
 		<key>Debug</key>
 		<false/>
-		<key>CreateContactNote</key>
+		<key>RequireInAppPurchase</key>
+		<true/>
+		<key>CreateContactNoteText</key>
 		<string>Added by Parsnip</string>
 		<key>DateDisplayFormat</key>
 		<string>yyyy&apos;-&apos;MM&apos;-&apos;dd&apos; &apos;HH&apos;:&apos;mm&apos;:&apos;ss</string>
 		<key>StatusBarStyle</key>
 		<string>Default</string>
 		<key>DeleteText</key>
-		<string>DISCARD</string>
+		<string>Delete</string>
 		<key>ArchiveText</key>
-		<string>ARCHIVE</string>
+		<string>Archive</string>
 		<key>UnarchiveText</key>
-		<string>UNARCHIVE</string>
+		<string>Unarchive</string>
+		<key>UpgradeName</key>
+		<string>Parsnip Pro</string>
 		<key>TintColor</key>
 		<string>40c000</string>
 		<key>SelectedTintColor</key>
@@ -35,6 +39,10 @@
 		</dict>
 		<key>Alert</key>
 		<dict>
+			<key>MaskAlpha</key>
+			<real>0.5</real>
+			<key>ShadowColor</key>
+			<string>00000000</string>
 			<key>ShowAnimationScale</key>
 			<real>1.4</real>
 			<key>HideAnimationScale</key>
@@ -47,7 +55,7 @@
 			<key>Title</key>
 			<dict>
 				<key>TextColor</key>
-				<string>000000</string>
+				<string>@TintColor</string>
 				<key>Font</key>
 				<dict>
 					<key>Size</key>
@@ -57,7 +65,7 @@
 			<key>SelectedTitle</key>
 			<dict>
 				<key>TextColor</key>
-				<string>000000</string>
+				<string>@TintColor</string>
 			</dict>
 			<key>SelectedBackgroundImage</key>
 			<dict>
@@ -70,7 +78,7 @@
 			<key>Title</key>
 			<dict>
 				<key>Text</key>
-				<string>CANCEL</string>
+				<string>Cancel</string>
 			</dict>
 		</dict>
 		<key>AlertWarningButton</key>
@@ -78,7 +86,7 @@
 			<key>Title</key>
 			<dict>
 				<key>TextColor</key>
-				<string>dd0000</string>
+				<string>f84040</string>
 			</dict>
 			<key>SelectedTitle</key>
 			<dict>
@@ -87,10 +95,189 @@
 			</dict>
 			<key>SelectedBackgroundImage</key>
 			<dict>
-				<key>StartColor</key>
-				<string>ff8080</string>
-				<key>EndColor</key>
-				<string>ff0000</string>
+				<key>Color</key>
+				<string>f84040</string>
+			</dict>
+		</dict>
+		<key>Dialog</key>
+		<dict>
+			<key>MaskAlpha</key>
+			<real>0.5</real>
+			<key>ShadowColor</key>
+			<string>00000000</string>
+			<key>ShowAnimationScale</key>
+			<real>1.4</real>
+			<key>HideAnimationScale</key>
+			<real>0.7</real>
+			<key>CornerRadius</key>
+			<integer>6</integer>
+			<key>BackgroundSize</key>
+			<dict>
+				<key>Height</key>
+				<integer>280</integer>
+				<key>Width</key>
+				<integer>280</integer>
+			</dict>
+			<key>Title</key>
+			<dict>
+				<key>TextColor</key>
+				<string>000000</string>
+				<key>Font</key>
+				<dict>
+					<key>Size</key>
+					<integer>18</integer>
+					<key>Bold</key>
+					<true/>
+				</dict>
+				<key>Margin</key>
+				<dict>
+					<key>Top</key>
+					<string>10</string>
+					<key>Right</key>
+					<string>0</string>
+					<key>Bottom</key>
+					<string>0</string>
+					<key>Left</key>
+					<string>0</string>
+				</dict>
+			</dict>
+			<key>Description</key>
+			<dict>
+				<key>TextColor</key>
+				<string>404040</string>
+				<key>Font</key>
+				<dict>
+					<key>Size</key>
+					<integer>12</integer>
+				</dict>
+				<key>Margin</key>
+				<dict>
+					<key>Top</key>
+					<string>10</string>
+					<key>Right</key>
+					<string>10</string>
+					<key>Bottom</key>
+					<string>0</string>
+					<key>Left</key>
+					<string>10</string>
+				</dict>
+			</dict>
+		</dict>
+		<key>DialogButton</key>
+		<dict>
+			<key>Height</key>
+			<integer>48</integer>
+			<key>Title</key>
+			<dict>
+				<key>TextColor</key>
+				<string>@TintColor</string>
+				<key>Font</key>
+				<dict>
+					<key>Size</key>
+					<integer>18</integer>
+				</dict>
+			</dict>
+			<key>SelectedTitle</key>
+			<dict>
+				<key>TextColor</key>
+				<string>@TintColor</string>
+			</dict>
+			<key>BackgroundImage</key>
+			<dict>
+				<key>Color</key>
+				<string>ffffff00</string>
+				<key>Height</key>
+				<integer>48</integer>
+				<key>Border</key>
+				<dict>
+					<key>Top</key>
+					<integer>1</integer>
+					<key>Right</key>
+					<integer>0</integer>
+					<key>Bottom</key>
+					<integer>0</integer>
+					<key>Left</key>
+					<integer>0</integer>
+				</dict>
+				<key>BorderColor</key>
+				<dict>
+					<key>Top</key>
+					<string>c0c0c0</string>
+				</dict>
+			</dict>
+			<key>SelectedBackgroundImage</key>
+			<dict>
+				<key>Color</key>
+				<string>d9d9d9</string>
+			</dict>
+		</dict>
+		<key>InAppPurchaseDialogCancelButton</key>
+		<dict>
+			<key>Title</key>
+			<dict>
+				<key>Text</key>
+				<string>Cancel</string>
+				<key>TextColor</key>
+				<string>@TintColor</string>
+			</dict>
+			<key>BackgroundImage</key>
+			<dict>
+				<key>Width</key>
+				<string>140</string>
+			</dict>
+		</dict>
+		<key>InAppPurchaseDialogOkButton</key>
+		<dict>
+			<key>Title</key>
+			<dict>
+				<key>Text</key>
+				<string>OK</string>
+				<key>Font</key>
+				<dict>
+					<key>Bold</key>
+					<true/>
+				</dict>
+			</dict>
+			<key>BackgroundImage</key>
+			<dict>
+				<key>Width</key>
+				<string>280</string>
+			</dict>
+		</dict>
+		<key>InAppPurchaseDialogPurchaseButton</key>
+		<dict>
+			<key>Title</key>
+			<dict>
+				<key>Text</key>
+				<string>Buy</string>
+				<key>Font</key>
+				<dict>
+					<key>Bold</key>
+					<true/>
+				</dict>
+			</dict>
+			<key>BackgroundImage</key>
+			<dict>
+				<key>Width</key>
+				<string>140</string>
+				<key>Border</key>
+				<dict>
+					<key>Top</key>
+					<integer>1</integer>
+					<key>Right</key>
+					<integer>0</integer>
+					<key>Bottom</key>
+					<integer>0</integer>
+					<key>Left</key>
+					<integer>1</integer>
+				</dict>
+				<key>BorderColor</key>
+				<dict>
+					<key>Top</key>
+					<string>c0c0c0</string>
+					<key>Left</key>
+					<string>c0c0c0</string>
+				</dict>
 			</dict>
 		</dict>
 		<key>ArchiveTable</key>
@@ -773,22 +960,18 @@
 			</dict>
 		</dict>
 		<key>NoteArchiveAlert</key>
-		<dict>
-			<key>BackgroundHeight</key>
-			<integer>120</integer>
-			<key>BackgroundWidth</key>
-			<integer>240</integer>
-			<key>MaskAlpha</key>
-			<real>0.5</real>
-			<key>ShadowColor</key>
-			<string>00000000</string>
-		</dict>
+		<dict/>
 		<key>NoteArchiveAlertArchiveButton</key>
 		<dict>
 			<key>Title</key>
 			<dict>
 				<key>Text</key>
 				<string>@ArchiveText</string>
+				<key>Font</key>
+				<dict>
+					<key>Bold</key>
+					<true/>
+				</dict>
 			</dict>
 			<key>BackgroundImage</key>
 			<dict>
@@ -823,23 +1006,19 @@
 				<string>60</string>
 			</dict>
 		</dict>
-		<key>NoteDiscardAlert</key>
-		<dict>
-			<key>BackgroundHeight</key>
-			<integer>120</integer>
-			<key>BackgroundWidth</key>
-			<integer>240</integer>
-			<key>MaskAlpha</key>
-			<real>0.5</real>
-			<key>ShadowColor</key>
-			<string>00000000</string>
-		</dict>
-		<key>NoteDiscardAlertDiscardButton</key>
+		<key>NoteDeleteAlert</key>
+		<dict/>
+		<key>NoteDeleteAlertDeleteButton</key>
 		<dict>
 			<key>Title</key>
 			<dict>
 				<key>Text</key>
 				<string>@DeleteText</string>
+				<key>Font</key>
+				<dict>
+					<key>Bold</key>
+					<true/>
+				</dict>
 			</dict>
 			<key>BackgroundImage</key>
 			<dict>
@@ -874,6 +1053,8 @@
 				<string>60</string>
 			</dict>
 		</dict>
+		<key>NoteDeleteAlertCancelButton</key>
+		<dict/>
 		<key>NoteNavigationBar</key>
 		<dict>
 			<key>UnsavedTitle</key>
@@ -1132,7 +1313,7 @@
 			<key>Title</key>
 			<dict>
 				<key>Text</key>
-				<string>COPY</string>
+				<string>Copy</string>
 			</dict>
 			<key>BackgroundImage</key>
 			<dict>

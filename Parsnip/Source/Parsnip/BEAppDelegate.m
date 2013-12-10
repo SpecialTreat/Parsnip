@@ -3,8 +3,10 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 
+#import <Foundation/Foundation.h>
 #import "BECaptureController.h"
 #import "BEDB.h"
+#import "BEInAppPurchaser.h"
 #import "BEInfoController.h"
 #import "BENavigationController.h"
 #import "BENote.h"
@@ -12,13 +14,23 @@
 #import "BEUI.h"
 #import "UIColor+Tools.h"
 #import "UIImage+Drawing.h"
-#import <Foundation/Foundation.h>
 
 
 @implementation BEAppDelegate
 
 @synthesize window = _window;
 @synthesize sidePanelController = _sidePanelController;
+
++ (UIViewController *)topController
+{
+    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
+
+    while (topController.presentedViewController) {
+        topController = topController.presentedViewController;
+    }
+
+    return topController;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -47,6 +59,8 @@
     self.window.rootViewController = rootViewController;
 
     [BEUI styleApp:self];
+
+    [BEInAppPurchaser parsnipPurchaser];
 
     [self.window makeKeyAndVisible];
     return YES;
