@@ -200,8 +200,12 @@ static NSArray *_cornerRadii;
         descriptionLabel.textColor = _descriptionColor;
 
         activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        activityIndicator.centerAligned = CGPointMake(_size.width / 2.0f, _size.height / 2.0f);
         activityIndicator.hidesWhenStopped = YES;
+        activityIndicator.centerAligned = CGPointMake(_size.width / 2.0f, _size.height / 2.0f);
+        activityIndicator.autoresizingMask = (UIViewAutoresizingFlexibleBottomMargin |
+                                              UIViewAutoresizingFlexibleTopMargin |
+                                              UIViewAutoresizingFlexibleLeftMargin |
+                                              UIViewAutoresizingFlexibleRightMargin);
 
         [backgroundView addSubview:titleLabel];
         [backgroundView addSubview:descriptionLabel];
