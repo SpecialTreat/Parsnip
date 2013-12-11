@@ -105,15 +105,19 @@ static BOOL _requireInAppPurchase = YES;
         [topView addSubview:dialog];
 
         if (canMakePayments) {
+            UIButton *purchaseButton = [BEUI buttonWithKey:@[@"InAppPurchaseDialogPurchaseButton", @"DialogButton"] target:self action:@selector(onDialogPurchaseButtonTouch:event:)];
+            purchaseButton.enabled = NO;
+            UIButton *cancelButton = [BEUI buttonWithKey:@[@"InAppPurchaseDialogCancelButton", @"DialogButton"] target:self action:@selector(onDialogCancelButtonTouch:event:)];
+            dialog.buttons = @[cancelButton, purchaseButton];
             [dialog show:nil completion:^(BOOL finished) {
+                [dialog startActivityIndicator];
                 [self productForIdentifier:productIdentifier completion:^(SKProduct *product, NSError *error) {
+                    [dialog stopActivityIndicator];
                     if (product) {
                         _productToPurchase = product;
-                        UIButton *purchaseButton = [BEUI buttonWithKey:@[@"InAppPurchaseDialogPurchaseButton", @"DialogButton"] target:self action:@selector(onDialogPurchaseButtonTouch:event:)];
-                        UIButton *cancelButton = [BEUI buttonWithKey:@[@"InAppPurchaseDialogCancelButton", @"DialogButton"] target:self action:@selector(onDialogCancelButtonTouch:event:)];
                         dialog.title = [NSString stringWithFormat:@"%@ - %@", product.localizedTitle, [self localizedPrice:product.price locale:product.priceLocale]];
                         dialog.description = [NSString stringWithFormat:@"This feature requires %@.\n\n%@", product.localizedTitle, product.localizedDescription];
-                        dialog.buttons = @[cancelButton, purchaseButton];
+                        purchaseButton.enabled = YES;
                     } else {
                         Reachability *reachability = [Reachability reachabilityForInternetConnection];
                         NSString *errorText;
@@ -129,8 +133,6 @@ static BOOL _requireInAppPurchase = YES;
                         NSString *upgradeName = [BEUI.theme stringForKey:@"UpgradeName"];
                         dialog.title = upgradeName;
                         dialog.description = [NSString stringWithFormat:@"This feature requires an In-App Purchase of %@.\n\n%@", upgradeName, errorText];
-                        UIButton *okButton = [BEUI buttonWithKey:@[@"InAppPurchaseDialogOkButton", @"DialogButton"] target:self action:@selector(onDialogCancelButtonTouch:event:)];
-                        dialog.buttons = @[okButton];
                     }
                 }];
             }];

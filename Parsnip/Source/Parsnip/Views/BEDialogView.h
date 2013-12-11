@@ -38,5 +38,7 @@
 - (void)hide:(void(^)())animations completion:(void(^)(BOOL finished))completion;
 - (void)fadeOutDialog:(void(^)(BOOL finished))completion;
 - (void)fadeInDialog:(void(^)(BOOL finished))completion;
+- (void)startActivityIndicator;
+- (void)stopActivityIndicator;
 
 @end

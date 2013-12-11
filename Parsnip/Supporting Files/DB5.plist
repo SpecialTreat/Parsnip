@@ -182,6 +182,11 @@
 				<key>TextColor</key>
 				<string>@TintColor</string>
 			</dict>
+			<key>DisabledTitle</key>
+			<dict>
+				<key>TextColor</key>
+				<string>c0c0c0</string>
+			</dict>
 			<key>BackgroundImage</key>
 			<dict>
 				<key>Color</key>
@@ -211,21 +216,6 @@
 				<string>d9d9d9</string>
 			</dict>
 		</dict>
-		<key>InAppPurchaseDialogCancelButton</key>
-		<dict>
-			<key>Title</key>
-			<dict>
-				<key>Text</key>
-				<string>Cancel</string>
-				<key>TextColor</key>
-				<string>@TintColor</string>
-			</dict>
-			<key>BackgroundImage</key>
-			<dict>
-				<key>Width</key>
-				<string>140</string>
-			</dict>
-		</dict>
 		<key>InAppPurchaseDialogOkButton</key>
 		<dict>
 			<key>Title</key>
@@ -242,6 +232,21 @@
 			<dict>
 				<key>Width</key>
 				<string>280</string>
+			</dict>
+		</dict>
+		<key>InAppPurchaseDialogCancelButton</key>
+		<dict>
+			<key>Title</key>
+			<dict>
+				<key>Text</key>
+				<string>Cancel</string>
+				<key>TextColor</key>
+				<string>@TintColor</string>
+			</dict>
+			<key>BackgroundImage</key>
+			<dict>
+				<key>Width</key>
+				<string>140</string>
 			</dict>
 		</dict>
 		<key>InAppPurchaseDialogPurchaseButton</key>

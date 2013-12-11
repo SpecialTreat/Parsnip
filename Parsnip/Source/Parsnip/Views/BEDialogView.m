@@ -12,6 +12,7 @@
     UIView *shadowView;
     UILabel *titleLabel;
     UILabel *descriptionLabel;
+    UIActivityIndicatorView *activityIndicator;
     NSString *_title;
     NSString *_description;
     NSMutableArray *_buttons;
@@ -198,8 +199,13 @@ static NSArray *_cornerRadii;
         descriptionLabel.font = _descriptionFont;
         descriptionLabel.textColor = _descriptionColor;
 
+        activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        activityIndicator.centerAligned = CGPointMake(_size.width / 2.0f, _size.height / 2.0f);
+        activityIndicator.hidesWhenStopped = YES;
+
         [backgroundView addSubview:titleLabel];
         [backgroundView addSubview:descriptionLabel];
+        [backgroundView addSubview:activityIndicator];
         [self addSubview:shadowView];
         [self addSubview:backgroundView];
 
@@ -409,6 +415,16 @@ static NSArray *_cornerRadii;
             completion(finished);
         }
     }];
+}
+
+- (void)startActivityIndicator
+{
+    [activityIndicator startAnimating];
+}
+
+- (void)stopActivityIndicator
+{
+    [activityIndicator stopAnimating];
 }
 
 
