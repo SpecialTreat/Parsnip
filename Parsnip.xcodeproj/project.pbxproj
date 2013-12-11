@@ -1211,6 +1211,11 @@
 				CLASSPREFIX = Parsnip;
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Bracing Effect, LLC";
+				TargetAttributes = {
+					DA7F6EE717348C4800A03C3D = {
+						DevelopmentTeam = 96X9GJB92A;
+					};
+				};
 			};
 			buildConfigurationList = DA7F6EE317348C4800A03C3D /* Build configuration list for PBXProject "Parsnip" */;
 			compatibilityVersion = "Xcode 3.2";

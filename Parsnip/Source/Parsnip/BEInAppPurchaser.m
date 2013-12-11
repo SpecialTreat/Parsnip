@@ -54,12 +54,9 @@ static BOOL _requireInAppPurchase = YES;
         _productIdentifiers = productIdentifiers;
         _purchasedProductIdentifiers = [NSMutableSet set];
 
-        BOOL hasUnpurchasedProducts = NO;
         for (NSString *productIdentifier in _productIdentifiers) {
             if ([[NSUserDefaults standardUserDefaults] boolForKey:productIdentifier]) {
                 [_purchasedProductIdentifiers addObject:productIdentifier];
-            } else {
-                hasUnpurchasedProducts = YES;
             }
         }
         [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
