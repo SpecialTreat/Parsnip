@@ -159,8 +159,6 @@
 		DAA243DE1851895600B04654 /* NoteCopyButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA243CA1851895600B04654 /* NoteCopyButton@2x.png */; };
 		DAA243E01851895600B04654 /* NoteDeleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA243CC1851895600B04654 /* NoteDeleteButton.png */; };
 		DAA243E21851895600B04654 /* NoteDeleteButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA243CE1851895600B04654 /* NoteDeleteButton@2x.png */; };
-		DAA243E41851895600B04654 /* NoteSaveButton.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA243D01851895600B04654 /* NoteSaveButton.png */; };
-		DAA243E61851895600B04654 /* NoteSaveButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA243D21851895600B04654 /* NoteSaveButton@2x.png */; };
 		DAA243E81851895600B04654 /* NoteUnarchiveButton.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA243D41851895600B04654 /* NoteUnarchiveButton.png */; };
 		DAA243EA1851895600B04654 /* NoteUnarchiveButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA243D61851895600B04654 /* NoteUnarchiveButton@2x.png */; };
 		DAA243ED18530C7600B04654 /* BECameraView_Simulator_r4.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA243EC18530C7600B04654 /* BECameraView_Simulator_r4.png */; };
@@ -464,8 +462,6 @@
 		DAA243CA1851895600B04654 /* NoteCopyButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NoteCopyButton@2x.png"; sourceTree = "<group>"; };
 		DAA243CC1851895600B04654 /* NoteDeleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoteDeleteButton.png; sourceTree = "<group>"; };
 		DAA243CE1851895600B04654 /* NoteDeleteButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NoteDeleteButton@2x.png"; sourceTree = "<group>"; };
-		DAA243D01851895600B04654 /* NoteSaveButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoteSaveButton.png; sourceTree = "<group>"; };
-		DAA243D21851895600B04654 /* NoteSaveButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NoteSaveButton@2x.png"; sourceTree = "<group>"; };
 		DAA243D41851895600B04654 /* NoteUnarchiveButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoteUnarchiveButton.png; sourceTree = "<group>"; };
 		DAA243D61851895600B04654 /* NoteUnarchiveButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NoteUnarchiveButton@2x.png"; sourceTree = "<group>"; };
 		DAA243EC18530C7600B04654 /* BECameraView_Simulator_r4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BECameraView_Simulator_r4.png; sourceTree = "<group>"; };
@@ -1053,8 +1049,6 @@
 				DAA243CA1851895600B04654 /* NoteCopyButton@2x.png */,
 				DAA243CC1851895600B04654 /* NoteDeleteButton.png */,
 				DAA243CE1851895600B04654 /* NoteDeleteButton@2x.png */,
-				DAA243D01851895600B04654 /* NoteSaveButton.png */,
-				DAA243D21851895600B04654 /* NoteSaveButton@2x.png */,
 				DAA243D41851895600B04654 /* NoteUnarchiveButton.png */,
 				DAA243D61851895600B04654 /* NoteUnarchiveButton@2x.png */,
 			);
@@ -1261,14 +1255,12 @@
 				DA0E15801838786B0073AF61 /* AppImages.xcassets in Resources */,
 				DA0E15821838786B0073AF61 /* InfoPlist.strings in Resources */,
 				DA0E15101838786A0073AF61 /* ToggleFlashButtonSelected.png in Resources */,
-				DAA243E61851895600B04654 /* NoteSaveButton@2x.png in Resources */,
 				DA0E15121838786A0073AF61 /* ToolbarArchiveButton.png in Resources */,
 				DA0E152A1838786A0073AF61 /* ToolbarOcrImageButton.png in Resources */,
 				DA0E15381838786A0073AF61 /* ToolbarPlusButton@2x.png in Resources */,
 				DA0E153A1838786A0073AF61 /* ToolbarSpotlightImageButton.png in Resources */,
 				DA0E14AB1838786A0073AF61 /* BarButtonItemBackBackground@2x.png in Resources */,
 				DA0E14D61838786A0073AF61 /* NoteSheetGoogleMapsButton@2x.png in Resources */,
-				DAA243E41851895600B04654 /* NoteSaveButton.png in Resources */,
 				DA0E15351838786A0073AF61 /* ToolbarPhotoLibraryButtonSelected@2x.png in Resources */,
 				DA0E14C01838786A0073AF61 /* NoteSheetCallButton.png in Resources */,
 				DA0E150E1838786A0073AF61 /* ToggleFlashButton@2x.png in Resources */,

@@ -25,7 +25,6 @@
 
 @implementation BENoteController
 {
-//    UIBarButtonItem *keepButton;
     UIBarButtonItem *copyButton;
     UIBarButtonItem *archiveButton;
     UIBarButtonItem *unarchiveButton;
@@ -37,7 +36,6 @@
     BEAlertView *alert;
     UITextView *textView;
     BETouchableView *touchableView;
-    UIScrollView *scrollView;
     BOOL initialAppearance;
 
     NSArray *_products;
@@ -116,13 +114,17 @@ static CGSize noteDeleteAlertSize;
 
     CGRect frame = self.view.bounds;
 
-    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, frame.size.height - toolbarHeight)];
-    scrollView.alwaysBounceHorizontal = NO;
-    scrollView.alwaysBounceVertical = YES;
-    scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    scrollView.backgroundColor = [BEUI.theme colorForKey:@"Note.BackgroundColor"];
-    scrollView.bounces = YES;
-    scrollView.clipsToBounds = YES;
+    textView = [[UITextView alloc] initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, frame.size.height - toolbarHeight)];
+    textView.alwaysBounceHorizontal = NO;
+    textView.alwaysBounceVertical = YES;
+    textView.bounces = YES;
+    textView.clipsToBounds = YES;
+
+    textView.font = [BEUI.theme fontForKey:@"Note.Font"];
+    textView.textColor = [BEUI.theme colorForKey:@"Note.TextColor"];
+    textView.backgroundColor = [BEUI.theme colorForKey:@"Note.BackgroundColor"];
+    textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    textView.delegate = self;
 
     dismissKeyboardButton = [BEUI barButtonItemWithKey:@[@"NavigationBarDismissKeyboardButton", @"NavigationBarButton"] target:self action:@selector(onDismissKeyboardButtonTouch)];
     plusButton = [BEUI barButtonItemWithKey:@[@"NavigationBarPlusButton", @"NavigationBarButton"] target:self action:@selector(onPlusButtonTouch)];
@@ -132,7 +134,6 @@ static CGSize noteDeleteAlertSize;
     UILabel *titleView = [[UILabel alloc] initWithFrame:CGRectZero];
     self.navigationItem.titleView = [BEUI styleNavigationBarTitleView:titleView];
     [self setTitle:self.title];
-    [self updateTitleStyle];
 
     _imageView = [[UIImageView alloc] init];
     _imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -154,14 +155,6 @@ static CGSize noteDeleteAlertSize;
     _scannerView.sweepDuration = scannerSweepDuration;
     _scannerView.fadeDuration = scannerFadeDuration;
 
-    textView = [[UITextView alloc] init];
-    textView.font = [BEUI.theme fontForKey:@"Note.Font"];
-    textView.textColor = [BEUI.theme colorForKey:@"Note.TextColor"];
-    textView.backgroundColor = [BEUI.theme colorForKey:@"Note.BackgroundColor"];
-    textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    textView.delegate = self;
-
-//    keepButton = [BEUI barButtonItemWithKey:@[@"NoteToolbarSaveButton", @"NoteToolbarButton"] target:self action:@selector(onKeepButtonTouch:event:)];
     copyButton = [BEUI barButtonItemWithKey:@[@"NoteToolbarCopyButton", @"NoteToolbarButton"] target:self action:@selector(onCopyButtonTouch:event:)];
     archiveButton = [BEUI barButtonItemWithKey:@[@"NoteToolbarArchiveButton", @"NoteToolbarButton"] target:self action:@selector(onArchiveButtonTouch:event:)];
     unarchiveButton = [BEUI barButtonItemWithKey:@[@"NoteToolbarUnarchiveButton", @"NoteToolbarButton"] target:self action:@selector(onUnarchiveButtonTouch:event:)];
@@ -183,12 +176,11 @@ static CGSize noteDeleteAlertSize;
 
     [self updateToolbarButtonsAnimated:NO];
 
-    [scrollView addSubview:textView];
-    [scrollView addSubview:_imageViewBackground];
-    [scrollView addSubview:_imageView];
-    [scrollView addSubview:touchableView];
-    [scrollView addSubview:_scannerView];
-    [self.view addSubview:scrollView];
+    [textView addSubview:_imageViewBackground];
+    [textView addSubview:_imageView];
+    [textView addSubview:touchableView];
+    [textView addSubview:_scannerView];
+    [self.view addSubview:textView];
     [self.view addSubview:toolbar];
 
     [self initDeviceListeners];
@@ -229,12 +221,14 @@ static CGSize noteDeleteAlertSize;
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 
+    [self layoutSubviews];
+
     if (initialAppearance) {
         initialAppearance = NO;
         UIEdgeInsets insets = self.insetsForView;
-        scrollView.contentOffset = CGPointMake(0.0f - insets.left, 0.0f - insets.top);
+        insets.top += _imageView.frame.size.height;
+        textView.contentOffset = CGPointMake(0.0f - insets.left, 0.0f - insets.top);
     }
-    [self layoutSubviews];
 
     if (self.popover) {
         [UIView animateWithDuration:UINavigationControllerHideShowBarDuration animations:^{
@@ -255,12 +249,14 @@ static CGSize noteDeleteAlertSize;
 
 - (void)layoutSubviews
 {
-    CGRect frame = [self boundsForViewStatusBarHidden:YES];
     UIEdgeInsets insets = self.insetsForView;
-    scrollView.contentInset = insets;
-    scrollView.scrollIndicatorInsets = insets;
+    textView.scrollIndicatorInsets = insets;
+    insets.top += _imageView.frame.size.height;
+    textView.contentInset = insets;
 
     if (_note) {
+        CGRect frame = [self boundsForViewStatusBarHidden:YES];
+        frame.size.height -= toolbarHeight;
         [self layoutForImage:_note.croppedImage inFrame:frame];
     }
 }
@@ -268,24 +264,11 @@ static CGSize noteDeleteAlertSize;
 - (void)layoutForImage:(UIImage *)image inFrame:(CGRect)frame
 {
     CGRect imageViewFrame = [self frameForImage:image inFrame:frame];
+    imageViewFrame.origin.y -= imageViewFrame.size.height;
     _imageView.frame = imageViewFrame;
     _imageViewBackground.frame = imageViewFrame;
     _scannerView.frame = imageViewFrame;
     touchableView.frame = imageViewFrame;
-
-    [self layoutTextView];
-}
-
-- (void)layoutTextView
-{
-    CGRect textViewFrame = [self frameForTextView];
-    if (!CGRectEqualToRect(textViewFrame, textView.frame)) {
-        textView.frame = textViewFrame;
-    }
-    CGSize scrollViewContentSize = CGSizeMake(scrollView.frame.size.width, _imageView.frame.size.height + textView.frame.size.height);
-    if (!CGSizeEqualToSize(scrollViewContentSize, scrollView.contentSize)) {
-        scrollView.contentSize = scrollViewContentSize;
-    }
 }
 
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
@@ -324,17 +307,20 @@ static CGSize noteDeleteAlertSize;
     if (keyboardSize.height > keyboardSize.width) {
         keyboardHeight = keyboardSize.width;
     }
+
     CGRect frame = self.view.bounds;
-    frame.size.height -= keyboardHeight;
-    scrollView.frame = frame;
-    [self layoutTextView];
+    frame.size.height -= MAX(keyboardHeight, toolbarHeight);
+    textView.frame = frame;
 }
 
 - (void)onKeyboardWillHide:(NSNotification *)notification
 {
     [self.navigationItem setRightBarButtonItem:plusButton animated:YES];
-    scrollView.frame = self.view.bounds;
-    [self layoutTextView];
+
+    CGRect frame = self.view.bounds;
+    frame.size.height -= toolbarHeight;
+    textView.frame = frame;
+
     touchableView.userInteractionEnabled = YES;
 }
 
@@ -353,6 +339,7 @@ static CGSize noteDeleteAlertSize;
 {
     [super setTitle:title];
     self.titleView.text = title;
+    [self.titleView sizeToFit];
 }
 
 - (NSString *)title
@@ -380,7 +367,6 @@ static CGSize noteDeleteAlertSize;
                 [titleView.superview addSubview:cloneTitleView];
                 titleView.alpha = 0.0f;
                 self.title = title;
-                [titleView sizeToFit];
 
                 [UIView animateWithDuration:UINavigationControllerHideShowBarDuration animations:^{
                     cloneTitleView.alpha = 0.0f;
@@ -390,28 +376,16 @@ static CGSize noteDeleteAlertSize;
                 }];
             } else {
                 self.title = title;
-                [titleView sizeToFit];
             }
         }
     }
-}
-
-- (void)updateTitleStyle
-{
-//    if (_isDirty || !_note.userSaved) {
-//        [self.titleView setFont:[BEUI.theme fontForKey:@[@"NoteNavigationBar.UnsavedTitle", @"NavigationBar.Title"] withSubkey:@"Font"]];
-//    } else {
-//        [self.titleView setFont:[BEUI.theme fontForKey:@"NavigationBar.Title.Font"]];
-//    }
-    [self.titleView sizeToFit];
 }
 
 - (void)updateToolbarButtonsAnimated:(BOOL)animated
 {
     NSArray *items = nil;
     if (_note.archived) {
-        items = @[//keepButton,
-                  [UIBarButtonItem spacer],
+        items = @[[UIBarButtonItem spacer],
                   copyButton,
                   [UIBarButtonItem spacer],
                   unarchiveButton,
@@ -419,8 +393,7 @@ static CGSize noteDeleteAlertSize;
                   deleteButton,
                   [UIBarButtonItem spacer]];
     } else {
-        items = @[//keepButton,
-                  [UIBarButtonItem spacer],
+        items = @[[UIBarButtonItem spacer],
                   copyButton,
                   [UIBarButtonItem spacer],
                   archiveButton,
@@ -435,7 +408,6 @@ static CGSize noteDeleteAlertSize;
 - (void)setIsDirty:(BOOL)isDirty
 {
     _isDirty = isDirty;
-    [self updateTitleStyle];
 }
 
 - (void)touchableViewOnTouch:(BETouchableView *)view
@@ -473,7 +445,7 @@ static CGSize noteDeleteAlertSize;
         imageView.transform = CGAffineTransformScale(_note.croppedImageTransform, scale, scale);
         [self.navigationController.view addSubview:imageView];
 
-        CGPoint desiredCenter = [self.navigationController.view convertPoint:_imageView.center fromView:scrollView];
+        CGPoint desiredCenter = [self.navigationController.view convertPoint:_imageView.center fromView:textView];
         CGPoint actualCenter = [self.navigationController.view convertPoint:cropView.center fromView:cropViewContainer];
         CGPoint offset = CGPointMake(desiredCenter.x - actualCenter.x, desiredCenter.y - actualCenter.y);
 
@@ -509,18 +481,12 @@ static CGSize noteDeleteAlertSize;
 {
     _note = note;
     if ([self isViewLoaded]) {
-        CGRect imageViewFrame = [self frameForImage:_note.croppedImage inFrame:scrollView.frame];
-        _imageView.frame = imageViewFrame;
-        _imageViewBackground.frame = imageViewFrame;
-        _scannerView.frame = imageViewFrame;
-        touchableView.frame = imageViewFrame;
-
         _imageView.image = _note.croppedImage;
         if (_note.postOcrText) {
             [self updateTitle:_note.firstNonDataTypeLine animated:NO];
         }
-        [self updateTitleStyle];
         [self updateText:_note.text];
+        [self layoutSubviews];
 
         if(_imageView.image) {
             _imageView.hidden = NO;
@@ -538,7 +504,7 @@ static CGSize noteDeleteAlertSize;
 
 - (CGFloat)viewableHeight
 {
-    return scrollView.frame.size.height - scrollView.contentInset.top - scrollView.contentInset.bottom;
+    return textView.frame.size.height - textView.contentInset.top - textView.contentInset.bottom;
 }
 
 - (BOOL)isImageLetterboxed:(UIImage *)image inFrame:(CGRect)frame
@@ -562,35 +528,6 @@ static CGSize noteDeleteAlertSize;
         CGFloat imageHeight = width * (image.size.height / image.size.width);
         return [UIView alignRect:CGRectMake(frame.origin.x, frame.origin.y, width, imageHeight)];
     }
-}
-
-- (CGRect)frameForTextView
-{
-    CGFloat width = scrollView.frame.size.width;
-    CGFloat height = self.viewableHeight;
-    CGFloat xInsets = 10.0f + textView.contentInset.left + textView.contentInset.right;
-    CGFloat yInsets = textView.contentInset.top + textView.contentInset.bottom;
-    CGFloat textViewHeight = 0.0f;
-    NSString *text = [NSString stringWithFormat:@".%@.", textView.text];
-    if ([NSString instancesRespondToSelector:@selector(boundingRectWithSize:options:attributes:context:)]) {
-        xInsets += textView.textContainerInset.left + textView.textContainerInset.right;
-        yInsets += textView.textContainerInset.top + textView.textContainerInset.bottom;
-        CGRect textFrame = [text boundingRectWithSize:CGSizeMake(width - xInsets, FLT_MAX)
-                                              options:NSStringDrawingUsesLineFragmentOrigin
-                                           attributes:@{UITextAttributeFont: textView.font,
-                                                        UITextAttributeTextColor: textView.textColor}
-                                              context:nil];
-        textViewHeight = ceil(textFrame.origin.y + textFrame.size.height + yInsets);
-
-    } else {
-        yInsets += 16.0f;
-        CGSize textSize = [text sizeWithFont:textView.font
-                           constrainedToSize:CGSizeMake(width - xInsets, FLT_MAX)
-                               lineBreakMode:NSLineBreakByWordWrapping];
-        textViewHeight = ceil(textSize.height + yInsets);
-    }
-    textViewHeight = MAX(textViewHeight, height - _imageView.frame.size.height);
-    return [UIView alignRect:CGRectMake(0, _imageView.frame.origin.y + _imageView.frame.size.height, width, textViewHeight)];
 }
 
 - (void)ocr:(BENote *)value
@@ -634,10 +571,7 @@ static CGSize noteDeleteAlertSize;
 
                     _note.thumbnailImage = [BENote createThumbnail:_note.croppedImage];
                     _note.thumbnailImageTimestamp = [NSDate date];
-                    
-//                    if (![NSString isEmpty:_note.text]) {
-//                        [BENote replaceMostRecentDrafts:_note];
-//                    }
+
                     if([BEDB save:_note]) {
                         self.isDirty = NO;
                     }
@@ -730,32 +664,7 @@ static CGSize noteDeleteAlertSize;
 
 - (void)updateText:(NSString *)text
 {
-    textView.hidden = YES;
     textView.text = text;
-    [self layoutTextView];
-    [self showTextView:YES];
-}
-
-- (void)showTextView:(BOOL)animated
-{
-    [self showTextView:animated completion:nil];
-}
-
-- (void)showTextView:(BOOL)animated completion:(void(^)(BOOL finished))completion
-{
-    if(animated) {
-        textView.alpha = 0.0f;
-        textView.hidden = NO;
-        [UIView animateWithDuration:UINavigationControllerHideShowBarDuration
-                         animations:^{ textView.alpha = 1.0f; }
-                         completion:completion];
-    } else {
-        textView.alpha = 1.0f;
-        textView.hidden = NO;
-        if(completion) {
-            completion(YES);
-        }
-    }
 }
 
 - (void)popoverControllerDidDismissPopover:(BEPopoverController *)popoverController
@@ -775,7 +684,6 @@ static CGSize noteDeleteAlertSize;
     if (!self.isDirty) {
         self.isDirty = YES;
     }
-    [self layoutTextView];
 }
 
 - (void)unknownPersonViewController:(ABUnknownPersonViewController *)unknownPersonView didResolveToPerson:(ABRecordRef)person

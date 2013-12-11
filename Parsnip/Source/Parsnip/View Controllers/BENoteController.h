@@ -31,7 +31,6 @@
 - (BOOL)isImageLetterboxed:(UIImage *)image inFrame:(CGRect)frame;
 - (void)layoutForImage:(UIImage *)image inFrame:(CGRect)frame;
 - (CGRect)frameForImage:(UIImage *)image inFrame:(CGRect)frame;
-- (CGRect)frameForTextView;
 - (void)ocr:(BENote *)value;
 
 - (void)popoverControllerDidDismissPopover:(BEPopoverController *)popoverController;
