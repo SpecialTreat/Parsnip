@@ -5,6 +5,7 @@
 #import "BEDB.h"
 #import "BEOcr.h"
 #import "BETextData.h"
+#import "BETextDataDetector.h"
 #import "BEThread.h"
 #import "BEUI.h"
 #import "UIImage+Manipulation.h"
@@ -132,7 +133,7 @@
 {
     if([self isDataTypesStale] && self.text) {
         dataTypesText = self.text;
-        _dataTypes = [BETextData detectDataTypes:dataTypesText stripEmpty:YES];
+        _dataTypes = [BETextDataDetector detectDataTypes:dataTypesText stripEmpty:YES];
     }
     return _dataTypes;
 }
@@ -154,7 +155,7 @@
 
 - (ABRecordRef)createPerson
 {
-    ABRecordRef person = [BETextData createPersonWithDataTypes:self.dataTypes];
+    ABRecordRef person = [BETextDataDetector createPersonWithDataTypes:self.dataTypes];
     if ([self internalValueForProperty:@"rawImage"] && self.rawImage) {
         NSData *data = UIImagePNGRepresentation(self.rawImage);
         CFDataRef imageData = CFDataCreate(NULL, (UInt8 *)data.bytes, data.length);
@@ -162,7 +163,7 @@
         CFRelease(imageData);
     }
 
-    NSString *name = self.text.firstLine;
+    NSString *name = self.firstNonDataTypeLine;
     ABRecordSetValue(person, kABPersonFirstNameProperty, (__bridge CFStringRef)name, nil);
 
     NSString *note = [BEUI.theme stringForKey:@"CreateContactNoteText"];
@@ -173,10 +174,20 @@
 
 - (BOOL)hasPerson
 {
-    return (((NSArray *)self.dataTypes[@"Address"]).count ||
-            ((NSArray *)self.dataTypes[@"Email"]).count ||
-            ((NSArray *)self.dataTypes[@"URL"]).count ||
-            ((NSArray *)self.dataTypes[@"PhoneNumber"]).count);
+    return ([self.dataTypes[@"Address"] count] ||
+            [self.dataTypes[@"Email"] count] ||
+            [self.dataTypes[@"URL"] count] ||
+            [self.dataTypes[@"PhoneNumber"] count]);
+}
+
+- (NSString *)firstNonDataTypeLine
+{
+    if ([self.dataTypes[@"Text"] count]) {
+        BETextData *textData = self.dataTypes[@"Text"][0];
+        return textData.matchedText.firstLine;
+    } else {
+        return self.text.firstLine;
+    }
 }
 
 @end

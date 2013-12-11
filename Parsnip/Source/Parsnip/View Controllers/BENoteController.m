@@ -11,6 +11,7 @@
 #import "BEPopoverBackgroundView.h"
 #import "BEPopoverController.h"
 #import "BETextData.h"
+#import "BETextDataDetector.h"
 #import "BEThread.h"
 #import "BEUI.h"
 #import "UIBarButtonItem+Tools.h"
@@ -516,7 +517,7 @@ static CGSize noteDeleteAlertSize;
 
         _imageView.image = _note.croppedImage;
         if (_note.postOcrText) {
-            [self updateTitle:_note.text.firstLine animated:NO];
+            [self updateTitle:_note.firstNonDataTypeLine animated:NO];
         }
         [self updateTitleStyle];
         [self updateText:_note.text];
@@ -643,7 +644,7 @@ static CGSize noteDeleteAlertSize;
 
                     [BEThread main:^{
                         [self updateText:_note.text];
-                        [self updateTitle:_note.text.firstLine animated:YES];
+                        [self updateTitle:_note.firstNonDataTypeLine animated:YES];
                         plusButton.enabled = YES;
                         copyButton.enabled = YES;
                         archiveButton.enabled = YES;
@@ -661,7 +662,7 @@ static CGSize noteDeleteAlertSize;
 
 - (void)onDismissKeyboardButtonTouch
 {
-    [self updateTitle:_note.text.firstLine animated:YES];
+    [self updateTitle:_note.firstNonDataTypeLine animated:YES];
     if (self.isDirty && _note.userText) {
         _note.userSaved = YES;
         if([BEDB save:_note]) {
@@ -895,50 +896,23 @@ static CGSize noteDeleteAlertSize;
 
 - (void)noteSheet:(BENoteSheetController *)controller
           contact:(BENote *)note
-             text:(NSString *)text
-      phoneNumber:(NSString *)phoneNumber
+         textData:(BETextData *)textData
 {
-    ABRecordRef person = [BETextData createPersonWithDataTypes:@{@"PhoneNumber": @[@[text, phoneNumber]]}];
-    [self performSelectorOnMainThread:@selector(showContact:) withObject:(__bridge id)person waitUntilDone:NO];
-}
-
-- (void)noteSheet:(BENoteSheetController *)controller
-          contact:(BENote *)note
-             text:(NSString *)text
-              url:(NSURL *)url
-{
-    ABRecordRef person = [BETextData createPersonWithDataTypes:@{@"URL": @[@[text, url]]}];
-    [self performSelectorOnMainThread:@selector(showContact:) withObject:(__bridge id)person waitUntilDone:NO];
-}
-
-- (void)noteSheet:(BENoteSheetController *)controller
-          contact:(BENote *)note
-             text:(NSString *)text
-            email:(NSURL *)email
-{
-    ABRecordRef person = [BETextData createPersonWithDataTypes:@{@"Email": @[@[text, email]]}];
-    [self performSelectorOnMainThread:@selector(showContact:) withObject:(__bridge id)person waitUntilDone:NO];
-}
-
-- (void)noteSheet:(BENoteSheetController *)controller
-          contact:(BENote *)note
-             text:(NSString *)text
-          address:(NSDictionary *)components
-{
-    ABRecordRef person = [BETextData createPersonWithDataTypes:@{@"Address": @[@[text, components]]}];
+    ABRecordRef person = [BETextDataDetector createPersonWithDataTypes:@{textData.dataType: @[textData]}];
     [self performSelectorOnMainThread:@selector(showContact:) withObject:(__bridge id)person waitUntilDone:NO];
 }
 
 - (void)noteSheet:(BENoteSheetController *)controller
          calendar:(BENote *)note
-             text:(NSString *)text
-             date:(NSDate *)date
-         duration:(NSTimeInterval)duration
-         timeZone:(NSTimeZone *)timeZone
+         textData:(BETextData *)textData
 {
     EKEventStore *eventStore = [[EKEventStore alloc] init];
     [eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
         if(granted) {
+            NSDate *date = textData.components[0];
+            NSTimeInterval duration = [textData.components[1] doubleValue];
+            NSTimeZone *timeZone = textData.components[2];
+
             EKEvent *event = [EKEvent eventWithEventStore:eventStore];
             event.startDate = date;
             event.timeZone = timeZone;
@@ -947,8 +921,8 @@ static CGSize noteDeleteAlertSize;
             } else {
                 event.endDate = [date dateByAddingTimeInterval:3600.0];
             }
-            NSString *title = note.text.firstLine;
-            if(![title isEqualToString:text]) {
+            NSString *title = note.firstNonDataTypeLine;
+            if(![title isEqualToString:textData.matchedText]) {
                 event.title = title;
             }
             event.notes = [NSString stringWithFormat:@"%@\n\n%@", [BEUI.theme stringForKey:@"CreateContactNoteText"], note.text];

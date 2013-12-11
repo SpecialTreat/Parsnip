@@ -10,6 +10,7 @@
 #import "BENoteSheetController.h"
 #import "BEPopoverController.h"
 #import "BEScannerView.h"
+#import "BETextData.h"
 
 
 @interface BENoteController : BEBaseController<UITextViewDelegate,
@@ -45,13 +46,9 @@
 - (void)noteSheet:(BENoteSheetController *)controller contact:(BENote *)note;
 - (void)noteSheet:(BENoteSheetController *)controller
          calendar:(BENote *)note
-             text:(NSString *)text
-             date:(NSDate *)date
-         duration:(NSTimeInterval)duration
-         timeZone:(NSTimeZone *)timeZone;
+         textData:(BETextData *)textData;
 - (void)noteSheet:(BENoteSheetController *)controller
           contact:(BENote *)note
-             text:(NSString *)text
-      phoneNumber:(NSString *)phoneNumber;
+         textData:(BETextData *)textData;
 
 @end

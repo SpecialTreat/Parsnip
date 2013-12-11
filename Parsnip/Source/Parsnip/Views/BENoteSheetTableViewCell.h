@@ -1,8 +1,11 @@
 #import <UIKit/UIKit.h>
 
+#import "BETextData.h"
+
 
 @interface BENoteSheetTableViewCell : UITableViewCell
 
+@property (nonatomic) BETextData *textData;
 @property (nonatomic) NSString *type;
 @property (nonatomic) NSString *text;
 @property (nonatomic) NSDate *date;

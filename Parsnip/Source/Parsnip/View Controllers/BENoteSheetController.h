@@ -1,6 +1,7 @@
 #import <UIKit/UIKit.h>
 
 #import "BENote.h"
+#import "BETextData.h"
 
 
 @protocol BENoteSheetControllerDelegate;
@@ -16,30 +17,13 @@
 @end
 
 @protocol BENoteSheetControllerDelegate
-@optional
-- (void)noteSheet:(BENoteSheetController *)controller
-         calendar:(BENote *)note
-             text:(NSString *)text
-             date:(NSDate *)date
-         duration:(NSTimeInterval)duration
-         timeZone:(NSTimeZone *)timeZone;
+
 - (void)noteSheet:(BENoteSheetController *)controller
           contact:(BENote *)note;
 - (void)noteSheet:(BENoteSheetController *)controller
           contact:(BENote *)note
-             text:(NSString *)text
-      phoneNumber:(NSString *)phoneNumber;
+         textData:(BETextData *)textData;
 - (void)noteSheet:(BENoteSheetController *)controller
-          contact:(BENote *)note
-             text:(NSString *)text
-              url:(NSURL *)url;
-- (void)noteSheet:(BENoteSheetController *)controller
-          contact:(BENote *)note
-             text:(NSString *)text
-            email:(NSURL *)email;
-- (void)noteSheet:(BENoteSheetController *)controller
-          contact:(BENote *)note
-             text:(NSString *)text
-          address:(NSDictionary *)components;
-
+         calendar:(BENote *)note
+         textData:(BETextData *)textData;
 @end

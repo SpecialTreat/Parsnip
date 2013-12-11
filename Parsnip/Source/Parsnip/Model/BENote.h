@@ -52,6 +52,8 @@
 
 @property (nonatomic, readonly) BOOL hasPerson;
 
+@property (nonatomic, readonly) NSString *firstNonDataTypeLine;
+
 - (ABRecordRef)createPerson CF_RETURNS_RETAINED;
 
 @end

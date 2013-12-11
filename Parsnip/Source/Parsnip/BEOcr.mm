@@ -7,7 +7,7 @@
 #import "imageio.h"
 #import "NSString+Tools.h"
 #import "BEConstants.h"
-#import "BETextData.h"
+#import "BETextDataDetector.h"
 #import "BEThread.h"
 #import "UIImage+Tesseract.h"
 
@@ -113,8 +113,8 @@ static NSString *tessdataPath;
     if(postText == text) {
         return text;
     }
-    NSUInteger preCount = [BETextData detectDataTypesCount:text];
-    NSUInteger postCount = [BETextData detectDataTypesCount:postText];
+    NSUInteger preCount = [BETextDataDetector detectDataTypesCount:text];
+    NSUInteger postCount = [BETextDataDetector detectDataTypesCount:postText];
     if(postCount > preCount || (!strict && postCount == preCount)) {
         return postText;
     } else {

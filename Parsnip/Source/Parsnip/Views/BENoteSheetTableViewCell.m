@@ -30,6 +30,7 @@ static UIEdgeInsets textMargin;
     textMargin = [BEUI.theme edgeInsetsForKey:themeKey withSubkey:@"Text.Margin"];
 }
 
+@synthesize textData = _textData;
 @synthesize type = _type;
 @synthesize date = _date;
 @synthesize timeZone = _timeZone;

@@ -6,6 +6,7 @@
 #import "BEAlertView.h"
 #import "BEInAppPurchaser.h"
 #import "BENoteSheetTableViewCell.h"
+#import "BETextDataDetector.h"
 #import "BEUI.h"
 #import "UIBarButtonItem+Tools.h"
 #import "UIDevice+Tools.h"
@@ -165,12 +166,13 @@ static UIEdgeInsets tableCellPadding;
                         target:self
                         action:@selector(onContactButtonTouch:event:)];
     } else if (indexPath.section == 1) {
-        NSArray *data = self.note.dataTypes[@"PhoneNumber"][indexPath.row];
-        if (data) {
+        BETextData *textData = self.note.dataTypes[@"PhoneNumber"][indexPath.row];
+        if (textData) {
             cell = [[BENoteSheetTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
+            cell.textData = textData;
             cell.type = @"PhoneNumber";
-            cell.text = data[0];
-            cell.phoneNumber = data[1];
+            cell.text = textData.matchedText;
+            cell.phoneNumber = textData.components[0];
             
             [cell addButtonWithKey:@"NoteSheetTableCellCallButton"
                             target:self
@@ -181,12 +183,13 @@ static UIEdgeInsets tableCellPadding;
                             action:@selector(onMessageButtonTouch:event:)];
         }
     } else if (indexPath.section == 2) {
-        NSArray *data = self.note.dataTypes[@"Address"][indexPath.row];
-        if (data) {
+        BETextData *textData = self.note.dataTypes[@"Address"][indexPath.row];
+        if (textData) {
             cell = [[BENoteSheetTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
+            cell.textData = textData;
             cell.type = @"Address";
-            cell.text = data[0];
-            cell.addressComponents = data[1];
+            cell.text = textData.matchedText;
+            cell.addressComponents = textData.components[0];
 
             [cell addButtonWithKey:@"NoteSheetTableCellMapButton"
                             target:self
@@ -199,24 +202,26 @@ static UIEdgeInsets tableCellPadding;
             }
         }
     } else if (indexPath.section == 3) {
-        NSArray *data = self.note.dataTypes[@"Email"][indexPath.row];
-        if (data) {
+        BETextData *textData = self.note.dataTypes[@"Email"][indexPath.row];
+        if (textData) {
             cell = [[BENoteSheetTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
+            cell.textData = textData;
             cell.type = @"Email";
-            cell.text = data[0];
-            cell.email = data[1];
+            cell.text = textData.matchedText;
+            cell.email = textData.components[0];
 
             [cell addButtonWithKey:@"NoteSheetTableCellEmailButton"
                             target:self
                             action:@selector(onEmailButtonTouch:event:)];
         }
     } else if (indexPath.section == 4) {
-        NSArray *data = self.note.dataTypes[@"URL"][indexPath.row];
-        if (data) {
+        BETextData *textData = self.note.dataTypes[@"URL"][indexPath.row];
+        if (textData) {
             cell = [[BENoteSheetTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
+            cell.textData = textData;
             cell.type = @"URL";
-            cell.text = data[0];
-            cell.URL = data[1];
+            cell.text = textData.matchedText;
+            cell.URL = textData.components[0];
 
             [cell addButtonWithKey:@"NoteSheetTableCellSafariButton"
                             target:self
@@ -229,14 +234,15 @@ static UIEdgeInsets tableCellPadding;
             }
         }
     } else if (indexPath.section == 5) {
-        NSArray *data = self.note.dataTypes[@"Date"][indexPath.row];
-        if (data) {
+        BETextData *textData = self.note.dataTypes[@"Date"][indexPath.row];
+        if (textData) {
             cell = [[BENoteSheetTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
+            cell.textData = textData;
             cell.type = @"Date";
-            cell.text = data[0];
-            cell.date = data[1];
-            cell.duration = [data[2] doubleValue];
-            cell.timeZone = data[3];
+            cell.text = textData.matchedText;
+            cell.date = textData.components[0];
+            cell.duration = [textData.components[1] doubleValue];
+            cell.timeZone = textData.components[2];
 
             [cell addButtonWithKey:@"NoteSheetTableCellDateButton"
                             target:self
@@ -254,20 +260,20 @@ static UIEdgeInsets tableCellPadding;
                 if (indexPath.section == 0) {
                     [self.delegate noteSheet:self contact:self.note];
                 } else if (indexPath.section == 1) {
-                    NSArray *data = self.note.dataTypes[@"PhoneNumber"][indexPath.row];
-                    [self.delegate noteSheet:self contact:self.note text:data[0] phoneNumber:data[1]];
+                    BETextData *textData = self.note.dataTypes[@"PhoneNumber"][indexPath.row];
+                    [self.delegate noteSheet:self contact:self.note textData:textData];
                 } else if (indexPath.section == 2) {
-                    NSArray *data = self.note.dataTypes[@"Address"][indexPath.row];
-                    [self.delegate noteSheet:self contact:self.note text:data[0] address:data[1]];
+                    BETextData *textData = self.note.dataTypes[@"Address"][indexPath.row];
+                    [self.delegate noteSheet:self contact:self.note textData:textData];
                 } else if (indexPath.section == 3) {
-                    NSArray *data = self.note.dataTypes[@"Email"][indexPath.row];
-                    [self.delegate noteSheet:self contact:self.note text:data[0] email:data[1]];
+                    BETextData *textData = self.note.dataTypes[@"Email"][indexPath.row];
+                    [self.delegate noteSheet:self contact:self.note textData:textData];
                 } else if (indexPath.section == 4) {
-                    NSArray *data = self.note.dataTypes[@"URL"][indexPath.row];
-                    [self.delegate noteSheet:self contact:self.note text:data[0] url:data[1]];
+                    BETextData *textData = self.note.dataTypes[@"URL"][indexPath.row];
+                    [self.delegate noteSheet:self contact:self.note textData:textData];
                 } else if (indexPath.section == 5) {
-                    NSArray *data = self.note.dataTypes[@"Date"][indexPath.row];
-                    [self.delegate noteSheet:self calendar:self.note text:data[0] date:data[1] duration:[data[2] doubleValue] timeZone:data[3]];
+                    BETextData *textData = self.note.dataTypes[@"Date"][indexPath.row];
+                    [self.delegate noteSheet:self calendar:self.note textData:textData];
                 }
             }
         }];
@@ -294,12 +300,8 @@ static UIEdgeInsets tableCellPadding;
         if (success) {
             BENoteSheetTableViewCell *cell = [self parentCell:sender];
             if(cell) {
-                NSString *text = cell.text;
-                NSDate *date = cell.date;
-                NSTimeInterval duration = cell.duration;
-                NSTimeZone *timeZone = cell.timeZone;
                 @synchronized(self) {
-                    [self.delegate noteSheet:self calendar:self.note text:text date:date duration:duration timeZone:timeZone];
+                    [self.delegate noteSheet:self calendar:self.note textData:cell.textData];
                 }
             }
         }

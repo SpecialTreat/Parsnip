@@ -171,7 +171,7 @@
 		DAD6E3DD184AC18200D675B1 /* BEConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6E39E184AC18200D675B1 /* BEConstants.m */; };
 		DAD6E3DE184AC18200D675B1 /* BEDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6E3A0184AC18200D675B1 /* BEDevice.m */; };
 		DAD6E3DF184AC18200D675B1 /* BEOcr.mm in Sources */ = {isa = PBXBuildFile; fileRef = DAD6E3A2184AC18200D675B1 /* BEOcr.mm */; };
-		DAD6E3E0184AC18200D675B1 /* BETextData.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6E3A4184AC18200D675B1 /* BETextData.m */; };
+		DAD6E3E0184AC18200D675B1 /* BETextDataDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6E3A4184AC18200D675B1 /* BETextDataDetector.m */; };
 		DAD6E3E1184AC18200D675B1 /* BEThread.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6E3A6184AC18200D675B1 /* BEThread.m */; };
 		DAD6E3E2184AC18200D675B1 /* BEUI.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6E3A8184AC18200D675B1 /* BEUI.m */; };
 		DAD6E3E3184AC18200D675B1 /* BEDB.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6E3AB184AC18200D675B1 /* BEDB.m */; };
@@ -202,6 +202,7 @@
 		DAE46AFF1856F1A10007243C /* BEDialogView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE46AFE1856F1A10007243C /* BEDialogView.m */; };
 		DAE46B03185765AA0007243C /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE46B02185765AA0007243C /* Reachability.m */; };
 		DAE46B05185765DC0007243C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAE46B04185765DC0007243C /* SystemConfiguration.framework */; };
+		DAE46B0818582BA40007243C /* BETextData.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE46B0718582BA40007243C /* BETextData.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -479,8 +480,8 @@
 		DAD6E3A0184AC18200D675B1 /* BEDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEDevice.m; sourceTree = "<group>"; };
 		DAD6E3A1184AC18200D675B1 /* BEOcr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEOcr.h; sourceTree = "<group>"; };
 		DAD6E3A2184AC18200D675B1 /* BEOcr.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BEOcr.mm; sourceTree = "<group>"; };
-		DAD6E3A3184AC18200D675B1 /* BETextData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BETextData.h; sourceTree = "<group>"; };
-		DAD6E3A4184AC18200D675B1 /* BETextData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BETextData.m; sourceTree = "<group>"; };
+		DAD6E3A3184AC18200D675B1 /* BETextDataDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BETextDataDetector.h; sourceTree = "<group>"; };
+		DAD6E3A4184AC18200D675B1 /* BETextDataDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BETextDataDetector.m; sourceTree = "<group>"; };
 		DAD6E3A5184AC18200D675B1 /* BEThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEThread.h; sourceTree = "<group>"; };
 		DAD6E3A6184AC18200D675B1 /* BEThread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEThread.m; sourceTree = "<group>"; };
 		DAD6E3A7184AC18200D675B1 /* BEUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEUI.h; sourceTree = "<group>"; };
@@ -539,6 +540,8 @@
 		DAE46B01185765AA0007243C /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		DAE46B02185765AA0007243C /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		DAE46B04185765DC0007243C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		DAE46B0618582BA40007243C /* BETextData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BETextData.h; sourceTree = "<group>"; };
+		DAE46B0718582BA40007243C /* BETextData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BETextData.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1074,8 +1077,10 @@
 				DA623B4D185554930067008B /* BEInAppPurchaser.m */,
 				DAD6E3A1184AC18200D675B1 /* BEOcr.h */,
 				DAD6E3A2184AC18200D675B1 /* BEOcr.mm */,
-				DAD6E3A3184AC18200D675B1 /* BETextData.h */,
-				DAD6E3A4184AC18200D675B1 /* BETextData.m */,
+				DAE46B0618582BA40007243C /* BETextData.h */,
+				DAE46B0718582BA40007243C /* BETextData.m */,
+				DAD6E3A3184AC18200D675B1 /* BETextDataDetector.h */,
+				DAD6E3A4184AC18200D675B1 /* BETextDataDetector.m */,
 				DAD6E3A5184AC18200D675B1 /* BEThread.h */,
 				DAD6E3A6184AC18200D675B1 /* BEThread.m */,
 				DAD6E3A7184AC18200D675B1 /* BEUI.h */,
@@ -1387,6 +1392,7 @@
 				DA0E15551838786A0073AF61 /* UIView+Tools.m in Sources */,
 				DA0E154D1838786A0073AF61 /* UIBezierPath+Tools.m in Sources */,
 				DA0E154E1838786A0073AF61 /* UIColor+Tools.m in Sources */,
+				DAE46B0818582BA40007243C /* BETextData.m in Sources */,
 				DAD6E3FA184AC18200D675B1 /* BEZoomableImageView.m in Sources */,
 				DAD6E3EF184AC18200D675B1 /* BEPopoverController.m in Sources */,
 				DA0E15571838786A0073AF61 /* UIViewController+Tools.m in Sources */,
@@ -1406,7 +1412,7 @@
 				DA0E155E1838786B0073AF61 /* FMResultSet.m in Sources */,
 				DA0E15531838786A0073AF61 /* UIImage+Tesseract.mm in Sources */,
 				DAD6E3E6184AC18200D675B1 /* BEBaseController.m in Sources */,
-				DAD6E3E0184AC18200D675B1 /* BETextData.m in Sources */,
+				DAD6E3E0184AC18200D675B1 /* BETextDataDetector.m in Sources */,
 				DA0E155D1838786B0073AF61 /* FMDatabaseQueue.m in Sources */,
 				DAD6E3F0184AC18200D675B1 /* BEAlertView.m in Sources */,
 				DAD6E3F7184AC18200D675B1 /* BEReticleView.m in Sources */,

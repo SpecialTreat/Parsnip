@@ -132,7 +132,7 @@
 				<key>Margin</key>
 				<dict>
 					<key>Top</key>
-					<string>10</string>
+					<string>15</string>
 					<key>Right</key>
 					<string>0</string>
 					<key>Bottom</key>
@@ -153,13 +153,13 @@
 				<key>Margin</key>
 				<dict>
 					<key>Top</key>
-					<string>10</string>
+					<string>15</string>
 					<key>Right</key>
-					<string>10</string>
+					<string>15</string>
 					<key>Bottom</key>
 					<string>0</string>
 					<key>Left</key>
-					<string>10</string>
+					<string>15</string>
 				</dict>
 			</dict>
 		</dict>
