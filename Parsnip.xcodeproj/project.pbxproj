@@ -131,7 +131,13 @@
 		DA0E15831838786B0073AF61 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0E14791838786A0073AF61 /* main.m */; };
 		DA0E1598183884E50073AF61 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = DA0E1597183884E50073AF61 /* tessdata */; };
 		DA0E159A183884F10073AF61 /* InitialData in Resources */ = {isa = PBXBuildFile; fileRef = DA0E1599183884F10073AF61 /* InitialData */; };
+		DA1A48D71860754D0071C6B5 /* ToolbarInfoButton.png in Resources */ = {isa = PBXBuildFile; fileRef = DA1A48D51860754D0071C6B5 /* ToolbarInfoButton.png */; };
+		DA1A48D81860754D0071C6B5 /* ToolbarInfoButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA1A48D61860754D0071C6B5 /* ToolbarInfoButton@2x.png */; };
+		DA1A48DB18607A780071C6B5 /* BESidePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1A48DA18607A780071C6B5 /* BESidePanel.m */; };
+		DA1A48DE186091880071C6B5 /* InfoLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = DA1A48DC186091880071C6B5 /* InfoLogo.png */; };
+		DA1A48DF186091880071C6B5 /* InfoLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA1A48DD186091880071C6B5 /* InfoLogo@2x.png */; };
 		DA2AA9EE17ACD45500E211D9 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA2AA9ED17ACD45500E211D9 /* libsqlite3.dylib */; };
+		DA4051D4186072D5004D9879 /* BEInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4051D3186072D5004D9879 /* BEInfoController.m */; };
 		DA623B4B1855526D0067008B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA623B4A1855526D0067008B /* StoreKit.framework */; };
 		DA623B4E185554930067008B /* BEInAppPurchaser.m in Sources */ = {isa = PBXBuildFile; fileRef = DA623B4D185554930067008B /* BEInAppPurchaser.m */; };
 		DA66FC9017F7B4620084FA59 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1790CB17C72379002AA8EC /* EventKit.framework */; };
@@ -178,7 +184,7 @@
 		DAD6E3E6184AC18200D675B1 /* BEBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6E3B2184AC18200D675B1 /* BEBaseController.m */; };
 		DAD6E3E7184AC18200D675B1 /* BECaptureController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6E3B4184AC18200D675B1 /* BECaptureController.m */; };
 		DAD6E3E8184AC18200D675B1 /* BECropController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6E3B6184AC18200D675B1 /* BECropController.m */; };
-		DAD6E3E9184AC18200D675B1 /* BEInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6E3B8184AC18200D675B1 /* BEInfoController.m */; };
+		DAD6E3E9184AC18200D675B1 /* BEInboxController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6E3B8184AC18200D675B1 /* BEInboxController.m */; };
 		DAD6E3EA184AC18200D675B1 /* BENavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6E3BA184AC18200D675B1 /* BENavigationController.m */; };
 		DAD6E3EB184AC18200D675B1 /* BENoteController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6E3BC184AC18200D675B1 /* BENoteController.m */; };
 		DAD6E3EC184AC18200D675B1 /* BENoteImageController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6E3BE184AC18200D675B1 /* BENoteImageController.m */; };
@@ -432,7 +438,15 @@
 		DA0E159B183887520073AF61 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		DA1790CB17C72379002AA8EC /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		DA1790CD17C7E900002AA8EC /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
+		DA1A48D51860754D0071C6B5 /* ToolbarInfoButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarInfoButton.png; sourceTree = "<group>"; };
+		DA1A48D61860754D0071C6B5 /* ToolbarInfoButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarInfoButton@2x.png"; sourceTree = "<group>"; };
+		DA1A48D918607A780071C6B5 /* BESidePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BESidePanel.h; sourceTree = "<group>"; };
+		DA1A48DA18607A780071C6B5 /* BESidePanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BESidePanel.m; sourceTree = "<group>"; };
+		DA1A48DC186091880071C6B5 /* InfoLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InfoLogo.png; sourceTree = "<group>"; };
+		DA1A48DD186091880071C6B5 /* InfoLogo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "InfoLogo@2x.png"; sourceTree = "<group>"; };
 		DA2AA9ED17ACD45500E211D9 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		DA4051D2186072D5004D9879 /* BEInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEInfoController.h; sourceTree = "<group>"; };
+		DA4051D3186072D5004D9879 /* BEInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEInfoController.m; sourceTree = "<group>"; };
 		DA623B4A1855526D0067008B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		DA623B4C185554930067008B /* BEInAppPurchaser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEInAppPurchaser.h; sourceTree = "<group>"; };
 		DA623B4D185554930067008B /* BEInAppPurchaser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEInAppPurchaser.m; sourceTree = "<group>"; };
@@ -494,8 +508,8 @@
 		DAD6E3B4184AC18200D675B1 /* BECaptureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BECaptureController.m; sourceTree = "<group>"; };
 		DAD6E3B5184AC18200D675B1 /* BECropController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BECropController.h; sourceTree = "<group>"; };
 		DAD6E3B6184AC18200D675B1 /* BECropController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BECropController.m; sourceTree = "<group>"; };
-		DAD6E3B7184AC18200D675B1 /* BEInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEInfoController.h; sourceTree = "<group>"; };
-		DAD6E3B8184AC18200D675B1 /* BEInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEInfoController.m; sourceTree = "<group>"; };
+		DAD6E3B7184AC18200D675B1 /* BEInboxController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEInboxController.h; sourceTree = "<group>"; };
+		DAD6E3B8184AC18200D675B1 /* BEInboxController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEInboxController.m; sourceTree = "<group>"; };
 		DAD6E3B9184AC18200D675B1 /* BENavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BENavigationController.h; sourceTree = "<group>"; };
 		DAD6E3BA184AC18200D675B1 /* BENavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BENavigationController.m; sourceTree = "<group>"; };
 		DAD6E3BB184AC18200D675B1 /* BENoteController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BENoteController.h; sourceTree = "<group>"; };
@@ -772,6 +786,8 @@
 				DAA243EC18530C7600B04654 /* BECameraView_Simulator_r4.png */,
 				DAA243EE185317C500B04654 /* BECameraView_Simulator_iPad.png */,
 				DA0E13A71838786A0073AF61 /* BECameraView_SimulatorCropped.png */,
+				DA1A48DC186091880071C6B5 /* InfoLogo.png */,
+				DA1A48DD186091880071C6B5 /* InfoLogo@2x.png */,
 				DA0E13B31838786A0073AF61 /* ScanLine.png */,
 				DA0E13B51838786A0073AF61 /* ScanLine@2x.png */,
 				DA0E13B71838786A0073AF61 /* TableCellAccessory.png */,
@@ -861,6 +877,8 @@
 				DA0E13D01838786A0073AF61 /* ToolbarCancelButton@2x.png */,
 				DA0E13D21838786A0073AF61 /* ToolbarDismissKeyboardButton.png */,
 				DA0E13D41838786A0073AF61 /* ToolbarDismissKeyboardButton@2x.png */,
+				DA1A48D51860754D0071C6B5 /* ToolbarInfoButton.png */,
+				DA1A48D61860754D0071C6B5 /* ToolbarInfoButton@2x.png */,
 				DA0E13D61838786A0073AF61 /* ToolbarNormalImageButton.png */,
 				DA0E13D81838786A0073AF61 /* ToolbarNormalImageButton@2x.png */,
 				DA0E13DA1838786A0073AF61 /* ToolbarOcrImageButton.png */,
@@ -1105,8 +1123,10 @@
 				DAD6E3B4184AC18200D675B1 /* BECaptureController.m */,
 				DAD6E3B5184AC18200D675B1 /* BECropController.h */,
 				DAD6E3B6184AC18200D675B1 /* BECropController.m */,
-				DAD6E3B7184AC18200D675B1 /* BEInfoController.h */,
-				DAD6E3B8184AC18200D675B1 /* BEInfoController.m */,
+				DAD6E3B7184AC18200D675B1 /* BEInboxController.h */,
+				DAD6E3B8184AC18200D675B1 /* BEInboxController.m */,
+				DA4051D2186072D5004D9879 /* BEInfoController.h */,
+				DA4051D3186072D5004D9879 /* BEInfoController.m */,
 				DAD6E3B9184AC18200D675B1 /* BENavigationController.h */,
 				DAD6E3BA184AC18200D675B1 /* BENavigationController.m */,
 				DAD6E3BB184AC18200D675B1 /* BENoteController.h */,
@@ -1119,6 +1139,8 @@
 				DAD6E3C2184AC18200D675B1 /* BENoteTableController.m */,
 				DAD6E3C3184AC18200D675B1 /* BEPopoverController.h */,
 				DAD6E3C4184AC18200D675B1 /* BEPopoverController.m */,
+				DA1A48D918607A780071C6B5 /* BESidePanel.h */,
+				DA1A48DA18607A780071C6B5 /* BESidePanel.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -1246,6 +1268,7 @@
 				DA0E14D21838786A0073AF61 /* NoteSheetEmailButton@2x.png in Resources */,
 				DA0E14BC1838786A0073AF61 /* FocusBox@2x.png in Resources */,
 				DA0E14FD1838786A0073AF61 /* HandleBottomRight@2x.png in Resources */,
+				DA1A48D81860754D0071C6B5 /* ToolbarInfoButton@2x.png in Resources */,
 				DAA243E01851895600B04654 /* NoteDeleteButton.png in Resources */,
 				DA0E14B51838786A0073AF61 /* CaptureViewCameraButton.png in Resources */,
 				DA0E14FA1838786A0073AF61 /* HandleBottomLeft.png in Resources */,
@@ -1255,6 +1278,7 @@
 				DA0E150C1838786A0073AF61 /* ToggleFlashButton.png in Resources */,
 				DA0E15021838786A0073AF61 /* HandleTopRight.png in Resources */,
 				DAA243EA1851895600B04654 /* NoteUnarchiveButton@2x.png in Resources */,
+				DA1A48DE186091880071C6B5 /* InfoLogo.png in Resources */,
 				DA0E14F81838786A0073AF61 /* BECameraView_Simulator.png in Resources */,
 				DA0E152C1838786A0073AF61 /* ToolbarOkButton.png in Resources */,
 				DA0E15801838786B0073AF61 /* AppImages.xcassets in Resources */,
@@ -1311,6 +1335,7 @@
 				DA0E14A91838786A0073AF61 /* BarButtonItemBackBackground.png in Resources */,
 				DA0E14DA1838786A0073AF61 /* NoteSheetMapButton@2x.png in Resources */,
 				DA0E14DC1838786A0073AF61 /* NoteSheetMessageButton.png in Resources */,
+				DA1A48D71860754D0071C6B5 /* ToolbarInfoButton.png in Resources */,
 				DA0E14C81838786A0073AF61 /* NoteSheetContactButton.png in Resources */,
 				DA0E15031838786A0073AF61 /* HandleTopRight@2x.png in Resources */,
 				DA0E14D81838786A0073AF61 /* NoteSheetMapButton.png in Resources */,
@@ -1326,6 +1351,7 @@
 				DA0E152B1838786A0073AF61 /* ToolbarOcrImageButton@2x.png in Resources */,
 				DA0E15261838786A0073AF61 /* ToolbarNormalImageButton.png in Resources */,
 				DA0E14C41838786A0073AF61 /* NoteSheetChromeButton.png in Resources */,
+				DA1A48DF186091880071C6B5 /* InfoLogo@2x.png in Resources */,
 				DA0E14F91838786A0073AF61 /* BECameraView_SimulatorCropped.png in Resources */,
 				DA0E15081838786A0073AF61 /* TableCellAccessory.png in Resources */,
 				DA0E15811838786B0073AF61 /* DB5.plist in Resources */,
@@ -1371,6 +1397,7 @@
 				DAD6E3EB184AC18200D675B1 /* BENoteController.m in Sources */,
 				DA0E155A1838786A0073AF61 /* FMDatabase.m in Sources */,
 				DAD6E3F6184AC18200D675B1 /* BEPopoverBackgroundView.m in Sources */,
+				DA4051D4186072D5004D9879 /* BEInfoController.m in Sources */,
 				DA0E15541838786A0073AF61 /* UIImagePickerController+AutoRotation.m in Sources */,
 				DA0E15491838786A0073AF61 /* NSObject+Observable.m in Sources */,
 				DAD6E3E5184AC18200D675B1 /* BENote.m in Sources */,
@@ -1382,7 +1409,7 @@
 				DA0E154B1838786A0073AF61 /* NSString+Tools.m in Sources */,
 				DAD6E3F2184AC18200D675B1 /* BECroppableImageView.m in Sources */,
 				DA0E15481838786A0073AF61 /* NSObject+Bindable.m in Sources */,
-				DAD6E3E9184AC18200D675B1 /* BEInfoController.m in Sources */,
+				DAD6E3E9184AC18200D675B1 /* BEInboxController.m in Sources */,
 				DA0E154F1838786A0073AF61 /* UIDevice+Tools.m in Sources */,
 				DAE46B03185765AA0007243C /* Reachability.m in Sources */,
 				DA623B4E185554930067008B /* BEInAppPurchaser.m in Sources */,
@@ -1405,6 +1432,7 @@
 				DAD6E3DE184AC18200D675B1 /* BEDevice.m in Sources */,
 				DA0E154A1838786A0073AF61 /* NSObject+Reflection.m in Sources */,
 				DAD6E3ED184AC18200D675B1 /* BENoteSheetController.m in Sources */,
+				DA1A48DB18607A780071C6B5 /* BESidePanel.m in Sources */,
 				DAD6E3F9184AC18200D675B1 /* BETouchableView.m in Sources */,
 				DA0E155E1838786B0073AF61 /* FMResultSet.m in Sources */,
 				DA0E15531838786A0073AF61 /* UIImage+Tesseract.mm in Sources */,
@@ -1489,6 +1517,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "E692516C-389F-4BC0-8C8D-D95AB6247F97";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1520,6 +1549,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "E692516C-389F-4BC0-8C8D-D95AB6247F97";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;

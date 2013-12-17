@@ -7,7 +7,7 @@
 		<key>Debug</key>
 		<false/>
 		<key>RequireInAppPurchase</key>
-		<true/>
+		<false/>
 		<key>CreateContactNoteText</key>
 		<string>Added by Parsnip</string>
 		<key>DateDisplayFormat</key>
@@ -544,7 +544,7 @@
 			<key>Template</key>
 			<string>FocusBoxGlow.png</string>
 		</dict>
-		<key>InfoTable</key>
+		<key>Inbox</key>
 		<dict>
 			<key>ArchiveButtonTitle</key>
 			<string>@ArchiveText</string>
@@ -561,6 +561,135 @@
 			<real>0.5</real>
 			<key>PushPercentage</key>
 			<real>0.2</real>
+		</dict>
+		<key>Info</key>
+		<dict>
+			<key>Title</key>
+			<string>About</string>
+			<key>LogoView</key>
+			<dict>
+				<key>Image</key>
+				<string>InfoLogo.png</string>
+				<key>Margin</key>
+				<dict>
+					<key>Top</key>
+					<integer>15</integer>
+					<key>Right</key>
+					<integer>0</integer>
+					<key>Bottom</key>
+					<integer>0</integer>
+					<key>Left</key>
+					<integer>0</integer>
+				</dict>
+			</dict>
+			<key>VersionLabel</key>
+			<dict>
+				<key>TextColor</key>
+				<string>000000</string>
+				<key>Font</key>
+				<dict>
+					<key>Size</key>
+					<integer>12</integer>
+				</dict>
+				<key>Margin</key>
+				<dict>
+					<key>Top</key>
+					<integer>10</integer>
+					<key>Right</key>
+					<integer>0</integer>
+					<key>Bottom</key>
+					<integer>0</integer>
+					<key>Left</key>
+					<integer>0</integer>
+				</dict>
+			</dict>
+			<key>CopyrightLabel</key>
+			<dict>
+				<key>Height</key>
+				<integer>36</integer>
+				<key>Width</key>
+				<integer>172</integer>
+				<key>TextColor</key>
+				<string>808080</string>
+				<key>NumberOfLines</key>
+				<integer>2</integer>
+				<key>Font</key>
+				<dict>
+					<key>Size</key>
+					<integer>9</integer>
+				</dict>
+			</dict>
+			<key>RestoreButton</key>
+			<dict>
+				<key>Width</key>
+				<integer>160</integer>
+				<key>Height</key>
+				<integer>30</integer>
+				<key>Margin</key>
+				<dict>
+					<key>Top</key>
+					<integer>36</integer>
+					<key>Right</key>
+					<integer>0</integer>
+					<key>Bottom</key>
+					<integer>0</integer>
+					<key>Left</key>
+					<integer>0</integer>
+				</dict>
+				<key>Title</key>
+				<dict>
+					<key>Text</key>
+					<string>Restore Parsnip Pro</string>
+					<key>TextColor</key>
+					<string>@TintColor</string>
+					<key>Font</key>
+					<dict>
+						<key>Size</key>
+						<integer>15</integer>
+					</dict>
+				</dict>
+				<key>SelectedTitle</key>
+				<dict>
+					<key>TextColor</key>
+					<string>@SelectedTintColor</string>
+				</dict>
+				<key>BackgroundImage</key>
+				<dict>
+					<key>Color</key>
+					<string>@TintColor</string>
+					<key>Template</key>
+					<string>ToolbarButtonOutlineBackground.png</string>
+					<key>CapInsets</key>
+					<dict>
+						<key>Top</key>
+						<integer>4</integer>
+						<key>Left</key>
+						<integer>4</integer>
+						<key>Right</key>
+						<integer>4</integer>
+						<key>Bottom</key>
+						<integer>4</integer>
+					</dict>
+				</dict>
+				<key>SelectedBackgroundImage</key>
+				<dict>
+					<key>Color</key>
+					<string>@SelectedTintColor</string>
+					<key>Template</key>
+					<string>ToolbarButtonOutlineBackground.png</string>
+					<key>CapInsets</key>
+					<dict>
+						<key>Top</key>
+						<integer>4</integer>
+						<key>Left</key>
+						<integer>4</integer>
+						<key>Right</key>
+						<integer>4</integer>
+						<key>Bottom</key>
+						<integer>4</integer>
+					</dict>
+				</dict>
+			</dict>
 		</dict>
 		<key>NavigationBar</key>
 		<dict>
@@ -596,6 +725,8 @@
 		</dict>
 		<key>NavigationBarButton</key>
 		<dict>
+			<key>RightSpacer</key>
+			<integer>-11</integer>
 			<key>Width</key>
 			<integer>44</integer>
 			<key>Height</key>
@@ -675,6 +806,19 @@
 				<string>ToolbarDismissKeyboardButton.png</string>
 			</dict>
 		</dict>
+		<key>NavigationBarInfoButton</key>
+		<dict>
+			<key>Image</key>
+			<dict>
+				<key>Template</key>
+				<string>ToolbarInfoButton.png</string>
+			</dict>
+			<key>SelectedImage</key>
+			<dict>
+				<key>Template</key>
+				<string>ToolbarInfoButton.png</string>
+			</dict>
+		</dict>
 		<key>NavigationBarOkButton</key>
 		<dict>
 			<key>Image</key>
@@ -726,7 +870,7 @@
 			<key>Width</key>
 			<integer>30</integer>
 			<key>Height</key>
-			<string>30</string>
+			<integer>30</integer>
 			<key>Title</key>
 			<dict>
 				<key>TextColor</key>
@@ -1242,11 +1386,11 @@
 				<key>AdjustsFontSize</key>
 				<true/>
 				<key>TextColor</key>
-				<string>606060</string>
+				<string>@TintColor</string>
 				<key>Font</key>
 				<dict>
 					<key>Bold</key>
-					<true/>
+					<false/>
 					<key>Size</key>
 					<integer>10</integer>
 				</dict>
@@ -1259,22 +1403,27 @@
 			<key>SelectedTitle</key>
 			<dict>
 				<key>TextColor</key>
-				<string>@TintColor</string>
+				<string>@SelectedTintColor</string>
 			</dict>
 			<key>DisabledTitle</key>
 			<dict>
 				<key>TextColor</key>
-				<string>60606060</string>
+				<string>606060</string>
 			</dict>
 			<key>BackgroundImage</key>
 			<dict>
 				<key>Color</key>
-				<string>606060</string>
+				<string>@TintColor</string>
 			</dict>
 			<key>SelectedBackgroundImage</key>
 			<dict>
 				<key>Color</key>
-				<string>@TintColor</string>
+				<string>@SelectedTintColor</string>
+			</dict>
+			<key>DisabledBackgroundImage</key>
+			<dict>
+				<key>Color</key>
+				<string>606060</string>
 			</dict>
 		</dict>
 		<key>NoteToolbarSaveButton</key>
@@ -1508,6 +1657,11 @@
 					<string>66666680</string>
 				</dict>
 			</dict>
+		</dict>
+		<key>NavigationBarButton</key>
+		<dict>
+			<key>RightSpacer</key>
+			<integer>0</integer>
 		</dict>
 		<key>NoteToolbar</key>
 		<dict>

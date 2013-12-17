@@ -1,6 +1,6 @@
 #import <UIKit/UIKit.h>
 
-#import "BEBaseController.h"
+#import "BESidePanel.h"
 #import "BENoteTableViewCell.h"
 #import "BETouchableView.h"
 
@@ -21,15 +21,14 @@
 @end
 
 
-@interface BENoteTableController : BEBaseController<UITableViewDelegate,
-                                                          UITableViewDataSource,
-                                                          UINavigationControllerDelegate,
-                                                          BENoteTableViewCellDelegate,
-                                                          BETouchableViewDelegate>
+@interface BENoteTableController : BESidePanel<UITableViewDelegate,
+                                               UITableViewDataSource,
+                                               UINavigationControllerDelegate,
+                                               BENoteTableViewCellDelegate,
+                                               BETouchableViewDelegate>
 {
     UITableView *_tableView;
     BETouchableView *_tableViewMask;
-    BOOL statusBarHidden;
     NSString *tableSectionQuery;
     NSString *tableSectionCountQuery;
     NSInteger tableSectionCount;

@@ -7,7 +7,7 @@
 #import "BECaptureController.h"
 #import "BEDB.h"
 #import "BEInAppPurchaser.h"
-#import "BEInfoController.h"
+#import "BEInboxController.h"
 #import "BENavigationController.h"
 #import "BENote.h"
 #import "BEPopoverBackgroundView.h"
@@ -49,7 +49,7 @@
     BECaptureController *captureViewController = [[BECaptureController alloc] init];
     self.sidePanelController.centerPanel = captureViewController;
 
-    BEInfoController *infoViewController = [[BEInfoController alloc] init];
+    BEInboxController *infoViewController = [[BEInboxController alloc] init];
     BENavigationController *leftPanel = [[BENavigationController alloc] initWithRootViewController:infoViewController];
     [BEUI styleNavigationBar:leftPanel.navigationBar];
     self.sidePanelController.leftPanel = leftPanel;
@@ -75,11 +75,11 @@
     sidePanelController.bounceOnSidePanelOpen = NO;
     sidePanelController.bounceOnCenterPanelChange = NO;
     sidePanelController.pushesSidePanels = YES;
-    sidePanelController.leftFixedWidth = [BEUI.theme floatForKey:@"InfoTable.Width"];
-    sidePanelController.pushesSidePanelPercentage = [BEUI.theme floatForKey:@"InfoTable.PushPercentage"];
-    sidePanelController.sidePanelVerticalMargin = [BEUI.theme edgeInsetsForKey:@"InfoTable.Margin"].top;
+    sidePanelController.leftFixedWidth = [BEUI.theme floatForKey:@"Inbox.Width"];
+    sidePanelController.pushesSidePanelPercentage = [BEUI.theme floatForKey:@"Inbox.PushPercentage"];
+    sidePanelController.sidePanelVerticalMargin = [BEUI.theme edgeInsetsForKey:@"Inbox.Margin"].top;
     sidePanelController.maximumAnimationDuration = UINavigationControllerHideShowBarDuration;
-    sidePanelController.maskAlpha = [BEUI.theme floatForKey:@"InfoTable.MaskAlpha"];
+    sidePanelController.maskAlpha = [BEUI.theme floatForKey:@"Inbox.MaskAlpha"];
     return sidePanelController;
 }
 

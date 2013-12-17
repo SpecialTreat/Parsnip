@@ -1,8 +1,8 @@
 #import <UIKit/UIKit.h>
 
-#import "BENoteTableController.h"
+#import "BESidePanel.h"
 
 
-@interface BEInfoController : BENoteTableController
+@interface BEInfoController : BESidePanel
 
 @end

@@ -1,10 +1,18 @@
 #import "UIViewController+Tools.h"
 
-#import "UIDevice+Tools.h"
 #import "BEDevice.h"
+#import "BEUI.h"
+#import "UIBarButtonItem+Tools.h"
+#import "UIDevice+Tools.h"
 
 
 @implementation UIViewController (Tools)
+
+- (void)setRightBarButtonItem:(UIBarButtonItem *)barButtonItem
+{
+    UIBarButtonItem* spacer = [UIBarButtonItem spacer:[BEUI.theme floatForKey:@"NavigationBarButton.RightSpacer"]];
+    self.navigationItem.rightBarButtonItems = @[spacer, barButtonItem];
+}
 
 - (BOOL)manuallyAdjustsViewInsets
 {

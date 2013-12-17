@@ -67,7 +67,7 @@ const CGFloat FLASH_ANIMATION_DURATION = 1.0f;
     }
 }
 
-- (void)onStatusBarFrameChanged:(NSNotification *)note
+- (void)onStatusBarFrameChanged:(NSNotification *)notification
 {
     if (!self.navigationController || (self.navigationController && self.navigationController.topViewController == self)) {
         [self viewWillLayoutSubviews];

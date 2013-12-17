@@ -104,7 +104,6 @@ static UIEdgeInsets tableSectionHeaderPadding;
     if (self) {
         noteQueryPageSize = MAX(20, 3.0f * ([UIScreen mainScreen].bounds.size.height / BENoteTableViewCell.preferredHeight));
         tableSectionQueryPageSize = noteQueryPageSize / 2;
-        statusBarHidden = YES;
         isFirstAppearance = YES;
 
         tableSectionQuery = [self getTableSectionQuery];
@@ -152,11 +151,6 @@ static UIEdgeInsets tableSectionHeaderPadding;
 
     [self.view addSubview:_tableView];
     [self.view addSubview:_tableViewMask];
-}
-
-- (BOOL)prefersStatusBarHidden
-{
-    return statusBarHidden;
 }
 
 - (BOOL)shouldAutorotate
@@ -246,9 +240,6 @@ static UIEdgeInsets tableSectionHeaderPadding;
     _tableView.contentInset = insets;
     _tableView.scrollIndicatorInsets = insets;
 
-    statusBarHidden = ([UIApplication sharedApplication].statusBarHidden ||
-                       (self.sidePanelController.visiblePanel != self.navigationController));
-
     if (!isFirstAppearance) {
         [self refreshCache];
     } else {
@@ -256,24 +247,6 @@ static UIEdgeInsets tableSectionHeaderPadding;
     }
 
     isFirstAppearance = NO;
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    statusBarHidden = YES;
-    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
-        [UIView animateWithDuration:UINavigationControllerHideShowBarDuration animations:^{
-            [self setNeedsStatusBarAppearanceUpdate];
-        }];
-    }
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    statusBarHidden = ([UIApplication sharedApplication].statusBarHidden ||
-                       (self.sidePanelController.visiblePanel != self.navigationController));
 }
 
 - (void)didReceiveMemoryWarning

@@ -10,6 +10,8 @@
 @property (nonatomic, readonly) UIEdgeInsets insetsForView;
 @property (nonatomic, readonly) UIScrollView *topScrollView;
 
+- (void)setRightBarButtonItem:(UIBarButtonItem *)barButtonItem;
+
 - (CGRect)boundsForViewStatusBarHidden:(BOOL)statusBarHidden;
 - (CGRect)boundsForViewNavigationBarHidden:(BOOL)navigationBarHidden statusBarHidden:(BOOL)statusBarHidden;
 - (CGRect)frameForViewStatusBarHidden:(BOOL)statusBarHidden;

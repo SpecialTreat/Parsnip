@@ -129,7 +129,7 @@ static CGSize noteDeleteAlertSize;
     dismissKeyboardButton = [BEUI barButtonItemWithKey:@[@"NavigationBarDismissKeyboardButton", @"NavigationBarButton"] target:self action:@selector(onDismissKeyboardButtonTouch)];
     plusButton = [BEUI barButtonItemWithKey:@[@"NavigationBarPlusButton", @"NavigationBarButton"] target:self action:@selector(onPlusButtonTouch)];
     plusButton.enabled = NO;
-    self.navigationItem.rightBarButtonItem = plusButton;
+    [self setRightBarButtonItem:plusButton];
 
     UILabel *titleView = [[UILabel alloc] initWithFrame:CGRectZero];
     self.navigationItem.titleView = [BEUI styleNavigationBarTitleView:titleView];

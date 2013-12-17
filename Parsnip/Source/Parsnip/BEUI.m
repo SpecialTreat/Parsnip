@@ -309,6 +309,60 @@ static UIStatusBarStyle themeStatusBarStyle;
     return button;
 }
 
++ (UILabel *)styleLabel:(UILabel *)label withKey:(id)key
+{
+    CGFloat alpha = [theme floatForKey:key withSubkey:@"Alpha" withDefault:1.0f];
+    label.alpha = alpha;
+
+    UIFont *font = [theme fontForKey:key withSubkey:@"Font" withDefault:nil];
+    label.font = font;
+
+    BOOL titleAdjustsFontSize = [theme boolForKey:key withSubkey:@"AdjustsFontSize" withDefault:NO];
+    label.adjustsFontSizeToFitWidth = titleAdjustsFontSize;
+
+    UIColor *titleColor = [theme colorForKey:key withSubkey:@"TextColor" withDefault:[UIColor blackColor]];
+    label.textColor = titleColor;
+
+    CGFloat numberOfLines = [theme floatForKey:key withSubkey:@"NumberOfLines" withDefault:0];
+    label.numberOfLines = numberOfLines;
+    if (numberOfLines != 1) {
+        label.lineBreakMode = NSLineBreakByWordWrapping;
+    }
+
+    NSString *title = [theme stringForKey:key withSubkey:@"Text"];
+    label.text = title;
+
+    UIColor *backgroundColor = [theme colorForKey:key withSubkey:@"BackgroundColor" withDefault:[UIColor clearColor]];
+    label.backgroundColor = backgroundColor;
+
+    UIColor *shadowColor = [theme colorForKey:key withSubkey:@"ShadowColor" withDefault:nil];
+    label.shadowColor = shadowColor;
+
+    CGSize shadowOffset = [theme sizeForKey:key withSubkey:@"ShadowOffset" withDefault:CGSizeMake(0, -1)];
+    label.shadowOffset = shadowOffset;
+
+    if ([theme hasKey:key withSubkey:@"Height"]) {
+        CGRect frame = label.frame;
+        frame.size.height = [theme floatForKey:key withSubkey:@"Height"];
+        label.frame = frame;
+    }
+
+    if ([theme hasKey:key withSubkey:@"Width"]) {
+        CGRect frame = label.frame;
+        frame.size.width = [theme floatForKey:key withSubkey:@"Width"];
+        label.frame = frame;
+    }
+    
+    return label;
+}
+
++ (UILabel *)labelWithKey:(id)key
+{
+    UILabel *label = [[UILabel alloc] init];
+    [BEUI styleLabel:label withKey:key];
+    return label;
+}
+
 + (UIButton *)buttonWithKey:(id)key target:(id)target action:(SEL)selector
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -339,7 +393,7 @@ static UIStatusBarStyle themeStatusBarStyle;
         // BECropController
         [BEUI barButtonItemWithKey:@[@"NavigationBarOkButton", @"NavigationBarButton"] target:nil action:nil];
 
-        // BEInfoController
+        // BEInboxController
         key = @[@"NoteTableArchiveCell", @"TableCell"];
         [theme colorForKey:key withSubkey:@"BackgroundColor" withDefault:[UIColor whiteColor]];
         [theme colorForKey:key withSubkey:@"SelectedBackgroundColor"];

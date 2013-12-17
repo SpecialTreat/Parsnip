@@ -1,116 +1,135 @@
 #import "BEInfoController.h"
 
-#import "BEDB.h"
+#import "BEInAppPurchaser.h"
 #import "BEUI.h"
+#import "UIViewController+Tools.h"
+
+
+@interface BEInfoController ()
+
+@end
 
 
 @implementation BEInfoController
+{
+    UILabel *versionLabel;
+    UILabel *copyrightLabel;
+    UILabel *restoredLabel;
+    UIImageView *logoView;
+    UIButton *restoreButton;
+}
 
-static NSString *archiveCellIdentifier = @"ArchiveCell";
-static NSArray *archiveCellThemeKey;
-static NSString *archiveCellText;
-static UIEdgeInsets archiveCellSeparatorInset;
-static NSString *infoTableTitle;
-static NSString *noteCellArchiveButtonTitle;
+static NSString *infoTitle;
 
 + (void)initialize
 {
-    archiveCellThemeKey = @[@"NoteTableArchiveCell", @"TableCell"];
-    archiveCellText = [BEUI.theme stringForKey:@"ArchiveTable.Title"];
-    archiveCellSeparatorInset = [BEUI.theme edgeInsetsForKey:archiveCellThemeKey withSubkey:@"SeparatorInset"];
-    infoTableTitle = [BEUI.theme stringForKey:@"InfoTable.Title"];
-    noteCellArchiveButtonTitle = [BEUI.theme stringForKey:@"InfoTable.ArchiveButtonTitle"];
+    infoTitle = [BEUI.theme stringForKey:@"Info.Title"];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = infoTableTitle;
+        self.title = infoTitle;
     }
     return self;
 }
 
-- (NSDictionary *)noteQueryParameters
+- (void)loadView
 {
-    return @{BENote.propertyToColumnMap[@"archived"]: [NSNumber numberWithBool:NO]};
+    self.view = [[UIView alloc] initWithFrame:self.frameForView];
+    self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.view.backgroundColor = [UIColor whiteColor];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (void)viewDidLoad
 {
-    if (section >= tableSectionCount) {
-        return 1;
-    } else {
-        return [super tableView:tableView numberOfRowsInSection:section];
-    }
+    [super viewDidLoad];
+
+    CGRect frame = self.view.bounds;
+    UIEdgeInsets insets = self.insetsForView;
+
+    UIImage *logo = [BEUI.theme imageForKey:@"Info.LogoView.Image"];
+    UIEdgeInsets logoMargin = [BEUI.theme edgeInsetsForKey:@"Info.LogoView.Margin"];
+    logoView = [[UIImageView alloc] initWithImage:logo];
+    logoView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
+    logoView.center = CGPointMake(frame.size.width / 2.0f, insets.top + logoMargin.top + (logo.size.height / 2.0f));
+
+    UIEdgeInsets versionMargin = [BEUI.theme edgeInsetsForKey:@"Info.VersionLabel.Margin"];
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+    versionLabel = [BEUI labelWithKey:@"Info.VersionLabel"];
+    versionLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
+    versionLabel.text = [NSString stringWithFormat:@"Version %@", version];
+    [versionLabel sizeToFit];
+    versionLabel.center = CGPointMake(frame.size.width / 2.0f,
+                                      logoView.frame.origin.y + logoView.frame.size.height + versionMargin.top + (versionLabel.frame.size.height / 2.0f));
+
+    UIEdgeInsets restoreMargin = [BEUI.theme edgeInsetsForKey:@"Info.RestoreButton.Margin"];
+    restoreButton = [BEUI buttonWithKey:@"Info.RestoreButton" target:self action:@selector(onRestoreButtonTouch)];
+    restoreButton.hidden = [BEInAppPurchaser.parsnipPurchaser isProductPurchased:BEInAppPurchaserParsnipPro];
+    restoreButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
+    restoreButton.center = CGPointMake(frame.size.width / 2.0f,
+                                       versionLabel.frame.origin.y + versionLabel.frame.size.height + restoreMargin.top + (restoreButton.frame.size.height / 2.0f));
+
+    restoredLabel = [BEUI labelWithKey:@"Info.RestoreButton.Title"];
+    restoredLabel.hidden = ![BEInAppPurchaser.parsnipPurchaser isProductPurchased:BEInAppPurchaserParsnipPro];
+    restoredLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
+    restoredLabel.textAlignment = NSTextAlignmentCenter;
+    restoredLabel.text = [NSString stringWithFormat:@"%@ Enabled", [BEUI.theme stringForKey:@"UpgradeName"]];
+    [restoredLabel sizeToFit];
+    restoredLabel.center = CGPointMake(frame.size.width / 2.0f,
+                                       versionLabel.frame.origin.y + versionLabel.frame.size.height + restoreMargin.top + (restoreButton.frame.size.height / 2.0f));
+
+    NSString *copyright = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"NSHumanReadableCopyright"];
+    copyrightLabel = [BEUI labelWithKey:@"Info.CopyrightLabel"];
+    copyrightLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+    copyrightLabel.textAlignment = NSTextAlignmentCenter;
+    copyrightLabel.text = copyright;
+    copyrightLabel.center = CGPointMake(frame.size.width / 2.0f, frame.size.height - (copyrightLabel.frame.size.height / 2.0f));
+
+    [self.view addSubview:logoView];
+    [self.view addSubview:versionLabel];
+    [self.view addSubview:restoreButton];
+    [self.view addSubview:restoredLabel];
+    [self.view addSubview:copyrightLabel];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (void)didReceiveMemoryWarning
 {
-    return [super numberOfSectionsInTableView:tableView] + 1;
+    [super didReceiveMemoryWarning];
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+- (void)viewWillAppear:(BOOL)animated
 {
-    if (section >= tableSectionCount) {
-        return [self tableViewHeader:tableView];
-    } else {
-        return [super tableView:tableView viewForHeaderInSection:section];
-    }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productPurchased:) name:BEInAppPurchaserProductPurchasedNotification object:nil];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)viewWillDisappear:(BOOL)animated
 {
-    if (indexPath.section >= tableSectionCount) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:archiveCellIdentifier];
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:archiveCellIdentifier];
-            cell.backgroundColor = [BEUI.theme colorForKey:archiveCellThemeKey withSubkey:@"BackgroundColor" withDefault:[UIColor whiteColor]];
-            cell.selectedBackgroundView = [[UIView alloc] init];
-            cell.selectedBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-            cell.selectedBackgroundView.backgroundColor = [BEUI.theme colorForKey:archiveCellThemeKey withSubkey:@"SelectedBackgroundColor"];
-            cell.imageView.image = [BEUI.theme imageForKey:archiveCellThemeKey withSubkey:@"Image"];
-            cell.textLabel.text = archiveCellText;
-            cell.textLabel.textColor = [BEUI.theme colorForKey:archiveCellThemeKey withSubkey:@"TextColor"];
-            cell.textLabel.highlightedTextColor = [BEUI.theme colorForKey:archiveCellThemeKey withSubkey:@"SelectedTextColor"];
-            cell.textLabel.font = [BEUI.theme fontForKey:archiveCellThemeKey withSubkey:@"TextFont"];
-            cell.accessoryView = [[UIImageView alloc] initWithImage:[BEUI.theme imageForKey:@"TableCellAccessory.Image"]
-                                                   highlightedImage:[BEUI.theme imageForKey:@"TableCellAccessory.SelectedImage"]];
-            if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
-                cell.separatorInset = archiveCellSeparatorInset;
-            }
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)productPurchased:(NSNotification *)notification
+{
+    NSString *productIdentifier = notification.object;
+    if ([productIdentifier isEqualToString:BEInAppPurchaserParsnipPro]) {
+        if (restoredLabel.hidden && !restoreButton.hidden) {
+            restoreButton.alpha = 1.0f;
+            restoredLabel.alpha = 0.0f;
+            restoredLabel.hidden = NO;
+            [UIView animateWithDuration:UINavigationControllerHideShowBarDuration animations:^{
+                restoreButton.alpha = 0.0f;
+                restoredLabel.alpha = 1.0f;
+            } completion:^(BOOL finished) {
+                restoreButton.hidden = YES;
+            }];
         }
-        return cell;
-    } else {
-        BENoteTableViewCell *cell = (BENoteTableViewCell *)[super tableView:tableView cellForRowAtIndexPath:indexPath];
-        cell.archiveButtonTitle = noteCellArchiveButtonTitle;
-        return cell;
     }
 }
 
-- (void)cellArchiveConfirmation:(BENoteTableViewCell *)cell
+- (void)onRestoreButtonTouch
 {
-    NSIndexPath *indexPath = [_tableView indexPathForCell:cell];
-    BENote *note = [self noteForIndexPath:indexPath];
-    note.archived = YES;
-    note.userSaved = YES;
-    if([BEDB save:note]) {
-        [self removeNoteForIndexPath:indexPath];
-        _tableViewMask.hidden = YES;
-    } else {
-        [cell hideControlsAnimated:YES completion:nil];
-    }
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.section >= tableSectionCount) {
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        BENoteTableController *noteTableController = [[BENoteTableController alloc] init];
-        [self.navigationController pushViewController:noteTableController animated:YES];
-    } else {
-        [super tableView:tableView didSelectRowAtIndexPath:indexPath];
-    }
+    [BEInAppPurchaser.parsnipPurchaser restoreCompletedTransactions];
 }
 
 @end
