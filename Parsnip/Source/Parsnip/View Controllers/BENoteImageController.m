@@ -263,6 +263,7 @@ static CGFloat spotlightBorderWidth;
     imageState = NoteImageStateSpotlight;
     _toolbar.items = @[doneButton, [UIBarButtonItem spacer], ocrButton];
     [UIView animateWithDuration:UINavigationControllerHideShowBarDuration animations:^{
+        _cropView.alpha = 1.0f;
         ocrView.alpha = 0.0f;
         spotlightMask.alpha = noteImageMaskAlpha;
         _spotlightView.alpha = 1.0f;
@@ -289,6 +290,7 @@ static CGFloat spotlightBorderWidth;
     imageState = NoteImageStateNormal;
     _toolbar.items = @[doneButton, [UIBarButtonItem spacer], spotlightButton];
     [UIView animateWithDuration:UINavigationControllerHideShowBarDuration animations:^{
+        _cropView.alpha = 0.0f;
         ocrView.alpha = 0.0f;
         spotlightMask.alpha = 0.0f;
         _spotlightView.alpha = 0.0f;
@@ -363,7 +365,7 @@ static CGFloat spotlightBorderWidth;
                                            _cropViewContainer.bounds.size.width / 2.0f,
                                            _cropViewContainer.bounds.size.height / 2.0f);
 
-        _cropView = [[UIImageView alloc] initWithImage:_note.croppedImage];
+        _cropView = [[UIImageView alloc] initWithImage:_note.preOcrImage];
         _cropView.frame = croppedFrame;
         [_cropViewContainer addSubview:_cropView];
 

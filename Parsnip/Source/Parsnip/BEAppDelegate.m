@@ -32,6 +32,16 @@
     return topController;
 }
 
++ (UINavigationController *)topNavigationController
+{
+    UIViewController *topController = BEAppDelegate.topController;
+    if ([topController isKindOfClass:UINavigationController.class]) {
+        return (UINavigationController *)topController;
+    } else {
+        return topController.navigationController;
+    }
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [BEUI frontload];

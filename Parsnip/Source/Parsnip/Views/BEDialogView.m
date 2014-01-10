@@ -4,6 +4,7 @@
 #import <QuartzCore/CALayer.h>
 #import "UIBezierPath+Tools.h"
 #import "UIView+Tools.h"
+#import "BEAppDelegate.h"
 
 
 @implementation BEDialogView
@@ -336,6 +337,11 @@ static NSArray *_cornerRadii;
 
 - (void)show:(void(^)())animations completion:(void(^)(BOOL finished))completion
 {
+    UINavigationController *navigationController = BEAppDelegate.topNavigationController;
+    if ([navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        navigationController.interactivePopGestureRecognizer.enabled = NO;
+    }
+
     UIView *backgroundClone = backgroundView.visualClone;
     backgroundClone.frame = backgroundView.frame;
     [self addSubview:backgroundClone];
@@ -393,6 +399,12 @@ static NSArray *_cornerRadii;
         self.hidden = YES;
         backgroundView.hidden = NO;
         [backgroundClone removeFromSuperview];
+
+        UINavigationController *navigationController = BEAppDelegate.topNavigationController;
+        if ([navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+            navigationController.interactivePopGestureRecognizer.enabled = YES;
+        }
+
         if (completion) {
             completion(finished);
         }

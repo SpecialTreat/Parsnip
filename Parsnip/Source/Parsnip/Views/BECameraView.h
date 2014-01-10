@@ -8,6 +8,8 @@
 
 - (void)startVideo;
 - (void)stopVideo;
+- (void)pauseVideo;
+- (void)resumeVideo;
 - (void)captureImage:(void(^)(UIImage *image))imageHandler;
 
 @end

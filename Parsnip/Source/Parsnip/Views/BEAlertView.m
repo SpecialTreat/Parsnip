@@ -4,60 +4,52 @@
 #import <QuartzCore/CALayer.h>
 #import "UIBezierPath+Tools.h"
 #import "UIView+Tools.h"
+#import "BEUI.h"
+#import "BEAppDelegate.h"
 
 
 @implementation BEAlertView
 {
     UIView *backgroundView;
-    UIView *shadowView;
+    BETouchableView *maskView;
+    UIButton *cancelButton;
     NSMutableArray *_buttons;
-    CGSize _size;
+    NSString *_cancelButtonTitle;
 }
 
-static CGFloat _showAnimationScale = 1.4f;
-static CGFloat _hideAnimationScale = 0.8f;
-static NSArray *_cornerRadii;
+static CGFloat _buttonHeight;
+static CGFloat _buttonMargin;
 
 + (void)initialize
 {
-    _cornerRadii = @[@0.0f, @0.0f, @0.0f, @0.0f];
+    _buttonHeight = 48.0f;
+    _buttonMargin = 10.0f;
 }
 
-+ (CGFloat)showAnimationScale
++ (CGFloat)buttonHeight
 {
-    return _showAnimationScale;
+    return _buttonHeight;
 }
 
-+ (void)setShowAnimationScale:(CGFloat)showAnimationScale
++ (void)setButtonHeight:(CGFloat)buttonHeight
 {
-    _showAnimationScale = showAnimationScale;
+    _buttonHeight = buttonHeight;
 }
 
-+ (CGFloat)hideAnimationScale
++ (CGFloat)buttonMargin
 {
-    return _hideAnimationScale;
+    return _buttonMargin;
 }
 
-+ (void)setHideAnimationScale:(CGFloat)hideAnimationScale
++ (void)setButtonMargin:(CGFloat)buttonMargin
 {
-    _hideAnimationScale = hideAnimationScale;
-}
-
-+ (NSArray *)cornerRadii
-{
-    return _cornerRadii;
-}
-
-+ (void)setCornerRadii:(NSArray *)cornerRadii
-{
-    if (!cornerRadii) {
-        cornerRadii = @[@0.0f, @0.0f, @0.0f, @0.0f];
-    }
-    _cornerRadii = cornerRadii;
+    _buttonMargin = buttonMargin;
 }
 
 @synthesize buttons = _buttons;
 @synthesize maskAlpha = _maskAlpha;
+@synthesize cancelButtonTitle = _cancelButtonTitle;
+@synthesize delegate = _delegate;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -65,84 +57,102 @@ static NSArray *_cornerRadii;
     if (self) {
         _buttons = [NSMutableArray array];
         _maskAlpha = 0.0f;
-        _size = CGSizeMake(240.0f, 120.0f);
 
         self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         self.userInteractionEnabled = YES;
 
-        CGRect backgroundFrame = CGRectMake(0, 0, _size.width, _size.height);
-        backgroundView = [[UIView alloc] initWithFrame:backgroundFrame];
-        backgroundView.center = CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame));
-        backgroundView.backgroundColor = [UIColor whiteColor];
-        backgroundView.contentMode = UIViewContentModeRedraw;
-        backgroundView.userInteractionEnabled = YES;
+        CGRect bounds = frame;
+        bounds.origin.x = 0.0f;
+        bounds.origin.y = 0.0f;
+        maskView = [[BETouchableView alloc] initWithFrame:bounds];
+        maskView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        maskView.backgroundColor = [UIColor blackColor];
+        maskView.delegate = self;
+
+        CGFloat buttonWidth = frame.size.width - (_buttonMargin * 2.0f);
+
+        backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, buttonWidth, 0.0f)];
         backgroundView.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin |
                                            UIViewAutoresizingFlexibleBottomMargin |
-                                           UIViewAutoresizingFlexibleRightMargin |
-                                           UIViewAutoresizingFlexibleLeftMargin);
-        [backgroundView roundCorners:_cornerRadii];
+                                           UIViewAutoresizingFlexibleWidth);
 
-        shadowView = [[UIView alloc] initWithFrame:backgroundFrame];
-        shadowView.center = CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame));
-        shadowView.backgroundColor = [UIColor clearColor];
-        shadowView.userInteractionEnabled = NO;
-        shadowView.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin |
-                                       UIViewAutoresizingFlexibleBottomMargin |
-                                       UIViewAutoresizingFlexibleRightMargin |
-                                       UIViewAutoresizingFlexibleLeftMargin);
-        shadowView.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:backgroundView.bounds cornerRadii:_cornerRadii].CGPath;
-        shadowView.layer.shadowColor = [UIColor blackColor].CGColor;
-        shadowView.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
-        shadowView.layer.shadowOpacity = 0.5f;
-        shadowView.layer.shadowRadius = 10.0f;
+        cancelButton = [BEUI buttonWithKey:@[@"AlertCancelButton", @"AlertButton"] target:self action:@selector(onCancelButtonTouch:event:)];
+        _cancelButtonTitle = [cancelButton titleForState:UIControlStateNormal];
+        cancelButton.frame = CGRectMake(0.0f, _buttonMargin, buttonWidth, _buttonHeight);
+        cancelButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+        cancelButton.contentMode = UIViewContentModeRedraw;
 
-        [self addSubview:shadowView];
+        [self addSubview:maskView];
+        [backgroundView addSubview:cancelButton];
         [self addSubview:backgroundView];
 
         self.maskAlpha = _maskAlpha;
-        self.size = _size;
     }
     return self;
 }
 
-- (UIColor *)shadowColor
+- (void)dealloc
 {
-    return [UIColor colorWithCGColor:shadowView.layer.shadowColor];
+    maskView.delegate = nil;
+    self.delegate = nil;
 }
 
-- (void)setShadowColor:(UIColor *)shadowColor
+- (NSInteger)cancelButtonIndex
 {
-    shadowView.layer.shadowColor = shadowColor.CGColor;
+    return _buttons.count;
 }
 
-- (CGSize)shadowOffset
+- (void)touchableViewOnTouch:(BETouchableView *)view
 {
-    return shadowView.layer.shadowOffset;
+    [self dismissButtonIndex:self.cancelButtonIndex animated:YES];
 }
 
-- (void)setShadowOffset:(CGSize)shadowOffset
+- (void)onCancelButtonTouch:(UIButton *)sender event:(UIEvent *)event
 {
-    shadowView.layer.shadowOffset = shadowOffset;
+    [self dismissButtonIndex:self.cancelButtonIndex animated:YES];
 }
 
-- (CGFloat)shadowOpacity
+- (void)onButtonTouch:(UIButton *)sender event:(UIEvent *)event
 {
-    return shadowView.layer.shadowOpacity;
+    [self.delegate alertView:(UIAlertView *)self clickedButtonAtIndex:sender.tag];
 }
 
-- (void)setShadowOpacity:(CGFloat)shadowOpacity
+- (void)dismissAnimated:(BOOL)animated
 {
-    shadowView.layer.shadowOpacity = shadowOpacity;
+    [self dismissButtonIndex:-1 animated:animated];
 }
 
-- (CGFloat)shadowRadius
+- (void)dismissButtonIndex:(NSInteger)index animated:(BOOL)animated
 {
-    return shadowView.layer.shadowRadius;
+    if (index == self.cancelButtonIndex) {
+        [self.delegate alertViewCancel:(UIAlertView *)self];
+    }
+
+    void (^dismissCompleted)() = ^()
+    {
+        [self removeFromSuperview];
+        [self.delegate alertView:(UIAlertView *)self didDismissWithButtonIndex:index];
+
+        UINavigationController *navigationController = BEAppDelegate.topNavigationController;
+        if ([navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+            navigationController.interactivePopGestureRecognizer.enabled = YES;
+        }
+    };
+
+    [self.delegate alertView:(UIAlertView *)self willDismissWithButtonIndex:index];
+    if (animated) {
+        [self hide:nil completion:^(BOOL finished) {
+            dismissCompleted();
+        }];
+    } else {
+        dismissCompleted();
+    }
 }
 
-- (void)setShadowRadius:(CGFloat)shadowRadius
+- (void)setCancelButtonTitle:(NSString *)cancelButtonTitle
 {
-    shadowView.layer.shadowRadius = shadowRadius;
+    _cancelButtonTitle = cancelButtonTitle;
+    [cancelButton setTitle:_cancelButtonTitle forState:UIControlStateNormal];
 }
 
 - (void)setButtons:(NSArray *)buttons
@@ -151,10 +161,30 @@ static NSArray *_cornerRadii;
         [button removeFromSuperview];
     }
     [_buttons removeAllObjects];
+
+    CGFloat buttonWidth = self.frame.size.width - (_buttonMargin * 2.0f);
+    backgroundView.frame = CGRectMake(0.0f, 0.0f, buttonWidth, (_buttonHeight * (buttons.count + 1)) + _buttonMargin);
+    backgroundView.center = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+
+    cancelButton.frame = CGRectMake(0.0f, (_buttonHeight * buttons.count) + _buttonMargin, buttonWidth, _buttonHeight);
+
     NSUInteger count = 0;
-    CGFloat buttonHeight = self.size.height / buttons.count;
-    for (UIButton *button in buttons) {
-        button.frame = CGRectMake(0, buttonHeight * count, self.size.width, buttonHeight);
+    for (NSString *title in buttons) {
+        NSArray *buttonKey;
+        if (buttons.count == 1) {
+            buttonKey = @[@"AlertOnlyButton", @"AlertButton"];
+        } else if (count == 0) {
+            buttonKey = @[@"AlertFirstButton", @"AlertButton"];
+        } else if ((count + 1) < buttons.count) {
+            buttonKey = @[@"AlertMiddleButton", @"AlertButton"];
+        } else {
+            buttonKey = @[@"AlertLastButton", @"AlertButton"];
+        }
+        UIButton *button = [BEUI buttonWithKey:buttonKey target:self action:@selector(onButtonTouch:event:)];
+        button.tag = count;
+        button.frame = CGRectMake(0, _buttonHeight * count, buttonWidth, _buttonHeight);
+        button.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        [button setTitle:title forState:UIControlStateNormal];
         [_buttons addObject:button];
         [backgroundView addSubview:button];
         count += 1;
@@ -164,66 +194,36 @@ static NSArray *_cornerRadii;
 - (void)setMaskAlpha:(CGFloat)maskAlpha
 {
     _maskAlpha = maskAlpha;
-    self.backgroundColor = [UIColor colorWithWhite:0.0f alpha:_maskAlpha];
-}
-
-- (CGSize)size
-{
-    return _size;
-}
-
-- (void)setSize:(CGSize)size
-{
-    _size = size;
-    [self setSubviewSizes:size];
-}
-
-- (void)setSubviewSizes:(CGSize)size
-{
-    backgroundView.frame = CGRectMake((self.bounds.size.width / 2.0f) - (size.width / 2.0f),
-                                      (self.bounds.size.height / 2.0f) - (size.height / 2.0f),
-                                      size.width,
-                                      size.height);
-    [backgroundView roundCorners:_cornerRadii];
-
-    NSUInteger count = 0;
-    CGFloat buttonHeight = size.height / _buttons.count;
-    for (UIButton *button in _buttons) {
-        button.frame = CGRectMake(0, buttonHeight * count, size.width, buttonHeight);
-        count += 1;
-    }
 }
 
 - (void)show:(void(^)())animations completion:(void(^)(BOOL finished))completion
 {
-    UIView *backgroundClone = backgroundView.visualClone;
-    backgroundClone.frame = backgroundView.frame;
-    [self addSubview:backgroundClone];
+    UINavigationController *navigationController = BEAppDelegate.topNavigationController;
+    if ([navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        navigationController.interactivePopGestureRecognizer.enabled = NO;
+    }
 
-    backgroundView.hidden = YES;
-    self.alpha = 0.0f;
+    [self.delegate willPresentAlertView:(UIAlertView *)self];
+
+    CGRect backgroundViewFrame = backgroundView.frame;
+    backgroundViewFrame.origin.y = self.frame.size.height;
+    backgroundView.frame = backgroundViewFrame;
+    maskView.alpha = 0.0f;
     self.hidden = NO;
 
-    CGSize initialSize = CGSizeMake(_size.width * _showAnimationScale, _size.height * _showAnimationScale);
-    backgroundClone.frame = CGRectMake((self.bounds.size.width / 2.0f) - (initialSize.width / 2.0f),
-                                       (self.bounds.size.height / 2.0f) - (initialSize.height / 2.0f),
-                                       initialSize.width,
-                                       initialSize.height);
     [UIView animateWithDuration:UINavigationControllerHideShowBarDuration animations:^{
         if (animations) {
             animations();
         }
-        self.alpha = 1.0f;
-        backgroundClone.frame = CGRectMake((self.bounds.size.width / 2.0f) - (_size.width / 2.0f),
-                                           (self.bounds.size.height / 2.0f) - (_size.height / 2.0f),
-                                           _size.width,
-                                           _size.height);
+        CGRect backgroundViewFrame = backgroundView.frame;
+        backgroundViewFrame.origin.y = self.frame.size.height - backgroundView.frame.size.height - _buttonMargin;
+        backgroundView.frame = backgroundViewFrame;
+        maskView.alpha = _maskAlpha;
     } completion:^(BOOL finished) {
-        backgroundView.hidden = NO;
-        [backgroundClone removeFromSuperview];
         if (completion) {
             completion(finished);
         }
+        [self.delegate didPresentAlertView:(UIAlertView *)self];
     }];
 }
 
@@ -233,26 +233,16 @@ static NSArray *_cornerRadii;
         button.highlighted = NO;
     }
 
-    UIView *backgroundClone = backgroundView.visualClone;
-    backgroundClone.frame = backgroundView.frame;
-    [self addSubview:backgroundClone];
-
-    backgroundView.hidden = YES;
-
-    CGSize finalSize = CGSizeMake(_size.width * _hideAnimationScale, _size.height * _hideAnimationScale);
     [UIView animateWithDuration:UINavigationControllerHideShowBarDuration animations:^{
         if (animations) {
             animations();
         }
-        self.alpha = 0.0f;
-        backgroundClone.frame = CGRectMake((self.bounds.size.width / 2.0f) - (finalSize.width / 2.0f),
-                                           (self.bounds.size.height / 2.0f) - (finalSize.height / 2.0f),
-                                           finalSize.width,
-                                           finalSize.height);
+        CGRect backgroundViewFrame = backgroundView.frame;
+        backgroundViewFrame.origin.y = self.frame.size.height;
+        backgroundView.frame = backgroundViewFrame;
+        maskView.alpha = 0.0f;
     } completion:^(BOOL finished) {
         self.hidden = YES;
-        backgroundView.hidden = NO;
-        [backgroundClone removeFromSuperview];
         if (completion) {
             completion(finished);
         }

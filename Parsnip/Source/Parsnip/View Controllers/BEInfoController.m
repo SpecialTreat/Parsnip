@@ -3,6 +3,7 @@
 #import "BEInAppPurchaser.h"
 #import "BEUI.h"
 #import "UIViewController+Tools.h"
+#import "UIDevice+Tools.h"
 
 
 @interface BEInfoController ()
@@ -17,6 +18,7 @@
     UILabel *restoredLabel;
     UIImageView *logoView;
     UIButton *restoreButton;
+    UIButton *rateButton;
 }
 
 static NSString *infoTitle;
@@ -80,6 +82,13 @@ static NSString *infoTitle;
     restoredLabel.center = CGPointMake(frame.size.width / 2.0f,
                                        versionLabel.frame.origin.y + versionLabel.frame.size.height + restoreMargin.top + (restoreButton.frame.size.height / 2.0f));
 
+    UIEdgeInsets rateMargin = [BEUI.theme edgeInsetsForKey:@"Info.RateButton.Margin"];
+    rateButton = [BEUI buttonWithKey:@"Info.RateButton" target:self action:@selector(onRateButtonTouch)];
+    rateButton.hidden = [BEInAppPurchaser.parsnipPurchaser isProductPurchased:BEInAppPurchaserParsnipPro];
+    rateButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
+    rateButton.center = CGPointMake(frame.size.width / 2.0f,
+                                    restoredLabel.frame.origin.y + restoredLabel.frame.size.height + rateMargin.top + (rateButton.frame.size.height / 2.0f));
+
     NSString *copyright = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"NSHumanReadableCopyright"];
     copyrightLabel = [BEUI labelWithKey:@"Info.CopyrightLabel"];
     copyrightLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
@@ -91,6 +100,7 @@ static NSString *infoTitle;
     [self.view addSubview:versionLabel];
     [self.view addSubview:restoreButton];
     [self.view addSubview:restoredLabel];
+    [self.view addSubview:rateButton];
     [self.view addSubview:copyrightLabel];
 }
 
@@ -130,6 +140,11 @@ static NSString *infoTitle;
 - (void)onRestoreButtonTouch
 {
     [BEInAppPurchaser.parsnipPurchaser restoreCompletedTransactions];
+}
+
+- (void)onRateButtonTouch
+{
+    [UIDevice reviewInAppStore:[BEUI.theme stringForKey:@"AppID"]];
 }
 
 @end

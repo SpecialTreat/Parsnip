@@ -7,6 +7,7 @@
 #import "BEInAppPurchaser.h"
 #import "BENoteImageController.h"
 #import "BENoteSheetController.h"
+#import "BENotificationView.h"
 #import "BEOcr.h"
 #import "BEPopoverBackgroundView.h"
 #import "BEPopoverController.h"
@@ -33,7 +34,8 @@
 
     UIBarButtonItem *dismissKeyboardButton;
     UIBarButtonItem *plusButton;
-    BEAlertView *alert;
+    BEAlertView *deleteAlert;
+    BEAlertView *archiveAlert;
     UITextView *textView;
     BETouchableView *touchableView;
     BOOL initialAppearance;
@@ -59,8 +61,6 @@ static UIEdgeInsets noteSheetPopoverContentViewInsets;
 static CGFloat noteSheetPopoverMaskAlpha;
 static BOOL noteSheetPopoverBackgroundClipsToBounds;
 
-static CGSize noteDeleteAlertSize;
-
 + (void)initialize
 {
     noteScanningTitle = [BEUI.theme stringForKey:@"Note.ScanningTitle"];
@@ -78,8 +78,6 @@ static CGSize noteDeleteAlertSize;
     noteSheetPopoverContentViewInsets = [BEUI.theme edgeInsetsForKey:@"NoteSheetPopover.Padding"];
     noteSheetPopoverMaskAlpha = [BEUI.theme floatForKey:@"NoteSheetPopover.MaskAlpha"];
     noteSheetPopoverBackgroundClipsToBounds = [BEUI.theme boolForKey:@"NoteSheetPopover.Background.ClipsToBounds" withDefault:YES];
-
-    noteDeleteAlertSize = [BEUI.theme sizeForKey:@[@"NoteDeleteAlert", @"Alert"] withSubkey:@"BackgroundSize" withDefault:CGSizeMake(240.0f, 120.0f)];
 }
 
 @synthesize note = _note;
@@ -129,7 +127,7 @@ static CGSize noteDeleteAlertSize;
     dismissKeyboardButton = [BEUI barButtonItemWithKey:@[@"NavigationBarDismissKeyboardButton", @"NavigationBarButton"] target:self action:@selector(onDismissKeyboardButtonTouch)];
     plusButton = [BEUI barButtonItemWithKey:@[@"NavigationBarPlusButton", @"NavigationBarButton"] target:self action:@selector(onPlusButtonTouch)];
     plusButton.enabled = NO;
-    [self setRightBarButtonItem:plusButton];
+    [self setRightBarButtonItem:plusButton animated:NO];
 
     UILabel *titleView = [[UILabel alloc] initWithFrame:CGRectZero];
     self.navigationItem.titleView = [BEUI styleNavigationBarTitleView:titleView];
@@ -315,7 +313,7 @@ static CGSize noteDeleteAlertSize;
 
 - (void)onKeyboardWillHide:(NSNotification *)notification
 {
-    [self.navigationItem setRightBarButtonItem:plusButton animated:YES];
+    [self setRightBarButtonItem:plusButton animated:YES];
 
     CGRect frame = self.view.bounds;
     frame.size.height -= toolbarHeight;
@@ -327,7 +325,7 @@ static CGSize noteDeleteAlertSize;
 - (void)onKeyboardWillShow:(NSNotification *)notification
 {
     touchableView.userInteractionEnabled = NO;
-    [self.navigationItem setRightBarButtonItem:dismissKeyboardButton animated:YES];
+    [self setRightBarButtonItem:dismissKeyboardButton animated:YES];
 }
 
 - (UILabel *)titleView
@@ -706,6 +704,8 @@ static CGSize noteDeleteAlertSize;
                 return;
             }
             [UIPasteboard generalPasteboard].string = textView.text;
+
+            [BENotificationView notify:@"Text Copied"];
         }
     }];
 }
@@ -715,18 +715,13 @@ static CGSize noteDeleteAlertSize;
     if (!_note) {
         return;
     }
-    alert = [[BEAlertView alloc] initWithFrame:self.view.bounds];
-    alert.maskAlpha = [BEUI.theme floatForKey:@"Alert.MaskAlpha"];
-    alert.shadowColor = [BEUI.theme colorForKey:@"Alert.ShadowColor"];
-    alert.size = noteDeleteAlertSize;
+    archiveAlert = [[BEAlertView alloc] initWithFrame:self.navigationController.view.bounds];
+    archiveAlert.maskAlpha = [BEUI.theme floatForKey:@"Alert.MaskAlpha"];
+    archiveAlert.buttons = @[[BEUI.theme stringForKey:@"NoteArchiveAlertArchiveButton"]];
+    archiveAlert.delegate = self;
 
-    UIButton *confirmButton = [BEUI buttonWithKey:@[@"NoteArchiveAlertArchiveButton", @"AlertButton"] target:self action:@selector(onAlertArchiveButtonTouch:event:)];
-    UIButton *cancelButton = [BEUI buttonWithKey:@[@"AlertCancelButton", @"AlertButton"] target:self action:@selector(onAlertCancelButtonTouch:event:)];
-
-    alert.buttons = @[confirmButton, cancelButton];
-
-    [self.navigationController.view addSubview:alert];
-    [alert show:nil completion:nil];
+    [self.navigationController.view addSubview:archiveAlert];
+    [archiveAlert show:nil completion:nil];
 }
 
 - (void)onUnarchiveButtonTouch:(UIButton *)sender event:(UIEvent *)event
@@ -747,26 +742,18 @@ static CGSize noteDeleteAlertSize;
     if (!_note) {
         return;
     }
-    alert = [[BEAlertView alloc] initWithFrame:self.view.bounds];
-    alert.maskAlpha = [BEUI.theme floatForKey:@"Alert.MaskAlpha"];
-    alert.shadowColor = [BEUI.theme colorForKey:@"Alert.ShadowColor"];
-    alert.size = noteDeleteAlertSize;
+    deleteAlert = [[BEAlertView alloc] initWithFrame:self.navigationController.view.bounds];
+    deleteAlert.maskAlpha = [BEUI.theme floatForKey:@"Alert.MaskAlpha"];
+    deleteAlert.buttons = @[[BEUI.theme stringForKey:@"NoteDeleteAlertDeleteButton"]];
+    deleteAlert.delegate = self;
 
-    UIButton *confirmButton = [BEUI buttonWithKey:@[@"NoteDeleteAlertDeleteButton", @"AlertWarningButton", @"AlertButton"] target:self action:@selector(onAlertDeleteButtonTouch:event:)];
-    UIButton *cancelButton = [BEUI buttonWithKey:@[@"NoteDeleteAlertCancelButton", @"AlertCancelButton", @"AlertButton"] target:self action:@selector(onAlertCancelButtonTouch:event:)];
-
-    alert.buttons = @[confirmButton, cancelButton];
-
-    [self.navigationController.view addSubview:alert];
-    [alert show:nil completion:nil];
+    [self.navigationController.view addSubview:deleteAlert];
+    [deleteAlert show:nil completion:nil];
 }
 
-- (void)onAlertArchiveButtonTouch:(UIButton *)sender event:(UIEvent *)event
+- (void)onAlertArchiveButtonTouch
 {
-    [alert hide:nil completion:^(BOOL finished) {
-        [alert removeFromSuperview];
-        alert = nil;
-    }];
+    [archiveAlert dismissAnimated:YES];
 
     _note.archived = YES;
     _note.userSaved = YES;
@@ -777,23 +764,60 @@ static CGSize noteDeleteAlertSize;
     }
 }
 
-- (void)onAlertDeleteButtonTouch:(UIButton *)sender event:(UIEvent *)event
+- (void)onAlertDeleteButtonTouch
 {
-    [alert hide:nil completion:^(BOOL finished) {
-        [alert removeFromSuperview];
-        alert = nil;
-    }];
+    [deleteAlert dismissAnimated:YES];
+
     if ([BEDB remove:_note]) {
         [self popToRoot];
     }
 }
 
-- (void)onAlertCancelButtonTouch:(UIButton *)sender event:(UIEvent *)event
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    [alert hide:nil completion:^(BOOL finished) {
-        [alert removeFromSuperview];
-        alert = nil;
-    }];
+    if ((BEAlertView *)alertView == deleteAlert) {
+        if (buttonIndex == 0) {
+            [self onAlertDeleteButtonTouch];
+        }
+    } else if((BEAlertView *)alertView == archiveAlert) {
+        if (buttonIndex == 0) {
+            [self onAlertArchiveButtonTouch];
+        }
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if ((BEAlertView *)alertView == deleteAlert) {
+        deleteAlert = nil;
+    } else if((BEAlertView *)alertView == archiveAlert) {
+        archiveAlert = nil;
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+
+}
+
+- (void)alertViewCancel:(UIAlertView *)alertView
+{
+
+}
+
+- (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView
+{
+    return YES;
+}
+
+- (void)didPresentAlertView:(UIAlertView *)alertView
+{
+
+}
+
+- (void)willPresentAlertView:(UIAlertView *)alertView
+{
+
 }
 
 - (void)noteSheet:(BENoteSheetController *)controller contact:(BENote *)note

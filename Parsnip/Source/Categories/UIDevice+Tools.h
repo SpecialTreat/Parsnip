@@ -11,5 +11,6 @@
 + (BOOL)openInGoogleMaps:(NSString *)address;
 + (BOOL)openInChrome:(NSURL *)url;
 + (BOOL)openInChrome:(NSURL *)url createNewTab:(BOOL)createNewTab;
++ (BOOL)reviewInAppStore:(NSString *)appID;
 
 @end

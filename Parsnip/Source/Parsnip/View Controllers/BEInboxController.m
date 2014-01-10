@@ -39,8 +39,8 @@ static NSString *noteCellArchiveButtonTitle;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    infoButton = [BEUI barButtonItemWithKey:@[@"NavigationBarInfoButton", @"NavigationBarButton"] target:self action:@selector(onInfoButtonTouch)];
-    [self setRightBarButtonItem:infoButton];
+    infoButton = [BEUI barButtonItemWithKey:@[@"NavigationBarSettingsButton", @"NavigationBarButton"] target:self action:@selector(onInfoButtonTouch)];
+    [self setRightBarButtonItem:infoButton animated:NO];
 }
 
 - (NSDictionary *)noteQueryParameters

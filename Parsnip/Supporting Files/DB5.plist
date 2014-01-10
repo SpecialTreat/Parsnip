@@ -7,7 +7,9 @@
 		<key>Debug</key>
 		<false/>
 		<key>RequireInAppPurchase</key>
-		<false/>
+		<true/>
+		<key>AppID</key>
+		<string>752725886</string>
 		<key>CreateContactNoteText</key>
 		<string>Added by Parsnip</string>
 		<key>DateDisplayFormat</key>
@@ -22,10 +24,21 @@
 		<string>Unarchive</string>
 		<key>UpgradeName</key>
 		<string>Parsnip Pro</string>
+		<key>UpgradeText</key>
+		<string>Buy now to enable all these features:
+• Quick copy scanned text
+• Add or update contacts
+• Open addresses in Apple or Google Maps
+• Open links in Safari or Google Chrome
+• Call or text to phone numbers
+• Email to scanned addresses
+• Create calendar events</string>
 		<key>TintColor</key>
 		<string>40c000</string>
 		<key>SelectedTintColor</key>
 		<string>40c00060</string>
+		<key>DisabledTintColor</key>
+		<string>c0c0c0</string>
 		<key>TintStartColor</key>
 		<string>@TintColor</string>
 		<key>TintEndColor</key>
@@ -41,17 +54,15 @@
 		<dict>
 			<key>MaskAlpha</key>
 			<real>0.5</real>
-			<key>ShadowColor</key>
-			<string>00000000</string>
-			<key>ShowAnimationScale</key>
-			<real>1.4</real>
-			<key>HideAnimationScale</key>
-			<real>0.7</real>
-			<key>CornerRadius</key>
-			<integer>6</integer>
+			<key>ButtonHeight</key>
+			<integer>48</integer>
+			<key>ButtonMargin</key>
+			<integer>10</integer>
 		</dict>
 		<key>AlertButton</key>
 		<dict>
+			<key>BackgroundColor</key>
+			<string>ffffff00</string>
 			<key>Title</key>
 			<dict>
 				<key>TextColor</key>
@@ -59,7 +70,7 @@
 				<key>Font</key>
 				<dict>
 					<key>Size</key>
-					<integer>18</integer>
+					<integer>22</integer>
 				</dict>
 			</dict>
 			<key>SelectedTitle</key>
@@ -67,10 +78,307 @@
 				<key>TextColor</key>
 				<string>@TintColor</string>
 			</dict>
+		</dict>
+		<key>AlertFirstButton</key>
+		<dict>
+			<key>BackgroundImage</key>
+			<dict>
+				<key>Width</key>
+				<string>7</string>
+				<key>Height</key>
+				<integer>5</integer>
+				<key>Color</key>
+				<string>ffffff</string>
+				<key>Border</key>
+				<dict>
+					<key>Top</key>
+					<integer>0</integer>
+					<key>Right</key>
+					<integer>0</integer>
+					<key>Bottom</key>
+					<integer>1</integer>
+					<key>Left</key>
+					<integer>0</integer>
+				</dict>
+				<key>BorderColor</key>
+				<dict>
+					<key>Bottom</key>
+					<string>c0c0c0</string>
+				</dict>
+				<key>CapInsets</key>
+				<dict>
+					<key>Top</key>
+					<integer>3</integer>
+					<key>Left</key>
+					<integer>3</integer>
+					<key>Right</key>
+					<integer>3</integer>
+					<key>Bottom</key>
+					<integer>1</integer>
+				</dict>
+				<key>CornerRadius</key>
+				<dict>
+					<key>TopLeft</key>
+					<integer>0</integer>
+					<key>TopRight</key>
+					<integer>0</integer>
+					<key>BottomRight</key>
+					<integer>3</integer>
+					<key>BottomLeft</key>
+					<integer>3</integer>
+				</dict>
+			</dict>
 			<key>SelectedBackgroundImage</key>
 			<dict>
+				<key>Width</key>
+				<string>7</string>
+				<key>Height</key>
+				<integer>5</integer>
 				<key>Color</key>
 				<string>d9d9d9</string>
+				<key>Border</key>
+				<dict>
+					<key>Top</key>
+					<integer>0</integer>
+					<key>Right</key>
+					<integer>0</integer>
+					<key>Bottom</key>
+					<integer>1</integer>
+					<key>Left</key>
+					<integer>0</integer>
+				</dict>
+				<key>BorderColor</key>
+				<dict>
+					<key>Bottom</key>
+					<string>c0c0c0</string>
+				</dict>
+				<key>CapInsets</key>
+				<dict>
+					<key>Top</key>
+					<integer>3</integer>
+					<key>Left</key>
+					<integer>3</integer>
+					<key>Right</key>
+					<integer>3</integer>
+					<key>Bottom</key>
+					<integer>1</integer>
+				</dict>
+				<key>CornerRadius</key>
+				<dict>
+					<key>TopLeft</key>
+					<integer>0</integer>
+					<key>TopRight</key>
+					<integer>0</integer>
+					<key>BottomRight</key>
+					<integer>3</integer>
+					<key>BottomLeft</key>
+					<integer>3</integer>
+				</dict>
+			</dict>
+		</dict>
+		<key>AlertMiddleButton</key>
+		<dict>
+			<key>BackgroundImage</key>
+			<dict>
+				<key>Width</key>
+				<string>3</string>
+				<key>Height</key>
+				<integer>3</integer>
+				<key>Color</key>
+				<string>ffffff</string>
+				<key>Border</key>
+				<dict>
+					<key>Top</key>
+					<integer>0</integer>
+					<key>Right</key>
+					<integer>0</integer>
+					<key>Bottom</key>
+					<integer>1</integer>
+					<key>Left</key>
+					<integer>0</integer>
+				</dict>
+				<key>BorderColor</key>
+				<dict>
+					<key>Bottom</key>
+					<string>c0c0c0</string>
+				</dict>
+				<key>CapInsets</key>
+				<dict>
+					<key>Top</key>
+					<integer>1</integer>
+					<key>Left</key>
+					<integer>1</integer>
+					<key>Right</key>
+					<integer>1</integer>
+					<key>Bottom</key>
+					<integer>1</integer>
+				</dict>
+			</dict>
+			<key>SelectedBackgroundImage</key>
+			<dict>
+				<key>Width</key>
+				<string>3</string>
+				<key>Height</key>
+				<integer>3</integer>
+				<key>Color</key>
+				<string>d9d9d9</string>
+				<key>Border</key>
+				<dict>
+					<key>Top</key>
+					<integer>0</integer>
+					<key>Right</key>
+					<integer>0</integer>
+					<key>Bottom</key>
+					<integer>1</integer>
+					<key>Left</key>
+					<integer>0</integer>
+				</dict>
+				<key>BorderColor</key>
+				<dict>
+					<key>Bottom</key>
+					<string>c0c0c0</string>
+				</dict>
+				<key>CapInsets</key>
+				<dict>
+					<key>Top</key>
+					<integer>1</integer>
+					<key>Left</key>
+					<integer>1</integer>
+					<key>Right</key>
+					<integer>1</integer>
+					<key>Bottom</key>
+					<integer>1</integer>
+				</dict>
+			</dict>
+		</dict>
+		<key>AlertLastButton</key>
+		<dict>
+			<key>BackgroundImage</key>
+			<dict>
+				<key>Width</key>
+				<integer>7</integer>
+				<key>Height</key>
+				<integer>5</integer>
+				<key>Color</key>
+				<string>ffffff</string>
+				<key>CapInsets</key>
+				<dict>
+					<key>Top</key>
+					<integer>1</integer>
+					<key>Left</key>
+					<integer>3</integer>
+					<key>Right</key>
+					<integer>3</integer>
+					<key>Bottom</key>
+					<integer>3</integer>
+				</dict>
+				<key>CornerRadius</key>
+				<dict>
+					<key>TopLeft</key>
+					<integer>0</integer>
+					<key>TopRight</key>
+					<integer>0</integer>
+					<key>BottomRight</key>
+					<integer>3</integer>
+					<key>BottomLeft</key>
+					<integer>3</integer>
+				</dict>
+			</dict>
+			<key>SelectedBackgroundImage</key>
+			<dict>
+				<key>Width</key>
+				<integer>7</integer>
+				<key>Height</key>
+				<integer>5</integer>
+				<key>Color</key>
+				<string>d9d9d9</string>
+				<key>CapInsets</key>
+				<dict>
+					<key>Top</key>
+					<integer>1</integer>
+					<key>Left</key>
+					<integer>3</integer>
+					<key>Right</key>
+					<integer>3</integer>
+					<key>Bottom</key>
+					<integer>3</integer>
+				</dict>
+				<key>CornerRadius</key>
+				<dict>
+					<key>TopLeft</key>
+					<integer>0</integer>
+					<key>TopRight</key>
+					<integer>0</integer>
+					<key>BottomRight</key>
+					<integer>3</integer>
+					<key>BottomLeft</key>
+					<integer>3</integer>
+				</dict>
+			</dict>
+		</dict>
+		<key>AlertOnlyButton</key>
+		<dict>
+			<key>BackgroundImage</key>
+			<dict>
+				<key>Width</key>
+				<integer>7</integer>
+				<key>Height</key>
+				<integer>7</integer>
+				<key>Color</key>
+				<string>ffffff</string>
+				<key>CapInsets</key>
+				<dict>
+					<key>Top</key>
+					<integer>3</integer>
+					<key>Left</key>
+					<integer>3</integer>
+					<key>Right</key>
+					<integer>3</integer>
+					<key>Bottom</key>
+					<integer>3</integer>
+				</dict>
+				<key>CornerRadius</key>
+				<dict>
+					<key>TopLeft</key>
+					<integer>3</integer>
+					<key>TopRight</key>
+					<integer>3</integer>
+					<key>BottomRight</key>
+					<integer>3</integer>
+					<key>BottomLeft</key>
+					<integer>3</integer>
+				</dict>
+			</dict>
+			<key>SelectedBackgroundImage</key>
+			<dict>
+				<key>Width</key>
+				<integer>7</integer>
+				<key>Height</key>
+				<integer>7</integer>
+				<key>Color</key>
+				<string>d9d9d9</string>
+				<key>CapInsets</key>
+				<dict>
+					<key>Top</key>
+					<integer>3</integer>
+					<key>Left</key>
+					<integer>3</integer>
+					<key>Right</key>
+					<integer>3</integer>
+					<key>Bottom</key>
+					<integer>3</integer>
+				</dict>
+				<key>CornerRadius</key>
+				<dict>
+					<key>TopLeft</key>
+					<integer>3</integer>
+					<key>TopRight</key>
+					<integer>3</integer>
+					<key>BottomRight</key>
+					<integer>3</integer>
+					<key>BottomLeft</key>
+					<integer>3</integer>
+				</dict>
 			</dict>
 		</dict>
 		<key>AlertCancelButton</key>
@@ -79,24 +387,73 @@
 			<dict>
 				<key>Text</key>
 				<string>Cancel</string>
+				<key>Font</key>
+				<dict>
+					<key>Bold</key>
+					<true/>
+				</dict>
 			</dict>
-		</dict>
-		<key>AlertWarningButton</key>
-		<dict>
-			<key>Title</key>
+			<key>BackgroundImage</key>
 			<dict>
-				<key>TextColor</key>
-				<string>f84040</string>
-			</dict>
-			<key>SelectedTitle</key>
-			<dict>
-				<key>TextColor</key>
+				<key>Width</key>
+				<integer>7</integer>
+				<key>Height</key>
+				<integer>7</integer>
+				<key>Color</key>
 				<string>ffffff</string>
+				<key>CapInsets</key>
+				<dict>
+					<key>Top</key>
+					<integer>3</integer>
+					<key>Left</key>
+					<integer>3</integer>
+					<key>Right</key>
+					<integer>3</integer>
+					<key>Bottom</key>
+					<integer>3</integer>
+				</dict>
+				<key>CornerRadius</key>
+				<dict>
+					<key>TopLeft</key>
+					<integer>3</integer>
+					<key>TopRight</key>
+					<integer>3</integer>
+					<key>BottomRight</key>
+					<integer>3</integer>
+					<key>BottomLeft</key>
+					<integer>3</integer>
+				</dict>
 			</dict>
 			<key>SelectedBackgroundImage</key>
 			<dict>
+				<key>Width</key>
+				<integer>7</integer>
+				<key>Height</key>
+				<integer>7</integer>
 				<key>Color</key>
-				<string>f84040</string>
+				<string>d9d9d9</string>
+				<key>CapInsets</key>
+				<dict>
+					<key>Top</key>
+					<integer>3</integer>
+					<key>Left</key>
+					<integer>3</integer>
+					<key>Right</key>
+					<integer>3</integer>
+					<key>Bottom</key>
+					<integer>3</integer>
+				</dict>
+				<key>CornerRadius</key>
+				<dict>
+					<key>TopLeft</key>
+					<integer>3</integer>
+					<key>TopRight</key>
+					<integer>3</integer>
+					<key>BottomRight</key>
+					<integer>3</integer>
+					<key>BottomLeft</key>
+					<integer>3</integer>
+				</dict>
 			</dict>
 		</dict>
 		<key>Dialog</key>
@@ -185,7 +542,7 @@
 			<key>DisabledTitle</key>
 			<dict>
 				<key>TextColor</key>
-				<string>c0c0c0</string>
+				<string>@DisabledTintColor</string>
 			</dict>
 			<key>BackgroundImage</key>
 			<dict>
@@ -622,13 +979,13 @@
 			<key>RestoreButton</key>
 			<dict>
 				<key>Width</key>
-				<integer>160</integer>
+				<integer>192</integer>
 				<key>Height</key>
 				<integer>30</integer>
 				<key>Margin</key>
 				<dict>
 					<key>Top</key>
-					<integer>36</integer>
+					<integer>15</integer>
 					<key>Right</key>
 					<integer>0</integer>
 					<key>Bottom</key>
@@ -640,6 +997,77 @@
 				<dict>
 					<key>Text</key>
 					<string>Restore Parsnip Pro</string>
+					<key>TextColor</key>
+					<string>@TintColor</string>
+					<key>Font</key>
+					<dict>
+						<key>Size</key>
+						<integer>15</integer>
+					</dict>
+				</dict>
+				<key>SelectedTitle</key>
+				<dict>
+					<key>TextColor</key>
+					<string>@SelectedTintColor</string>
+				</dict>
+				<key>BackgroundImage</key>
+				<dict>
+					<key>Color</key>
+					<string>@TintColor</string>
+					<key>Template</key>
+					<string>ToolbarButtonOutlineBackground.png</string>
+					<key>CapInsets</key>
+					<dict>
+						<key>Top</key>
+						<integer>4</integer>
+						<key>Left</key>
+						<integer>4</integer>
+						<key>Right</key>
+						<integer>4</integer>
+						<key>Bottom</key>
+						<integer>4</integer>
+					</dict>
+				</dict>
+				<key>SelectedBackgroundImage</key>
+				<dict>
+					<key>Color</key>
+					<string>@SelectedTintColor</string>
+					<key>Template</key>
+					<string>ToolbarButtonOutlineBackground.png</string>
+					<key>CapInsets</key>
+					<dict>
+						<key>Top</key>
+						<integer>4</integer>
+						<key>Left</key>
+						<integer>4</integer>
+						<key>Right</key>
+						<integer>4</integer>
+						<key>Bottom</key>
+						<integer>4</integer>
+					</dict>
+				</dict>
+			</dict>
+			<key>RateButton</key>
+			<dict>
+				<key>Width</key>
+				<integer>192</integer>
+				<key>Height</key>
+				<integer>30</integer>
+				<key>Margin</key>
+				<dict>
+					<key>Top</key>
+					<integer>20</integer>
+					<key>Right</key>
+					<integer>0</integer>
+					<key>Bottom</key>
+					<integer>0</integer>
+					<key>Left</key>
+					<integer>0</integer>
+				</dict>
+				<key>Title</key>
+				<dict>
+					<key>Text</key>
+					<string>Rate Parsnip ☆☆☆☆☆</string>
 					<key>TextColor</key>
 					<string>@TintColor</string>
 					<key>Font</key>
@@ -844,6 +1272,13 @@
 				<key>Template</key>
 				<string>ToolbarPlusButton.png</string>
 			</dict>
+			<key>DisabledImage</key>
+			<dict>
+				<key>Color</key>
+				<string>@DisabledTintColor</string>
+				<key>Template</key>
+				<string>ToolbarPlusButton.png</string>
+			</dict>
 		</dict>
 		<key>NavigationBarPhotoLibraryButton</key>
 		<dict>
@@ -856,6 +1291,19 @@
 			<dict>
 				<key>Template</key>
 				<string>ToolbarPhotoLibraryButtonSelected.png</string>
+			</dict>
+		</dict>
+		<key>NavigationBarSettingsButton</key>
+		<dict>
+			<key>Image</key>
+			<dict>
+				<key>Template</key>
+				<string>ToolbarSettingsButton.png</string>
+			</dict>
+			<key>SelectedImage</key>
+			<dict>
+				<key>Template</key>
+				<string>ToolbarSettingsButton.png</string>
 			</dict>
 		</dict>
 		<key>NavigationBarBlack</key>
@@ -1108,102 +1556,10 @@
 				<integer>14</integer>
 			</dict>
 		</dict>
-		<key>NoteArchiveAlert</key>
-		<dict/>
 		<key>NoteArchiveAlertArchiveButton</key>
-		<dict>
-			<key>Title</key>
-			<dict>
-				<key>Text</key>
-				<string>@ArchiveText</string>
-				<key>Font</key>
-				<dict>
-					<key>Bold</key>
-					<true/>
-				</dict>
-			</dict>
-			<key>BackgroundImage</key>
-			<dict>
-				<key>Width</key>
-				<string>240</string>
-				<key>Height</key>
-				<integer>60</integer>
-				<key>Color</key>
-				<string>ffffff00</string>
-				<key>Border</key>
-				<dict>
-					<key>Top</key>
-					<integer>0</integer>
-					<key>Right</key>
-					<integer>0</integer>
-					<key>Bottom</key>
-					<integer>1</integer>
-					<key>Left</key>
-					<integer>0</integer>
-				</dict>
-				<key>BorderColor</key>
-				<dict>
-					<key>Bottom</key>
-					<string>c0c0c0</string>
-				</dict>
-			</dict>
-			<key>SelectedBackgroundImage</key>
-			<dict>
-				<key>Width</key>
-				<string>240</string>
-				<key>Height</key>
-				<string>60</string>
-			</dict>
-		</dict>
-		<key>NoteDeleteAlert</key>
-		<dict/>
+		<string>@ArchiveText</string>
 		<key>NoteDeleteAlertDeleteButton</key>
-		<dict>
-			<key>Title</key>
-			<dict>
-				<key>Text</key>
-				<string>@DeleteText</string>
-				<key>Font</key>
-				<dict>
-					<key>Bold</key>
-					<true/>
-				</dict>
-			</dict>
-			<key>BackgroundImage</key>
-			<dict>
-				<key>Width</key>
-				<string>240</string>
-				<key>Height</key>
-				<integer>60</integer>
-				<key>Color</key>
-				<string>ffffff00</string>
-				<key>Border</key>
-				<dict>
-					<key>Top</key>
-					<integer>0</integer>
-					<key>Right</key>
-					<integer>0</integer>
-					<key>Bottom</key>
-					<integer>1</integer>
-					<key>Left</key>
-					<integer>0</integer>
-				</dict>
-				<key>BorderColor</key>
-				<dict>
-					<key>Bottom</key>
-					<string>c0c0c0</string>
-				</dict>
-			</dict>
-			<key>SelectedBackgroundImage</key>
-			<dict>
-				<key>Width</key>
-				<string>240</string>
-				<key>Height</key>
-				<string>60</string>
-			</dict>
-		</dict>
-		<key>NoteDeleteAlertCancelButton</key>
-		<dict/>
+		<string>@DeleteText</string>
 		<key>NoteNavigationBar</key>
 		<dict>
 			<key>UnsavedTitle</key>
@@ -1408,7 +1764,7 @@
 			<key>DisabledTitle</key>
 			<dict>
 				<key>TextColor</key>
-				<string>606060</string>
+				<string>@DisabledTintColor</string>
 			</dict>
 			<key>BackgroundImage</key>
 			<dict>
@@ -1423,25 +1779,7 @@
 			<key>DisabledBackgroundImage</key>
 			<dict>
 				<key>Color</key>
-				<string>606060</string>
-			</dict>
-		</dict>
-		<key>NoteToolbarSaveButton</key>
-		<dict>
-			<key>Title</key>
-			<dict>
-				<key>Text</key>
-				<string>KEEP</string>
-			</dict>
-			<key>BackgroundImage</key>
-			<dict>
-				<key>Template</key>
-				<string>NoteSaveButton.png</string>
-			</dict>
-			<key>SelectedBackgroundImage</key>
-			<dict>
-				<key>Template</key>
-				<string>NoteSaveButton.png</string>
+				<string>@DisabledTintColor</string>
 			</dict>
 		</dict>
 		<key>NoteToolbarDeleteButton</key>
@@ -1457,6 +1795,11 @@
 				<string>NoteDeleteButton.png</string>
 			</dict>
 			<key>SelectedBackgroundImage</key>
+			<dict>
+				<key>Template</key>
+				<string>NoteDeleteButton.png</string>
+			</dict>
+			<key>DisabledBackgroundImage</key>
 			<dict>
 				<key>Template</key>
 				<string>NoteDeleteButton.png</string>
@@ -1479,6 +1822,11 @@
 				<key>Template</key>
 				<string>NoteCopyButton.png</string>
 			</dict>
+			<key>DisabledBackgroundImage</key>
+			<dict>
+				<key>Template</key>
+				<string>NoteCopyButton.png</string>
+			</dict>
 		</dict>
 		<key>NoteToolbarArchiveButton</key>
 		<dict>
@@ -1493,6 +1841,11 @@
 				<string>NoteArchiveButton.png</string>
 			</dict>
 			<key>SelectedBackgroundImage</key>
+			<dict>
+				<key>Template</key>
+				<string>NoteArchiveButton.png</string>
+			</dict>
+			<key>DisabledBackgroundImage</key>
 			<dict>
 				<key>Template</key>
 				<string>NoteArchiveButton.png</string>
@@ -1514,6 +1867,40 @@
 			<dict>
 				<key>Template</key>
 				<string>NoteUnarchiveButton.png</string>
+			</dict>
+			<key>DisabledBackgroundImage</key>
+			<dict>
+				<key>Template</key>
+				<string>NoteUnarchiveButton.png</string>
+			</dict>
+		</dict>
+		<key>Notification</key>
+		<dict>
+			<key>AnimationScale</key>
+			<real>1.5</real>
+			<key>AnimationDuration</key>
+			<real>0.75</real>
+			<key>BackgroundColor</key>
+			<string>c0ffc0</string>
+			<key>CornerRadius</key>
+			<integer>3</integer>
+			<key>DescriptionTextColor</key>
+			<string>000000</string>
+			<key>DescriptionFont</key>
+			<dict>
+				<key>Size</key>
+				<string>18</string>
+			</dict>
+			<key>DescriptionMargin</key>
+			<dict>
+				<key>Top</key>
+				<string>10</string>
+				<key>Bottom</key>
+				<string>10</string>
+				<key>Left</key>
+				<integer>20</integer>
+				<key>Right</key>
+				<integer>20</integer>
 			</dict>
 		</dict>
 		<key>PopoverBackground</key>

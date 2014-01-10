@@ -84,6 +84,10 @@ static NSString *CAPTURE_QUALITY;
 
 - (void)stopVideo {}
 
+- (void)pauseVideo {}
+
+- (void)resumeVideo {}
+
 - (void)captureImage:(void(^)(UIImage *image))imageHandler
 {
 //    imageHandler([UIImage imageNamed:@"BECameraView_SimulatorCropped.png"]);
@@ -114,6 +118,11 @@ static NSString *CAPTURE_QUALITY;
     CGFloat toggleFlashButtonHeight;
     UIEdgeInsets toggleFlashButtonMargin;
     UIDeviceOrientation lastOrientation;
+}
+
++ (void)initialize
+{
+    CAPTURE_QUALITY = AVCaptureSessionPresetHigh;
 }
 
 - (BOOL)torchEnabled
@@ -397,6 +406,10 @@ static NSString *CAPTURE_QUALITY;
 {
     [captureSession stopRunning];
 }
+
+- (void)pauseVideo {}
+
+- (void)resumeVideo {}
 
 - (void)startMotionManager
 {

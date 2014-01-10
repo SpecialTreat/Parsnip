@@ -4,6 +4,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "JASidePanelController.h"
 #import "BECameraView.h"
+#import "BEGPUCameraView.h"
 #import "BECropController.h"
 #import "BENoteSheetController.h"
 #import "BENoteController.h"
@@ -19,7 +20,7 @@
 
 @implementation BECaptureController
 {
-    BECameraView *cameraView;
+    BEGPUCameraView *cameraView;
 
     UIToolbar *toolbar;
     UIBarButtonItem *cameraButton;
@@ -53,7 +54,7 @@
     CGRect frame = self.view.bounds;
     CGFloat toolbarHeight = [BEUI.theme floatForKey:@"CaptureToolbar.Height"];
     UIEdgeInsets cameraMargin = [BEUI.theme edgeInsetsForKey:@"CaptureCamera.Margin"];
-	cameraView = [[BECameraView alloc] initWithFrame:CGRectMake(cameraMargin.left,
+	cameraView = [[BEGPUCameraView alloc] initWithFrame:CGRectMake(cameraMargin.left,
                                                                    cameraMargin.top,
                                                                    frame.size.width - (cameraMargin.left + cameraMargin.right),
                                                                    frame.size.height - (cameraMargin.top + cameraMargin.bottom))];

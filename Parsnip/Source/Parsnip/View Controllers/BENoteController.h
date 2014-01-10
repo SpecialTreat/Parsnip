@@ -14,12 +14,13 @@
 
 
 @interface BENoteController : BEBaseController<UITextViewDelegate,
-                                                     BEPopoverControllerDelegate,
-                                                     EKEventEditViewDelegate,
-                                                     ABUnknownPersonViewControllerDelegate,
-                                                     BENoteSheetControllerDelegate,
-                                                     BETouchableViewDelegate,
-                                                     UINavigationControllerDelegate>
+                                               UIAlertViewDelegate,
+                                               BEPopoverControllerDelegate,
+                                               EKEventEditViewDelegate,
+                                               ABUnknownPersonViewControllerDelegate,
+                                               BENoteSheetControllerDelegate,
+                                               BETouchableViewDelegate,
+                                               UINavigationControllerDelegate>
 
 @property (nonatomic) BENote *note;
 @property (nonatomic, strong) BEPopoverController *popover;

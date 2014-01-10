@@ -8,10 +8,10 @@
 
 @implementation UIViewController (Tools)
 
-- (void)setRightBarButtonItem:(UIBarButtonItem *)barButtonItem
+- (void)setRightBarButtonItem:(UIBarButtonItem *)barButtonItem animated:(BOOL)animated
 {
     UIBarButtonItem* spacer = [UIBarButtonItem spacer:[BEUI.theme floatForKey:@"NavigationBarButton.RightSpacer"]];
-    self.navigationItem.rightBarButtonItems = @[spacer, barButtonItem];
+    [self.navigationItem setRightBarButtonItems:@[spacer, barButtonItem] animated:animated];
 }
 
 - (BOOL)manuallyAdjustsViewInsets

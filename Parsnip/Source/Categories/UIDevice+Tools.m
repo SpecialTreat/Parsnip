@@ -95,4 +95,19 @@ static NSString * const kGoogleMapsScheme = @"comgooglemaps:";
     return [encodedComponents componentsJoinedByString:@"+"];
 }
 
++ (BOOL)reviewInAppStore:(NSString *)appID
+{
+    NSString *reviewAddress;
+    if ([UIDevice isIOS7]) {
+        reviewAddress = @"itms-apps://itunes.apple.com/app/id%@";
+    } else {
+        reviewAddress = @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@";
+    }
+    NSURL *reviewURL = [NSURL URLWithString:[NSString stringWithFormat:reviewAddress, appID]];
+    if([[UIApplication sharedApplication] canOpenURL:reviewURL]) {
+        return [[UIApplication sharedApplication] openURL:reviewURL];
+    }
+    return NO;
+}
+
 @end

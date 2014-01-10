@@ -2,6 +2,7 @@
 
 #import "BEAlertView.h"
 #import "BEDialogView.h"
+#import "BENotificationView.h"
 #import "BEPopoverBackgroundView.h"
 #import "BEThread.h"
 #import "UIColor+Tools.h"
@@ -100,6 +101,7 @@ static UIStatusBarStyle themeStatusBarStyle;
     [BEUI styleNavigationBarAppearance];
     [BEUI styleAlertView];
     [BEUI styleDialogView];
+    [BEUI styleNotificationView];
     [BEUI stylePopoverBackgroundView];
 }
 
@@ -188,9 +190,8 @@ static UIStatusBarStyle themeStatusBarStyle;
 
 + (void)styleAlertView
 {
-    [BEAlertView setShowAnimationScale:[BEUI.theme floatForKey:@"Alert.ShowAnimationScale" withDefault:1.4f]];
-    [BEAlertView setHideAnimationScale:[BEUI.theme floatForKey:@"Alert.HideAnimationScale" withDefault:0.8f]];
-    [BEAlertView setCornerRadii:[BEUI.theme cornerRadiiForKey:@"Alert.CornerRadius" withDefault:@[@0.0f, @0.0f, @0.0f, @0.0f]]];
+    [BEAlertView setButtonHeight:[BEUI.theme floatForKey:@"Alert.ButtonHeight" withDefault:48.0f]];
+    [BEAlertView setButtonMargin:[BEUI.theme floatForKey:@"Alert.ButtonMargin" withDefault:10.0f]];
 }
 
 + (void)styleDialogView
@@ -205,6 +206,17 @@ static UIStatusBarStyle themeStatusBarStyle;
     [BEDialogView setDescriptionColor:[BEUI.theme colorForKey:@"Dialog.Description.TextColor" withDefault:[UIColor blackColor]]];
     [BEDialogView setDescriptionFont:[BEUI.theme fontForKey:@"Dialog.Description.Font"]];
     [BEDialogView setDescriptionMargin:[BEUI.theme edgeInsetsForKey:@"Dialog.Description.Margin"]];
+}
+
++ (void)styleNotificationView
+{
+    [BENotificationView setAnimationDuration:[BEUI.theme floatForKey:@"Notification.AnimationDuration" withDefault:0.75f]];
+    [BENotificationView setAnimationScale:[BEUI.theme floatForKey:@"Notification.AnimationScale" withDefault:1.5f]];
+    [BENotificationView setBackgroundColor:[BEUI.theme colorForKey:@"Notification.BackgroundColor" withDefault:[UIColor lightGrayColor]]];
+    [BENotificationView setCornerRadii:[BEUI.theme cornerRadiiForKey:@"Notification.CornerRadius" withDefault:@[@4.0f, @4.0f, @4.0f, @4.0f]]];
+    [BENotificationView setDescriptionTextColor:[BEUI.theme colorForKey:@"Notification.DescriptionTextColor" withDefault:[UIColor blackColor]]];
+    [BENotificationView setDescriptionFont:[BEUI.theme fontForKey:@"Notification.DescriptionFont"]];
+    [BENotificationView setDescriptionMargin:[BEUI.theme edgeInsetsForKey:@"Notification.DescriptionMargin" withDefault:UIEdgeInsetsMake(10.0f, 10.0f, 10.0f, 10.0f)]];
 }
 
 + (void)stylePopoverBackgroundView
@@ -294,6 +306,9 @@ static UIStatusBarStyle themeStatusBarStyle;
     UIImage *selectedImage = [theme imageForKey:key withSubkey:@"SelectedImage"];
     [button setImage:selectedImage forState:UIControlStateSelected];
 
+    UIImage *disabledImage = [theme imageForKey:key withSubkey:@"DisabledImage"];
+    [button setImage:disabledImage forState:UIControlStateDisabled];
+
     UIImage *highlightedImage = [theme imageForKey:key withSubkey:@"HighlightedImage" withDefault:selectedImage];
     [button setImage:highlightedImage forState:UIControlStateHighlighted];
 
@@ -302,6 +317,9 @@ static UIStatusBarStyle themeStatusBarStyle;
 
     UIImage *selectedBackgroundImage = [theme imageForKey:key withSubkey:@"SelectedBackgroundImage"];
     [button setBackgroundImage:selectedBackgroundImage forState:UIControlStateSelected];
+
+    UIImage *disabledBackgroundImage = [theme imageForKey:key withSubkey:@"DisabledBackgroundImage"];
+    [button setBackgroundImage:disabledBackgroundImage forState:UIControlStateDisabled];
 
     UIImage *highlightedBackgroundImage = [theme imageForKey:key withSubkey:@"HighlightedBackgroundImage" withDefault:selectedBackgroundImage];
     [button setBackgroundImage:highlightedBackgroundImage forState:UIControlStateHighlighted];
@@ -451,15 +469,13 @@ static UIStatusBarStyle themeStatusBarStyle;
         [theme fontForKey:@[@"NoteNavigationBar.UnsavedTitle", @"NavigationBar.Title"] withSubkey:@"Font"];
         [theme imageForKey:@"NoteToolbar.BackgroundImage"];
         [theme imageForKey:@"NoteToolbar.ShadowImage"];
-//        [BEUI barButtonItemWithKey:@[@"NoteToolbarSaveButton", @"NoteToolbarButton"] target:nil action:nil];
         [BEUI barButtonItemWithKey:@[@"NoteToolbarCopyButton", @"NoteToolbarButton"] target:nil action:nil];
         [BEUI barButtonItemWithKey:@[@"NoteToolbarArchiveButton", @"NoteToolbarButton"] target:nil action:nil];
         [BEUI barButtonItemWithKey:@[@"NoteToolbarUnarchiveButton", @"NoteToolbarButton"] target:nil action:nil];
         [BEUI barButtonItemWithKey:@[@"NoteToolbarDeleteButton", @"NoteToolbarButton"] target:nil action:nil];
         [BEUI barButtonItemWithKey:@[@"NavigationBarDismissKeyboardButton", @"NavigationBarButton"] target:nil action:nil];
         [BEUI barButtonItemWithKey:@[@"NavigationBarPlusButton", @"NavigationBarButton"] target:nil action:nil];
-        [BEUI buttonWithKey:@[@"NoteDeleteAlertDeleteButton", @"AlertWarningButton", @"AlertButton"] target:nil action:nil];
-        [BEUI buttonWithKey:@[@"NoteDeleteAlertCancelButton", @"AlertCancelButton", @"AlertButton"] target:nil action:nil];
+        [BEUI buttonWithKey:@[@"AlertCancelButton", @"AlertButton"] target:nil action:nil];
     }];
 }
 

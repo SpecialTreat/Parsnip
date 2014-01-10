@@ -1,24 +1,22 @@
 #import <UIKit/UIKit.h>
+#import "BETouchableView.h"
 
 
-@interface BEAlertView : UIView
+@interface BEAlertView : UIView<BETouchableViewDelegate>
 
-+ (CGFloat)showAnimationScale;
-+ (void)setShowAnimationScale:(CGFloat)showAnimationScale;
-+ (CGFloat)hideAnimationScale;
-+ (void)setHideAnimationScale:(CGFloat)hideAnimationScale;
-+ (NSArray *)cornerRadii;
-+ (void)setCornerRadii:(NSArray *)cornerRadii;
++ (CGFloat)buttonHeight;
++ (void)setButtonHeight:(CGFloat)buttonHeight;
++ (CGFloat)buttonMargin;
++ (void)setButtonMargin:(CGFloat)buttonMargin;
 
 @property (nonatomic) NSArray *buttons;
-@property (nonatomic) CGSize size;
 @property (nonatomic) CGFloat maskAlpha;
-@property (nonatomic) UIColor *shadowColor;
-@property (nonatomic) CGSize shadowOffset;
-@property (nonatomic) CGFloat shadowOpacity;
-@property (nonatomic) CGFloat shadowRadius;
+@property (nonatomic) NSString *cancelButtonTitle;
+@property (nonatomic, readonly) NSInteger cancelButtonIndex;
+@property (unsafe_unretained, nonatomic) id<UIAlertViewDelegate> delegate;
 
 - (void)show:(void(^)())animations completion:(void(^)(BOOL finished))completion;
 - (void)hide:(void(^)())animations completion:(void(^)(BOOL finished))completion;
+- (void)dismissAnimated:(BOOL)animated;
 
 @end

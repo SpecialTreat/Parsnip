@@ -10,6 +10,7 @@
 #import "BETextDataDetector.h"
 #import "BEThread.h"
 #import "UIImage+Tesseract.h"
+#import "GPUImage.h"
 
 
 @implementation BEOcr
@@ -96,9 +97,25 @@ static NSString *tessdataPath;
 - (void)preOcr:(UIImage *)image completion:(void(^)(UIImage *preOcrImage))completion
 {
     [BEThread background:^{
-        //image = [image autolevels];
-        //image = [image gaussianBlur3x3];
-        //image = [image otsuThreshold];
+//        GPUImageGaussianBlurFilter *blur = [[GPUImageGaussianBlurFilter alloc] init];
+//        blur.blurRadiusInPixels = 0.5;
+//
+//        GPUImageBrightnessFilter *brightness = [[GPUImageBrightnessFilter alloc] init];
+//        brightness.brightness = 0.1;
+//
+//        GPUImageContrastFilter *contrast = [[GPUImageContrastFilter alloc] init];
+//        contrast.contrast = 1.2;
+//
+//        GPUImageBilateralFilter *bilateral = [[GPUImageBilateralFilter alloc] init];
+//
+//        GPUImagePicture *imageSource = [[GPUImagePicture alloc] initWithImage:image];
+//        [imageSource addTarget:blur];
+//        [blur addTarget:brightness];
+//        [brightness addTarget:contrast];
+//        [contrast addTarget:bilateral];
+//        [imageSource processImage];
+//        UIImage *preOcrImage = [bilateral imageFromCurrentlyProcessedOutputWithOrientation:image.imageOrientation];
+
         if(completion) {
             [BEThread main:^{
                 completion(image);

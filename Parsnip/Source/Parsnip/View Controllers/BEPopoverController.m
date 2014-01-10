@@ -1,4 +1,5 @@
 #import "BEPopoverController.h"
+#import "BEAppDelegate.h"
 
 
 @implementation BEPopoverController
@@ -180,6 +181,11 @@
 {
 	[self dismissPopoverAnimated:NO];
 
+    UINavigationController *navigationController = BEAppDelegate.topNavigationController;
+    if ([navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        navigationController.interactivePopGestureRecognizer.enabled = NO;
+    }
+
 	[_contentViewController view];
 
 	if (CGSizeEqualToSize(_popoverContentSize, CGSizeZero)) {
@@ -323,25 +329,10 @@
         [_contentViewController viewWillDisappear:animated];
 		_popoverVisible = NO;
 		[self.backgroundView resignFirstResponder];
-		if (animated) {
-            [UIView animateWithDuration:UINavigationControllerHideShowBarDuration animations:^{
-                _view.alpha = 0.0;
-            } completion:^(BOOL finished) {
-                [_contentViewController viewDidDisappear:animated];
-                [self.backgroundView removeFromSuperview];
-                self.backgroundView = nil;
-                [_maskView removeFromSuperview];
-                _maskView = nil;
-                [_view removeFromSuperview];
-                _view = nil;
-
-                if (userInitiated) {
-                    [_delegate popoverControllerDidDismissPopover:self];
-                }
-            }];
 
 
-		} else {
+        void (^dismissCompleted)() = ^()
+        {
             [_contentViewController viewDidDisappear:animated];
 			[self.backgroundView removeFromSuperview];
 			self.backgroundView = nil;
@@ -349,6 +340,27 @@
             _maskView = nil;
 			[_view removeFromSuperview];
 			_view = nil;
+
+            UINavigationController *navigationController = BEAppDelegate.topNavigationController;
+            if ([navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+                navigationController.interactivePopGestureRecognizer.enabled = YES;
+            }
+
+            if (userInitiated) {
+                [_delegate popoverControllerDidDismissPopover:self];
+            }
+        };
+
+		if (animated) {
+            [UIView animateWithDuration:UINavigationControllerHideShowBarDuration animations:^{
+                _view.alpha = 0.0;
+            } completion:^(BOOL finished) {
+                dismissCompleted();
+            }];
+
+
+		} else {
+            dismissCompleted();
 		}
 	}
 }
