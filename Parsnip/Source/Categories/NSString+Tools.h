@@ -12,6 +12,8 @@
 - (NSString *)underscoreToCamelCase;
 - (NSUInteger)numberOfMatches:(NSString *)regexPattern;
 - (NSUInteger)numberOfMatches:(NSString *)regexPattern options:(NSRegularExpressionOptions)options;
+- (NSArray *)partition:(NSString *)delimiter;
+- (NSString *)removeRepeats:(NSString *)repeatedString;
 - (NSString *)replace:(NSString *)regexPattern with:(NSString *)regexTemplate;
 - (NSString *)stringByTrimmingLeadingCharactersInSet:(NSCharacterSet *)set;
 - (NSString *)stripEmptyLines;

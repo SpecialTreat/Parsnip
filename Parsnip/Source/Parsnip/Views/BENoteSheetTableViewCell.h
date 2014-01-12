@@ -8,6 +8,7 @@
 @property (nonatomic) BETextData *textData;
 @property (nonatomic) NSString *type;
 @property (nonatomic) NSString *text;
+@property (nonatomic) NSString *vCard;
 @property (nonatomic) NSDate *date;
 @property (nonatomic) NSTimeZone *timeZone;
 @property (nonatomic) NSTimeInterval duration;

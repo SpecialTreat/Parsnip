@@ -1,4 +1,4 @@
-#import "BEOcr.h"
+#import "BEScanner.h"
 
 #import <objc/message.h>
 #import "allheaders.h"
@@ -11,9 +11,10 @@
 #import "BEThread.h"
 #import "UIImage+Tesseract.h"
 #import "GPUImage.h"
+#import "ZBarSDK.h"
 
 
-@implementation BEOcr
+@implementation BEScanner
 
 static NSString *tessdataPath;
 
@@ -94,31 +95,183 @@ static NSString *tessdataPath;
     }];
 }
 
+- (NSString *)simplifyVCard:(NSString *)vcard
+{
+    NSMutableArray *result = [NSMutableArray array];
+    NSArray *lines = [vcard componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+    NSString *name = nil;
+    NSString *fullName = nil;
+    for (NSString *line in lines) {
+        NSString *s = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        if (![s isEqualToString:@""] &&
+            ![s isEqualToString:@"BEGIN:VCARD"] &&
+            ![s isEqualToString:@"END:VCARD"] &&
+            ![s hasPrefix:@"VERSION"] &&
+            ![s hasPrefix:@"PHOTO"] &&
+            ![s hasPrefix:@"LOGO"] &&
+            ![s hasPrefix:@"XML"] &&
+            ![s hasPrefix:@"UID"] &&
+            ![s hasPrefix:@"TZ"] &&
+            ![s hasPrefix:@"SOUND"] &&
+            ![s hasPrefix:@"SORT-STRING"] &&
+            ![s hasPrefix:@"REV"] &&
+            ![s hasPrefix:@"RELATED"] &&
+            ![s hasPrefix:@"PRODID"] &&
+            ![s hasPrefix:@"PROFILE"] &&
+            ![s hasPrefix:@"CLIENTPIDMAP"] &&
+            ![s hasPrefix:@"CLASS"] &&
+            ![s hasPrefix:@"ANNIVERSARY"] &&
+            ![s hasPrefix:@"BDAY"] &&
+            ![s hasPrefix:@"GENDER"] &&
+            ![s hasPrefix:@"GEO"] &&
+            ![s hasPrefix:@"KEY"] &&
+            ![s hasPrefix:@"KIND"] &&
+            ![s hasPrefix:@"MAILER"] &&
+            ![s hasPrefix:@"MEMBER"] &&
+            ![s hasPrefix:@"CALADRURI"] &&
+            ![s hasPrefix:@"FBURL"]) {
+            NSArray *parts = [s partition:@":"];
+            if ([parts[0] hasPrefix:@"ADR"]) {
+                NSString *part = [parts[2] stringByReplacingOccurrencesOfString:@";" withString:@" "];
+                part = [part stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                [result addObject:part];
+            } else {
+                NSString *part = [parts[2] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"; "]];
+                if ([parts[0] hasPrefix:@"NICKNAME"]) {
+                    [result addObject:[NSString stringWithFormat:@"Nickname: %@", part]];
+                } else if ([parts[0] isEqualToString:@"N"]) {
+                    name = [part stringByReplacingOccurrencesOfString:@";" withString:@", "];
+                } else if ([parts[0] isEqualToString:@"FN"]) {
+                    fullName = part;
+                } else {
+                    [result addObject:part];
+                }
+            }
+        }
+    }
+    if (fullName) {
+        [result insertObject:fullName atIndex:0];
+    } else if (name) {
+        [result insertObject:name atIndex:0];
+    }
+    [result addObject:@""];
+    return [result componentsJoinedByString:@"\n"];
+}
+
+- (NSDictionary *)zBarSymbolToDictionary:(ZBarSymbol *)symbol
+{
+    NSString *text = symbol.data;
+    if (!text) {
+        text = @"";
+    }
+    NSMutableDictionary *d = [NSMutableDictionary dictionary];
+    d[@"Type"] = [NSNumber numberWithInt:(int)symbol.type];
+    d[@"TypeName"] = symbol.typeName;
+    d[@"ConfigMask"] = [NSNumber numberWithInt:symbol.configMask];
+    d[@"ModifierMask"] = [NSNumber numberWithInt:symbol.modifierMask];
+    d[@"Quality"] = [NSNumber numberWithInt:symbol.quality];
+    d[@"Bounds"] = @{@"X": [NSNumber numberWithFloat:symbol.bounds.origin.x],
+                     @"Y": [NSNumber numberWithFloat:symbol.bounds.origin.y],
+                     @"Width": [NSNumber numberWithFloat:symbol.bounds.size.width],
+                     @"Height": [NSNumber numberWithFloat:symbol.bounds.size.height]};
+    d[@"Orientation"] = [NSString stringWithUTF8String:zbar_get_orientation_name(symbol.orientation)];
+    if (symbol.components && symbol.components.count) {
+        NSMutableArray *components = [NSMutableArray arrayWithCapacity:symbol.components.count];
+        for (ZBarSymbol *component in symbol.components) {
+            [components addObject:[self zBarSymbolToDictionary:component]];
+        }
+        d[@"Components"] = components;
+    }
+
+    NSMutableArray *vcards = nil;
+    NSError *error = nil;
+    NSRange range = NSMakeRange(0, text.length);
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"BEGIN:VCARD.*?END:VCARD"
+                                                                           options:NSRegularExpressionDotMatchesLineSeparators
+                                                                             error:&error];
+    NSRange vcardRange = [regex rangeOfFirstMatchInString:text options:0 range:range];
+    while (vcardRange.location != NSNotFound) {
+        if (!vcards) {
+            vcards = [NSMutableArray array];
+        }
+        NSString *vcardText = [text substringWithRange:vcardRange];
+        [vcards addObject:vcardText];
+        NSString *simpleVCard = [self simplifyVCard:vcardText];
+
+        text = [text stringByReplacingCharactersInRange:vcardRange withString:simpleVCard];
+
+        NSUInteger location = vcardRange.location + simpleVCard.length;
+        range = NSMakeRange(location, text.length - location);
+        vcardRange = [regex rangeOfFirstMatchInString:text options:0 range:range];
+    }
+    if (vcards) {
+        d[@"VCards"] = vcards;
+    }
+    d[@"Data"] = text;
+    return d;
+}
+
+- (void)codeScan:(UIImage *)image completion:(void(^)(NSArray *codeScanData))completion
+{
+    [BEThread background:^{
+        ZBarImageScanner *scanner = [[ZBarImageScanner alloc] init];
+
+        CGImageRef cgImage = image.CGImage;
+        int w = CGImageGetWidth(cgImage);
+        int h = CGImageGetHeight(cgImage);
+
+        CGSize size = CGSizeMake(w, h);
+
+        // limit the maximum number of scan passes
+        int density;
+        if(size.width > 720) {
+            density = (size.width / 240 + 1) / 2;
+        } else {
+            density = 1;
+        }
+        [scanner setSymbology:ZBAR_NONE config:ZBAR_CFG_X_DENSITY to:density];
+
+        if(size.height > 720) {
+            density = (size.height / 240 + 1) / 2;
+        } else {
+            density = 1;
+        }
+        [scanner setSymbology:ZBAR_NONE config:ZBAR_CFG_Y_DENSITY to:density];
+
+        ZBarImage *zimg = [[ZBarImage alloc] initWithCGImage:cgImage];
+        int nsyms = [scanner scanImage: zimg];
+
+        NSMutableArray *array = nil;
+        if (nsyms > 0) {
+            array = [NSMutableArray arrayWithCapacity:nsyms];
+            ZBarSymbolSet *results = scanner.results;
+            results.filterSymbols = NO;
+            for(ZBarSymbol *symbol in results) {
+                [array addObject:[self zBarSymbolToDictionary:symbol]];
+            }
+        }
+
+        if (completion) {
+            [BEThread main:^{
+                completion(array);
+            }];
+
+        }
+    }];
+}
+
 - (void)preOcr:(UIImage *)image completion:(void(^)(UIImage *preOcrImage))completion
 {
     [BEThread background:^{
-//        GPUImageGaussianBlurFilter *blur = [[GPUImageGaussianBlurFilter alloc] init];
-//        blur.blurRadiusInPixels = 0.5;
-//
-//        GPUImageBrightnessFilter *brightness = [[GPUImageBrightnessFilter alloc] init];
-//        brightness.brightness = 0.1;
-//
-//        GPUImageContrastFilter *contrast = [[GPUImageContrastFilter alloc] init];
-//        contrast.contrast = 1.2;
-//
-//        GPUImageBilateralFilter *bilateral = [[GPUImageBilateralFilter alloc] init];
-//
-//        GPUImagePicture *imageSource = [[GPUImagePicture alloc] initWithImage:image];
-//        [imageSource addTarget:blur];
-//        [blur addTarget:brightness];
-//        [brightness addTarget:contrast];
-//        [contrast addTarget:bilateral];
-//        [imageSource processImage];
-//        UIImage *preOcrImage = [bilateral imageFromCurrentlyProcessedOutputWithOrientation:image.imageOrientation];
+        GPUImageBilateralFilter *bilateral = [[GPUImageBilateralFilter alloc] init];
 
+        GPUImagePicture *imageSource = [[GPUImagePicture alloc] initWithImage:image];
+        [imageSource addTarget:bilateral];
+        [imageSource processImage];
+        UIImage *preOcrImage = [bilateral imageFromCurrentlyProcessedOutputWithOrientation:image.imageOrientation];
         if(completion) {
             [BEThread main:^{
-                completion(image);
+                completion(preOcrImage);
             }];
         }
     }];

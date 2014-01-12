@@ -71,6 +71,30 @@
     return [regex numberOfMatchesInString:self options:0 range:range];
 }
 
+- (NSArray *)partition:(NSString *)delimiter
+{
+    NSRange match = [self rangeOfString:delimiter];
+    if (match.location == NSNotFound) {
+        return @[self, @"", @""];
+    } else {
+        NSString *left = [self substringWithRange: NSMakeRange(0, match.location)];
+        NSString *right = [self substringWithRange: NSMakeRange(match.location + match.length, (self.length - match.location) - match.length)];
+        return @[left, delimiter, right];
+    }
+}
+
+- (NSString *)removeRepeats:(NSString *)repeatedString
+{
+    NSString *repeat = [NSString stringWithFormat:@"%@%@", repeatedString, repeatedString];
+    NSString *result = self;
+    NSRange range = [result rangeOfString:repeat];
+    while (range.location != NSNotFound) {
+        result = [result stringByReplacingOccurrencesOfString:repeat withString:repeatedString];
+        range = [result rangeOfString:repeat];
+    }
+    return result;
+}
+
 - (NSString *)replace:(NSString *)regexPattern with:(NSString *)regexTemplate
 {
     NSError *error;

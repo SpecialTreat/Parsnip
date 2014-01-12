@@ -148,7 +148,7 @@ static NSString *cropTitle;
     NSObject<UINavigationControllerDelegate> *navigationControllerDelegate = self.navigationController.delegate;
     UINavigationController *navigationController = self.navigationController;
     navigationControllerPushCompletion = ^(BOOL finished) {
-        [noteController ocr:note];
+        [noteController scan:note];
         [transitionView removeFromSuperview];
         navigationController.delegate = navigationControllerDelegate;
     };

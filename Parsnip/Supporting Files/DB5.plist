@@ -856,7 +856,7 @@
 		<key>Crop</key>
 		<dict>
 			<key>Title</key>
-			<string>Crop Text</string>
+			<string>Crop</string>
 			<key>MaskAlpha</key>
 			<real>0.33</real>
 			<key>Symmetrical</key>

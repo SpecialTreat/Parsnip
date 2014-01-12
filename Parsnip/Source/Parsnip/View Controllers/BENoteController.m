@@ -8,7 +8,7 @@
 #import "BENoteImageController.h"
 #import "BENoteSheetController.h"
 #import "BENotificationView.h"
-#import "BEOcr.h"
+#import "BEScanner.h"
 #import "BEPopoverBackgroundView.h"
 #import "BEPopoverController.h"
 #import "BETextData.h"
@@ -480,7 +480,7 @@ static BOOL noteSheetPopoverBackgroundClipsToBounds;
     _note = note;
     if ([self isViewLoaded]) {
         _imageView.image = _note.croppedImage;
-        if (_note.postOcrText) {
+        if (_note.postOcrTextTimestamp || _note.codeScanTimestamp) {
             [self updateTitle:_note.firstNonDataTypeLine animated:NO];
         }
         [self updateText:_note.text];
@@ -528,7 +528,7 @@ static BOOL noteSheetPopoverBackgroundClipsToBounds;
     }
 }
 
-- (void)ocr:(BENote *)value
+- (void)scan:(BENote *)value
 {
     self.note = value;
     plusButton.enabled = NO;
@@ -539,56 +539,75 @@ static BOOL noteSheetPopoverBackgroundClipsToBounds;
     self.isDirty = YES;
     [_scannerView show:NO];
 
-    BEOcr *ocr = [[BEOcr alloc] init];
-    [ocr preOcr:_note.croppedImage completion:^(UIImage *preOcrImage) {
-        // NSLog(@"PRE OCR");
-        
-        _note.preOcrImage = preOcrImage;
-        _note.preOcrImageTimestamp = [NSDate date];
+    void (^scanCompleted)() = ^()
+    {
+        [_note dataTypes];
 
-        [ocr ocr:_note.preOcrImage completion:^(NSString *ocrText, UIImage *ocrImage, NSString* hocrText) {
-            // NSLog(@"OCR");
+        _note.thumbnailImage = [BENote createThumbnail:_note.croppedImage];
+        _note.thumbnailImageTimestamp = [NSDate date];
 
-            _note.ocrImage = ocrImage;
-            _note.ocrImageTimestamp = [NSDate date];
+        if([BEDB save:_note]) {
+            self.isDirty = NO;
+        }
 
-            _note.ocrText = ocrText;
-            _note.ocrTextTimestamp = [NSDate date];
+        [BEThread main:^{
+            [self updateText:_note.text];
+            [self updateTitle:_note.firstNonDataTypeLine animated:YES];
+            plusButton.enabled = YES;
+            copyButton.enabled = YES;
+            archiveButton.enabled = YES;
+            unarchiveButton.enabled = YES;
+            deleteButton.enabled = YES;
+            [_scannerView hide:YES completion:^(BOOL finished) {
 
-            _note.hocrText = hocrText;
-            _note.hocrTextTimestamp = [NSDate date];
+            }];
+        }];
+    };
 
-            [ocr postOcr:ocrText completion:^(NSString *postOcrText) {
-                // NSLog(@"POST OCR");
+    BEScanner *scanner = [[BEScanner alloc] init];
+    [scanner codeScan:_note.croppedImage completion:^(NSArray *codeScanData) {
+        // NSLog(@"CODE SCAN");
+        _note.codeScanTimestamp = [NSDate date];
+        if (codeScanData && codeScanData.count) {
+            _note.codeScanData = codeScanData;
+            NSMutableArray *lines = [NSMutableArray arrayWithCapacity:codeScanData.count];
+            for (NSDictionary *data in codeScanData) {
+                [lines addObject:[data[@"Data"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+            }
+            _note.codeScanText = [lines componentsJoinedByString:@"\n\n"];
+            scanCompleted();
+        } else {
+            [scanner preOcr:_note.croppedImage completion:^(UIImage *preOcrImage) {
+                // NSLog(@"PRE OCR");
 
-                _note.postOcrText = postOcrText;
-                _note.postOcrTextTimestamp = [NSDate date];
+                _note.preOcrImage = preOcrImage;
+                _note.preOcrImageTimestamp = [NSDate date];
 
-                [BEThread background:^{
-                    [_note dataTypes];
+                [scanner ocr:_note.preOcrImage completion:^(NSString *ocrText, UIImage *ocrImage, NSString* hocrText) {
+                    // NSLog(@"OCR");
 
-                    _note.thumbnailImage = [BENote createThumbnail:_note.croppedImage];
-                    _note.thumbnailImageTimestamp = [NSDate date];
+                    _note.ocrImage = ocrImage;
+                    _note.ocrImageTimestamp = [NSDate date];
 
-                    if([BEDB save:_note]) {
-                        self.isDirty = NO;
-                    }
+                    _note.ocrText = ocrText;
+                    _note.ocrTextTimestamp = [NSDate date];
 
-                    [BEThread main:^{
-                        [self updateText:_note.text];
-                        [self updateTitle:_note.firstNonDataTypeLine animated:YES];
-                        plusButton.enabled = YES;
-                        copyButton.enabled = YES;
-                        archiveButton.enabled = YES;
-                        unarchiveButton.enabled = YES;
-                        deleteButton.enabled = YES;
-                        [_scannerView hide:YES completion:^(BOOL finished) {
+                    _note.hocrText = hocrText;
+                    _note.hocrTextTimestamp = [NSDate date];
 
+                    [scanner postOcr:ocrText completion:^(NSString *postOcrText) {
+                        // NSLog(@"POST OCR");
+
+                        _note.postOcrText = postOcrText;
+                        _note.postOcrTextTimestamp = [NSDate date];
+                        
+                        [BEThread background:^{
+                            scanCompleted();
                         }];
                     }];
                 }];
             }];
-        }];
+        }
     }];
 }
 
@@ -823,6 +842,17 @@ static BOOL noteSheetPopoverBackgroundClipsToBounds;
 - (void)noteSheet:(BENoteSheetController *)controller contact:(BENote *)note
 {
     ABRecordRef person = [note createPerson];
+    [self performSelectorOnMainThread:@selector(showContact:) withObject:(__bridge id)person waitUntilDone:NO];
+}
+
+- (void)noteSheet:(BENoteSheetController *)controller
+          contact:(BENote *)note
+            vCard:(NSString *)vCard
+{
+    CFDataRef vCardData = (__bridge CFDataRef)[vCard dataUsingEncoding:NSUTF8StringEncoding];
+    CFArrayRef vCardPeople = ABPersonCreatePeopleInSourceWithVCardRepresentation(nil, vCardData);
+    ABRecordRef person = CFRetain(CFArrayGetValueAtIndex(vCardPeople, 0));
+    CFRelease(vCardPeople);
     [self performSelectorOnMainThread:@selector(showContact:) withObject:(__bridge id)person waitUntilDone:NO];
 }
 

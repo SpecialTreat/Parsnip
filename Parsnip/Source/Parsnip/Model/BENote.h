@@ -28,6 +28,10 @@
 @property (nonatomic) CGFloat croppedImageScale;
 @property (nonatomic) CGFloat croppedImageRotation;
 
+@property (nonatomic, retain) NSArray *codeScanData;
+@property (nonatomic, retain) NSString *codeScanText;
+@property (nonatomic, retain) NSDate *codeScanTimestamp;
+
 @property (nonatomic, retain) UIImage *preOcrImage;
 @property (nonatomic, retain) NSDate *preOcrImageTimestamp;
 
@@ -51,6 +55,9 @@
 @property (nonatomic, readonly) BOOL hasDataTypes;
 
 @property (nonatomic, readonly) BOOL hasPerson;
+@property (nonatomic, readonly) BOOL hasVCards;
+@property (nonatomic, readonly) NSArray *vCards;
+@property (nonatomic, readonly) NSUInteger vCardCount;
 
 @property (nonatomic, readonly) NSString *firstNonDataTypeLine;
 

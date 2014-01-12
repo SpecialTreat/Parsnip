@@ -31,6 +31,7 @@ static UIEdgeInsets textMargin;
 }
 
 @synthesize textData = _textData;
+@synthesize vCard = _vCard;
 @synthesize type = _type;
 @synthesize date = _date;
 @synthesize timeZone = _timeZone;
@@ -78,6 +79,9 @@ static UIEdgeInsets textMargin;
         textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         textLabel.numberOfLines = 1;
         textLabel.font = [BEUI.theme fontForKey:themeKey withSubkey:@"Font"];
+        if ([textLabel respondsToSelector:@selector(minimumScaleFactor)]) {
+            textLabel.minimumScaleFactor = 0.5;
+        }
     } else {
         textLabel.adjustsFontSizeToFitWidth = NO;
         textLabel.lineBreakMode = NSLineBreakByWordWrapping;

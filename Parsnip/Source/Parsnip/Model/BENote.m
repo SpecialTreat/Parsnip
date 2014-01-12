@@ -3,7 +3,6 @@
 #import "NSString+Tools.h"
 #import "FMDatabase.h"
 #import "BEDB.h"
-#import "BEOcr.h"
 #import "BETextData.h"
 #import "BETextDataDetector.h"
 #import "BEThread.h"
@@ -98,6 +97,10 @@
 @dynamic croppedImageScale;
 @dynamic croppedImageRotation;
 
+@dynamic codeScanData;
+@dynamic codeScanText;
+@dynamic codeScanTimestamp;
+
 @dynamic preOcrImage;
 @dynamic preOcrImageTimestamp;
 
@@ -122,6 +125,8 @@
 {
     if (self.userText) {
         return self.userText;
+    } else if (self.codeScanText) {
+        return self.codeScanText;
     } else if(self.postOcrText) {
         return self.postOcrText;
     } else {
@@ -172,9 +177,51 @@
     return person;
 }
 
+- (NSArray *)vCards
+{
+    NSMutableArray *vCards = [NSMutableArray array];
+    NSArray *codeScanData = self.codeScanData;
+    if (codeScanData) {
+        for (NSDictionary *data in codeScanData) {
+            if (data[@"VCards"] && [data[@"VCards"] count]) {
+                [vCards addObjectsFromArray:data[@"VCards"]];
+            }
+        }
+    }
+    return vCards;
+}
+
+- (NSUInteger)vCardCount
+{
+    NSUInteger count = 0;
+    NSArray *codeScanData = self.codeScanData;
+    if (codeScanData) {
+        for (NSDictionary *data in codeScanData) {
+            if (data[@"VCards"]) {
+                count += [data[@"VCards"] count];
+            }
+        }
+    }
+    return count;
+}
+
+- (BOOL)hasVCards
+{
+    NSArray *codeScanData = self.codeScanData;
+    if (codeScanData) {
+        for (NSDictionary *data in codeScanData) {
+            if (data[@"VCards"] && [data[@"VCards"] count]) {
+                return YES;
+            }
+        }
+    }
+    return NO;
+}
+
 - (BOOL)hasPerson
 {
-    return ([self.dataTypes[@"Address"] count] ||
+    return (self.hasVCards ||
+            [self.dataTypes[@"Address"] count] ||
             [self.dataTypes[@"Email"] count] ||
             [self.dataTypes[@"URL"] count] ||
             [self.dataTypes[@"PhoneNumber"] count]);

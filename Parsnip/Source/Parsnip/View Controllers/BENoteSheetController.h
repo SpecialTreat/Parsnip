@@ -22,6 +22,9 @@
           contact:(BENote *)note;
 - (void)noteSheet:(BENoteSheetController *)controller
           contact:(BENote *)note
+            vCard:(NSString *)vCard;
+- (void)noteSheet:(BENoteSheetController *)controller
+          contact:(BENote *)note
          textData:(BETextData *)textData;
 - (void)noteSheet:(BENoteSheetController *)controller
          calendar:(BENote *)note

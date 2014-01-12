@@ -365,7 +365,11 @@ static CGFloat spotlightBorderWidth;
                                            _cropViewContainer.bounds.size.width / 2.0f,
                                            _cropViewContainer.bounds.size.height / 2.0f);
 
-        _cropView = [[UIImageView alloc] initWithImage:_note.preOcrImage];
+        if (_note.preOcrImage) {
+            _cropView = [[UIImageView alloc] initWithImage:_note.preOcrImage];
+        } else {
+            _cropView = [[UIImageView alloc] initWithImage:_note.croppedImage];
+        }
         _cropView.frame = croppedFrame;
         [_cropViewContainer addSubview:_cropView];
 

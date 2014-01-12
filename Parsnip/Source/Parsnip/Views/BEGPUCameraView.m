@@ -248,12 +248,12 @@ static NSString *CAPTURE_QUALITY;
        fabs(acceleration.y) > accelerationThreshold || 
        fabs(acceleration.z) > accelerationThreshold) {
         [BEDevice.motionManager stopDeviceMotionUpdates];
-        [self setVideoCameraAutoFocus];
+        [self setVideoCameraContinuousAutoFocus];
     } else if(fabs(rotation.x) > rotationThreshold || 
        fabs(rotation.y) > rotationThreshold || 
        fabs(rotation.z) > rotationThreshold) {
         [BEDevice.motionManager stopDeviceMotionUpdates];
-        [self setVideoCameraAutoFocus];
+        [self setVideoCameraContinuousAutoFocus];
     }
 }
 
@@ -304,10 +304,19 @@ static NSString *CAPTURE_QUALITY;
 {
     CGPoint pointInView = [recognizer locationInView:focusBoxTouchView];
     CGPoint pointOfInterest = [self convertToPointOfInterestFromViewCoordinates:pointInView];
-    NSError *error;
+
     if([videoCamera.inputCamera isFocusModeSupported:AVCaptureFocusModeAutoFocus] && [videoCamera.inputCamera isFocusPointOfInterestSupported]) {
         focusBox.center = pointInView;
         [self performSelectorOnMainThread:@selector(showFocusBox) withObject:nil waitUntilDone:NO];
+        [self focusOnPointOfInterest:pointOfInterest];
+        [self startMotionManager];
+    }
+}
+
+- (void)focusOnPointOfInterest:(CGPoint)pointOfInterest
+{
+    NSError *error;
+    if([videoCamera.inputCamera isFocusModeSupported:AVCaptureFocusModeAutoFocus] && [videoCamera.inputCamera isFocusPointOfInterestSupported]) {
         if([videoCamera.inputCamera lockForConfiguration:&error]) {
             [videoCamera.inputCamera setFocusMode:AVCaptureFocusModeAutoFocus];
             [videoCamera.inputCamera setFocusPointOfInterest:pointOfInterest];
@@ -369,7 +378,7 @@ static NSString *CAPTURE_QUALITY;
     }
 }
 
-- (void)setVideoCameraAutoFocus
+- (void)setVideoCameraContinuousAutoFocus
 {
     NSError *error;
     if([videoCamera.inputCamera isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]) {
@@ -438,6 +447,8 @@ static NSString *CAPTURE_QUALITY;
 {
     [videoCamera startCameraCapture];
     [self updateCropRegionWithCaptureSize];
+    [self focusOnPointOfInterest:CGPointMake(0.5, 0.5)];
+    [self startMotionManager];
 }
 
 - (void)stopVideo
@@ -515,14 +526,8 @@ static NSString *CAPTURE_QUALITY;
             focusBox.hidden = YES;
             focusBox.alpha = 1.0f;
             [focusBox stopAnimating];
-            
-            [self startMotionManager];
         }];
     }];
-    
-    if(BEDevice.motionManager.deviceMotionAvailable) {
-        [BEDevice.motionManager startDeviceMotionUpdates];
-    }
 }
 
 - (CGPoint)convertToPointOfInterestFromViewCoordinates:(CGPoint)viewCoordinates 

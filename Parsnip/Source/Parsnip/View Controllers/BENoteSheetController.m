@@ -103,7 +103,12 @@ static UIEdgeInsets tableCellPadding;
 - (NSInteger)numberOfRows
 {
     NSDictionary *dataTypes = self.note.dataTypes;
+    NSUInteger vCardCount = self.note.vCardCount;
+
     NSUInteger count = 1;
+    if (vCardCount > 0) {
+        count = vCardCount;
+    }
     count += [dataTypes[@"PhoneNumber"] count];
     count += [dataTypes[@"Address"] count];
     count += [dataTypes[@"Email"] count];
@@ -133,7 +138,12 @@ static UIEdgeInsets tableCellPadding;
 {
     NSDictionary *dataTypes = _note.dataTypes;
     if (section == 0) {
-        return 1;
+        NSUInteger vCardCount = self.note.vCardCount;
+        if (vCardCount > 0) {
+            return vCardCount;
+        } else {
+            return 1;
+        }
     } else if (section == 1) {
         return [dataTypes[@"PhoneNumber"] count];
     } else if (section == 2) {
@@ -154,17 +164,65 @@ static UIEdgeInsets tableCellPadding;
     return 6;
 }
 
+- (NSString *)extractVCardName:(NSString *)vCard
+{
+    NSError *error = nil;
+    NSRange range = NSMakeRange(0, vCard.length);
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"^FN:(.*)$"
+                                                                           options:NSRegularExpressionAnchorsMatchLines
+                                                                             error:&error];
+    NSTextCheckingResult *match = [regex firstMatchInString:vCard options:0 range:range];
+    if (match && [match rangeAtIndex:1].location != NSNotFound) {
+        NSRange nameRange = [match rangeAtIndex:1];
+        NSString *name = [vCard substringWithRange:nameRange];
+        name = [name stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"; "]];
+        return name;
+    }
+
+    range = NSMakeRange(0, vCard.length);
+    regex = [NSRegularExpression regularExpressionWithPattern:@"^N:(.*)$"
+                                                      options:NSRegularExpressionAnchorsMatchLines
+                                                        error:&error];
+    match = [regex firstMatchInString:vCard options:0 range:range];
+    if (match && [match rangeAtIndex:1].location != NSNotFound) {
+        NSRange nameRange = [match rangeAtIndex:1];
+        NSString *name = [vCard substringWithRange:nameRange];
+        name = [name stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"; "]];
+        name = [name removeRepeats:@";"];
+        name = [name stringByReplacingOccurrencesOfString:@";" withString:@", "];
+        return name;
+    }
+    return nil;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)view cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BENoteSheetTableViewCell *cell;
     if (indexPath.section == 0) {
-        cell = [[BENoteSheetTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
-        cell.type = @"Contact";
-        cell.text = @"Add Contact";
+        NSArray *vCards = self.note.vCards;
+        if (vCards && vCards.count) {
+            NSString *vCard = vCards[indexPath.row];
+            NSString *name = [self extractVCardName:vCard];
+            cell = [[BENoteSheetTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
+            cell.type = @"VCard";
+            if (name) {
+                cell.text = [NSString stringWithFormat:@"Add Contact \"%@\"", name];
+            } else {
+                cell.text = [NSString stringWithFormat:@"Add Contact"];
+            }
+            cell.vCard = vCard;
+            [cell addButtonWithKey:@"NoteSheetTableCellContactButton"
+                            target:self
+                            action:@selector(onVCardButtonTouch:event:)];
+        } else {
+            cell = [[BENoteSheetTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
+            cell.type = @"Contact";
+            cell.text = @"Add Contact";
 
-        [cell addButtonWithKey:@"NoteSheetTableCellContactButton"
-                        target:self
-                        action:@selector(onContactButtonTouch:event:)];
+            [cell addButtonWithKey:@"NoteSheetTableCellContactButton"
+                            target:self
+                            action:@selector(onContactButtonTouch:event:)];
+        }
     } else if (indexPath.section == 1) {
         BETextData *textData = self.note.dataTypes[@"PhoneNumber"][indexPath.row];
         if (textData) {
@@ -258,7 +316,12 @@ static UIEdgeInsets tableCellPadding;
         [BEInAppPurchaser.parsnipPurchaser checkForProduct:BEInAppPurchaserParsnipPro completion:^(BOOL success) {
             if (success) {
                 if (indexPath.section == 0) {
-                    [self.delegate noteSheet:self contact:self.note];
+                    NSArray *vCards = self.note.vCards;
+                    if (vCards && vCards.count) {
+                        [self.delegate noteSheet:self contact:self.note vCard:vCards[indexPath.row]];
+                    } else {
+                        [self.delegate noteSheet:self contact:self.note];
+                    }
                 } else if (indexPath.section == 1) {
                     BETextData *textData = self.note.dataTypes[@"PhoneNumber"][indexPath.row];
                     [self.delegate noteSheet:self contact:self.note textData:textData];
@@ -389,6 +452,20 @@ static UIEdgeInsets tableCellPadding;
             if(cell) {
                 NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"sms:%@", cell.phoneNumber]];
                 [[UIApplication sharedApplication] openURL:url];
+            }
+        }
+    }];
+}
+
+- (void)onVCardButtonTouch:(UIButton *)sender event:(UIEvent *)event
+{
+    [BEInAppPurchaser.parsnipPurchaser checkForProduct:BEInAppPurchaserParsnipPro completion:^(BOOL success) {
+        if (success) {
+            BENoteSheetTableViewCell *cell = [self parentCell:sender];
+            if(cell) {
+                @synchronized(self) {
+                    [self.delegate noteSheet:self contact:self.note vCard:cell.vCard];
+                }
             }
         }
     }];

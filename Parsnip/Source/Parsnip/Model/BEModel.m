@@ -27,6 +27,29 @@ void setProperty(BEModel *self, SEL selector, id value)
     [self setInternalValue:value forProperty:[self selectorToPropertyName:selector]];
 }
 
+id getJSONSerializableProperty(BEModel *self, SEL selector)
+{
+    NSString *raw = [self internalValueForProperty:[self selectorToPropertyName:selector]];
+    if (raw) {
+        NSData *data = [raw dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *error = nil;
+        return [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    } else {
+        return nil;
+    }
+}
+
+void setJSONSerializableProperty(BEModel *self, SEL selector, id value)
+{
+    NSString *raw = nil;
+    if (value) {
+        NSError *error = nil;
+        NSData *data = [NSJSONSerialization dataWithJSONObject:value options:0 error:&error];
+        raw = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    }
+    [self setInternalValue:raw forProperty:[self selectorToPropertyName:selector]];
+}
+
 NSData* getNSDataProperty(BEModel *self, SEL selector)
 {
     return [self dataForProperty:[self selectorToPropertyName:selector]];
@@ -198,6 +221,12 @@ static NSMutableDictionary *_propertyToColumnMapForClass;
         } else if([propertyType isEqualToString:@"NSDate"]) {
             class_addMethod(self.class, getSelector, (IMP)getNSDateProperty, "@@:");
             class_addMethod(self.class, setSelector, (IMP)setNSDateProperty, "v@:@");
+        } else if([propertyType isEqualToString:@"NSDictionary"]) {
+            class_addMethod(self.class, getSelector, (IMP)getJSONSerializableProperty, "@@:");
+            class_addMethod(self.class, setSelector, (IMP)setJSONSerializableProperty, "v@:@");
+        } else if([propertyType isEqualToString:@"NSArray"]) {
+            class_addMethod(self.class, getSelector, (IMP)getJSONSerializableProperty, "@@:");
+            class_addMethod(self.class, setSelector, (IMP)setJSONSerializableProperty, "v@:@");
         } else {
             class_addMethod(self.class, getSelector, (IMP)getProperty, "@@:");
             class_addMethod(self.class, setSelector, (IMP)setProperty, "v@:@");
