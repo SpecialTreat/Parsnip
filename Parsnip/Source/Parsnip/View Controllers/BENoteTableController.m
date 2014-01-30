@@ -16,48 +16,6 @@
 @implementation BENoteTableSection
 @end
 
-@implementation BENoteTableKey
-
-+ (BENoteTableKey *)keyWithDate:(NSDate *)date row:(NSInteger)row
-{
-    BENoteTableKey *key = [[BENoteTableKey alloc] init];
-    key.date = date;
-    key.row = row;
-    return key;
-}
-
-- (BOOL)isEqual:(id)object
-{
-    if (!object) {
-        return NO;
-    }
-    if (object == self) {
-        return YES;
-    }
-    if (![object isKindOfClass:self.class]) {
-        return NO;
-    }
-    return [self.date isEqualToDate:[object date]] && (self.row == [object row]);
-}
-
-- (NSUInteger)hash
-{
-    NSNumber *date = [NSNumber numberWithInteger:self.date.timeIntervalSince1970];
-    NSNumber *row = [NSNumber numberWithInteger:self.row];
-    NSString *hashString = [NSString stringWithFormat:@"%@.%@", date, row];
-    return [hashString hash];
-}
-
-- (id)copyWithZone:(NSZone *)zone
-{
-    BENoteTableKey *key = [[BENoteTableKey alloc] init];
-    key.date = [self.date copyWithZone:zone];
-    key.row = self.row;
-    return key;
-}
-
-@end
-
 
 @implementation BENoteTableController
 {
@@ -109,7 +67,7 @@ static UIEdgeInsets tableSectionHeaderPadding;
         tableSectionQuery = [self getTableSectionQuery];
         tableSectionCountQuery = [self getTableSectionCountQuery];
         _tableSections = [NSMutableArray array];
-        _notes = [[NSCache alloc] init];
+        _notes = [NSMutableDictionary dictionary];
 
         self.title = noteTableTitle;
         self.manuallyAdjustsViewInsets = YES;
@@ -256,6 +214,9 @@ static UIEdgeInsets tableSectionHeaderPadding;
 
 - (void)refreshCache
 {
+    [self.notes enumerateKeysAndObjectsUsingBlock:^(id date, id notesCache, BOOL *stop) {
+        [notesCache removeAllObjects];
+    }];
     [self.notes removeAllObjects];
     [self.tableSections removeAllObjects];
     tableSectionCount = [BEDB count:tableSectionCountQuery parameters:self.noteQueryParameters];
@@ -292,32 +253,42 @@ static UIEdgeInsets tableSectionHeaderPadding;
 - (BENote *)noteForIndexPath:(NSIndexPath *)indexPath
 {
     BENoteTableSection *section = [self tableSection:indexPath.section];
-    BENoteTableKey *cacheKey = [BENoteTableKey keyWithDate:section.date row:indexPath.row];
-    BENote *note = [self.notes objectForKey:cacheKey];
+    NSMutableArray *notesCache = [self.notes objectForKey:section.date];
+    BENote *note = [notesCache objectAtIndex:indexPath.row];
+
     if (note) {
         return note;
     } else {
         NSMutableDictionary *noteQuery = [NSMutableDictionary dictionaryWithDictionary:self.noteQueryParameters];
         NSString *dateColumn = BENote.propertyToColumnMap[@"croppedImageTimestamp"];
-        noteQuery[dateColumn] = @[@"<", [cacheKey.date dateByAddingTimeInterval:(24 * 60 * 60)]];
-        NSArray *notes = [BEDB get:BENote.class parameters:noteQuery orderBy:dateColumn asc:NO limit:noteQueryPageSize offset:cacheKey.row];
+        noteQuery[dateColumn] = @[@"<", [section.date dateByAddingTimeInterval:(24 * 60 * 60)]];
+        NSInteger offset = MIN([notesCache count], indexPath.row);
+        NSInteger limit = MAX(noteQueryPageSize, (indexPath.row + 1) - offset);
+        NSArray *notes = [BEDB get:BENote.class parameters:noteQuery orderBy:dateColumn asc:NO limit:limit offset:offset];
         if (notes && notes.count) {
             NSInteger dateUnits = (NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit);
             note = notes[0];
             NSDate *currentDate = nil;
-            NSInteger row = cacheKey.row;
+            NSInteger row = offset;
+            notesCache = nil;
             for (BENote *currentNote in notes) {
                 NSDateComponents *components = [calendar components:dateUnits fromDate:currentNote.croppedImageTimestamp];
                 NSDate *noteDate = [calendar dateFromComponents:components];
                 if (!currentDate) {
                     currentDate = noteDate;
+                    notesCache = [self.notes objectForKey:currentDate];
                 }
                 if (![currentDate isEqualToDate:noteDate]) {
                     currentDate = noteDate;
                     row = 0;
+                    notesCache = [self.notes objectForKey:currentDate];
+                }
+                if (!notesCache) {
+                    notesCache = [NSMutableArray array];
+                    [self.notes setObject:notesCache forKey:currentDate];
                 }
                 [currentNote thumbnailImage];
-                [self.notes setObject:currentNote forKey:[BENoteTableKey keyWithDate:currentDate row:row]];
+                [notesCache insertObject:currentNote atIndex:row];
                 row++;
             }
             return note;
@@ -479,8 +450,10 @@ static UIEdgeInsets tableSectionHeaderPadding;
     BENoteTableSection *section = [self tableSection:indexPath.section];
     section.count = MAX(0, section.count - 1);
     [_tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    [self.notes removeObjectForKey:[BENoteTableKey keyWithDate:section.date row:indexPath.row]];
+    NSMutableArray *notesCache = [self.notes objectForKey:section.date];
+    [notesCache removeObjectAtIndex:indexPath.row];
     if (!section.count) {
+        [self.notes removeObjectForKey:section.date];
         [self.tableSections removeObjectAtIndex:indexPath.section];
         tableSectionCount--;
         [_tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];

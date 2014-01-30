@@ -11,16 +11,6 @@
 @end
 
 
-@interface BENoteTableKey : NSObject<NSCopying>
-+ (BENoteTableKey *)keyWithDate:(NSDate *)date row:(NSInteger)row;
-@property (nonatomic) NSDate *date;
-@property (nonatomic) NSInteger row;
-- (BOOL)isEqual:(id)object;
-- (NSUInteger)hash;
-- (id)copyWithZone:(NSZone *)zone;
-@end
-
-
 @interface BENoteTableController : BESidePanel<UITableViewDelegate,
                                                UITableViewDataSource,
                                                UINavigationControllerDelegate,
@@ -38,7 +28,7 @@
     void (^navigationControllerPushCompletion)(BOOL finished);
 }
 
-@property (nonatomic, strong) NSCache *notes;
+@property (nonatomic, strong) NSMutableDictionary *notes;
 @property (nonatomic, strong) NSMutableArray *tableSections;
 @property (nonatomic, readonly) NSDictionary *noteQueryParameters;
 

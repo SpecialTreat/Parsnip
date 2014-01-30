@@ -1881,11 +1881,11 @@
 			<key>AnimationDuration</key>
 			<real>0.75</real>
 			<key>BackgroundColor</key>
-			<string>c0ffc0</string>
+			<string>@TintColor</string>
 			<key>CornerRadius</key>
 			<integer>3</integer>
 			<key>DescriptionTextColor</key>
-			<string>000000</string>
+			<string>ffffff</string>
 			<key>DescriptionFont</key>
 			<dict>
 				<key>Size</key>
