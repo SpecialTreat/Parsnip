@@ -56,9 +56,9 @@ static NSString *CAPTURE_QUALITY;
 
 - (void)initSubviews
 {
-//    preview = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BECameraView_Simulator.png"]];
+    preview = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BECameraView_Simulator.png"]];
 //    preview = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BECameraView_Simulator_r4.png"]];
-    preview = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BECameraView_Simulator_iPad.png"]];
+//    preview = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BECameraView_Simulator_iPad.png"]];
     preview.frame = self.bounds;
     preview.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 
@@ -91,10 +91,10 @@ static NSString *CAPTURE_QUALITY;
 
 - (void)captureImage:(void(^)(UIImage *image))imageHandler
 {
-//    imageHandler([UIImage imageNamed:@"BECameraView_SimulatorCropped.png"]);
+    imageHandler([UIImage imageNamed:@"BECameraView_SimulatorCropped.png"]);
 //    imageHandler([UIImage imageNamed:@"BECameraView_Simulator.png"]);
 //    imageHandler([UIImage imageNamed:@"BECameraView_Simulator_r4.png"]);
-    imageHandler([UIImage imageNamed:@"BECameraView_Simulator_iPad.png"]);
+//    imageHandler([UIImage imageNamed:@"BECameraView_Simulator_iPad.png"]);
 }
 
 @end
