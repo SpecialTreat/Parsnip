@@ -66,28 +66,34 @@ static NSString *infoTitle;
     versionLabel.center = CGPointMake(frame.size.width / 2.0f,
                                       logoView.frame.origin.y + logoView.frame.size.height + versionMargin.top + (versionLabel.frame.size.height / 2.0f));
 
+    BOOL requirePurchase = [BEUI.theme boolForKey:@"RequireInAppPurchase"];
     UIEdgeInsets restoreMargin = [BEUI.theme edgeInsetsForKey:@"Info.RestoreButton.Margin"];
-    restoreButton = [BEUI buttonWithKey:@"Info.RestoreButton" target:self action:@selector(onRestoreButtonTouch)];
-    restoreButton.hidden = [BEInAppPurchaser.parsnipPurchaser isProductPurchased:BEInAppPurchaserParsnipPro];
-    restoreButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
-    restoreButton.center = CGPointMake(frame.size.width / 2.0f,
-                                       versionLabel.frame.origin.y + versionLabel.frame.size.height + restoreMargin.top + (restoreButton.frame.size.height / 2.0f));
+    CGPoint restoreCenter = CGPointMake(frame.size.width / 2.0f,
+                                       versionLabel.frame.origin.y + versionLabel.frame.size.height + restoreMargin.top);
+    if (requirePurchase) {
+        BOOL alreadyPurchased = [BEInAppPurchaser.parsnipPurchaser isProductPurchased:BEInAppPurchaserParsnipPro];
+        restoreButton = [BEUI buttonWithKey:@"Info.RestoreButton" target:self action:@selector(onRestoreButtonTouch)];
+        restoreButton.hidden = alreadyPurchased;
+        restoreButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
+        restoreCenter = CGPointMake(frame.size.width / 2.0f,
+                                    versionLabel.frame.origin.y + versionLabel.frame.size.height + restoreMargin.top + (restoreButton.frame.size.height / 2.0f));
+        restoreButton.center = restoreCenter;
 
-    restoredLabel = [BEUI labelWithKey:@"Info.RestoreButton.Title"];
-    restoredLabel.hidden = ![BEInAppPurchaser.parsnipPurchaser isProductPurchased:BEInAppPurchaserParsnipPro];
-    restoredLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
-    restoredLabel.textAlignment = NSTextAlignmentCenter;
-    restoredLabel.text = [NSString stringWithFormat:@"%@ Enabled", [BEUI.theme stringForKey:@"UpgradeName"]];
-    [restoredLabel sizeToFit];
-    restoredLabel.center = CGPointMake(frame.size.width / 2.0f,
-                                       versionLabel.frame.origin.y + versionLabel.frame.size.height + restoreMargin.top + (restoreButton.frame.size.height / 2.0f));
+        restoredLabel = [BEUI labelWithKey:@"Info.RestoreButton.Title"];
+        restoredLabel.hidden = !alreadyPurchased;
+        restoredLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
+        restoredLabel.textAlignment = NSTextAlignmentCenter;
+        restoredLabel.text = [NSString stringWithFormat:@"%@ Enabled", [BEUI.theme stringForKey:@"UpgradeName"]];
+        [restoredLabel sizeToFit];
+        restoredLabel.center = restoreCenter;
+    }
 
     UIEdgeInsets rateMargin = [BEUI.theme edgeInsetsForKey:@"Info.RateButton.Margin"];
     rateButton = [BEUI buttonWithKey:@"Info.RateButton" target:self action:@selector(onRateButtonTouch)];
     rateButton.hidden = [BEInAppPurchaser.parsnipPurchaser isProductPurchased:BEInAppPurchaserParsnipPro];
     rateButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
     rateButton.center = CGPointMake(frame.size.width / 2.0f,
-                                    restoredLabel.frame.origin.y + restoredLabel.frame.size.height + rateMargin.top + (rateButton.frame.size.height / 2.0f));
+                                    restoreCenter.y + restoredLabel.frame.size.height + rateMargin.top + (rateButton.frame.size.height / 2.0f));
 
     NSString *copyright = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"NSHumanReadableCopyright"];
     copyrightLabel = [BEUI labelWithKey:@"Info.CopyrightLabel"];

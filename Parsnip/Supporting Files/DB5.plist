@@ -7,7 +7,7 @@
 		<key>Debug</key>
 		<false/>
 		<key>RequireInAppPurchase</key>
-		<true/>
+		<false/>
 		<key>AppID</key>
 		<string>752725886</string>
 		<key>CreateContactNoteText</key>
@@ -1067,7 +1067,7 @@
 				<key>Title</key>
 				<dict>
 					<key>Text</key>
-					<string>Rate Parsnip ☆☆☆☆☆</string>
+					<string>☆ Rate Parsnip ☆</string>
 					<key>TextColor</key>
 					<string>@TintColor</string>
 					<key>Font</key>

@@ -34,7 +34,7 @@ static BOOL _requireInAppPurchase = YES;
 
 + (void)initialize
 {
-    _requireInAppPurchase = [BEUI.theme boolForKey:@"RequireInAppPurchase" withDefault:YES];
+    _requireInAppPurchase = [BEUI.theme boolForKey:@"RequireInAppPurchase"];
 }
 
 + (BEInAppPurchaser *)parsnipPurchaser
