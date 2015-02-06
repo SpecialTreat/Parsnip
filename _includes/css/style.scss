@@ -1,0 +1,548 @@
+
+html,
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: lighter;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+sup {
+    font-size: 0.75em;
+}
+
+.background-image {
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    color: transparent;
+    display: inline-block;
+    font-size: 0;
+    line-height: 0;
+    text-shadow: none;
+    vertical-align: middle;
+}
+
+.spacer {
+    display: block;
+    height: 0;
+}
+.ratio-1x1 .spacer {padding-top:100%}
+.ratio-1x2 .spacer {padding-top:200%}
+.ratio-2x1 .spacer {padding-top:50%}
+.ratio-3x4 .spacer {padding-top:133%}
+.ratio-4x1 .spacer {padding-top:25%}
+.ratio-4x3 .spacer {padding-top:75%}
+.ratio-5x6 .spacer {padding-top:120%}
+.ratio-6x7 .spacer {padding-top:116.67%}
+.ratio-1x1 > .spacer {padding-top:100%}
+.ratio-1x2 > .spacer {padding-top:200%}
+.ratio-2x1 > .spacer {padding-top:50%}
+.ratio-3x4 > .spacer {padding-top:133%}
+.ratio-4x1 > .spacer {padding-top:25%}
+.ratio-4x3 > .spacer {padding-top:75%}
+.ratio-5x6 > .spacer {padding-top:120%}
+.ratio-6x7 > .spacer {padding-top:116.67%}
+
+.slide {
+    background-color: #000000;
+    color: #ffffff;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.slide .slide-image {
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
+
+#bracingeffect h1,
+#bracingeffect h2 {
+    position: absolute;
+    -webkit-text-shadow: 0 0 0.125em #000000, 0 0 0.25em #000000, 0 0 0.5em #000000, 0 0 1em #000000;
+    -moz-text-shadow: 0 0 0.125em #000000, 0 0 0.25em #000000, 0 0 0.5em #000000, 0 0 1em #000000;
+    -o-text-shadow: 0 0 0.125em #000000, 0 0 0.25em #000000, 0 0 0.5em #000000, 0 0 1em #000000;
+    text-shadow: 0 0 0.125em #000000, 0 0 0.25em #000000, 0 0 0.5em #000000, 0 0 1em #000000;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: lighter;
+}
+
+#bracingeffect h1 {
+    font-size: 1.875em;
+    left: 5%;
+    top: 15%;
+}
+
+#bracingeffect h2 {
+    font-size: 1.625em;
+    right: 5%;
+    bottom: 15%;
+}
+
+#software {
+    background-color: #f7f8f9;
+}
+
+#software .slide-image {
+    background-image: url(images/software-background.jpg);
+    background-position: 0 0;
+    background-repeat: repeat-x;
+    background-size: auto;
+    height: 100%;
+    width: 100%;
+}
+
+#software .header {
+    left: 0;
+    height: 3em;
+    padding: 0.25em 0 0 1%;
+    position: absolute;
+    top: 0;
+    width: 71.5%;
+}
+
+#software .header #parsnip {
+    background-position: 50% 50%;
+    background-size: 100%;
+    float: left;
+    font-size: 1em;
+    margin: 0 0.25em 0 0;
+    width: 12em;
+}
+
+#software .header p {
+    color: #000000;
+    font-size: 0.65em;
+    padding: 0.5em 1% 0 0;
+}
+
+#software .footer {
+    bottom: 0;
+    height: 50px;
+    left: 0;
+    position: absolute;
+    width: 72.5%;
+}
+
+#software .footer #parsnip-badge {
+    background-position: 50% 50%;
+    background-size: 100%;
+    float: right;
+    height: 40px;
+    margin: 0 10px 10px 0;
+    width: 135px;
+}
+
+#software .panel {
+    bottom: 50px;
+    left: 0;
+    overflow: visible;
+    position: absolute;
+    top: 3.25em;
+    width: 100%;
+}
+
+#screenshot-swiper {
+    bottom: 5px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 20px;
+    position: absolute;
+    top: 5px;
+    width: 100%;
+}
+
+#screenshot-swiper > * {
+    -webkit-transform: translateZ(0px);
+}
+
+#screenshot-swiper .swiper-wrapper {
+    height: 100%;
+    white-space: nowrap;
+}
+
+#screenshot-swiper .swiper-slide {
+    display: inline;
+}
+
+#screenshot-swiper .swiper-slide img {
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.625);
+    margin: 0 1em 0 1em;
+    max-height: 100%;
+    max-width: 23.75em;
+}
+
+#screenshot-swiper .swiper-slide-last img {
+    margin: 0 11em 0 1em;
+}
+
+#charity {
+    height: auto;
+    min-height: 100%;
+}
+
+#charity h1 {
+    font-size: 1em;
+    left: 5%;
+    position: absolute;
+    top: 1.75em;
+}
+
+#charity-logo {
+    left: 5%;
+    top: 4em;
+    padding: 0 0 0 1em;
+    position: absolute;
+    text-align: right;
+}
+
+#charity-the, #charity-human, #charity-fund, #charity-money {
+    color: #ffffff;
+    font-family: "Times New Roman", Times, serif;
+}
+
+#charity-the span {
+    display: inline-block;
+    padding: 0 0.225em 0 0.125em;
+    text-align: center;
+}
+
+#charity-the span.left {
+    width: 1em;
+}
+
+#charity-the span.right {
+    width: 5.9em;
+}
+
+#charity-the span.underline {
+    border-bottom: 1px #ffff80 solid;
+}
+
+#charity-money span {
+    border-top: 1px #ffff80 solid;
+}
+
+#charity-the, #charity-fund, #charity-money {
+    color: #ffff80;
+}
+
+#charity-the {
+    font-size: 2em;
+}
+
+#charity-human,
+#charity-fund {
+    font-size: 5.25em;
+    line-height: 1em;
+}
+
+#charity-money {
+    font-size: 2em;
+    font-style: italic;
+    line-height: 1.75em;
+}
+
+#charity-image {
+    background-position: 50% 50%;
+    background-size: 100%;
+    font-size: 1em;
+    left: 4%;
+    width: 6em;
+    position: absolute;
+    top: 12em;
+}
+
+#design h1,
+#design h2 {
+    position: absolute;
+    -webkit-text-shadow: 0 0 0.25em #000000, 0 0 0.5em #000000;
+    -moz-text-shadow: 0 0 0.25em #000000, 0 0 0.5em #000000;
+    -o-text-shadow: 0 0 0.25em #000000, 0 0 0.5em #000000;
+    text-shadow: 0 0 0.25em #000000, 0 0 0.5em #000000;
+}
+
+#design h1 {
+    font-size: 2.5em;
+    left: 5%;
+    top: 15%;
+}
+
+#design h2 {
+    font-size: 1.5em;
+    right: 5%;
+    bottom: 10%;
+}
+
+#bracingeffect .panel,
+#design .panel {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 72.5%;
+}
+
+#contact {
+    height: 10.5em;
+    min-height: 10.5em;
+    width: 100%;
+}
+
+#contact .footer {
+    background-color: #000000;
+    bottom: 0;
+    color: #ffffff;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    width: 72.5%;
+}
+
+#contact span {
+    margin: 0;
+}
+
+#contact a {
+    color: #007aff;
+}
+
+#contact #bracingeffect-logo {
+    background-position: 50% 50%;
+    background-size: 100%;
+    width: 52%;
+}
+
+#contact .email {
+    font-size: 0.75em;
+    padding: 1em 0 1.5em 0;
+    width: 100%;
+}
+
+#nav-background {
+    background-color: rgba(32, 32, 32, 0.625);
+    height: 1000%;
+    position: fixed;
+    right: 5%;
+    top: -450%;
+    width: 22.5%;
+    z-index: 10;
+}
+
+#nav-header,
+#nav-footer {
+    right: 5%;
+    position: fixed;
+    width: 20%;
+    z-index: 11;
+}
+
+#nav-header {
+    height: 50%;
+    top: 0;
+}
+
+#nav-footer {
+    bottom: 0;
+}
+
+#nav-header .spacer {
+    height: 16%;
+    max-height: 3.2em;
+}
+
+#nav-header .nav-link {
+    height: 24%;
+    max-height: 4.8em;
+}
+
+.nav h1,
+.nav h2 {
+    font-size: 1em;
+}
+
+.nav h2#nav-link-contact {
+    font-size: 1em;
+    padding: 0 0 1.5em 0;
+}
+
+.nav a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.nav a:hover {
+    cursor: default;
+    text-decoration: none;
+    -webkit-text-shadow: 0 0 0.5em #ffffff;
+    -moz-text-shadow: 0 0 0.5em #ffffff;
+    -o-text-shadow: 0 0 0.5em #ffffff;
+    text-shadow: 0 0 0.5em #ffffff;
+}
+
+
+.nav .active a {
+    -webkit-text-shadow: 0 0 0.5em #000000;
+    -moz-text-shadow: 0 0 0.5em #000000;
+    -o-text-shadow: 0 0 0.5em #000000;
+    text-shadow: 0 0 0.5em #000000;
+}
+
+#nav-link-bracingeffect.active a {color: #007aff}
+#nav-link-software.active a {color: #00ff00}
+#nav-link-charity.active a {color: #ffff00}
+#nav-link-design.active a {color: #ff4500}
+#nav-link-contact.active a {color: #007aff}
+
+
+
+
+/****************************
+ * Background sizing
+ ***************************/
+
+
+@media only screen and (orientation: portrait) and (device-height: 480px) {
+    div.slide div.slide-image {
+        -webkit-background-size: auto 436px;
+        -moz-background-size: auto 436px;
+        -o-background-size: auto 436px;
+        background-size: auto 436px;
+    }
+}
+
+@media only screen and (orientation: portrait) and (device-height: 568px) {
+    div.slide div.slide-image {
+        -webkit-background-size: auto 524px;
+        -moz-background-size: auto 524px;
+        -o-background-size: auto 524px;
+        background-size: auto 524px;
+    }
+}
+
+@media only screen and (orientation: portrait) and (device-height: 1024px) {
+    div.slide div.slide-image {
+        -webkit-background-size: auto 980px;
+        -moz-background-size: auto 980px;
+        -o-background-size: auto 980px;
+        background-size: auto 980px;
+    }
+}
+
+#parsnip{background-image:url(images/parsnip640x160.png)}
+#parsnip-badge{background-image:url(images/badge135x40.png)}
+#charity-image{background-image:url(images/thehumanfund320x640.jpg)}
+#bracingeffect-logo{background-image:url(images/logo660x295.png)}
+
+@media
+only screen and (-webkit-min-device-pixel-ratio:2),
+only screen and (min--moz-device-pixel-ratio:2),
+only screen and (-moz-min-device-pixel-ratio:2),
+only screen and (-o-min-device-pixel-ratio:2/1),
+only screen and (min-device-pixel-ratio:2),
+only screen and (min-resolution:192dpi),
+only screen and (min-resolution:2dppx) {
+    #parsnip{background-image:url(images/parsnip1280x320.png)}
+    #parsnip-badge{background-image:url(images/badge270x80.png)}
+    #charity-image{background-image:url(images/thehumanfund640x1280.jpg)}
+    #bracingeffect-logo{background-image:url(images/logo1320x589.png)}
+}
+
+/*
+Otter photo courtesy of William Warby:
+http://www.flickr.com/photos/wwarby/
+http://www.flickr.com/photos/wwarby/8193362718/
+*/
+#design .slide-image{background-image:url(images/otters320x240.jpg)}
+#bracingeffect .slide-image{background-image:url(images/desert320x240.jpg)}
+
+@media
+only screen and (max-width:640px),
+only screen and (max-height:480px) {
+    #design .slide-image{background-image:url(images/otters640x480.jpg)}
+    #bracingeffect .slide-image{background-image:url(images/desert640x480.jpg)}
+}
+
+@media
+only screen and (min-width:641px) and (max-width:1024px),
+only screen and (min-height:481px) and (max-height:768px) {
+    #design .slide-image{background-image:url(images/otters1024x768.jpg)}
+    #bracingeffect .slide-image{background-image:url(images/desert1024x768.jpg)}
+}
+
+@media
+only screen and (min-width:1025px) and (max-width:1440px),
+only screen and (min-height:769px) and (max-height:1080px) {
+    #design .slide-image{background-image:url(images/otters1440x1080.jpg)}
+    #bracingeffect .slide-image{background-image:url(images/desert1440x1080.jpg)}
+}
+
+@media
+only screen and (min-width:1441px) and (max-width:1600px),
+only screen and (min-height:1081px) and (max-height:1200px) {
+    #design .slide-image{background-image:url(images/otters1600x1200.jpg)}
+    #bracingeffect .slide-image{background-image:url(images/desert1600x1200.jpg)}
+}
+
+@media
+only screen and (min-width:1601px) and (max-width:2048px),
+only screen and (min-height:1201px) and (max-height:1536px) {
+    #design .slide-image{background-image:url(images/otters2048x1536.jpg)}
+    #bracingeffect .slide-image{background-image:url(images/desert2048x1536.jpg)}
+}
+
+@media
+only screen and (min-width:2049px) and (max-width:3200px),
+only screen and (min-height:1537px) and (max-height:2400px) {
+    #design .slide-image{background-image:url(images/otters3200x2400.jpg)}
+    #bracingeffect .slide-image{background-image:url(images/desert3200x2400.jpg)}
+}
+
+@media
+only screen and (-webkit-min-device-pixel-ratio:2) and (max-width:640px),
+only screen and (min--moz-device-pixel-ratio:2) and (max-width:640px),
+only screen and (-moz-min-device-pixel-ratio:2) and (max-width:640px),
+only screen and (-o-min-device-pixel-ratio:2/1) and (max-width:640px),
+only screen and (min-device-pixel-ratio:2) and (max-width:640px),
+only screen and (min-resolution:192dpi) and (max-width:640px),
+only screen and (min-resolution:2dppx) and (max-width:640px),
+only screen and (-webkit-min-device-pixel-ratio:2) and (max-height:480px),
+only screen and (min--moz-device-pixel-ratio:2) and (max-height:480px),
+only screen and (-moz-min-device-pixel-ratio:2) and (max-height:480px),
+only screen and (-o-min-device-pixel-ratio:2/1) and (max-height:480px),
+only screen and (min-device-pixel-ratio:2) and (max-height:480px),
+only screen and (min-resolution:192dpi) and (max-height:480px),
+only screen and (min-resolution:2dppx) and (max-height:480px) {
+    #design .slide-image{background-image:url(images/otters1280x960.jpg)}
+    #bracingeffect .slide-image{background-image:url(images/desert1280x960.jpg)}
+}
+
+@media
+only screen and (-webkit-min-device-pixel-ratio:2) and (min-width:641px),
+only screen and (min--moz-device-pixel-ratio:2) and (min-width:641px),
+only screen and (-moz-min-device-pixel-ratio:2) and (min-width:641px),
+only screen and (-o-min-device-pixel-ratio:2/1) and (min-width:641px),
+only screen and (min-device-pixel-ratio:2) and (min-width:641px),
+only screen and (min-resolution:192dpi) and (min-width:641px),
+only screen and (min-resolution:2dppx) and (min-width:641px),
+only screen and (-webkit-min-device-pixel-ratio:2) and (min-height:481px),
+only screen and (min--moz-device-pixel-ratio:2) and (min-height:481px),
+only screen and (-moz-min-device-pixel-ratio:2) and (min-height:481px),
+only screen and (-o-min-device-pixel-ratio:2/1) and (min-height:481px),
+only screen and (min-device-pixel-ratio:2) and (min-height:481px),
+only screen and (min-resolution:192dpi) and (min-height:481px),
+only screen and (min-resolution:2dppx) and (min-height:481px) {
+    #design .slide-image{background-image:url(images/otters2048x1536.jpg)}
+    #bracingeffect .slide-image{background-image:url(images/desert2048x1536.jpg)}
+}
