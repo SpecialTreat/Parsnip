@@ -7,218 +7,72 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="description" content="Bracing Effect, Apps for humans">
     <meta name="keywords" content="iOS,iPhone,iPad,App,Apps,Parsnip,OCR,Text,Photo,Picture,Image">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
 
     <title>Bracing Effect</title>
 
     <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
 
     <style type="text/css">
-{% include css/reset.css %}
-    </style>
-    <style type="text/css">
-{% capture fonts_css %}{% include css/fonts.scss %}{% endcapture %}
-{{ fonts_css | scssify }}
+{% capture normalize_css %}{% include css/normalize.scss %}{% endcapture %}
+{{ normalize_css | scssify }}
     </style>
     <style type="text/css">
 {% capture style_css %}{% include css/style.scss %}{% endcapture %}
 {{ style_css | scssify }}
     </style>
 
-    <script type="text/javascript">
+</head>
+<body class="parallax">
+    <div id="intro" class="parallax-group">
+        <div class="parallax-down-9">
+            <h1>Bracing Effect</h1>
+        </div>
+    </div>
+    <div id="bubbles" class="parallax-group">
+    {% assign bubble_count = 10 %}
+    {% assign bubble_index = bubble_count | minus:1 %}
+    {% for i in (0..3) %}
+        <div id="bubble-layer-{{ i }}" class="parallax-layer">
+        {% for j in (0..bubble_index) %}
+            <div id="bubble-{{ i | times:bubble_count | plus:j }}" class="bubble"></div>
+        {% endfor %}
+        </div>
+    {% endfor %}
+    </div>
+    <div id="charity" class="parallax-group">
+        <h1>Bracing Effect is a proud sponsor of</h1>
+        <div id="charity-logo">
+            <div id="charity-logo-text">
+                <div id="charity-the"><span class="underline left"></span><span>THE</span><span class="underline right"></span></div>
+                <div id="charity-human"><span>HUMAN</span></div>
+                <div id="charity-fund"><span>FUND</span></div>
+                <div id="charity-money"><span>Money for people</span></div>
+            </div>
+            <div id="charity-logo-image" class="background-image ratio-1x2"><span class="spacer"></span></div>
+        </div>
+    </div>
+
+    <div id="contact">
+        <div id="bracingeffect-logo" class="background-image ratio-2x1"><span class="spacer"></span></div>
+        <div class="email">Contact us at <a href="mailto:support@bracingeffect.com">support@bracingeffect.com</a></div>
+    </div>
+<!--
+<script type="text/javascript">
 {% include js/jquery-2.0.3.min.js %}
-    </script>
-    <script type="text/javascript">
-{% include js/waypoints.min.js %}
-    </script>
-    <script type="text/javascript">
-{% include js/jquery.easing.1.3.js %}
-    </script>
-
-    <script type="text/javascript">
-
-var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-if (isMobile) {
-    function addEvent(event, el, func) {
-        if (el.addEventListener) {
-            el.addEventListener(event, func, false);
-        } else if (el.attachEvent) {
-            el.attachEvent('on' + event, func);
-        } else {
-            el['on' + event] = func;
-        }
-    }
-
-    addEvent('load', window, function() {
-        window.scrollTo(0, 0);
-    });
-}
-
-jQuery(document).ready(function($) {
-    var $window = $(window),
-        $htmlbody = $('html,body'),
-        $slides = $('.slide'),
-        $links = $('.nav-link'),
-        $contactSlide = $('#contact'),
-        $prevLink = null,
-        prevLinkIndex = {},
-        linkIndex = {};
-
-    var $prevLink = null;
-    $slides.each(function(i) {
-        prevLinkIndex[this.id] = $prevLink;
-        $prevLink = $links.find('a[href=#' + this.id + ']').parents('.nav-link');
-        linkIndex[this.id] = $prevLink;
-    });
-
-    var activateLink = function($link) {
-        if ($link && !$link.hasClass('active')) {
-            $links.removeClass('destination').removeClass('active');
-            $link.addClass('active');
-        }
-    }
-
-    $slides.not('#contact').waypoint(function(direction) {
-        var $activeLink = null;
-        if (direction == 'down') {
-            $activeLink = linkIndex[this.id];
-        } else {
-            $activeLink = prevLinkIndex[this.id];
-        }
-        activateLink($activeLink);
-    }, { offset: '50%' });
-
-    $contactSlide.waypoint(function(direction) {
-        if (direction == 'down') {
-            activateLink(linkIndex['contact']);
-        } else {
-            activateLink(linkIndex['design']);
-        }
-    }, {
-        offset: function() {
-            return $.waypoints('viewportHeight') - ($contactSlide.height() * 0.9);
-        }
-    });
-
-    var elements = $.waypoints('above');
-    if (elements && elements.length > 0) {
-        activateLink(linkIndex[elements[elements.length - 1].id]);
-    }
-
-    $links.find('a').click(function(event) {
-        event.preventDefault();
-        var $this = $(this),
-            $parent = $this.parents('.nav-link');
-        if (!$parent.hasClass('active') && !$parent.hasClass('destination')) {
-            $parent.addClass('destination');
-            var scrollTop = $($this.attr('href')).offset().top;
-            $htmlbody.animate({
-                scrollTop: scrollTop
-            }, 500, 'easeInOutQuint');
-        }
-    });
-
-});
-
-    </script>
+</script>
+<script type="text/javascript">
+{% include js/jquery.animate-colors-min.js %}
+</script>
+-->
+<script type="text/javascript">
+{% include js/modernizr.custom-2.8.3.min.js %}
+</script>
+<script type="text/javascript">
+{% include js/main.js %}
+</script>
 
 {% include google_analytics.html %}
 
-</head>
-<body>
-    <div id="bracingeffect" class="slide ratio-4x3">
-        <div class="background-image slide-image"><span class="spacer"></span></div>
-        <div class="panel">
-            <h1>Like a glass of ice water</h1>
-            <h2>in the middle of the desert</h2>
-        </div>
-    </div>
-
-    <div id="software" class="slide">
-        <div class="background-image slide-image"></div>
-        <div class="header">
-            <div id="parsnip" class="background-image ratio-4x1"><span class="spacer"></span></div>
-            <p>
-                Turn printed text into phone numbers, web addresses,
-                maps, contacts, and more. Available for free on the
-                App Store<sup>TM</sup>.
-            </p>
-        </div>
-        <div class="panel">
-            <div id="screenshot-swiper" class="swiper-container">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide swiper-slide-first">
-                        <img src="images/screenshot01.png" id="screenshot01" class="screenshot">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="images/screenshot02.png" id="screenshot02" class="screenshot">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="images/screenshot03.png" id="screenshot03" class="screenshot">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="images/screenshot04.png" id="screenshot04" class="screenshot">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="images/screenshot05.png" id="screenshot05" class="screenshot">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="images/screenshot06.png" id="screenshot06" class="screenshot">
-                    </div>
-                    <div class="swiper-slide swiper-slide-last">
-                        <img src="images/screenshot07.png" id="screenshot07" class="screenshot">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer">
-            <a href="https://itunes.apple.com/us/app/parsnip/id752725886?mt=8">
-                <div id="parsnip-badge" class="background-image"></div>
-            </a>
-        </div>
-    </div>
-
-    <div id="charity" class="slide ratio-4x3">
-        <span class="spacer"></span>
-        <h1>Bracing Effect is a proud sponsor of</h1>
-        <div id="charity-logo">
-            <div id="charity-the"><span class="underline left"></span><span>THE</span><span class="underline right"></span></div>
-            <div id="charity-human"><span>HUMAN</span></div>
-            <div id="charity-fund"><span>FUND</span></div>
-            <div id="charity-money"><span>Money for people</span></div>
-        </div>
-        <div id="charity-image" class="background-image ratio-1x2"><span class="spacer"></span></div>
-    </div>
-
-    <div id="design" class="slide ratio-4x3">
-        <div class="background-image slide-image"><span class="spacer"></span></div>
-        <div class="panel">
-            <h1>Apps for humans</h1>
-            <h2>Because otters can't read</h2>
-        </div>
-    </div>
-
-    <div id="contact" class="slide">
-        <div class="footer">
-            <div id="bracingeffect-logo" class="background-image ratio-2x1"><span class="spacer"></span></div>
-            <h2 class="email">Contact us at <a href="mailto:support@bracingeffect.com">support@bracingeffect.com</a></h2>
-        </div>
-    </div>
-
-    <div id="nav-background" class="nav">
-    </div>
-
-    <div id="nav-header" class="nav">
-        <div class="spacer"></div>
-        <h1 id="nav-link-bracingeffect" class="nav-link"><a href="#bracingeffect">Bracing Effect</a></h1>
-        <h1 id="nav-link-software" class="nav-link"><a href="#software">Software</a></h1>
-        <h1 id="nav-link-charity" class="nav-link"><a href="#charity">Charity</a></h1>
-        <h1 id="nav-link-design" class="nav-link"><a href="#design">Design</a></h1>
-    </div>
-
-    <div id="nav-footer" class="nav">
-        <h2 id="nav-link-contact" class="nav-link"><a href="#contact">Contact</a></h2>
-    </div>
 </body>
 </html>
