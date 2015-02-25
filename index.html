@@ -2,12 +2,13 @@
 ---
 
 <!DOCTYPE html>
-<html>
+<html class="no-skrollr">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
     <meta name="description" content="Bracing Effect, Apps for humans">
     <meta name="keywords" content="iOS,iPhone,iPad,App,Apps,Parsnip,OCR,Text,Photo,Picture,Image">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <title>Bracing Effect</title>
 
@@ -18,56 +19,241 @@
 {{ normalize_css | scssify }}
     </style>
     <style type="text/css">
+{% capture fixed_positioning_css %}{% include css/fixed-positioning.scss %}{% endcapture %}
+{{ fixed_positioning_css | scssify }}
+    </style>
+    <style type="text/css">
 {% capture style_css %}{% include css/style.scss %}{% endcapture %}
 {{ style_css | scssify }}
     </style>
 
 </head>
-<body class="parallax">
-    <div id="intro" class="parallax-group">
-        <div class="parallax-down-9">
-            <h1>Bracing Effect</h1>
-        </div>
-    </div>
-    <div id="bubbles" class="parallax-group">
-    {% assign bubble_count = 10 %}
-    {% assign bubble_index = bubble_count | minus:1 %}
-    {% for i in (0..3) %}
-        <div id="bubble-layer-{{ i }}" class="parallax-layer">
-        {% for j in (0..bubble_index) %}
-            <div id="bubble-{{ i | times:bubble_count | plus:j }}" class="bubble"></div>
-        {% endfor %}
-        </div>
-    {% endfor %}
-    </div>
-    <div id="charity" class="parallax-group">
-        <h1>Bracing Effect is a proud sponsor of</h1>
-        <div id="charity-logo">
-            <div id="charity-logo-text">
-                <div id="charity-the"><span class="underline left"></span><span>THE</span><span class="underline right"></span></div>
-                <div id="charity-human"><span>HUMAN</span></div>
-                <div id="charity-fund"><span>FUND</span></div>
-                <div id="charity-money"><span>Money for people</span></div>
+<body>
+    <ul id="menu"
+        data-_parsnip--30="background-color:rgba(0, 0, 0, 0);"
+        data-_parsnip="background-color:rgba(0, 0, 0, 0.5);"
+        data-_parsnip_finish_disappear--30="background-color:rgba(0, 0, 0, 0.5);"
+        data-_parsnip_finish_disappear="background-color:rgba(0, 0, 0, 0);">
+        <li class="left-item"><a href="#home">
+            <span class="accessibility-text">Home</span>
+            <div id="home-image" class="background-image ratio-1x1">
+                <span class="spacer"></span>
             </div>
-            <div id="charity-logo-image" class="background-image ratio-1x2"><span class="spacer"></span></div>
+            </a></li>
+        <li><h2><a href="#design" style="position:static;"
+            data-_design--30="color:rgb(255,255,255);"
+            data-_design="color:rgb(255,69,0);"
+            data-_parsnip--30="color:rgb(255,69,0);"
+            data-_parsnip="color:rgb(255,255,255);">Design</a></h2></li>
+        <li><h2><a href="#parsnip" style="position:static;"
+            data-_parsnip--30="color:rgb(255,255,255);"
+            data-_parsnip="color:rgb(64,192,0);"
+            data-_parsnip_finish_disappear--30="color:rgb(64,192,0);"
+            data-_parsnip_finish_disappear="color:rgb(255,255,255);">Parsnip</a></h2></li>
+        <li><h2><a href="#charity" style="position:static;"
+            data-_charity--30="color:rgb(255,255,255);"
+            data-_charity="color:rgb(255,255,128);"
+            data-_charity_finish_disappear--30="color:rgb(255,255,128);"
+            data-_charity_finish_disappear="color:rgb(255,255,255);">Charity</a></h2></li>
+        <li><h2><a href="#contact" style="position:static;"
+            data-_charity_finish_disappear--30="color:rgb(255,255,255);"
+            data-_charity_finish_disappear="color:rgb(0,128,255);">Contact</a></h2></li>
+    </ul>
+
+    <div id="home"
+        data-_home="top:0%"
+        data-_home_begin_disappear="top:0%"
+        data-_home_finish_disappear="top:-100%">
+        <h1 id="title"
+            data-_title_begin_disappear="opacity[inOut]:1;top[inOut]:33%;"
+            data-_title_finish_disappear="opacity:0;top:-5%;">
+            <span>Bracing Effect</span>
+        </h1>
+
+        <div id="quotes" class="deferred-display" style="display:none;"
+            data-_quotes_begin_appear="top:95%;"
+            data-_quotes_finish_appear="top:33%;"
+            data-_quotes_begin_disappear="top:33%;"
+            data-_quotes_finish_disappear="top:95%">
+
+            <h1 id="quote_a"
+                data-_quote_a_begin_appear="opacity:0;"
+                data-_quote_a_finish_appear="opacity:1;"
+                data-_quotes_begin_disappear="opacity:1;"
+                data-_quotes_finish_disappear="opacity:0;">Like a glass of ice water...</h1>
+
+            <h1 id="quote_b"
+                data-_quote_b_begin_appear="opacity:0;margin-top:5em;"
+                data-_quote_b_finish_appear="opacity:1;margin-top:1em;"
+                data-_quotes_begin_disappear="opacity:1;margin-top:1em;"
+                data-_quotes_finish_disappear="opacity:0;margin-top:1em;">...in the middle of the desert</h1>
+
+        </div>
+
+        {% for i in (1..5) %}
+            {% assign bubble_count = 8 | times:i %}
+            {% assign inverse = 6 | minus:i %}
+            {% assign x = inverse | minus:1.0 %}
+            {% assign y = x | divided_by:2.0 %}
+            {% assign z = inverse | plus:y %}
+            {% assign layer_height = 105.0 | times:z %}
+            <div id="bubble-layer-{{ i }}" class="bubble-layer-{{ i }} deferred-display" style="display:none;"
+                data-_title_bubbles_begin_appear="top:100%;"
+                data-_title_bubbles_finish_disappear="top:-{{ layer_height }}%;">
+            {% for j in (1..bubble_count) %}
+                <div class="bubble-{{ i }}-{{ j }} bubble">
+                    <div class="highlight"></div>
+                </div>
+            {% endfor %}
+            </div>
+        {% endfor %}
+
+        {% for i in (1..5) %}
+            {% assign bubble_count = 8 | times:i %}
+            {% assign inverse = 6 | minus:i %}
+            {% assign x = inverse | minus:1.0 %}
+            {% assign y = x | divided_by:2.0 %}
+            {% assign z = inverse | plus:y %}
+            {% assign layer_height = 105.0 | times:z %}
+            <div id="bubble-layer-{{ i | plus:5 }}" class="bubble-layer-{{ i }} deferred-display" style="display:none;"
+                data-_quote_bubbles_begin_appear="top:100%;"
+                data-_quote_bubbles_finish_disappear="top:-{{ layer_height }}%;">
+            {% for j in (1..bubble_count) %}
+                <div class="bubble-{{ i }}-{{ j }} bubble">
+                    <div class="highlight"></div>
+                </div>
+            {% endfor %}
+            </div>
+        {% endfor %}
+
+    </div>
+
+    <div id="design" class="slide ratio-4x3 deferred-display" style="display:none;"
+        data-_home_begin_disappear="top:15%"
+        data-_design="top:0%"
+        data-_parsnip="top:-15%"
+        data-_parsnip-1="top:-100%">
+        <div class="background-image slide-image">
+            <span class="spacer"></span>
+        </div>
+        <div id="design_quotes"
+            data-_home_begin_disappear="top:50%"
+            data-_parsnip="top:30%">
+            <h1 id="design_quote_a">Apps for humans</h1>
+            <div class="clear"></div>
+            <h1 id="design_quote_b">Because otters can't read</h1>
+            <a href="http://www.flickr.com/photos/wwarby/">Otters © 2012, William Warby</a>
         </div>
     </div>
 
-    <div id="contact">
-        <div id="bracingeffect-logo" class="background-image ratio-2x1"><span class="spacer"></span></div>
-        <div class="email">Contact us at <a href="mailto:support@bracingeffect.com">support@bracingeffect.com</a></div>
+    <div id="parsnip" class="slide-image deferred-display" style="display:none;"
+        data-_design="top:100%"
+        data-_parsnip="top:0%"
+        data-_parsnip_begin_disappear="top[cubic]:0%"
+        data-_parsnip_finish_disappear="top:-100%">
+
+        <div class="header">
+            <div id="parsnip-logo" class="background-image ratio-4x1"><span class="spacer"></span></div>
+            <p>
+                Turn printed text into phone numbers, web addresses,
+                maps, contacts, and more. Available for free on the
+                App Store<sup>TM</sup>.
+            </p>
+            <a href="https://itunes.apple.com/us/app/parsnip/id752725886?mt=8">
+                <div id="parsnip-badge" class="background-image"></div>
+            </a>
+            <a href="https://github.com/RobRuana/Parsnip">
+                <div id="github-badge" class="background-image"></div>
+            </a>
+        </div>
+        <div class="panel">
+            <div id="screenshot-swiper" class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide swiper-slide-first">
+                        <img src="images/screenshot01.png" id="screenshot01" class="screenshot">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/screenshot02.png" id="screenshot02" class="screenshot">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/screenshot03.png" id="screenshot03" class="screenshot">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/screenshot04.png" id="screenshot04" class="screenshot">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/screenshot05.png" id="screenshot05" class="screenshot">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/screenshot06.png" id="screenshot06" class="screenshot">
+                    </div>
+                    <div class="swiper-slide swiper-slide-last">
+                        <img src="images/screenshot07.png" id="screenshot07" class="screenshot">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-<!--
+
+    <div id="charity" class="deferred-display" style="display:none;"
+        data-_parsnip_begin_disappear="opacity:0;top:35%;"
+        data-_charity="opacity[inOut]:1;top[cubic]:10%;"
+        data-_charity_finish_disappear="opacity:0;top:-40%;">
+
+        <h1>A proud sponsor of</h1>
+        <div id="charity-logo">
+            <div id="charity-logo-text">
+                <div id="charity-the">
+                    <span class="underline left"></span>
+                    <span>THE</span>
+                    <span class="underline right"></span>
+                </div>
+                <div id="charity-human">
+                    <span>HUMAN</span>
+                </div>
+                <div id="charity-fund">
+                    <span>FUND</span>
+                </div>
+                <div id="charity-money">
+                    <span class="overline">
+                        <span>Money</span>
+                        <span>for</span>
+                        <span>people</span>
+                    </span>
+                </div>
+            </div>
+            <div id="charity-logo-image" class="background-image ratio-1x2">
+                <span class="spacer"></span>
+            </div>
+        </div>
+    </div>
+
+    <div id="contact" class="deferred-display" style="display:none;"
+        data-_contact_begin_appear="opacity:0;top[outCubic]:70%;"
+        data-_contact="opacity:1;top:20%;"
+        data-_end="opacity:1;top:20%;">
+
+        <div id="bracingeffect-logo" class="background-image ratio-2x1">
+            <span class="spacer"></span>
+        </div>
+        <div class="email">
+            Contact us at <a href="mailto:support@bracingeffect.com">support@bracingeffect.com</a>
+        </div>
+    </div>
+
+    <div id="scrollbar" data-0="top:0%;margin-top:2px;" data-end="top:100%;margin-top:-52px;"></div>
+
 <script type="text/javascript">
-{% include js/jquery-2.0.3.min.js %}
+{% include js/skrollr.min.js %}
 </script>
 <script type="text/javascript">
-{% include js/jquery.animate-colors-min.js %}
+{% include js/skrollr.menu.js %}
 </script>
--->
+<!--[if lt IE 9]>
 <script type="text/javascript">
-{% include js/modernizr.custom-2.8.3.min.js %}
+{% include js/skrollr.ie.min.js %}
 </script>
+<![endif]-->
 <script type="text/javascript">
 {% include js/main.js %}
 </script>

@@ -1,13 +1,30 @@
 
-$bracing-blue: #007aff;
-$images-path: "images/";
-$perspective: 300;
+$bracing_blue: #0080ff; // rgb(0,128,255)
+$human_yellow: #ffff80; // rgb(255,255,128)
+$parsnip_green: #40C000; // rgb(64,192,0)
+$otter_orange: #ff4500; // rgb(255,69,0)
+$otter_purple: #f00ff0; // rgb(240,15,240)
+$github_purple: #400440; // rgb(64,4,64)
+$software_background: #f7f8f9;
+$images_path: "images/";
+
+
+/****************************************
+ * SASS mixins
+ ****************************************/
 
 @mixin text-shadow($shadows...) {
     -webkit-text-shadow: $shadows;
     -moz-text-shadow: $shadows;
     -o-text-shadow: $shadows;
     text-shadow: $shadows;
+}
+
+@mixin box-shadow($shadows...) {
+    -webkit-box-shadow: $shadows;
+    -moz-box-shadow: $shadows;
+    -o-box-shadow: $shadows;
+    box-shadow: $shadows;
 }
 
 @mixin background-size($sizes...) {
@@ -25,177 +42,356 @@ $perspective: 300;
 }
 
 @mixin translateZ($z) {
-    -ms-transform: translateZ(#{$z}px);
     -webkit-transform: translateZ(#{$z}px);
+    -moz-transform: translateZ(#{$z}px);
+    -o-transform: translateZ(#{$z}px);
+    -khtml-transform: translateZ(#{$z}px);
+    -ms-transform: translateZ(#{$z}px);
     transform: translateZ(#{$z}px);
 }
 
 @mixin translateZScale($z) {
     $scale: 1 + ($z * -1) / $perspective;
-    -ms-transform: translateZ(#{$z}px) scale($scale);
     -webkit-transform: translateZ(#{$z}px) scale($scale);
+    -moz-transform: translateZ(#{$z}px) scale($scale);
+    -o-transform: translateZ(#{$z}px) scale($scale);
+    -khtml-transform: translateZ(#{$z}px) scale($scale);
+    -ms-transform: translateZ(#{$z}px) scale($scale);
     transform: translateZ(#{$z}px) scale($scale);
 }
 
-/***************
- * Global Style
- ***************/
+@mixin transform($x...) {
+    -webkit-transform: $x;
+    -moz-transform: $x;
+    -o-transform: $x;
+    -khtml-transform: $x;
+    -ms-transform: $x;
+    transform: $x;
+}
+
+
+/****************************************
+ * Global styles
+ ****************************************/
 html,
 body {
     font-size: 16px;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: lighter;
 
-    overflow: hidden;
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 100%;
+    min-height:100%;
     background-color: #000;
     color: #fff;
 }
 
-sup {
-    font-size: 0.75em;
-}
-
 h1, h2, h3, h4, h5, h6 {
-    font-weight: lighter;
+    font-weight: normal;
     font-variant: small-caps;
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
 }
 
 .clear {
     clear: both;
 }
 
-/***********
- * Parallax
- ***********/
-.parallax {
-    -webkit-perspective: #{$perspective}px;
-    perspective: #{$perspective}px;
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
+.accessibility-text {
+    height: 1px;
+    width: 1px;
+    position: absolute;
+    overflow: hidden;
+    top: -10px;
+}
 
-    .parallax-group {
-        position: relative;
-        transform-style: preserve-3d;
-        // transform: translate3d(700px, 0, -800px) rotateY(30deg);
-    }
 
-    .parallax-layer {
-        position: absolute;
-        top: 0; right: 0; bottom: 0; left: 0;
-        z-index: 1000;
-    }
+/****************************************
+ * Navigation menu
+ ****************************************/
+#menu {
+    font-size: 1em;
+    background-color: transparent;
+    position: fixed;
+    z-index: 1001;
+    right: 0;
+    left: 0;
+    width: 100%;
+    text-align: right;
+    padding: 0.2em 0 0.2em 0;
+    margin: 0 0 0 0;
 
-    $up-layer-count: 10;
-    $up-step: $perspective / $up-layer-count;
-    $up-z: 0;
-    @for $i from 1 through $up-layer-count {
-        .parallax-up-#{$i} {
-            position: absolute;
-            top: 0; right: 0; bottom: 0; left: 0;
-            z-index: 1000 + $i;
+    .left-item {
+        float: left;
+        padding: 0.1em 0 0 1em;
 
-            $weight: 1.65 * ($up-layer-count - ($i - 1)) / $up-layer-count;
-            $up-z: $up-z + ($up-step * $weight);
+        a {
+            position: relative;
 
-            @include translateZScale($up-z);
+            #home-image, #home-black-image {
+                background-position: 50% 50%;
+                background-size: 100%;
+                width: 20px;
+                height: 20px;
+                position: absolute;
+            }
         }
     }
 
-    $down-layer-count: 10;
-    $down-step: $perspective;
-    $down-z: 0;
-    @for $i from 1 through $down-layer-count {
-        .parallax-down-#{$i} {
-            position: absolute;
-            top: 0; right: 0; bottom: 0; left: 0;
-            z-index: 1000 - $i;
+    li {
+        list-style: none;
+        display: inline;
 
-            $weight: 0.25 * $down-layer-count / ($down-layer-count - ($i - 1));
-            $down-z: $down-z - ($down-step * $weight);
-
-            @include translateZScale($down-z);
+        h2 {
+            margin-right: 1em;
+            display: inline;
         }
+    }
+
+    a {
+        color: #fff;
+        text-decoration: none;
     }
 }
 
-/**********
+/****************************************
  * Bubbles
- **********/
-$bubble-width: 24;
-$bubble-color: transparent;
-$bubble-border-color: #fff;
+ ****************************************/
+$font_size: 20;
+$bubble_width: 5;
+$bubble_color: $bracing_blue;
+$bubble_border_color: #fff;
 .bubble {
-    width: #{$bubble-width}px;
-    height: #{$bubble-width}px;
+    width: 5em;
+    height: 5em;
 
-    background: $bubble-color;
-    border: 2px solid $bubble-border-color;
+    background: $bubble_color;
+    border: 1px solid $bubble_border_color;
 
     @include border-radius(50%);
 
     position: absolute;
-    z-index: 1000;
+
+    .highlight {
+        position: absolute;
+        width: 75%;
+        height: 75%;
+        background: $bubble_color;
+        top: 12.5%;
+        left: 12.5%;
+        border-top: 0.5em solid $bubble_border_color;
+        @include border-radius(50%);
+    }
 }
 
-@for $i from 0 through 3 {
-    $z-offset: $perspective / 4;
-    $z-max: 1200;
-    $z: $z-offset - random($z-max + $z-offset);
-    $percent: 100;
-    $spread: round($percent * (($perspective - $z) / $perspective));
-    $margin: (($spread - $percent) / 2);
-    $bubble-count: 10;
+@for $i from 1 through 5 {
+    $bubble_count: 8 * $i;
+    $inverse: 6 - $i;
+    $layer_height: round(75 * ($inverse + (($inverse - 1) / 2)));
+    $adj_font_size: $font_size / $i;
 
-    #bubble-layer-#{$i} {
-        @include translateZ($z);
-        // content: $spread + "%, from " + (0 - $margin) + "% to " + (100 + $margin) + "%";
+    .bubble-layer-#{$i} {
+        font-size: #{$adj_font_size}px;
+        height: 100%;
+        width: 100%;
+        z-index: #{116 - $i};
     }
 
-    @for $j from 0 through ($bubble-count - 1) {
-        $y: random($spread) - $margin;
-        $x: random($spread) - $margin;
-        #bubble-#{($i * $bubble-count) + $j} {
-            top: $y * 1%;
-            left: $x * 1%;
-            margin-left: #{(0 - $bubble-width / 2)}px;
+    @for $j from 1 through $bubble_count {
+        .bubble-#{$i}-#{$j} {
+            top: random($layer_height) * 1%;
+            left: ((($j - 1) / $bubble_count)  * 100) * 1%;
+            margin-left: -#{$bubble_width / 4}em;
         }
     }
 }
 
-/*********
+/****************************************
+ * Mobile scrollbar
+ ****************************************/
+#scrollbar {
+    position: fixed;
+    right: 2px;
+    height: 50px;
+    width: 6px;
+    background: #eee;
+    background: rgba(255,255,255,0.5);
+    border: 1px solid rgba(64,64,64,0.5);
+    z-index: 300;
+    @include border-radius(4px);
+    z-index: 1000;
+}
+
+.skrollr-desktop #scrollbar {display:none;}
+
+/****************************************
  * Slides
- *********/
-#intro {
+ ****************************************/
+#home {
     width: 100%;
     height: 100%;
-    text-align: center;
+    background-color: $bracing_blue;
+    overflow: hidden;
+    z-index: 101;
+    @include box-shadow(0 0 4em rgba(0, 0, 0, 0.675));
 
-    h1 {
+    #title {
         font-size: 4em;
-        margin-top: 2em;
+        text-align: center;
+        width: 100%;
+        margin: 0 0 0 0;
+        white-space: nowrap;
+    }
+
+    #quotes {
+        width: 100%;
+
+        #quote_a, #quote_b {
+            text-align: center;
+            width: 100%;
+            font-size: 3em;
+            white-space: nowrap;
+        }
+
+        #quote_a {
+            margin: 0 0 0 -7%;
+        }
+
+        #quote_b {
+            margin: 0 0 0 3%;
+        }
     }
 }
 
-#bubbles, #charity, #contact {
+#design {
+    z-index: 91;
 
+    #design_quotes {
+        height: 60%;
+        width: 100%;
+
+        #design_quote_a, #design_quote_b {
+            text-align: center;
+            width: 100%;
+            font-size: 3em;
+            white-space: nowrap;
+        }
+
+        #design_quote_a {
+            margin: -2em 0 0 -20%;
+        }
+
+        #design_quote_b {
+            margin: 3em 0 0 0;
+        }
+
+        a {
+            color: #fff;
+            text-decoration: none;
+            position: absolute;
+            right: 24px;
+            bottom: 24px;
+            font-size: 12px;
+        }
+    }
 }
 
-#bubbles {
+#parsnip {
     width: 100%;
     height: 100%;
+    z-index: 102;
+
+    background-color: $software_background;
+    background-image: url(images/software-background.jpg);
+    background-position: 0 0;
+    background-repeat: repeat-x;
+    background-size: auto;
+
+    .header {
+        padding: 48px 0 0 0;
+        width: 100%;
+        position: relative;
+    }
+
+    .header #parsnip-logo {
+        background-position: 50% 50%;
+        background-size: 100%;
+        float: left;
+        width: 320px;
+        height: 80px;
+        margin: 0 10px 0 20px;
+    }
+
+    .header #parsnip-badge {
+        background-position: 50% 50%;
+        background-size: 100%;
+        height: 40px;
+        width: 135px;
+        position: absolute;
+        top: 48px;
+        right: 10px;
+    }
+
+    .header #github-badge {
+        background-position: 50% 50%;
+        background-size: 100%;
+        height: 40px;
+        width: 135px;
+        position: absolute;
+        top: 98px;
+        right: 10px;
+    }
+
+    .header p {
+        color: #000000;
+        padding: 0;
+        margin: 0 155px 0 0;
+    }
+
+    .panel {
+        overflow: visible;
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 148px;
+        bottom: 0;
+    }
+
+    #screenshot-swiper {
+        bottom: 0;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 20px;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+    #screenshot-swiper > * {
+        -webkit-transform: translateZ(0px);
+    }
+    #screenshot-swiper .swiper-wrapper {
+        height: 100%;
+        white-space: nowrap;
+    }
+    #screenshot-swiper .swiper-slide {
+        display: inline;
+    }
+    #screenshot-swiper .swiper-slide img {
+        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.625);
+        margin: 0 16px 0 16px;
+        max-height: 100%;
+        max-width: 640px;
+    }
 }
 
 #charity {
-    width: 100%;
     text-align: center;
-    margin-bottom: 10em;
+    width: 100%;
+    z-index: 90;
 
     h1 {
+        margin: 0 0 0.5em 0;
         font-size: 2.5em;
     }
 
@@ -229,7 +425,7 @@ $bubble-border-color: #fff;
                 }
 
                 span.underline {
-                    border-bottom: 1px #ffff80 solid;
+                    border-bottom: 1px $human_yellow solid;
                 }
             }
 
@@ -238,7 +434,7 @@ $bubble-border-color: #fff;
             }
 
             #charity-the, #charity-fund, #charity-money {
-                color: #ffff80;
+                color: $human_yellow;
             }
 
             #charity-human, #charity-fund {
@@ -251,8 +447,12 @@ $bubble-border-color: #fff;
                 font-style: italic;
                 line-height: 1.75em;
 
-                span {
-                    border-top: 1px #ffff80 solid;
+                span.overline {
+                    border-top: 1px $human_yellow solid;
+
+                    span {
+                        position: static;
+                    }
                 }
             }
         }
@@ -262,17 +462,17 @@ $bubble-border-color: #fff;
             background-size: 100%;
             width: 5em;
             margin: -8.5em 1em 0 0;
+            position: static;
         }
     }
 }
 
 #contact {
-    width: 100%;
     text-align: center;
-    margin-bottom: 10em;
+    width: 100%;
 
     a {
-        color: $bracing-blue;
+        color: $bracing_blue;
     }
 
     #bracingeffect-logo {
@@ -287,9 +487,9 @@ $bubble-border-color: #fff;
     }
 }
 
-/********************
- * Background Images
- ********************/
+/****************************************
+ * Background images
+ ****************************************/
 .background-image {
     background-color: transparent;
     background-position: center center;
@@ -320,10 +520,30 @@ $bubble-border-color: #fff;
     }
 }
 
-#parsnip{background-image:url(#{$images-path}parsnip640x160.png)}
-#parsnip-badge{background-image:url(#{$images-path}badge135x40.png)}
-#charity-logo-image{background-image:url(#{$images-path}thehumanfund320x640.png)}
-#bracingeffect-logo{background-image:url(#{$images-path}logo660x295.png)}
+.slide {
+    background-color: #000000;
+    color: #ffffff;
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+}
+
+.slide .slide-image {
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
+
+#home-image{background-image:url(#{$images_path}home.png)}
+#parsnip-logo{background-image:url(#{$images_path}parsnip640x160.png)}
+#parsnip-badge{background-image:url(#{$images_path}appstore-badge.png)}
+#github-badge{background-image:url(#{$images_path}github-badge.png)}
+#charity-logo-image{background-image:url(#{$images_path}thehumanfund320x640.png)}
+#bracingeffect-logo{background-image:url(#{$images_path}logo660x295.png)}
+#design .background-image{background-image:url(#{$images_path}otters1024x768.jpg)}
 
 @media
 only screen and (-webkit-min-device-pixel-ratio:2),
@@ -333,8 +553,10 @@ only screen and (-o-min-device-pixel-ratio:2/1),
 only screen and (min-device-pixel-ratio:2),
 only screen and (min-resolution:192dpi),
 only screen and (min-resolution:2dppx) {
-    #parsnip{background-image:url(#{$images-path}parsnip1280x320.png)}
-    #parsnip-badge{background-image:url(#{$images-path}badge270x80.png)}
-    #charity-logo-image{background-image:url(#{$images-path}thehumanfund640x1280.png)}
-    #bracingeffect-logo{background-image:url(#{$images-path}logo1320x589.png)}
+    #home-image{background-image:url(#{$images_path}home_2x.png)}
+    #parsnip-logo{background-image:url(#{$images_path}parsnip1280x320.png)}
+    #parsnip-badge{background-image:url(#{$images_path}appstore-badge_2x.png)}
+    #github-badge{background-image:url(#{$images_path}github-badge_2x.png)}
+    #charity-logo-image{background-image:url(#{$images_path}thehumanfund640x1280.png)}
+    #bracingeffect-logo{background-image:url(#{$images_path}logo1320x589.png)}
 }
