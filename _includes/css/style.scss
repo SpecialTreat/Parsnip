@@ -182,7 +182,7 @@ $bubble_border_color: #fff;
     }
 }
 
-@for $i from 1 through 5 {
+@for $i from 1 through 4 {
     $bubble_count: 8 * $i;
     $inverse: 6 - $i;
     $layer_height: round(75 * ($inverse + (($inverse - 1) / 2)));
@@ -199,7 +199,7 @@ $bubble_border_color: #fff;
         .bubble-#{$i}-#{$j} {
             top: random($layer_height) * 1%;
             left: ((($j - 1) / $bubble_count)  * 100) * 1%;
-            margin-left: -#{$bubble_width / 4}em;
+            margin-left: #{$bubble_width / 4}em;
         }
     }
 }
@@ -561,21 +561,47 @@ $bubble_border_color: #fff;
 }
 
 #contact {
-    text-align: center;
+
     width: 100%;
+    text-align: center;
 
     a {
         color: $bracing_blue;
     }
 
-    #bracingeffect-logo {
-        background-position: 50% 50%;
-        background-size: 100%;
-        width: 16em;
+    #bracingeffect-logo-container {
+        text-align: left;
+        display: inline-block;
+
+        #bracingeffect-logo {
+            background-position: 50% 50%;
+            background-size: 100%;
+            width: 74px;
+            margin: -0.7em 1em 0 0;
+            display: inline;
+            float: left;
+
+            .spacer {
+                padding-top: 167.18%
+            }
+        }
+        #bracingeffect-text {
+            float: right;
+
+            h1, h2 {
+                font-size: 4em;
+                line-height: 0.8em;
+            }
+
+            #effect-text {
+                color: $bracing_blue;
+            }
+        }
     }
 
     .email {
         font-size: 1.5em;
+        margin-top: 1em;
         width: 100%;
     }
 }

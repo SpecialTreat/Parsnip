@@ -90,7 +90,7 @@
 
         </div>
 
-        {% for i in (1..5) %}
+        {% for i in (1..4) %}
             {% assign bubble_count = 8 | times:i %}
             {% assign inverse = 6 | minus:i %}
             {% assign x = inverse | minus:1.0 %}
@@ -108,14 +108,14 @@
             </div>
         {% endfor %}
 
-        {% for i in (1..5) %}
+        {% for i in (1..4) %}
             {% assign bubble_count = 8 | times:i %}
             {% assign inverse = 6 | minus:i %}
             {% assign x = inverse | minus:1.0 %}
             {% assign y = x | divided_by:2.0 %}
             {% assign z = inverse | plus:y %}
             {% assign layer_height = 105.0 | times:z %}
-            <div id="bubble-layer-{{ i | plus:5 }}" class="bubble-layer-{{ i }} deferred-display" style="display:none;"
+            <div id="bubble-layer-{{ i | plus:4 }}" class="bubble-layer-{{ i }} deferred-display" style="display:none;"
                 data-_quote_bubbles_begin_appear="top:100%;"
                 data-_quote_bubbles_finish_disappear="top:-{{ layer_height }}%;">
             {% for j in (1..bubble_count) %}
@@ -132,7 +132,7 @@
         data-_home_begin_disappear="top:15%"
         data-_design="top:0%"
         data-_parsnip="top:-15%"
-        data-_parsnip-1="top:-100%">
+        data-_parsnip-10="top:-100%">
         <div class="background-image slide-image">
             <span class="spacer"></span>
         </div>
@@ -233,9 +233,16 @@
         data-_contact="opacity:1;top:20%;"
         data-_end="opacity:1;top:20%;">
 
-        <div id="bracingeffect-logo" class="background-image ratio-2x1">
-            <span class="spacer"></span>
+        <div id="bracingeffect-logo-container">
+            <div id="bracingeffect-logo" class="background-image">
+                <span class="spacer"></span>
+            </div>
+            <div id="bracingeffect-text">
+                <h1 id="bracing-text">Bracing</h1>
+                <h1 id="effect-text">Effect</h1>
+            </div>
         </div>
+        <div class="clear"></div>
         <div class="email">
             Contact us at <a href="mailto:support@bracingeffect.com">support@bracingeffect.com</a>
         </div>

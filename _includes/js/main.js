@@ -74,7 +74,7 @@ skrollr.menu.init(s, {
 });
 
 var ids = ['quotes', 'design', 'parsnip', 'charity', 'contact'];
-for(var i = 1; i <= 10; i++) {
+for(var i = 1; i <= 8; i++) {
     ids.push('bubble-layer-' + i);
 }
 
@@ -82,6 +82,8 @@ var ids_len = ids.length;
 for(var i = 0; i < ids_len; i++) {
     var id = ids[i];
     var el = document.getElementById(id);
-    el.style.display = 'inherit';
+    if(el) {
+        el.style.display = 'inherit';
+    }
 }
 
