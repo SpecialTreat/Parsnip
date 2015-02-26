@@ -35,16 +35,18 @@ var constants = {
     quote_b_finish_appear: 900,
 
     design: 1400,
+
     parsnip: 1900,
-    parsnip_slides_begin_appear: 1550,
-    parsnip_slides_finish_appear: 1800,
-    parsnip_begin_disappear: 1900,
-    parsnip_finish_disappear: 2400,
-    charity: 2400,
-    contact_begin_appear: 2650,
-    charity_finish_disappear: 2900,
-    contact: 3025,
-    end: 3250
+    parsnip_begin_disappear: 1950,
+    parsnip_finish_disappear: 2550,
+
+    charity: 2550,
+    charity_finish_disappear: 3150,
+
+    contact_begin_appear: 2900,
+    contact: 3300,
+
+    end: 3350
 };
 
 var s = skrollr.init({
