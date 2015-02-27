@@ -217,11 +217,13 @@ $bubble_border_color: #fff;
 
 @for $i from 1 through 4 {
     $bubble_count: 8 * $i;
-    $inverse: 6 - $i;
-    $layer_height: round(75 * ($inverse + (($inverse - 1) / 2)));
+    $inverse: 5 - $i;
+    // $layer_height: round(80 * ($inverse + (($inverse - 1) / 2)));
+    $layer_height: round(100 * $inverse);
     $adj_font_size: $font_size / $i;
 
     .bubble-layer-#{$i} {
+        @include transform(translateZ(0px));
         font-size: #{$adj_font_size}em;
         height: 100%;
         width: 100%;
@@ -265,6 +267,7 @@ $bubble_border_color: #fff;
     overflow: hidden;
     z-index: 101;
     @include box-shadow(0 0 4em rgba(0, 0, 0, 0.675));
+    @include transform(translateZ(0px));
 
     #title {
         font-size: 4em;
@@ -296,9 +299,10 @@ $bubble_border_color: #fff;
 
 #design {
     z-index: 91;
+    @include transform(translateZ(0px));
 
     #design_quotes {
-        height: 60%;
+        top: 40%;
         width: 100%;
 
         #design_quote_a, #design_quote_b {
@@ -315,17 +319,17 @@ $bubble_border_color: #fff;
         #design_quote_b {
             margin: 2.8em 0 0 0;
         }
+    }
 
-        a {
-            color: #fff;
-            text-decoration: none;
-            position: absolute;
-            right: 5%;
-            bottom: 5%;
+    a {
+        color: #fff;
+        text-decoration: none;
+        position: absolute;
+        right: 5%;
+        bottom: 5%;
 
-            span {
-                font-size: 12px;
-            }
+        span {
+            font-size: 12px;
         }
     }
 }
@@ -334,6 +338,7 @@ $bubble_border_color: #fff;
     width: 100%;
     height: 100%;
     z-index: 102;
+    @include transform(translateZ(0px));
 
     background-color: $software_background;
     background-image: url(images/software-background.jpg);
@@ -407,6 +412,7 @@ $bubble_border_color: #fff;
         overflow-y: auto;
         overflow-x: hidden;
         -webkit-overflow-scrolling: touch; /* Touch scrolling on iOS */
+        overflow-scrolling: touch;
         z-index: 0; /* Touch scrolling on Android */
     }
     #description {
@@ -467,6 +473,7 @@ $bubble_border_color: #fff;
         overflow-x: scroll;
         overflow-y: hidden;
         -webkit-overflow-scrolling: touch; /* Touch scrolling on iOS */
+        overflow-scrolling: touch;
         z-index: 0; /* Touch scrolling on Android */
         position: absolute;
         top: 2.5%;
@@ -475,13 +482,13 @@ $bubble_border_color: #fff;
         bottom: 2%;
     }
     #swiper > * {
-        -webkit-transform: translateZ(0px);
+        @include transform(translateZ(0px));
     }
     #swiper .swiper-spacer {
         height: 3.33%;
         width: 100%;
     }
-    #swiper .swiper-wrapper {
+    #swiper #swiper-wrapper {
         white-space: nowrap;
         height: 91.67%;
     }
@@ -638,7 +645,7 @@ $bubble_border_color: #fff;
 
     background-color: transparent;
     background-position: 50% 50%;
-    background-size: 100%;
+    background-size: 100% auto;
     background-repeat: no-repeat;
     color: transparent;
     display: inline-block;

@@ -18,10 +18,10 @@ var constants = {
     title_finish_disappear: 500,
 
     title_bubbles_begin_appear: 0,
-    title_bubbles_finish_disappear: 800,
+    title_bubbles_finish_disappear: 1000,
 
     quote_bubbles_begin_appear: 700,
-    quote_bubbles_finish_disappear: 1700,
+    quote_bubbles_finish_disappear: 2100,
 
     quotes_begin_appear: 200,
     quotes_finish_appear: 600,
@@ -52,6 +52,7 @@ var constants = {
 var s = skrollr.init({
     edgeStrategy: 'set',
     smoothScrolling: true,
+    mobileDeceleration: 0.004,
     mobileCheck: function() { return isMobile; },
     easing: {
         inOut: function(p) {
