@@ -1,0 +1,106 @@
+---
+---
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="description" content="Bracing Effect, Apps for humans">
+    <meta name="keywords" content="iOS,iPhone,iPad,App,Apps,Parsnip,OCR,Text,Photo,Picture,Image">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <title>Bracing Effect</title>
+
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+
+    <style type="text/css">
+{% capture normalize_css %}{% include css/reset.scss %}{% endcapture %}
+{{ normalize_css | scssify }}
+    </style>
+    <style type="text/css">
+{% capture style_css %}{% include css/style.scss %}{% endcapture %}
+{{ style_css | scssify }}
+    </style>
+
+</head>
+<body>
+    <div id="contact">
+        <div class="content">
+            <div id="bracingeffect-logo-container">
+                <div id="bracingeffect-logo" class="background-image">
+                    <span class="spacer"></span>
+                </div>
+                <div id="bracingeffect-text">
+                    <h1 id="bracing-text">Bracing</h1>
+                    <h1 id="effect-text">Effect</h1>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="email">
+                Contact us at <a href="mailto:support@bracingeffect.com">support@bracingeffect.com</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="parsnip" class="slide slide-image">
+        <div class="content">
+            <div id="sidebar">
+                <div id="description">
+                    <div class="text">
+                        <p>
+                            Parsnip uses OCR to turn printed text into phone
+                            numbers, web addresses, maps, contacts, and more...
+                        </p>
+                        <p>
+                            Free on the
+                            <a href="https://itunes.apple.com/us/app/parsnip/id752725886?mt=8">App Store</a>!
+                        </p>
+                    </div>
+                    <div id="badge-container">
+                        <a href="https://itunes.apple.com/us/app/parsnip/id752725886?mt=8">
+                            <div id="appstore-badge" class="background-image"><span class="spacer"></span></div>
+                        </a>
+                        <a href="https://github.com/RobRuana/Parsnip">
+                            <div id="github-badge" class="background-image"><span class="spacer"></span></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div id="swiper">
+                <div class="swiper-spacer"></div>
+                <div id="swiper-wrapper">
+                    <img src="images/screenshot01.png" id="screenshot01" class="screenshot">
+                    <img src="images/screenshot02.png" id="screenshot02" class="screenshot">
+                    <img src="images/screenshot03.png" id="screenshot03" class="screenshot">
+                    <img src="images/screenshot04.png" id="screenshot04" class="screenshot">
+                    <img src="images/screenshot05.png" id="screenshot05" class="screenshot">
+                </div>
+            </div>
+            <div id="swiper-shadow-left"></div>
+            <div id="swiper-shadow-right"></div>
+        </div>
+        <div class="header">
+            <a id="contact-link" href="#contact">Bracing Effect, LLC<br>Contact</a>
+            <h1>PARSNIP</h1>
+            <h2>For iPhone, iPad, and iPod Touch</h2>
+        </div>
+        <div id="parsnip-logo" class="background-image"><span class="spacer"></span></div>
+    </div>
+
+    <div id="contact-scroll-spacer"></div>
+
+<script type="text/javascript">
+{% include js/jquery.min.js %}
+</script>
+<script type="text/javascript">
+{% include js/jquery.easing.js %}
+</script>
+<script type="text/javascript">
+{% include js/main.js %}
+</script>
+
+{% include google_analytics.html %}
+
+</body>
+</html>
