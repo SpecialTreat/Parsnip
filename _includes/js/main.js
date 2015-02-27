@@ -20,8 +20,8 @@ var constants = {
     title_bubbles_begin_appear: 0,
     title_bubbles_finish_disappear: 800,
 
-    quote_bubbles_begin_appear: 750,
-    quote_bubbles_finish_disappear: 1750,
+    quote_bubbles_begin_appear: 700,
+    quote_bubbles_finish_disappear: 1700,
 
     quotes_begin_appear: 200,
     quotes_finish_appear: 600,
@@ -32,7 +32,7 @@ var constants = {
     quote_a_finish_appear: 700,
 
     quote_b_begin_appear: 400,
-    quote_b_finish_appear: 900,
+    quote_b_finish_appear: 800,
 
     design: 1400,
 
