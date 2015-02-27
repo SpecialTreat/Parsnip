@@ -1,4 +1,4 @@
 exclude: [LICENSE, Resources, Gemfile, Gemfile.lock]
 baseurl: /Parsnip
 sass:
-    style: :expanded # :compressed
+    style: :compressed
