@@ -1,6 +1,11 @@
 var agent = navigator.userAgent || navigator.vendor || window.opera || '';
-var regex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
-var isMobile = regex.test(agent);
+var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(agent);
+var isIOS = /iPhone|iPad|iPod/i.test(agent);
+
+if (isIOS) {
+    {% include js/iosfix.js %}
+}
+
 if (isMobile) {
     var getWindowHeight = function() {
         // Get zoom level of mobile Safari
@@ -18,15 +23,29 @@ if (isMobile) {
         return $(window).height()
     };
 }
+
 jQuery(document).ready(function($) {
     var $document = $(document),
+        $body = $('body'),
         $htmlbody = $('html,body'),
         $contactLink = $('#contact-link');
+
     $contactLink.click(function(event) {
         event.preventDefault();
         $htmlbody.animate({
             scrollTop: $document.height() - getWindowHeight()
         }, 500, 'easeInOutQuint');
     });
-});
 
+    $("#slides").owlCarousel({
+        singleItem: true,
+        autoPlay: true,
+        stopOnHover: true,
+        startDragging: function(base) {
+            $body.addClass('grabbing');
+        }
+    });
+    $body.on('mouseup touchend', function() {
+        $body.removeClass('grabbing');
+    });
+});
