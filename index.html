@@ -8,7 +8,19 @@
     <meta charset="utf-8">
     <meta name="description" content="Bracing Effect, Apps for humans">
     <meta name="keywords" content="iOS,iPhone,iPad,App,Apps,Parsnip,OCR,Scan,Text,Photo,Picture,Image">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="viewport" name="viewport">
+    <script>
+        (function(doc) {
+            if (window.matchMedia) {
+                var viewport = document.getElementById('viewport');
+                if(window.matchMedia('(max-device-width: 736px)').matches) {
+                    viewport.setAttribute('content', 'width=736');
+                } else {
+                    viewport.setAttribute('content', 'width=device-width, initial-scale=1');
+                }
+            }
+        }(document));
+    </script>
 
     <title>Bracing Effect</title>
 
@@ -56,27 +68,23 @@
             <span class="spacer"></span>
         </div>
         <div id="content">
-            <div id="header">
-                <div id="title">
-                    <div id="parsnip-logo" class="background-image"><span class="spacer"></span></div>
-                    <h1>PARSNIP</h1>
-                </div>
-                <div id="text">
-                    Parsnip uses OCR to scan printed text for phone numbers,
-                    web addresses, maps, contacts, and more...
-                </div>
+            <div id="header" class="float-right">
+                <div id="parsnip-logo" class="background-image"><span class="spacer"></span></div>
+                <h1 id="title">PARSNIP</h1>
             </div>
-            <div id="footer">
-                <div id="badge-container">
-                    <a href="https://itunes.apple.com/us/app/parsnip/id752725886?mt=8">
-                        <span class="accessibility-text">Download on the App Store</span>
-                        <div id="appstore-badge" class="background-image"><span class="spacer"></span></div></a>
-                    <a href="https://github.com/RobRuana/Parsnip">
-                        <span class="accessibility-text">Source code on GitHub</span>
-                        <div id="github-badge" class="background-image"><span class="spacer"></span></div></a>
-                </div>
-                <a id="contact-link" href="#">Contact us</a>
+            <div id="text" class="float-right">
+                Parsnip uses OCR to scan printed text for phone numbers,
+                web addresses, maps, contacts, and more...
             </div>
+            <div id="badge-container" class="float-right">
+                <a href="https://itunes.apple.com/us/app/parsnip/id752725886?mt=8">
+                    <span class="accessibility-text">Download on the App Store</span>
+                    <div id="appstore-badge" class="background-image"><span class="spacer"></span></div></a>
+                <a href="https://github.com/RobRuana/Parsnip">
+                    <span class="accessibility-text">Source code on GitHub</span>
+                    <div id="github-badge" class="background-image"><span class="spacer"></span></div></a>
+            </div>
+            <a id="contact-link" class="float-right" href="#">Contact us</a>
         </div>
         <div id="iphone" class="background-image">
             <div id="slides">
@@ -87,7 +95,7 @@
                 <div id="screenshot05" class="screenshot background-image"></div>
             </div>
         </div>
-        <a id="background-copyright" href="http://www.flickr.com/photos/wwarby/"><span>Meadow © 2014, William Warby</span></a>
+        <a id="background-copyright" href="http://www.flickr.com/photos/wwarby/">Meadow © 2014, William Warby</a>
     </div>
 
     <div id="contact-scroll-spacer"></div>

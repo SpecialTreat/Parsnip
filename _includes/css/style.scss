@@ -137,117 +137,129 @@ h1, h2, h3, h4, h5, h6 {
 /****************************************
  * Parsnip slide
  ****************************************/
+
+$badge_height: 40;
+$badge_width: 135;
+$iphone_height: 754;
+$iphone_width: 368;
+$margin_top: 16;
+$margin_bottom: 32;
+$iphone_bezel_height: 92;
+$iphone_bezel_width: 24;
+$min_height: $iphone_height + $margin_top + $margin_bottom;
+$content_margin_right: 32;
+
 #parsnip {
     overflow: hidden;
     border-top-right-radius: 1px; /* required for iOS zoom bug */
     border-top-left-radius: 1px; /* required for iOS zoom bug */
     z-index: 0;
+    min-height: #{$min_height}px;
 
     #content {
         position: absolute;
-        top: 0;
+        top: #{$margin_top}px;
         left: 0;
         right: 50%;
         bottom: 0;
-        z-index: 100;
+        z-index: 99;
 
         text-align: right;
 
+        .float-right {
+            right: #{$content_margin_right}px;
+        }
+
         #header {
             position: absolute;
-            top: 1.5em;
-            right: 0;
+            top: #{$iphone_bezel_height}px;
+            margin-top: -5.8em;
             white-space: nowrap;
             z-index: 1;
 
-            #title {
-                margin-right: 1em;
-
-                h1, #parsnip-logo {
-                    display: inline-block;
-                    font-size: 6em;
-                }
-
-                #parsnip-logo {
-                    display: inline-block;
-                    margin-right: -0.3em;
-                    width: 1.5em;
-                    vertical-align: -75%;
-
-                    .spacer {
-                        padding-top: 162.319%;
-                    }
-                }
+            #title, #parsnip-logo {
+                display: inline-block;
+                font-size: 6em;
             }
 
-            #text {
-                color: #fff;
-                float: right;
-                margin-top: 0.5em;
-                margin-right: 1.333em;
-                width: 12em;
-                white-space: normal;
+            #title {
+                margin-right: -0.1667em;
+            }
+
+            #parsnip-logo {
+                margin-right: -0.3em;
+                width: 1.5em;
+                // height: 2.4375em;
+                vertical-align: -75%;
+
+                .spacer {
+                    padding-top: 162.319%;
+                }
             }
         }
 
-        #footer {
-            max-height: 686px;
-            height: 100%;
-            width: 135px;
+        #text {
+            color: #fff;
+            font-size: 20px;
             position: absolute;
-            right: 2em;
-            top: 0;
-            z-index: 0;
+            top: 200px;
+            max-width: 12em;
+            width: (100 - (100 * 1.5 * $content_margin_right / $iphone_width)) * 1%;
+            white-space: normal;
+        }
 
-            #badge-container {
-                display: inline-block;
-                width: 135px;
-                position: absolute;
-                bottom: 3.875em;
-                right: 0;
+        $badge_container_height: ($badge_height * 2) + 10;
+        #badge-container {
+            width: #{$badge_width}px;
+            height: #{$badge_container_height}px;
+            position: absolute;
+            top: #{$iphone_height - $iphone_bezel_height - $badge_container_height}px;
 
-                #appstore-badge {
-                    margin-bottom: 10px;
-                }
-
-                #appstore-badge, #github-badge {
-                    width: 135px;
-                    height: 40px;
-                }
-
-                #appstore-badge .spacer, #github-badge .spacer {
-                    padding-top: 29.722%;
-                }
+            #appstore-badge {
+                margin-bottom: 10px;
             }
 
-            #contact-link {
-                color: #fff;
-                font-size: 1.75em;
-                text-decoration: none;
-                position: absolute;
-                bottom: 0.5em;
-                right: 0;
-                width: 100%;
-                text-align: center;
-                white-space: nowrap;
+            #appstore-badge, #github-badge {
+                width: #{$badge_width}px;
+                height: #{$badge_height}px;
             }
+
+            #appstore-badge .spacer, #github-badge .spacer {
+                padding-top: 29.722%;
+            }
+        }
+
+        #contact-link {
+            color: #fff;
+            font-size: 1.75em;
+            text-decoration: none;
+            text-align: center;
+            white-space: nowrap;
+
+            margin-right: 4px;
+            overflow: visible;
+
+            position: absolute;
+            top: #{$iphone_height - $iphone_bezel_height + 10}px;
+
+            @include text-shadow(1px 1px 1px #606010);
         }
     }
 
     #iphone {
         position: absolute;
-        top: 1em;
+        top: #{$margin_top}px;
         left: 50%;
-        height: 754px;
-        width: 368px;
-        z-index: 101;
+        height: #{$iphone_height}px;
+        width: #{$iphone_width}px;
+        z-index: 100;
 
         #slides {
             position: absolute;
             height: 568px;
             width: 320px;
-            top: 92px;
-            left: 24px;
+            top: #{$iphone_bezel_height}px;
+            left: #{$iphone_bezel_width}px;
 
             .screenshot {
                 height: 568px;
@@ -256,7 +268,7 @@ h1, h2, h3, h4, h5, h6 {
         }
 
         .owl-controls {
-            margin-top: 95px;
+            margin-top: #{$iphone_bezel_height + ($margin_bottom / 2) - (16 / 2)}px;
             z-index: 1000;
         }
 
@@ -273,13 +285,11 @@ h1, h2, h3, h4, h5, h6 {
         color: #fff;
         text-decoration: none;
         position: absolute;
-        left: 10px;
-        bottom: 10px;
-        z-index: 99;
-
-        span {
-            font-size: 12px;
-        }
+        left: 12px;
+        bottom: 12px;
+        z-index: 101;
+        font-size: 12px;
+        @include text-shadow(1px 1px 1px #606010);
     }
 }
 
@@ -445,54 +455,47 @@ only screen and (min-resolution:2dppx) {
  * Responsive breakpoints
  ****************************************/
 #title {font-size: 16px;}
-#text {font-size: 24px;}
-
 $font: 15;
-$text_font: 23;
 $width: 1048;
-@media all and (min-width: #{$width}px) {#title {font-size: 16px;}}
-@while $width >= 320 and $font >= 1 {
-    @if $width <= 724 {
-        $font: $font - 0.35;
-        $text_font: $text_font - 0.525;
-    }
+@while $width >= ($iphone_width * 2) and $font >= 1 {
     @media all and (max-width: #{$width}px) {
-        #title {
-            font-size: #{round($font)}px;
-        }
-        @if $width <= 792 {
-            #parsnip #content #header #text {
-                font-size: #{round($text_font)}px;
-            }
-            $text_font: $text_font - 0.75;
-        }
-        @if $width <= 600 {
-            #parsnip #content #header #text {
-                margin-right: 0.667em;
-            }
-            #parsnip #content #footer {
-                right: 1em;
-            }
+        #parsnip #content #header {
+            font-size: #{$font}px;
         }
     }
-    $width: $width - 32;
     $font: $font - 0.5;
+    $width: $width - 32;
 }
 
-@media all and (max-width: 724px) {
+$font: $font - 0.75;
+@while $width >= 530 and $font >= 1 {
+    @media all and (max-width: #{$width}px) {
+        #parsnip #content #header {
+            font-size: #{$font}px;
+        }
+    }
+    $font: $font - 0.75;
+    $width: $width - 32;
+}
+
+@media all and (max-width: #{$iphone_width * 2}px) {
+    #parsnip #content .float-right {
+        right: ($content_margin_right / $iphone_width) * 100%;
+    }
+
     #parsnip #iphone {
-        right: -12px;
+        right: 0;
         left: auto;
     }
 
     #parsnip #content {
-        right: 356px;
+        right: #{$iphone_width}px;
     }
 }
 
-@media all and (max-height: 800px) {
-    #parsnip #iphone {
-        top: 50%;
-        margin-top: -377px;
+@media all and (min-height: #{$min_height}px) {
+    #parsnip #iphone,
+    #parsnip #content {
+        top: 2%;
     }
 }
