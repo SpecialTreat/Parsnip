@@ -260,6 +260,7 @@ $content_margin_right: 32;
             width: 320px;
             top: #{$iphone_bezel_height}px;
             left: #{$iphone_bezel_width}px;
+            overflow: hidden;
 
             .screenshot {
                 height: 568px;

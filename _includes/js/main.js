@@ -28,7 +28,8 @@ jQuery(document).ready(function($) {
     var $document = $(document),
         $body = $('body'),
         $htmlbody = $('html,body'),
-        $contactLink = $('#contact-link');
+        $contactLink = $('#contact-link'),
+        $slides = $('#slides');
 
     $contactLink.click(function(event) {
         event.preventDefault();
@@ -37,7 +38,7 @@ jQuery(document).ready(function($) {
         }, 500, 'easeInOutQuint');
     });
 
-    $("#slides").owlCarousel({
+    $slides.owlCarousel({
         singleItem: true,
         autoPlay: true,
         stopOnHover: true,
@@ -45,6 +46,7 @@ jQuery(document).ready(function($) {
             $body.addClass('grabbing');
         }
     });
+    $slides.css('overflow', 'visible');
     $body.on('mouseup touchend', function() {
         $body.removeClass('grabbing');
     });
