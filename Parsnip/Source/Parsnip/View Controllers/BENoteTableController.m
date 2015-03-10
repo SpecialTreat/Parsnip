@@ -254,7 +254,10 @@ static UIEdgeInsets tableSectionHeaderPadding;
 {
     BENoteTableSection *section = [self tableSection:indexPath.section];
     NSMutableArray *notesCache = [self.notes objectForKey:section.date];
-    BENote *note = [notesCache objectAtIndex:indexPath.row];
+    BENote *note = nil;
+    if(indexPath.row < notesCache.count) {
+        note = [notesCache objectAtIndex:indexPath.row];
+    }
 
     if (note) {
         return note;
