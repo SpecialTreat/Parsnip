@@ -15,5 +15,6 @@
 - (Pix *)pix;
 
 + (UIImage *)imageFromPix:(Pix *)pix;
++ (UIImage *)imageFrom1bppPix:(Pix *)pix;
 
 @end

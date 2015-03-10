@@ -252,7 +252,7 @@
 #define SIZEOF_SIGNED_INT 4
 
 /* The size of `signed long', as computed by sizeof. */
-#define SIZEOF_SIGNED_LONG 4
+#define SIZEOF_SIGNED_LONG 8
 
 /* The size of `signed long long', as computed by sizeof. */
 #define SIZEOF_SIGNED_LONG_LONG 8
@@ -261,13 +261,13 @@
 #define SIZEOF_SIGNED_SHORT 2
 
 /* The size of `unsigned char *', as computed by sizeof. */
-#define SIZEOF_UNSIGNED_CHAR_P 4
+#define SIZEOF_UNSIGNED_CHAR_P 8
 
 /* The size of `unsigned int', as computed by sizeof. */
 #define SIZEOF_UNSIGNED_INT 4
 
 /* The size of `unsigned long', as computed by sizeof. */
-#define SIZEOF_UNSIGNED_LONG 4
+#define SIZEOF_UNSIGNED_LONG 8
 
 /* The size of `unsigned long long', as computed by sizeof. */
 #define SIZEOF_UNSIGNED_LONG_LONG 8
@@ -301,10 +301,10 @@
 #define TIFF_INT32_T signed int
 
 /* Signed 64-bit type formatter */
-#define TIFF_INT64_FORMAT "%lld"
+#define TIFF_INT64_FORMAT "%ld"
 
 /* Signed 64-bit type */
-#define TIFF_INT64_T signed long long
+#define TIFF_INT64_T signed long
 
 /* Signed 8-bit type */
 #define TIFF_INT8_T signed char
@@ -331,10 +331,10 @@
 #define TIFF_UINT32_T unsigned int
 
 /* Unsigned 64-bit type formatter */
-#define TIFF_UINT64_FORMAT "%llu"
+#define TIFF_UINT64_FORMAT "%lu"
 
 /* Unsigned 64-bit type */
-#define TIFF_UINT64_T unsigned long long
+#define TIFF_UINT64_T unsigned long
 
 /* Unsigned 8-bit type */
 #define TIFF_UINT8_T unsigned char

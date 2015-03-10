@@ -194,15 +194,24 @@ static NSMutableDictionary *_propertyToColumnMapForClass;
         if([propertyType isEqualToString:@"char"]) {
             class_addMethod(self.class, getSelector, (IMP)getCharProperty, "c@:");
             class_addMethod(self.class, setSelector, (IMP)setCharProperty, "v@:c");
-        } else if([propertyType isEqualToString:@"int"]) {
+        } else if([propertyType isEqualToString:@"int"] || [propertyType isEqualToString:@"bool"]) {
             class_addMethod(self.class, getSelector, (IMP)getNSIntegerProperty, "i@:");
             class_addMethod(self.class, setSelector, (IMP)setNSIntegerProperty, "v@:i");
         } else if([propertyType isEqualToString:@"unsigned int"]) {
             class_addMethod(self.class, getSelector, (IMP)getNSUIntegerProperty, "I@:");
             class_addMethod(self.class, setSelector, (IMP)setNSUIntegerProperty, "v@:I");
+        } else if([propertyType isEqualToString:@"long"]) {
+            class_addMethod(self.class, getSelector, (IMP)getNSIntegerProperty, "l@:");
+            class_addMethod(self.class, setSelector, (IMP)setNSIntegerProperty, "v@:l");
+        } else if([propertyType isEqualToString:@"unsigned long"]) {
+            class_addMethod(self.class, getSelector, (IMP)getNSUIntegerProperty, "L@:");
+            class_addMethod(self.class, setSelector, (IMP)setNSUIntegerProperty, "v@:L");
         } else if([propertyType isEqualToString:@"float"]) {
             class_addMethod(self.class, getSelector, (IMP)getCGFloatProperty, "f@:");
             class_addMethod(self.class, setSelector, (IMP)setCGFloatProperty, "v@:f");
+        } else if([propertyType isEqualToString:@"double"]) {
+            class_addMethod(self.class, getSelector, (IMP)getCGFloatProperty, "d@:");
+            class_addMethod(self.class, setSelector, (IMP)setCGFloatProperty, "v@:d");
         } else if([propertyType isEqualToString:@"CGRect"]) {
             class_addMethod(self.class, getSelector, (IMP)getCGRectProperty, "{}@:");
             class_addMethod(self.class, setSelector, (IMP)setCGRectProperty, "v@:{}");

@@ -20,20 +20,13 @@
     
     Pix *pix = nil;
     thresholder->ThresholdToPix(&pix);
-    
-    UIImage *image = nil;
-    l_uint8 *bytes = NULL;
-    size_t size = 0;
 
-    if (0 == pixWriteMem(&bytes, &size, pix, IFF_TIFF)) {
-        NSData *data = [[NSData alloc] initWithBytesNoCopy:bytes length:(NSUInteger)size freeWhenDone:YES];
-        image = [UIImage imageWithData:data];
-    }
+    UIImage *image = [UIImage imageFrom1bppPix:pix];
     
     CFRelease(imageData);
     pixFreeData(pix);
     delete thresholder;
-    
+
     return image;
 }
 
@@ -63,18 +56,48 @@
     return pix;
 }
 
++ (UIImage *)imageFrom1bppPix:(Pix *)pix
+{
+    return [UIImage imageFromPix:pixUnpackBinary(pix, 32, 1)];
+}
+
 + (UIImage *)imageFromPix:(Pix *)pix
 {
-    UIImage *image = nil;
-    l_uint8 *bytes = NULL;
-    size_t size = 0;
-
-    if (0 == pixWriteMem(&bytes, &size, pix, IFF_TIFF)) {
-        NSData *data = [[NSData alloc] initWithBytesNoCopy:bytes length:(NSUInteger)size freeWhenDone:YES];
-        image = [UIImage imageWithData:data];
+    l_uint32 width = pixGetWidth(pix);
+    l_uint32 height = pixGetHeight(pix);
+    l_uint32 bitsPerPixel = pixGetDepth(pix);
+    l_uint32 bytesPerRow = pixGetWpl(pix) * 4;
+    l_uint32 bitsPerComponent = 8;
+    if (pixSetSpp(pix, 4) == 0) {
+        bitsPerComponent = bitsPerPixel / pixGetSpp(pix);
     }
-    
+
+    l_uint32 *pixData = pixGetData(pix);
+
+    CGDataProviderRef provider = CGDataProviderCreateWithData(NULL, pixData, bytesPerRow * height, NULL);
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+
+    CGImage *cgImage = CGImageCreate(width, height,
+                                     bitsPerComponent, bitsPerPixel, bytesPerRow,
+                                     colorSpace, kCGBitmapByteOrderDefault,
+                                     provider, NULL, NO, kCGRenderingIntentDefault);
+
+    CGDataProviderRelease(provider);
+    CGColorSpaceRelease(colorSpace);
+
+    UIImage *image = [UIImage imageWithCGImage:cgImage];
     return image;
+
+//    UIImage *image = nil;
+//    l_uint8 *bytes = NULL;
+//    size_t size = 0;
+//
+//    if (0 == pixWriteMem(&bytes, &size, pix, IFF_TIFF)) {
+//        NSData *data = [[NSData alloc] initWithBytesNoCopy:bytes length:(NSUInteger)size freeWhenDone:YES];
+//        image = [UIImage imageWithData:data];
+//    }
+//    
+//    return image;
 }
 
 @end

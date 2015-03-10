@@ -118,11 +118,13 @@ static NSString *infoTitle;
 - (void)viewWillAppear:(BOOL)animated
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productPurchased:) name:BEInAppPurchaserProductPurchasedNotification object:nil];
+    [super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [super viewWillDisappear:animated];
 }
 
 - (void)productPurchased:(NSNotification *)notification

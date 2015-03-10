@@ -40,7 +40,7 @@ static NSString *tessdataPath;
         tesseractEngine->SetImage(CFDataGetBytePtr(imageData), width, height, bytesPerPixel, bytesPerLine);
 
         Pix *pix = tesseractEngine->GetThresholdedImage();
-        UIImage *ocrImage = [UIImage imageFromPix:pix];
+        UIImage *ocrImage = [UIImage imageFrom1bppPix:pix];
 
         char* textChars = tesseractEngine->GetUTF8Text();
         NSString *ocrText = @(textChars);
@@ -264,11 +264,12 @@ static NSString *tessdataPath;
 {
     [BEThread background:^{
         GPUImageBilateralFilter *bilateral = [[GPUImageBilateralFilter alloc] init];
+        [bilateral useNextFrameForImageCapture];
 
         GPUImagePicture *imageSource = [[GPUImagePicture alloc] initWithImage:image];
         [imageSource addTarget:bilateral];
         [imageSource processImage];
-        UIImage *preOcrImage = [bilateral imageFromCurrentlyProcessedOutputWithOrientation:image.imageOrientation];
+        UIImage *preOcrImage = [bilateral imageFromCurrentFramebufferWithOrientation:image.imageOrientation];
         if(completion) {
             [BEThread main:^{
                 completion(preOcrImage);

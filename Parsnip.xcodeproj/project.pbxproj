@@ -17,7 +17,6 @@
 		DA0E148E1838786A0073AF61 /* libtesseract_cube.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA0E13361838786A0073AF61 /* libtesseract_cube.a */; };
 		DA0E148F1838786A0073AF61 /* libtesseract_cutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA0E13371838786A0073AF61 /* libtesseract_cutil.a */; };
 		DA0E14901838786A0073AF61 /* libtesseract_dict.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA0E13381838786A0073AF61 /* libtesseract_dict.a */; };
-		DA0E14911838786A0073AF61 /* libtesseract_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA0E13391838786A0073AF61 /* libtesseract_image.a */; };
 		DA0E14921838786A0073AF61 /* libtesseract_main.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA0E133A1838786A0073AF61 /* libtesseract_main.a */; };
 		DA0E14931838786A0073AF61 /* libtesseract_neural.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA0E133B1838786A0073AF61 /* libtesseract_neural.a */; };
 		DA0E14941838786A0073AF61 /* libtesseract_textord.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA0E133C1838786A0073AF61 /* libtesseract_textord.a */; };
@@ -302,6 +301,14 @@
 		DA32CA56187EAB16008CDC68 /* GPUImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA32C9B6187EAB16008CDC68 /* GPUImageView.m */; };
 		DA32CA59187EB908008CDC68 /* BEGPUCameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA32CA58187EB908008CDC68 /* BEGPUCameraView.m */; };
 		DA4051D4186072D5004D9879 /* BEInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4051D3186072D5004D9879 /* BEInfoController.m */; };
+		DA4615FF1AAD257A00F75E56 /* libtesseract_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4615FC1AAD257A00F75E56 /* libtesseract_image.a */; };
+		DA4616001AAD257A00F75E56 /* libtesseract_tessopt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4615FD1AAD257A00F75E56 /* libtesseract_tessopt.a */; };
+		DA4616011AAD257A00F75E56 /* libtesseract_training.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4615FE1AAD257A00F75E56 /* libtesseract_training.a */; };
+		DA4616081AAD784B00F75E56 /* GPUImageFramebuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4616031AAD784B00F75E56 /* GPUImageFramebuffer.m */; };
+		DA4616091AAD784B00F75E56 /* GPUImageFramebufferCache.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4616051AAD784B00F75E56 /* GPUImageFramebufferCache.m */; };
+		DA46160A1AAD784B00F75E56 /* GPUImageHistogramEqualizationFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4616071AAD784B00F75E56 /* GPUImageHistogramEqualizationFilter.m */; };
+		DA46160D1AAD787600F75E56 /* GPUImagePicture+TextureSubimage.m in Sources */ = {isa = PBXBuildFile; fileRef = DA46160C1AAD787600F75E56 /* GPUImagePicture+TextureSubimage.m */; };
+		DA46161B1AAE550D00F75E56 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA46161A1AAE550D00F75E56 /* libz.a */; };
 		DA573852187FF2CD007F6EA5 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA573851187FF2CD007F6EA5 /* libiconv.dylib */; };
 		DA573856187FF4BA007F6EA5 /* build_zbar.sh in Resources */ = {isa = PBXBuildFile; fileRef = DA573855187FF4BA007F6EA5 /* build_zbar.sh */; };
 		DA573880187FFD0C007F6EA5 /* libzbar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA573868187FF734007F6EA5 /* libzbar.a */; };
@@ -312,7 +319,6 @@
 		DA7F6EEC17348C4800A03C3D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA7F6EEB17348C4800A03C3D /* UIKit.framework */; };
 		DA7F6EEE17348C4800A03C3D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA7F6EED17348C4800A03C3D /* Foundation.framework */; };
 		DA7F6EF017348C4800A03C3D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA7F6EEF17348C4800A03C3D /* CoreGraphics.framework */; };
-		DA7F6F0A17348C4800A03C3D /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA7F6F0917348C4800A03C3D /* SenTestingKit.framework */; };
 		DA7F6F0B17348C4800A03C3D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA7F6EEB17348C4800A03C3D /* UIKit.framework */; };
 		DA7F6F0C17348C4800A03C3D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA7F6EED17348C4800A03C3D /* Foundation.framework */; };
 		DA7F70781734C8BA00A03C3D /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA7F70771734C8BA00A03C3D /* libxml2.dylib */; };
@@ -462,7 +468,6 @@
 		DA0E13361838786A0073AF61 /* libtesseract_cube.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtesseract_cube.a; sourceTree = "<group>"; };
 		DA0E13371838786A0073AF61 /* libtesseract_cutil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtesseract_cutil.a; sourceTree = "<group>"; };
 		DA0E13381838786A0073AF61 /* libtesseract_dict.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtesseract_dict.a; sourceTree = "<group>"; };
-		DA0E13391838786A0073AF61 /* libtesseract_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtesseract_image.a; sourceTree = "<group>"; };
 		DA0E133A1838786A0073AF61 /* libtesseract_main.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtesseract_main.a; sourceTree = "<group>"; };
 		DA0E133B1838786A0073AF61 /* libtesseract_neural.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtesseract_neural.a; sourceTree = "<group>"; };
 		DA0E133C1838786A0073AF61 /* libtesseract_textord.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtesseract_textord.a; sourceTree = "<group>"; };
@@ -942,6 +947,29 @@
 		DA32CA58187EB908008CDC68 /* BEGPUCameraView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEGPUCameraView.m; sourceTree = "<group>"; };
 		DA4051D2186072D5004D9879 /* BEInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEInfoController.h; sourceTree = "<group>"; };
 		DA4051D3186072D5004D9879 /* BEInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEInfoController.m; sourceTree = "<group>"; };
+		DA4615FC1AAD257A00F75E56 /* libtesseract_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtesseract_image.a; sourceTree = "<group>"; };
+		DA4615FD1AAD257A00F75E56 /* libtesseract_tessopt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtesseract_tessopt.a; sourceTree = "<group>"; };
+		DA4615FE1AAD257A00F75E56 /* libtesseract_training.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtesseract_training.a; sourceTree = "<group>"; };
+		DA4616021AAD784B00F75E56 /* GPUImageFramebuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageFramebuffer.h; sourceTree = "<group>"; };
+		DA4616031AAD784B00F75E56 /* GPUImageFramebuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageFramebuffer.m; sourceTree = "<group>"; };
+		DA4616041AAD784B00F75E56 /* GPUImageFramebufferCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageFramebufferCache.h; sourceTree = "<group>"; };
+		DA4616051AAD784B00F75E56 /* GPUImageFramebufferCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageFramebufferCache.m; sourceTree = "<group>"; };
+		DA4616061AAD784B00F75E56 /* GPUImageHistogramEqualizationFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageHistogramEqualizationFilter.h; sourceTree = "<group>"; };
+		DA4616071AAD784B00F75E56 /* GPUImageHistogramEqualizationFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageHistogramEqualizationFilter.m; sourceTree = "<group>"; };
+		DA46160B1AAD787600F75E56 /* GPUImagePicture+TextureSubimage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GPUImagePicture+TextureSubimage.h"; sourceTree = "<group>"; };
+		DA46160C1AAD787600F75E56 /* GPUImagePicture+TextureSubimage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GPUImagePicture+TextureSubimage.m"; sourceTree = "<group>"; };
+		DA46160F1AAE54F700F75E56 /* crc32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crc32.h; sourceTree = "<group>"; };
+		DA4616101AAE54F700F75E56 /* deflate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = deflate.h; sourceTree = "<group>"; };
+		DA4616111AAE54F700F75E56 /* gzguts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gzguts.h; sourceTree = "<group>"; };
+		DA4616121AAE54F700F75E56 /* inffast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inffast.h; sourceTree = "<group>"; };
+		DA4616131AAE54F700F75E56 /* inffixed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inffixed.h; sourceTree = "<group>"; };
+		DA4616141AAE54F700F75E56 /* inflate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inflate.h; sourceTree = "<group>"; };
+		DA4616151AAE54F700F75E56 /* inftrees.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inftrees.h; sourceTree = "<group>"; };
+		DA4616161AAE54F700F75E56 /* trees.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = trees.h; sourceTree = "<group>"; };
+		DA4616171AAE54F700F75E56 /* zconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zconf.h; sourceTree = "<group>"; };
+		DA4616181AAE54F700F75E56 /* zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zlib.h; sourceTree = "<group>"; };
+		DA4616191AAE54F700F75E56 /* zutil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zutil.h; sourceTree = "<group>"; };
+		DA46161A1AAE550D00F75E56 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
 		DA573851187FF2CD007F6EA5 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		DA573855187FF4BA007F6EA5 /* build_zbar.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = build_zbar.sh; path = Libs/build_zbar.sh; sourceTree = "<group>"; };
 		DA573868187FF734007F6EA5 /* libzbar.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libzbar.a; sourceTree = "<group>"; };
@@ -972,8 +1000,7 @@
 		DA7F6EEB17348C4800A03C3D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DA7F6EED17348C4800A03C3D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DA7F6EEF17348C4800A03C3D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		DA7F6F0817348C4800A03C3D /* ParsnipTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ParsnipTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DA7F6F0917348C4800A03C3D /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		DA7F6F0817348C4800A03C3D /* ParsnipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ParsnipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA7F6F201734941B00A03C3D /* build_leptonica.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = build_leptonica.sh; path = Libs/build_leptonica.sh; sourceTree = "<group>"; };
 		DA7F6F221734941B00A03C3D /* build_tesseract.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = build_tesseract.sh; path = Libs/build_tesseract.sh; sourceTree = "<group>"; };
 		DA7F6F231734941B00A03C3D /* build_tiff.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = build_tiff.sh; path = Libs/build_tiff.sh; sourceTree = "<group>"; };
@@ -1077,15 +1104,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA46161B1AAE550D00F75E56 /* libz.a in Frameworks */,
 				DA573852187FF2CD007F6EA5 /* libiconv.dylib in Frameworks */,
 				DAE46B05185765DC0007243C /* SystemConfiguration.framework in Frameworks */,
 				DA623B4B1855526D0067008B /* StoreKit.framework in Frameworks */,
 				DA0E14871838786A0073AF61 /* liblept.a in Frameworks */,
 				DA66FC9017F7B4620084FA59 /* EventKit.framework in Frameworks */,
 				DA0E148D1838786A0073AF61 /* libtesseract_classify.a in Frameworks */,
+				DA4616011AAD257A00F75E56 /* libtesseract_training.a in Frameworks */,
 				DA0E14891838786A0073AF61 /* libtesseract_all.a in Frameworks */,
 				DA0E148F1838786A0073AF61 /* libtesseract_cutil.a in Frameworks */,
+				DA4615FF1AAD257A00F75E56 /* libtesseract_image.a in Frameworks */,
 				DA66FC9117F7B4620084FA59 /* EventKitUI.framework in Frameworks */,
+				DA4616001AAD257A00F75E56 /* libtesseract_tessopt.a in Frameworks */,
 				DABFDA3D17DF3D4900183CB5 /* AddressBook.framework in Frameworks */,
 				DABFDA3E17DF3D4900183CB5 /* AddressBookUI.framework in Frameworks */,
 				DA0E14951838786A0073AF61 /* libtesseract_viewer.a in Frameworks */,
@@ -1096,7 +1127,6 @@
 				DA7F70781734C8BA00A03C3D /* libxml2.dylib in Frameworks */,
 				DA7F70831734C92500A03C3D /* CoreImage.framework in Frameworks */,
 				DA7F70851734C92500A03C3D /* CoreMotion.framework in Frameworks */,
-				DA0E14911838786A0073AF61 /* libtesseract_image.a in Frameworks */,
 				DA7F70871734C92500A03C3D /* OpenGLES.framework in Frameworks */,
 				DA7F70861734C92500A03C3D /* ImageIO.framework in Frameworks */,
 				DA7F708A1734CB2A00A03C3D /* CoreVideo.framework in Frameworks */,
@@ -1126,7 +1156,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA7F6F0A17348C4800A03C3D /* SenTestingKit.framework in Frameworks */,
 				DA7F6F0B17348C4800A03C3D /* UIKit.framework in Frameworks */,
 				DA7F6F0C17348C4800A03C3D /* Foundation.framework in Frameworks */,
 			);
@@ -1169,6 +1198,7 @@
 		DA0E12E91838786A0073AF61 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				DA46160E1AAE54F700F75E56 /* zlib */,
 				DA57386A187FFC52007F6EA5 /* libzbar */,
 				DA0E12EA1838786A0073AF61 /* leptonica */,
 				DA0E13061838786A0073AF61 /* libtiff */,
@@ -1266,6 +1296,10 @@
 		DA0E132E1838786A0073AF61 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				DA46161A1AAE550D00F75E56 /* libz.a */,
+				DA4615FC1AAD257A00F75E56 /* libtesseract_image.a */,
+				DA4615FD1AAD257A00F75E56 /* libtesseract_tessopt.a */,
+				DA4615FE1AAD257A00F75E56 /* libtesseract_training.a */,
 				DA573868187FF734007F6EA5 /* libzbar.a */,
 				DA0E132F1838786A0073AF61 /* liblept.a */,
 				DA0E13301838786A0073AF61 /* libtesseract.a */,
@@ -1277,7 +1311,6 @@
 				DA0E13361838786A0073AF61 /* libtesseract_cube.a */,
 				DA0E13371838786A0073AF61 /* libtesseract_cutil.a */,
 				DA0E13381838786A0073AF61 /* libtesseract_dict.a */,
-				DA0E13391838786A0073AF61 /* libtesseract_image.a */,
 				DA0E133A1838786A0073AF61 /* libtesseract_main.a */,
 				DA0E133B1838786A0073AF61 /* libtesseract_neural.a */,
 				DA0E133C1838786A0073AF61 /* libtesseract_textord.a */,
@@ -1527,6 +1560,12 @@
 		DA32C873187EAB15008CDC68 /* GPUImage */ = {
 			isa = PBXGroup;
 			children = (
+				DA4616021AAD784B00F75E56 /* GPUImageFramebuffer.h */,
+				DA4616031AAD784B00F75E56 /* GPUImageFramebuffer.m */,
+				DA4616041AAD784B00F75E56 /* GPUImageFramebufferCache.h */,
+				DA4616051AAD784B00F75E56 /* GPUImageFramebufferCache.m */,
+				DA4616061AAD784B00F75E56 /* GPUImageHistogramEqualizationFilter.h */,
+				DA4616071AAD784B00F75E56 /* GPUImageHistogramEqualizationFilter.m */,
 				DA32C874187EAB15008CDC68 /* GLProgram.h */,
 				DA32C875187EAB15008CDC68 /* GLProgram.m */,
 				DA32C876187EAB15008CDC68 /* GPUImage.h */,
@@ -1848,6 +1887,8 @@
 		DA32C9AD187EAB16008CDC68 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				DA46160B1AAD787600F75E56 /* GPUImagePicture+TextureSubimage.h */,
+				DA46160C1AAD787600F75E56 /* GPUImagePicture+TextureSubimage.m */,
 				DA32C9AE187EAB16008CDC68 /* GPUImage-Prefix.pch */,
 				DA32C9AF187EAB16008CDC68 /* GPUImageContext.h */,
 				DA32C9B0187EAB16008CDC68 /* GPUImageContext.m */,
@@ -1859,6 +1900,24 @@
 				DA32C9B6187EAB16008CDC68 /* GPUImageView.m */,
 			);
 			path = iOS;
+			sourceTree = "<group>";
+		};
+		DA46160E1AAE54F700F75E56 /* zlib */ = {
+			isa = PBXGroup;
+			children = (
+				DA46160F1AAE54F700F75E56 /* crc32.h */,
+				DA4616101AAE54F700F75E56 /* deflate.h */,
+				DA4616111AAE54F700F75E56 /* gzguts.h */,
+				DA4616121AAE54F700F75E56 /* inffast.h */,
+				DA4616131AAE54F700F75E56 /* inffixed.h */,
+				DA4616141AAE54F700F75E56 /* inflate.h */,
+				DA4616151AAE54F700F75E56 /* inftrees.h */,
+				DA4616161AAE54F700F75E56 /* trees.h */,
+				DA4616171AAE54F700F75E56 /* zconf.h */,
+				DA4616181AAE54F700F75E56 /* zlib.h */,
+				DA4616191AAE54F700F75E56 /* zutil.h */,
+			);
+			path = zlib;
 			sourceTree = "<group>";
 		};
 		DA57386A187FFC52007F6EA5 /* libzbar */ = {
@@ -1910,7 +1969,7 @@
 			isa = PBXGroup;
 			children = (
 				DA7F6EE817348C4800A03C3D /* Parsnip.app */,
-				DA7F6F0817348C4800A03C3D /* ParsnipTests.octest */,
+				DA7F6F0817348C4800A03C3D /* ParsnipTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1938,7 +1997,6 @@
 				DA7F6EEB17348C4800A03C3D /* UIKit.framework */,
 				DA7F6EED17348C4800A03C3D /* Foundation.framework */,
 				DA7F6EEF17348C4800A03C3D /* CoreGraphics.framework */,
-				DA7F6F0917348C4800A03C3D /* SenTestingKit.framework */,
 				DA2AA9ED17ACD45500E211D9 /* libsqlite3.dylib */,
 				DA7F70771734C8BA00A03C3D /* libxml2.dylib */,
 				DA7F70911734EC9F00A03C3D /* libz.dylib */,
@@ -2124,8 +2182,8 @@
 			);
 			name = ParsnipTests;
 			productName = ParsnipTests;
-			productReference = DA7F6F0817348C4800A03C3D /* ParsnipTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = DA7F6F0817348C4800A03C3D /* ParsnipTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -2134,10 +2192,14 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = Parsnip;
+				LastTestingUpgradeCheck = 0610;
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Bracing Effect, LLC";
 				TargetAttributes = {
 					DA7F6EE717348C4800A03C3D = {
+						DevelopmentTeam = 96X9GJB92A;
+					};
+					DA7F6F0717348C4800A03C3D = {
 						DevelopmentTeam = 96X9GJB92A;
 					};
 				};
@@ -2400,6 +2462,7 @@
 				DA0E15551838786A0073AF61 /* UIView+Tools.m in Sources */,
 				DA32C9FB187EAB16008CDC68 /* GPUImageLaplacianFilter.m in Sources */,
 				DA32C9B8187EAB16008CDC68 /* GPUImage3x3ConvolutionFilter.m in Sources */,
+				DA46160D1AAD787600F75E56 /* GPUImagePicture+TextureSubimage.m in Sources */,
 				DA0E154D1838786A0073AF61 /* UIBezierPath+Tools.m in Sources */,
 				DA0E154E1838786A0073AF61 /* UIColor+Tools.m in Sources */,
 				DA32CA20187EAB16008CDC68 /* GPUImagePosterizeFilter.m in Sources */,
@@ -2427,6 +2490,7 @@
 				DAD6E3F4184AC18200D675B1 /* BENoteSheetTableViewCell.m in Sources */,
 				DA32CA0F187EAB16008CDC68 /* GPUImageMovieComposition.m in Sources */,
 				DA32CA2C187EAB16008CDC68 /* GPUImageSepiaFilter.m in Sources */,
+				DA46160A1AAD784B00F75E56 /* GPUImageHistogramEqualizationFilter.m in Sources */,
 				DA32CA02187EAB16008CDC68 /* GPUImageLowPassFilter.m in Sources */,
 				DA0E154C1838786A0073AF61 /* UIBarButtonItem+Tools.m in Sources */,
 				DA32CA00187EAB16008CDC68 /* GPUImageLocalBinaryPatternFilter.m in Sources */,
@@ -2473,9 +2537,11 @@
 				DA32C9FE187EAB16008CDC68 /* GPUImageLinearBurnBlendFilter.m in Sources */,
 				DA32C9D5187EAB16008CDC68 /* GPUImageDifferenceBlendFilter.m in Sources */,
 				DAD6E3E6184AC18200D675B1 /* BEBaseController.m in Sources */,
+				DA4616091AAD784B00F75E56 /* GPUImageFramebufferCache.m in Sources */,
 				DAD6E3E0184AC18200D675B1 /* BETextDataDetector.m in Sources */,
 				DA0E155D1838786B0073AF61 /* FMDatabaseQueue.m in Sources */,
 				DA32CA31187EAB16008CDC68 /* GPUImageSmoothToonFilter.m in Sources */,
+				DA4616081AAD784B00F75E56 /* GPUImageFramebuffer.m in Sources */,
 				DA32C9E7187EAB16008CDC68 /* GPUImageGaussianSelectiveBlurFilter.m in Sources */,
 				DAD6E3F0184AC18200D675B1 /* BEAlertView.m in Sources */,
 				DA32C9FF187EAB16008CDC68 /* GPUImageLineGenerator.m in Sources */,
@@ -2646,6 +2712,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/Parsnip/Dependencies/lib",
+					"$(PROJECT_DIR)/Parsnip/Dependencies/lib",
 				);
 				PRODUCT_NAME = Parsnip;
 				PROVISIONING_PROFILE = "";
@@ -2676,6 +2743,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/Parsnip/Dependencies/lib",
+					"$(PROJECT_DIR)/Parsnip/Dependencies/lib",
 				);
 				PRODUCT_NAME = Parsnip;
 				PROVISIONING_PROFILE = "";
@@ -2688,16 +2756,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Parsnip.app/Parsnip";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Parsnip/Parsnip-Prefix.pch";
 				INFOPLIST_FILE = "ParsnipTests/ParsnipTests-Info.plist";
 				PRODUCT_NAME = ParsnipTests;
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -2705,16 +2776,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Parsnip.app/Parsnip";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Parsnip/Parsnip-Prefix.pch";
 				INFOPLIST_FILE = "ParsnipTests/ParsnipTests-Info.plist";
 				PRODUCT_NAME = ParsnipTests;
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};

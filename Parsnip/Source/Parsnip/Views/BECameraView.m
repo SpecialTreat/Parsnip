@@ -223,7 +223,8 @@ static NSString *CAPTURE_QUALITY;
 
     toggleFlashButton = [[UIButton alloc] init];
     toggleFlashButton.exclusiveTouch = YES;
-    toggleFlashButton.alpha = 0.0f;
+    toggleFlashButton.alpha = toggleFlashButtonAlpha;
+    toggleFlashButton.frame = [self getToggleFlashButtonFrame];
     toggleFlashButton.selected = NO;
     toggleFlashButton.hidden = (!captureDevice.hasFlash && !captureDevice.hasTorch);
     UIImage *image = [BEUI.theme imageForKey:@"CaptureToggleFlashButton.Image"];
