@@ -133,6 +133,7 @@ return ret;
     return r;
 }
 
+#if TARGET_OS_MAC && !TARGET_OS_IPHONE
 - (NSString*)applicationIDString {
     NSString *s = NSFileTypeForHFSTypeCode([self applicationID]);
     
@@ -160,6 +161,8 @@ return ret;
     
     [self setApplicationID:NSHFSTypeCodeFromFileType([NSString stringWithFormat:@"'%@'", s])];
 }
+
+#endif
 
 #endif
 

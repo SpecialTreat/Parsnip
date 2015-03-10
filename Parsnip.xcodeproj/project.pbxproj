@@ -18,7 +18,6 @@
 		DA0E148F1838786A0073AF61 /* libtesseract_cutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA0E13371838786A0073AF61 /* libtesseract_cutil.a */; };
 		DA0E14901838786A0073AF61 /* libtesseract_dict.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA0E13381838786A0073AF61 /* libtesseract_dict.a */; };
 		DA0E14921838786A0073AF61 /* libtesseract_main.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA0E133A1838786A0073AF61 /* libtesseract_main.a */; };
-		DA0E14931838786A0073AF61 /* libtesseract_neural.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA0E133B1838786A0073AF61 /* libtesseract_neural.a */; };
 		DA0E14941838786A0073AF61 /* libtesseract_textord.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA0E133C1838786A0073AF61 /* libtesseract_textord.a */; };
 		DA0E14951838786A0073AF61 /* libtesseract_viewer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA0E133D1838786A0073AF61 /* libtesseract_viewer.a */; };
 		DA0E14961838786A0073AF61 /* libtesseract_wordrec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA0E133E1838786A0073AF61 /* libtesseract_wordrec.a */; };
@@ -469,7 +468,6 @@
 		DA0E13371838786A0073AF61 /* libtesseract_cutil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtesseract_cutil.a; sourceTree = "<group>"; };
 		DA0E13381838786A0073AF61 /* libtesseract_dict.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtesseract_dict.a; sourceTree = "<group>"; };
 		DA0E133A1838786A0073AF61 /* libtesseract_main.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtesseract_main.a; sourceTree = "<group>"; };
-		DA0E133B1838786A0073AF61 /* libtesseract_neural.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtesseract_neural.a; sourceTree = "<group>"; };
 		DA0E133C1838786A0073AF61 /* libtesseract_textord.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtesseract_textord.a; sourceTree = "<group>"; };
 		DA0E133D1838786A0073AF61 /* libtesseract_viewer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtesseract_viewer.a; sourceTree = "<group>"; };
 		DA0E133E1838786A0073AF61 /* libtesseract_wordrec.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtesseract_wordrec.a; sourceTree = "<group>"; };
@@ -1141,7 +1139,6 @@
 				DA0E14981838786A0073AF61 /* libtiffxx.a in Frameworks */,
 				DA7F6EEC17348C4800A03C3D /* UIKit.framework in Frameworks */,
 				DA0E14971838786A0073AF61 /* libtiff.a in Frameworks */,
-				DA0E14931838786A0073AF61 /* libtesseract_neural.a in Frameworks */,
 				DA7F6EEE17348C4800A03C3D /* Foundation.framework in Frameworks */,
 				DA0E14881838786A0073AF61 /* libtesseract.a in Frameworks */,
 				DA0E14941838786A0073AF61 /* libtesseract_textord.a in Frameworks */,
@@ -1312,7 +1309,6 @@
 				DA0E13371838786A0073AF61 /* libtesseract_cutil.a */,
 				DA0E13381838786A0073AF61 /* libtesseract_dict.a */,
 				DA0E133A1838786A0073AF61 /* libtesseract_main.a */,
-				DA0E133B1838786A0073AF61 /* libtesseract_neural.a */,
 				DA0E133C1838786A0073AF61 /* libtesseract_textord.a */,
 				DA0E133D1838786A0073AF61 /* libtesseract_viewer.a */,
 				DA0E133E1838786A0073AF61 /* libtesseract_wordrec.a */,

@@ -215,6 +215,7 @@
  @see applicationID
  */
 
+#if TARGET_OS_MAC && !TARGET_OS_IPHONE
 - (void)setApplicationID:(uint32_t)appID;
 
 /** Retrieve application ID string
@@ -234,6 +235,8 @@
  */
 
 - (void)setApplicationIDString:(NSString*)string;
+#endif
+
 #endif
 
 

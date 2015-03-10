@@ -86,6 +86,7 @@
     CGColorSpaceRelease(colorSpace);
 
     UIImage *image = [UIImage imageWithCGImage:cgImage];
+    CFRelease(cgImage);
     return image;
 
 //    UIImage *image = nil;
