@@ -6,7 +6,7 @@ LOCAL_OUTDIR="./outdir"
 ESCAPED_OUTDIR=$(echo $LOCAL_OUTDIR | sed -e 's/\\/\\\\/g' -e 's/\//\\\//g' -e 's/&/\\\&/g')
 LIBDIR="`pwd`/tiff"
 
-IOS_BASE_SDK="8.1"
+IOS_BASE_SDK="8.2"
 IOS_DEPLOY_TGT="6.0"
 
 declare -a archs=( "armv7"             "armv7s"             "arm64"              "i386"              "x86_64" )
