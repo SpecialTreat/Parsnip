@@ -4,6 +4,7 @@
 @interface UIDevice (Tools)
 
 + (BOOL)isIOS7;
++ (BOOL)isIOS8;
 + (BOOL)isIpad;
 + (BOOL)isGoogleMapsInstalled;
 + (BOOL)isChromeInstalled;

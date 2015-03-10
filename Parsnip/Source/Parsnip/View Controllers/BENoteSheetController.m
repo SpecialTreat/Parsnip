@@ -401,7 +401,7 @@ static UIEdgeInsets tableCellPadding;
         if (success) {
             BENoteSheetTableViewCell *cell = [self parentCell:sender];
             if(cell) {
-                [[UIApplication sharedApplication] openURL:cell.URL];
+                [[UIApplication sharedApplication] openURL:cell.email];
             }
         }
     }];

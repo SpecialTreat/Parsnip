@@ -15,6 +15,11 @@ static NSString * const kGoogleMapsScheme = @"comgooglemaps:";
     return [[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending;
 }
 
++ (BOOL)isIOS8
+{
+    return [[[UIDevice currentDevice] systemVersion] compare:@"8.0" options:NSNumericSearch] != NSOrderedAscending;
+}
+
 + (BOOL)isIpad
 {
     return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
@@ -45,7 +50,7 @@ static NSString * const kGoogleMapsScheme = @"comgooglemaps:";
 + (BOOL)openInGoogleMaps:(NSString *)address
 {
     NSString *parameters = [UIDevice urlParametersFromAddress:address];
-    NSString *url = [NSString stringWithFormat:@"%@://?q=%@", kGoogleMapsScheme, parameters];
+    NSString *url = [NSString stringWithFormat:@"%@//?q=%@", kGoogleMapsScheme, parameters];
     return [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
 }
 
@@ -90,7 +95,10 @@ static NSString * const kGoogleMapsScheme = @"comgooglemaps:";
     NSArray *components = [address componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSMutableArray *encodedComponents = [NSMutableArray arrayWithCapacity:components.count];
     for(NSString *component in components) {
-        [encodedComponents addObject:[component urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+        NSString *s = [component stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        if (![s isEqualToString:@""]) {
+            [encodedComponents addObject:[s urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+        }
     }
     return [encodedComponents componentsJoinedByString:@"+"];
 }
