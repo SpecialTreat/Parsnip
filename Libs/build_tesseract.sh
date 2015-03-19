@@ -9,14 +9,14 @@ LIBDIR="`pwd`/tesseract"
 IOS_BASE_SDK="8.2"
 IOS_DEPLOY_TGT="6.0"
 
-declare -a archs=( "armv7"             "armv7s"             "arm64"              "i386"              "x86_64" )
-declare -a hosts=( "arm-apple-darwin7" "arm-apple-darwin7s" "arm-apple-darwin64" "i386-apple-darwin" "x86_64-apple-darwin" )
-declare -a plats=( "iPhoneOS"          "iPhoneOS"           "iPhoneOS"           "iPhoneSimulator"   "iPhoneSimulator" )
-declare -a mvers=( "$IOS_DEPLOY_TGT"   "$IOS_DEPLOY_TGT"    "7.0"                "$IOS_DEPLOY_TGT"   "$IOS_DEPLOY_TGT" )
+declare -a archs=( "armv7"             "arm64"              "i386"              "x86_64" )
+declare -a hosts=( "arm-apple-darwin7" "arm-apple-darwin64" "i386-apple-darwin" "x86_64-apple-darwin" )
+declare -a plats=( "iPhoneOS"          "iPhoneOS"           "iPhoneSimulator"   "iPhoneSimulator" )
+declare -a mvers=( "$IOS_DEPLOY_TGT"   "7.0"                "$IOS_DEPLOY_TGT"   "$IOS_DEPLOY_TGT" )
 
 setenv_all()
 {
-    export CFLAGS="$CFLAGS -I$GLOBAL_OUTDIR/include -I$GLOBAL_OUTDIR/include/zlib -I$GLOBAL_OUTDIR/include/libtiff -I$GLOBAL_OUTDIR/include/leptonica"
+    export CFLAGS="$CFLAGS -I$GLOBAL_OUTDIR/include -I$GLOBAL_OUTDIR/include/leptonica"
     export CXX="$DEVROOT/usr/bin/clang++"
     export CC="$DEVROOT/usr/bin/clang"
     export LD=$DEVROOT/usr/bin/ld
@@ -27,7 +27,7 @@ setenv_all()
     export LDFLAGS="-L$GLOBAL_OUTDIR/lib"
     export CPPFLAGS=$CFLAGS
     export CXXFLAGS=$CFLAGS
-    export LIBS="-lz -ltiff -ltiffxx -llept"
+    export LIBS="-llept"
     export LIBLEPT_HEADERSDIR="$GLOBAL_OUTDIR/include/leptonica"
 }
 

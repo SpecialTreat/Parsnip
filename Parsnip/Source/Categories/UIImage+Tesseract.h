@@ -12,7 +12,7 @@
 /**
  * Must call pixFreeData(pix) and free(pix) on returned (Pix *).
  */
-- (Pix *)pix;
+//- (Pix *)pix;
 
 + (UIImage *)imageFromPix:(Pix *)pix;
 + (UIImage *)imageFrom1bppPix:(Pix *)pix;

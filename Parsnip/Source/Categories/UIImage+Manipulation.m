@@ -717,7 +717,7 @@ void CalculateAutocorretionValues(CGImageRef image, CGFloat *whitePoint, CGFloat
     CGFloat horizontalRatio = bounds.width / self.size.width;
     CGFloat verticalRatio = bounds.height / self.size.height;
     CGFloat ratio;
-    
+
     switch (contentMode) {
         case UIViewContentModeScaleAspectFill:
             ratio = MAX(horizontalRatio, verticalRatio);
@@ -728,7 +728,7 @@ void CalculateAutocorretionValues(CGImageRef image, CGFloat *whitePoint, CGFloat
             break;
             
         default:
-            [NSException raise:NSInvalidArgumentException format:@"Unsupported content mode: %d", contentMode];
+            [NSException raise:NSInvalidArgumentException format:@"Unsupported content mode: %ld", (long)contentMode];
     }
     
     CGSize newSize = CGSizeMake(self.size.width * ratio, self.size.height * ratio);

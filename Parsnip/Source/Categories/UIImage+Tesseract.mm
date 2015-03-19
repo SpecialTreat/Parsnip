@@ -33,28 +33,28 @@
 /**
  * Must call pixFreeData(pix) and free(pix) on returned (Pix *).
  */
-- (Pix *)pix
-{
-    CGImageRef imageRef = self.CGImage;
-    
-    Pix *pix = (Pix *)malloc(sizeof(Pix));
-    pix->w = CGImageGetWidth(imageRef);
-    pix->h = CGImageGetHeight(imageRef);
-    pix->d = CGImageGetBitsPerPixel(imageRef);
-    pix->wpl = CGImageGetBytesPerRow(imageRef) / 4.0f;
-    pix->informat = IFF_TIFF;
-    pix->colormap = NULL;
-
-#ifndef __clang_analyzer__
-    CFDataRef data = CGDataProviderCopyData(CGImageGetDataProvider(imageRef));
-    const UInt8 *pixData = CFDataGetBytePtr(data);
-    pix->data = (l_uint32 *)pixData;
-#endif
-
-    pixEndianByteSwap(pix);
-    
-    return pix;
-}
+//- (Pix *)pix
+//{
+//    CGImageRef imageRef = self.CGImage;
+//    
+//    Pix *pix = (Pix *)malloc(sizeof(Pix));
+//    pix->w = CGImageGetWidth(imageRef);
+//    pix->h = CGImageGetHeight(imageRef);
+//    pix->d = CGImageGetBitsPerPixel(imageRef);
+//    pix->wpl = CGImageGetBytesPerRow(imageRef) / 4.0f;
+//    pix->informat = IFF_TIFF;
+//    pix->colormap = NULL;
+//
+//#ifndef __clang_analyzer__
+//    CFDataRef data = CGDataProviderCopyData(CGImageGetDataProvider(imageRef));
+//    const UInt8 *pixData = CFDataGetBytePtr(data);
+//    pix->data = (l_uint32 *)pixData;
+//#endif
+//
+//    pixEndianByteSwap(pix);
+//    
+//    return pix;
+//}
 
 + (UIImage *)imageFrom1bppPix:(Pix *)pix
 {

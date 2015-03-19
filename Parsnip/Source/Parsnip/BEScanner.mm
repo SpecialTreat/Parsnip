@@ -10,7 +10,7 @@
 #import "BETextDataDetector.h"
 #import "BEThread.h"
 #import "UIImage+Tesseract.h"
-#import "GPUImage.h"
+//#import "GPUImage.h"
 #import "ZBarSDK.h"
 
 
@@ -167,8 +167,8 @@ static NSString *tessdataPath;
     NSMutableDictionary *d = [NSMutableDictionary dictionary];
     d[@"Type"] = [NSNumber numberWithInt:(int)symbol.type];
     d[@"TypeName"] = symbol.typeName;
-    d[@"ConfigMask"] = [NSNumber numberWithInt:symbol.configMask];
-    d[@"ModifierMask"] = [NSNumber numberWithInt:symbol.modifierMask];
+    d[@"ConfigMask"] = [NSNumber numberWithUnsignedInteger:symbol.configMask];
+    d[@"ModifierMask"] = [NSNumber numberWithUnsignedInteger:symbol.modifierMask];
     d[@"Quality"] = [NSNumber numberWithInt:symbol.quality];
     d[@"Bounds"] = @{@"X": [NSNumber numberWithFloat:symbol.bounds.origin.x],
                      @"Y": [NSNumber numberWithFloat:symbol.bounds.origin.y],
@@ -217,8 +217,8 @@ static NSString *tessdataPath;
         ZBarImageScanner *scanner = [[ZBarImageScanner alloc] init];
 
         CGImageRef cgImage = image.CGImage;
-        int w = CGImageGetWidth(cgImage);
-        int h = CGImageGetHeight(cgImage);
+        size_t w = CGImageGetWidth(cgImage);
+        size_t h = CGImageGetHeight(cgImage);
 
         CGSize size = CGSizeMake(w, h);
 
@@ -239,7 +239,7 @@ static NSString *tessdataPath;
         [scanner setSymbology:ZBAR_NONE config:ZBAR_CFG_Y_DENSITY to:density];
 
         ZBarImage *zimg = [[ZBarImage alloc] initWithCGImage:cgImage];
-        int nsyms = [scanner scanImage: zimg];
+        size_t nsyms = [scanner scanImage: zimg];
 
         NSMutableArray *array = nil;
         if (nsyms > 0) {
@@ -262,20 +262,21 @@ static NSString *tessdataPath;
 
 - (void)preOcr:(UIImage *)image completion:(void(^)(UIImage *preOcrImage))completion
 {
-    [BEThread background:^{
-        GPUImageBilateralFilter *bilateral = [[GPUImageBilateralFilter alloc] init];
-        [bilateral useNextFrameForImageCapture];
-
-        GPUImagePicture *imageSource = [[GPUImagePicture alloc] initWithImage:image];
-        [imageSource addTarget:bilateral];
-        [imageSource processImage];
-        UIImage *preOcrImage = [bilateral imageFromCurrentFramebufferWithOrientation:image.imageOrientation];
-        if(completion) {
-            [BEThread main:^{
-                completion(preOcrImage);
-            }];
-        }
-    }];
+    completion(image);
+//    [BEThread background:^{
+//        GPUImageBilateralFilter *bilateral = [[GPUImageBilateralFilter alloc] init];
+//        [bilateral useNextFrameForImageCapture];
+//
+//        GPUImagePicture *imageSource = [[GPUImagePicture alloc] initWithImage:image];
+//        [imageSource addTarget:bilateral];
+//        [imageSource processImage];
+//        UIImage *preOcrImage = [bilateral imageFromCurrentFramebufferWithOrientation:image.imageOrientation];
+//        if(completion) {
+//            [BEThread main:^{
+//                completion(preOcrImage);
+//            }];
+//        }
+//    }];
 }
 
 - (NSString *)tryReplacement:(SEL)selector inText:(NSString *)text strict:(BOOL)strict

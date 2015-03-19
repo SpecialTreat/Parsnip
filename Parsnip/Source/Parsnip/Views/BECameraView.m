@@ -57,7 +57,8 @@ static NSString *CAPTURE_QUALITY;
 {
 //    preview = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BECameraView_Simulator.png"]];
 //    preview = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BECameraView_Simulator_r4.png"]];
-    preview = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BECameraView_Simulator_iPad.png"]];
+    preview = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BECameraView_Simulator_r6.png"]];
+//    preview = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BECameraView_Simulator_iPad.png"]];
     preview.frame = self.bounds;
     preview.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 
@@ -93,7 +94,8 @@ static NSString *CAPTURE_QUALITY;
 //    imageHandler([UIImage imageNamed:@"BECameraView_SimulatorCropped.png"]);
 //    imageHandler([UIImage imageNamed:@"BECameraView_Simulator.png"]);
 //    imageHandler([UIImage imageNamed:@"BECameraView_Simulator_r4.png"]);
-    imageHandler([UIImage imageNamed:@"BECameraView_Simulator_iPad.png"]);
+    imageHandler([UIImage imageNamed:@"BECameraView_Simulator_r6.png"]);
+//    imageHandler([UIImage imageNamed:@"BECameraView_Simulator_iPad.png"]);
 }
 
 @end
@@ -320,10 +322,19 @@ static NSString *CAPTURE_QUALITY;
 {
     CGPoint pointInView = [recognizer locationInView:focusBoxTouchView];
     CGPoint pointOfInterest = [self convertToPointOfInterestFromViewCoordinates:pointInView];
-    NSError *error;
+
     if([captureDevice isFocusModeSupported:AVCaptureFocusModeAutoFocus] && [captureDevice isFocusPointOfInterestSupported]) {
         focusBox.center = pointInView;
         [self performSelectorOnMainThread:@selector(showFocusBox) withObject:nil waitUntilDone:NO];
+        [self focusOnPointOfInterest:pointOfInterest];
+        [self startMotionManager];
+    }
+}
+
+- (void)focusOnPointOfInterest:(CGPoint)pointOfInterest
+{
+    NSError *error;
+    if([captureDevice isFocusModeSupported:AVCaptureFocusModeAutoFocus] && [captureDevice isFocusPointOfInterestSupported]) {
         if([captureDevice lockForConfiguration:&error]) {
             [captureDevice setFocusMode:AVCaptureFocusModeAutoFocus];
             [captureDevice setFocusPointOfInterest:pointOfInterest];
@@ -472,14 +483,8 @@ static NSString *CAPTURE_QUALITY;
             focusBox.hidden = YES;
             focusBox.alpha = 1.0f;
             [focusBox stopAnimating];
-            
-            [self startMotionManager];
         }];
     }];
-    
-    if(BEDevice.motionManager.deviceMotionAvailable) {
-        [BEDevice.motionManager startDeviceMotionUpdates];
-    }
 }
 
 - (CGPoint)convertToPointOfInterestFromViewCoordinates:(CGPoint)viewCoordinates 
