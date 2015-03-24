@@ -147,6 +147,7 @@ $margin_bottom: 32;
 $iphone_bezel_height: 92;
 $iphone_bezel_width: 24;
 $min_height: $iphone_height + $margin_top + $margin_bottom;
+$content_percent: 55;
 $content_margin_right: 32;
 
 #parsnip {
@@ -160,7 +161,7 @@ $content_margin_right: 32;
         position: absolute;
         top: #{$margin_top}px;
         left: 0;
-        right: 50%;
+        right: (100 - $content_percent) * 1%;
         bottom: 0;
         z-index: 99;
 
@@ -249,7 +250,7 @@ $content_margin_right: 32;
     #iphone {
         position: absolute;
         top: #{$margin_top}px;
-        left: 50%;
+        left: ($content_percent) * 1%;
         height: #{$iphone_height}px;
         width: #{$iphone_width}px;
         z-index: 100;
@@ -458,7 +459,8 @@ only screen and (min-resolution:2dppx) {
 #title {font-size: 16px;}
 $font: 15;
 $width: 1048;
-@while $width >= ($iphone_width * 2) and $font >= 1 {
+$breakpoint: $iphone_width * (100 / (100 - $content_percent));
+@while $width >= $breakpoint and $font >= 1 {
     @media all and (max-width: #{$width}px) {
         #parsnip #content #header {
             font-size: #{$font}px;
@@ -479,7 +481,7 @@ $font: $font - 0.75;
     $width: $width - 32;
 }
 
-@media all and (max-width: #{$iphone_width * 2}px) {
+@media all and (max-width: #{$breakpoint}px) {
     #parsnip #content .float-right {
         right: ($content_margin_right / $iphone_width) * 100%;
     }
