@@ -328,7 +328,7 @@ $content_margin_right: 32;
         text-align: center;
 
         a {
-            color: $bracing_blue;
+            color: #fff;
         }
 
         #bracingeffect-logo-container {
@@ -365,6 +365,10 @@ $content_margin_right: 32;
             font-size: 1.25em;
             margin-top: 1em;
             width: 100%;
+
+            a {
+                color: $bracing_blue;
+            }
         }
     }
 }

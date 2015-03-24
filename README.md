@@ -1,4 +1,4 @@
-bracingeffect.com
-=================
+Parsnip Website
+===============
 
-Bracing Effect Website
+Source code for Parsnip website.
