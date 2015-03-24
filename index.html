@@ -27,16 +27,16 @@
     <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
 
     <style type="text/css">
-{% capture normalize_css %}{% include css/reset.scss %}{% endcapture %}
-{{ normalize_css | scssify }}
+{% capture reset_css %}{% include css/reset.scss %}{% endcapture %}
+{{ reset_css | scssify }}
     </style>
     <style type="text/css">
-{% capture style_css %}{% include owl-carousel/owl.carousel.css %}{% endcapture %}
-{{ style_css | scssify }}
+{% capture owl_carousel_css %}{% include owl-carousel/owl.carousel.css %}{% endcapture %}
+{{ owl_carousel_css | scssify }}
     </style>
     <style type="text/css">
-{% capture style_css %}{% include owl-carousel/owl.theme.css %}{% endcapture %}
-{{ style_css | scssify }}
+{% capture owl_theme_css %}{% include owl-carousel/owl.theme.css %}{% endcapture %}
+{{ owl_theme_css | scssify }}
     </style>
     <style type="text/css">
 {% capture style_css %}{% include css/style.scss %}{% endcapture %}
