@@ -28,7 +28,7 @@ jQuery(document).ready(function($) {
     var $document = $(document),
         $body = $('body'),
         $htmlbody = $('html,body'),
-        $contactLink = $('#contact-link'),
+        $contactLink = $('#internal-contact-link'),
         $slides = $('#slides');
 
     $contactLink.click(function(event) {
