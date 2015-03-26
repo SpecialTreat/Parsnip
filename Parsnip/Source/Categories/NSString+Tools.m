@@ -1,3 +1,9 @@
+//
+//  NSString+Tools.m
+//
+//  Copyright (c) 2015 Bracing Effect, LLC. See LICENSE for details.
+//
+
 #import "NSString+Tools.h"
 
 

@@ -1,3 +1,9 @@
+//
+//  BENote.h
+//
+//  Copyright (c) 2015 Bracing Effect, LLC. See LICENSE for details.
+//
+
 #import <AddressBook/AddressBook.h>
 #import <Foundation/Foundation.h>
 #import "BEModel.h"

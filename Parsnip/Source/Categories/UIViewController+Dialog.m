@@ -1,3 +1,9 @@
+//
+//  UIViewController+Dialog.m
+//
+//  Copyright (c) 2015 Bracing Effect, LLC. See LICENSE for details.
+//
+
 #import "UIViewController+Dialog.h"
 
 #import "BeUI.h"

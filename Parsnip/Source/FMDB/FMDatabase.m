@@ -1,3 +1,9 @@
+//
+//  FMDatabase.m
+//
+//  Copyright (c) 2015 Bracing Effect, LLC. See LICENSE for details.
+//
+
 #import "FMDatabase.h"
 #import "unistd.h"
 #import <objc/runtime.h>

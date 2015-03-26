@@ -1,3 +1,9 @@
+//
+//  BENotificationView.m
+//
+//  Copyright (c) 2015 Bracing Effect, LLC. See LICENSE for details.
+//
+
 #import "BENotificationView.h"
 
 #import "UIView+Tools.h"

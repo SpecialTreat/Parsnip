@@ -1,3 +1,9 @@
+//
+//  BEScannerView.m
+//
+//  Copyright (c) 2015 Bracing Effect, LLC. See LICENSE for details.
+//
+
 #import "BEScannerView.h"
 
 #import <QuartzCore/QuartzCore.h>

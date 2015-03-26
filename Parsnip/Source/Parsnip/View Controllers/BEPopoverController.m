@@ -1,3 +1,9 @@
+//
+//  BEPopoverController.m
+//
+//  Copyright (c) 2015 Bracing Effect, LLC. See LICENSE for details.
+//
+
 #import "BEPopoverController.h"
 #import "BEAppDelegate.h"
 

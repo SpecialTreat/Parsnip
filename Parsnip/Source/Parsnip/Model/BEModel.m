@@ -1,3 +1,9 @@
+//
+//  BEModel.m
+//
+//  Copyright (c) 2015 Bracing Effect, LLC. See LICENSE for details.
+//
+
 #import "BEModel.h"
 
 #import <objc/message.h>

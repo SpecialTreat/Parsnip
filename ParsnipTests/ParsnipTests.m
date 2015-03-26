@@ -1,8 +1,7 @@
 //
 //  ParsnipTests.m
-//  ParsnipTests
 //
-//  Copyright (c) 2013 Bracing Effect. All rights reserved.
+//  Copyright (c) 2015 Bracing Effect, LLC. See LICENSE for details.
 //
 
 #import "ParsnipTests.h"

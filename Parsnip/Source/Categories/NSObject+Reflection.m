@@ -1,3 +1,9 @@
+//
+//  NSObject+Reflection.m
+//
+//  Copyright (c) 2015 Bracing Effect, LLC. See LICENSE for details.
+//
+
 #import "NSObject+Reflection.h"
 
 #import <objc/message.h>

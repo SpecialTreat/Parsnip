@@ -1,3 +1,9 @@
+//
+//  BECameraView.m
+//
+//  Copyright (c) 2015 Bracing Effect, LLC. See LICENSE for details.
+//
+
 #import "BECameraView.h"
 
 #import <AVFoundation/AVFoundation.h>

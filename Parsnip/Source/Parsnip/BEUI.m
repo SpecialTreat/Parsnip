@@ -1,3 +1,9 @@
+//
+//  BEUI.m
+//
+//  Copyright (c) 2015 Bracing Effect, LLC. See LICENSE for details.
+//
+
 #import "BEUI.h"
 
 #import "BEAlertView.h"

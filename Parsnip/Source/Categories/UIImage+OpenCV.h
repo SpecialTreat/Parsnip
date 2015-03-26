@@ -1,3 +1,9 @@
+//
+//  UIImage+OpenCV.h
+//
+//  Copyright (c) 2015 Bracing Effect, LLC. See LICENSE for details.
+//
+
 #import <UIKit/UIKit.h>
 #include "opencv2/opencv.hpp"
 

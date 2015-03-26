@@ -1,3 +1,9 @@
+//
+//  BEAlertView.m
+//
+//  Copyright (c) 2015 Bracing Effect, LLC. See LICENSE for details.
+//
+
 #import "BEAlertView.h"
 
 #import <QuartzCore/QuartzCore.h>

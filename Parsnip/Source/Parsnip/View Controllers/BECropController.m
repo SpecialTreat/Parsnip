@@ -1,3 +1,9 @@
+//
+//  BECropController.m
+//
+//  Copyright (c) 2015 Bracing Effect, LLC. See LICENSE for details.
+//
+
 #import "BECropController.h"
 
 #import "BECroppableImageView.h"
