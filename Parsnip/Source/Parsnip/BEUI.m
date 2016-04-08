@@ -63,9 +63,9 @@ static UIStatusBarStyle themeStatusBarStyle;
 
     NSString *statusBarStyle = [theme stringForKey:@"StatusBarStyle"];
     if ([@"BlackOpaque" isEqualToString:statusBarStyle]) {
-        themeStatusBarStyle = UIStatusBarStyleBlackOpaque;
+        themeStatusBarStyle = UIStatusBarStyleLightContent;
     } else if ([@"BlackTranslucent" isEqualToString:statusBarStyle]) {
-        themeStatusBarStyle = UIStatusBarStyleBlackTranslucent;
+        themeStatusBarStyle = UIStatusBarStyleLightContent;
     } else if ([@"LightContent" isEqualToString:statusBarStyle]) {
         themeStatusBarStyle = UIStatusBarStyleLightContent;
     } else {
@@ -85,7 +85,7 @@ static UIStatusBarStyle themeStatusBarStyle;
 
 + (BOOL)isStatusBarTranslucent
 {
-    return (UIDevice.isIOS7 || [BEUI preferredStatusBarStyle] == UIStatusBarStyleBlackTranslucent);
+    return (UIDevice.isIOS7 || [BEUI preferredStatusBarStyle] == UIStatusBarStyleLightContent);
 }
 
 + (UIStatusBarStyle)preferredStatusBarStyle
@@ -113,19 +113,24 @@ static UIStatusBarStyle themeStatusBarStyle;
 
 + (void)styleNavigationBarAppearance
 {
+    UIOffset titleShadowOffset = [theme offsetForKey:@"NavigationBar.Title.TextShadowOffset" withDefault:UIOffsetZero];
+    NSShadow *titleShadow = [[NSShadow alloc] init];
+    titleShadow.shadowColor = [theme colorForKey:@"NavigationBar.Title.TextShadowColor" withDefault:[UIColor clearColor]];
+    titleShadow.shadowOffset = CGSizeMake(titleShadowOffset.horizontal, titleShadowOffset.vertical);
+
     [[UINavigationBar appearance] setTitleTextAttributes:@{
-        UITextAttributeFont: [theme fontForKey:@"NavigationBar.Title.Font"],
-        UITextAttributeTextColor: [theme colorForKey:@"NavigationBar.Title.TextColor" withDefault:[UIColor blackColor]],
-        UITextAttributeTextShadowColor: [theme colorForKey:@"NavigationBar.Title.TextShadowColor" withDefault:[UIColor clearColor]],
-        UITextAttributeTextShadowOffset: [NSValue valueWithUIOffset:[theme offsetForKey:@"NavigationBar.Title.TextShadowOffset" withDefault:UIOffsetZero]]
+        NSFontAttributeName: [theme fontForKey:@"NavigationBar.Title.Font"],
+        NSForegroundColorAttributeName: [theme colorForKey:@"NavigationBar.Title.TextColor" withDefault:[UIColor blackColor]],
+        NSShadowAttributeName: titleShadow
     }];
+
     [[UINavigationBar appearance] setBarStyle:[BEUI preferredNavigationBarStyle]];
     [[UINavigationBar appearance] setTintColor:[theme colorForKey:@"NavigationBar.TintColor" withDefault:nil]];
     [[UINavigationBar appearance] setBackgroundImage:[theme imageForKey:@"NavigationBar.BackgroundImage"] forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance] setBackgroundImage:[theme imageForKey:@"NavigationBar.LandscapeBackgroundImage"] forBarMetrics:UIBarMetricsLandscapePhone];
+    [[UINavigationBar appearance] setBackgroundImage:[theme imageForKey:@"NavigationBar.LandscapeBackgroundImage"] forBarMetrics:UIBarMetricsCompact];
     [[UINavigationBar appearance] setShadowImage:[theme imageForKey:@"NavigationBar.ShadowImage"]];
     [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:[theme floatForKey:@"NavigationBar.Title.VerticalOffset"] forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:[theme floatForKey:@"NavigationBar.Title.LandscapeVerticalOffset"] forBarMetrics:UIBarMetricsLandscapePhone];
+    [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:[theme floatForKey:@"NavigationBar.Title.LandscapeVerticalOffset"] forBarMetrics:UIBarMetricsCompact];
 
     if ([UINavigationBar instancesRespondToSelector:@selector(setBarTintColor:)]) {
         [[UINavigationBar appearance] setBarTintColor:[theme colorForKey:@[@"NavigationBar.BarTintColor", @"BarTintColor"] withDefault:nil]];
@@ -142,15 +147,15 @@ static UIStatusBarStyle themeStatusBarStyle;
         [[UIBarButtonItem appearance] setBackButtonBackgroundImage:image forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
         [[UIBarButtonItem appearance] setBackButtonBackgroundImage:selectedImage forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
         [[UIBarButtonItem appearance] setBackButtonBackgroundImage:highlightedImage forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-        [[UIBarButtonItem appearance] setBackButtonBackgroundImage:image forState:UIControlStateNormal barMetrics:UIBarMetricsLandscapePhone];
-        [[UIBarButtonItem appearance] setBackButtonBackgroundImage:selectedImage forState:UIControlStateSelected barMetrics:UIBarMetricsLandscapePhone];
-        [[UIBarButtonItem appearance] setBackButtonBackgroundImage:highlightedImage forState:UIControlStateHighlighted barMetrics:UIBarMetricsLandscapePhone];
+        [[UIBarButtonItem appearance] setBackButtonBackgroundImage:image forState:UIControlStateNormal barMetrics:UIBarMetricsCompact];
+        [[UIBarButtonItem appearance] setBackButtonBackgroundImage:selectedImage forState:UIControlStateSelected barMetrics:UIBarMetricsCompact];
+        [[UIBarButtonItem appearance] setBackButtonBackgroundImage:highlightedImage forState:UIControlStateHighlighted barMetrics:UIBarMetricsCompact];
     }
 
     [[UIBarButtonItem appearance] setBackButtonBackgroundVerticalPositionAdjustment:[theme floatForKey:@[@"BarButtonItemBack", @"BarButtonItem"] withSubkey:@"BackgroundImage.VerticalOffset"] forBarMetrics:UIBarMetricsDefault];
-    [[UIBarButtonItem appearance] setBackButtonBackgroundVerticalPositionAdjustment:[theme floatForKey:@[@"BarButtonItemBack", @"BarButtonItem"] withSubkey:@"BackgroundImage.LandscapeVerticalOffset"] forBarMetrics:UIBarMetricsLandscapePhone];
+    [[UIBarButtonItem appearance] setBackButtonBackgroundVerticalPositionAdjustment:[theme floatForKey:@[@"BarButtonItemBack", @"BarButtonItem"] withSubkey:@"BackgroundImage.LandscapeVerticalOffset"] forBarMetrics:UIBarMetricsCompact];
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:[theme offsetForKey:@[@"BarButtonItemBack", @"BarButtonItem"] withSubkey:@"Title.Offset"] forBarMetrics:UIBarMetricsDefault];
-    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:[theme offsetForKey:@[@"BarButtonItemBack", @"BarButtonItem"] withSubkey:@"Title.Offset"] forBarMetrics:UIBarMetricsLandscapePhone];
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:[theme offsetForKey:@[@"BarButtonItemBack", @"BarButtonItem"] withSubkey:@"Title.Offset"] forBarMetrics:UIBarMetricsCompact];
 
     UIImage *image = [theme imageForKey:@"BarButtonItem.BackgroundImage"];
     UIImage *selectedImage = [theme imageForKey:@"BarButtonItem.SelectedBackgroundImage"];
@@ -158,14 +163,14 @@ static UIStatusBarStyle themeStatusBarStyle;
     [[UIBarButtonItem appearance] setBackgroundImage:image forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [[UIBarButtonItem appearance] setBackgroundImage:selectedImage forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
     [[UIBarButtonItem appearance] setBackgroundImage:highlightedImage forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-    [[UIBarButtonItem appearance] setBackgroundImage:image forState:UIControlStateNormal barMetrics:UIBarMetricsLandscapePhone];
-    [[UIBarButtonItem appearance] setBackgroundImage:selectedImage forState:UIControlStateSelected barMetrics:UIBarMetricsLandscapePhone];
-    [[UIBarButtonItem appearance] setBackgroundImage:highlightedImage forState:UIControlStateHighlighted barMetrics:UIBarMetricsLandscapePhone];
+    [[UIBarButtonItem appearance] setBackgroundImage:image forState:UIControlStateNormal barMetrics:UIBarMetricsCompact];
+    [[UIBarButtonItem appearance] setBackgroundImage:selectedImage forState:UIControlStateSelected barMetrics:UIBarMetricsCompact];
+    [[UIBarButtonItem appearance] setBackgroundImage:highlightedImage forState:UIControlStateHighlighted barMetrics:UIBarMetricsCompact];
 
     [[UIBarButtonItem appearance] setBackgroundVerticalPositionAdjustment:[theme floatForKey:@"BarButtonItem.BackgroundImage.VerticalOffset"] forBarMetrics:UIBarMetricsDefault];
-    [[UIBarButtonItem appearance] setBackgroundVerticalPositionAdjustment:[theme floatForKey:@"BarButtonItem.BackgroundImage.LandscapeVerticalOffset"] forBarMetrics:UIBarMetricsLandscapePhone];
+    [[UIBarButtonItem appearance] setBackgroundVerticalPositionAdjustment:[theme floatForKey:@"BarButtonItem.BackgroundImage.LandscapeVerticalOffset"] forBarMetrics:UIBarMetricsCompact];
     [[UIBarButtonItem appearance] setTitlePositionAdjustment:[theme offsetForKey:@"BarButtonItem.Title.Offset"] forBarMetrics:UIBarMetricsDefault];
-    [[UIBarButtonItem appearance] setTitlePositionAdjustment:[theme offsetForKey:@"BarButtonItem.Title.Offset"] forBarMetrics:UIBarMetricsLandscapePhone];
+    [[UIBarButtonItem appearance] setTitlePositionAdjustment:[theme offsetForKey:@"BarButtonItem.Title.Offset"] forBarMetrics:UIBarMetricsCompact];
 
     UIFont *font = [theme fontForKey:@"BarButtonItem.Title.Font"];
     UIFont *selectedFont = [theme fontForKey:@"BarButtonItem.SelectedTitle.Font"];
@@ -179,18 +184,24 @@ static UIStatusBarStyle themeStatusBarStyle;
     UIOffset textShadowOffset = [theme offsetForKey:@"BarButtonItem.Title.TextShadowOffset" withDefault:UIOffsetZero];
     UIOffset selectedTextShadowOffset = [theme offsetForKey:@"BarButtonItem.SelectedTitle.TextShadowOffset" withDefault:textShadowOffset];
 
+    NSShadow *textShadow = [[NSShadow alloc] init];
+    textShadow.shadowColor = textShadowColor;
+    textShadow.shadowOffset = CGSizeMake(textShadowOffset.horizontal, textShadowOffset.vertical);
+
+    NSShadow *selectedTextShadow = [[NSShadow alloc] init];
+    selectedTextShadow.shadowColor = selectedTextShadowColor;
+    selectedTextShadow.shadowOffset = CGSizeMake(selectedTextShadowOffset.horizontal, selectedTextShadowOffset.vertical);
+
     [[UIBarButtonItem appearance] setTitleTextAttributes:@{
-        UITextAttributeFont: font,
-        UITextAttributeTextColor: textColor,
-        UITextAttributeTextShadowColor: textShadowColor,
-        UITextAttributeTextShadowOffset: [NSValue valueWithUIOffset:textShadowOffset]
+        NSFontAttributeName: font,
+        NSForegroundColorAttributeName: textColor,
+        NSShadowAttributeName: textShadow
     } forState:UIControlStateNormal];
 
     [[UIBarButtonItem appearance] setTitleTextAttributes:@{
-        UITextAttributeFont: selectedFont,
-        UITextAttributeTextColor: selectedTextColor,
-        UITextAttributeTextShadowColor: selectedTextShadowColor,
-        UITextAttributeTextShadowOffset: [NSValue valueWithUIOffset:selectedTextShadowOffset]
+        NSFontAttributeName: selectedFont,
+        NSForegroundColorAttributeName: selectedTextColor,
+        NSShadowAttributeName: selectedTextShadow
     } forState:UIControlStateHighlighted];
 }
 

@@ -195,7 +195,7 @@
 	[_contentViewController view];
 
 	if (CGSizeEqualToSize(_popoverContentSize, CGSizeZero)) {
-		self.popoverContentSize = _contentViewController.contentSizeForViewInPopover;
+		self.popoverContentSize = _contentViewController.preferredContentSize;
 	}
 
     UIEdgeInsets contentViewInsets = _contentViewInsets;

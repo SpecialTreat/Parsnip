@@ -58,7 +58,7 @@ static UIEdgeInsets tableCellPadding;
     return CGSizeMake(MAX(self.view.frame.size.width / 2.0f, 320.0f), self.numberOfRows * tableView.rowHeight);
 }
 
-- (CGSize)contentSizeForViewInPopover
+- (CGSize)preferredContentSize
 {
     CGSize size = [self preferredSize];
     size.height = MIN(size.height, [UIScreen mainScreen].bounds.size.height * popoverScreenPercentage);

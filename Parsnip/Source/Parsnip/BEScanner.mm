@@ -1,17 +1,17 @@
 #import "BEScanner.h"
 
 #import <objc/message.h>
-#import "allheaders.h"
-#import "baseapi.h"
-#import "environ.h"
-#import "imageio.h"
+#import <TesseractOCR/TesseractOCR.h>
+#import <TesseractOCR/allheaders.h>
+#import <TesseractOCR/baseapi.h>
+#import <TesseractOCR/environ.h>
+#import <TesseractOCR/imageio.h>
 #import "NSString+Tools.h"
 #import "BEConstants.h"
 #import "BETextDataDetector.h"
 #import "BEThread.h"
 #import "UIImage+Tesseract.h"
 //#import "GPUImage.h"
-#import "ZBarSDK.h"
 
 
 @implementation BEScanner
@@ -158,98 +158,98 @@ static NSString *tessdataPath;
     return [result componentsJoinedByString:@"\n"];
 }
 
-- (NSDictionary *)zBarSymbolToDictionary:(ZBarSymbol *)symbol
-{
-    NSString *text = symbol.data;
-    if (!text) {
-        text = @"";
-    }
-    NSMutableDictionary *d = [NSMutableDictionary dictionary];
-    d[@"Type"] = [NSNumber numberWithInt:(int)symbol.type];
-    d[@"TypeName"] = symbol.typeName;
-    d[@"ConfigMask"] = [NSNumber numberWithUnsignedInteger:symbol.configMask];
-    d[@"ModifierMask"] = [NSNumber numberWithUnsignedInteger:symbol.modifierMask];
-    d[@"Quality"] = [NSNumber numberWithInt:symbol.quality];
-    d[@"Bounds"] = @{@"X": [NSNumber numberWithFloat:symbol.bounds.origin.x],
-                     @"Y": [NSNumber numberWithFloat:symbol.bounds.origin.y],
-                     @"Width": [NSNumber numberWithFloat:symbol.bounds.size.width],
-                     @"Height": [NSNumber numberWithFloat:symbol.bounds.size.height]};
-    d[@"Orientation"] = [NSString stringWithUTF8String:zbar_get_orientation_name(symbol.orientation)];
-    if (symbol.components && symbol.components.count) {
-        NSMutableArray *components = [NSMutableArray arrayWithCapacity:symbol.components.count];
-        for (ZBarSymbol *component in symbol.components) {
-            [components addObject:[self zBarSymbolToDictionary:component]];
-        }
-        d[@"Components"] = components;
-    }
-
-    NSMutableArray *vcards = nil;
-    NSError *error = nil;
-    NSRange range = NSMakeRange(0, text.length);
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"BEGIN:VCARD.*?END:VCARD"
-                                                                           options:NSRegularExpressionDotMatchesLineSeparators
-                                                                             error:&error];
-    NSRange vcardRange = [regex rangeOfFirstMatchInString:text options:0 range:range];
-    while (vcardRange.location != NSNotFound) {
-        if (!vcards) {
-            vcards = [NSMutableArray array];
-        }
-        NSString *vcardText = [text substringWithRange:vcardRange];
-        [vcards addObject:vcardText];
-        NSString *simpleVCard = [self simplifyVCard:vcardText];
-
-        text = [text stringByReplacingCharactersInRange:vcardRange withString:simpleVCard];
-
-        NSUInteger location = vcardRange.location + simpleVCard.length;
-        range = NSMakeRange(location, text.length - location);
-        vcardRange = [regex rangeOfFirstMatchInString:text options:0 range:range];
-    }
-    if (vcards) {
-        d[@"VCards"] = vcards;
-    }
-    d[@"Data"] = text;
-    return d;
-}
+//- (NSDictionary *)zBarSymbolToDictionary:(ZBarSymbol *)symbol
+//{
+//    NSString *text = symbol.data;
+//    if (!text) {
+//        text = @"";
+//    }
+//    NSMutableDictionary *d = [NSMutableDictionary dictionary];
+//    d[@"Type"] = [NSNumber numberWithInt:(int)symbol.type];
+//    d[@"TypeName"] = symbol.typeName;
+//    d[@"ConfigMask"] = [NSNumber numberWithUnsignedInteger:symbol.configMask];
+//    d[@"ModifierMask"] = [NSNumber numberWithUnsignedInteger:symbol.modifierMask];
+//    d[@"Quality"] = [NSNumber numberWithInt:symbol.quality];
+//    d[@"Bounds"] = @{@"X": [NSNumber numberWithFloat:symbol.bounds.origin.x],
+//                     @"Y": [NSNumber numberWithFloat:symbol.bounds.origin.y],
+//                     @"Width": [NSNumber numberWithFloat:symbol.bounds.size.width],
+//                     @"Height": [NSNumber numberWithFloat:symbol.bounds.size.height]};
+//    d[@"Orientation"] = [NSString stringWithUTF8String:zbar_get_orientation_name(symbol.orientation)];
+//    if (symbol.components && symbol.components.count) {
+//        NSMutableArray *components = [NSMutableArray arrayWithCapacity:symbol.components.count];
+//        for (ZBarSymbol *component in symbol.components) {
+//            [components addObject:[self zBarSymbolToDictionary:component]];
+//        }
+//        d[@"Components"] = components;
+//    }
+//
+//    NSMutableArray *vcards = nil;
+//    NSError *error = nil;
+//    NSRange range = NSMakeRange(0, text.length);
+//    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"BEGIN:VCARD.*?END:VCARD"
+//                                                                           options:NSRegularExpressionDotMatchesLineSeparators
+//                                                                             error:&error];
+//    NSRange vcardRange = [regex rangeOfFirstMatchInString:text options:0 range:range];
+//    while (vcardRange.location != NSNotFound) {
+//        if (!vcards) {
+//            vcards = [NSMutableArray array];
+//        }
+//        NSString *vcardText = [text substringWithRange:vcardRange];
+//        [vcards addObject:vcardText];
+//        NSString *simpleVCard = [self simplifyVCard:vcardText];
+//
+//        text = [text stringByReplacingCharactersInRange:vcardRange withString:simpleVCard];
+//
+//        NSUInteger location = vcardRange.location + simpleVCard.length;
+//        range = NSMakeRange(location, text.length - location);
+//        vcardRange = [regex rangeOfFirstMatchInString:text options:0 range:range];
+//    }
+//    if (vcards) {
+//        d[@"VCards"] = vcards;
+//    }
+//    d[@"Data"] = text;
+//    return d;
+//}
 
 - (void)codeScan:(UIImage *)image completion:(void(^)(NSArray *codeScanData))completion
 {
-    [BEThread background:^{
-        ZBarImageScanner *scanner = [[ZBarImageScanner alloc] init];
-
-        CGImageRef cgImage = image.CGImage;
-        size_t w = CGImageGetWidth(cgImage);
-        size_t h = CGImageGetHeight(cgImage);
-
-        CGSize size = CGSizeMake(w, h);
-
-        // limit the maximum number of scan passes
-        int density;
-        if(size.width > 720) {
-            density = (size.width / 240 + 1) / 2;
-        } else {
-            density = 1;
-        }
-        [scanner setSymbology:ZBAR_NONE config:ZBAR_CFG_X_DENSITY to:density];
-
-        if(size.height > 720) {
-            density = (size.height / 240 + 1) / 2;
-        } else {
-            density = 1;
-        }
-        [scanner setSymbology:ZBAR_NONE config:ZBAR_CFG_Y_DENSITY to:density];
-
-        ZBarImage *zimg = [[ZBarImage alloc] initWithCGImage:cgImage];
-        size_t nsyms = [scanner scanImage: zimg];
-
+//    [BEThread background:^{
+//        ZBarImageScanner *scanner = [[ZBarImageScanner alloc] init];
+//
+//        CGImageRef cgImage = image.CGImage;
+//        size_t w = CGImageGetWidth(cgImage);
+//        size_t h = CGImageGetHeight(cgImage);
+//
+//        CGSize size = CGSizeMake(w, h);
+//
+//        // limit the maximum number of scan passes
+//        int density;
+//        if(size.width > 720) {
+//            density = (size.width / 240 + 1) / 2;
+//        } else {
+//            density = 1;
+//        }
+//        [scanner setSymbology:ZBAR_NONE config:ZBAR_CFG_X_DENSITY to:density];
+//
+//        if(size.height > 720) {
+//            density = (size.height / 240 + 1) / 2;
+//        } else {
+//            density = 1;
+//        }
+//        [scanner setSymbology:ZBAR_NONE config:ZBAR_CFG_Y_DENSITY to:density];
+//
+//        ZBarImage *zimg = [[ZBarImage alloc] initWithCGImage:cgImage];
+//        size_t nsyms = [scanner scanImage: zimg];
+//
         NSMutableArray *array = nil;
-        if (nsyms > 0) {
-            array = [NSMutableArray arrayWithCapacity:nsyms];
-            ZBarSymbolSet *results = scanner.results;
-            results.filterSymbols = NO;
-            for(ZBarSymbol *symbol in results) {
-                [array addObject:[self zBarSymbolToDictionary:symbol]];
-            }
-        }
+//        if (nsyms > 0) {
+//            array = [NSMutableArray arrayWithCapacity:nsyms];
+//            ZBarSymbolSet *results = scanner.results;
+//            results.filterSymbols = NO;
+//            for(ZBarSymbol *symbol in results) {
+//                [array addObject:[self zBarSymbolToDictionary:symbol]];
+//            }
+//        }
 
         if (completion) {
             [BEThread main:^{
@@ -257,7 +257,7 @@ static NSString *tessdataPath;
             }];
 
         }
-    }];
+//    }];
 }
 
 - (void)preOcr:(UIImage *)image completion:(void(^)(UIImage *preOcrImage))completion

@@ -107,7 +107,7 @@
     if (UIDevice.isIOS7) {
         statusBarTranslucent = YES;
     } else {
-        statusBarTranslucent = [UIApplication sharedApplication].statusBarStyle == UIStatusBarStyleBlackTranslucent;
+        statusBarTranslucent = [UIApplication sharedApplication].statusBarStyle == UIStatusBarStyleLightContent;
     }
 
     if (self.navigationController) {
@@ -198,7 +198,7 @@
     if (UIDevice.isIOS7) {
         statusBarTranslucent = YES;
     } else {
-        statusBarTranslucent = [UIApplication sharedApplication].statusBarStyle == UIStatusBarStyleBlackTranslucent;
+        statusBarTranslucent = [UIApplication sharedApplication].statusBarStyle == UIStatusBarStyleLightContent;
     }
 
     if (self.navigationController) {

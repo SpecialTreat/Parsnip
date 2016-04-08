@@ -26,7 +26,7 @@ const CGFloat FLASH_ANIMATION_DURATION = 1.0f;
     if (self) {
         flashAnimationDuration = FLASH_ANIMATION_DURATION;
 
-        if (!UIDevice.isIOS7 && self.preferredStatusBarStyle == UIStatusBarStyleBlackTranslucent) {
+        if (!UIDevice.isIOS7 && self.preferredStatusBarStyle == UIStatusBarStyleLightContent) {
             [[NSNotificationCenter defaultCenter] addObserver:self
                                                      selector:@selector(onStatusBarFrameChanged:)
                                                          name:UIApplicationWillChangeStatusBarFrameNotification
@@ -46,7 +46,7 @@ const CGFloat FLASH_ANIMATION_DURATION = 1.0f;
     return YES;
 }
 
-- (NSUInteger)supportedInterfaceOrientations
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskAll;
 }

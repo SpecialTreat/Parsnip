@@ -1,0 +1,33 @@
+{
+  "images": [
+    {
+      "idiom": "iphone", 
+      "scale": "1x", 
+      "filename": "AppImages_Splash_Background.png"
+    }, 
+    {
+      "idiom": "iphone", 
+      "scale": "2x", 
+      "filename": "AppImages_Splash_Background@2x.png"
+    }, 
+    {
+      "idiom": "iphone", 
+      "scale": "3x", 
+      "filename": "AppImages_Splash_Background@3x.png"
+    }, 
+    {
+      "idiom": "ipad", 
+      "scale": "1x", 
+      "filename": "AppImages_Splash_Background~ipad.png"
+    }, 
+    {
+      "idiom": "ipad", 
+      "scale": "2x", 
+      "filename": "AppImages_Splash_Background@2x~ipad.png"
+    }
+  ], 
+  "info": {
+    "version": 1, 
+    "author": "xcode"
+  }
+}

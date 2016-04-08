@@ -137,7 +137,15 @@ static UIEdgeInsets textMargin;
 
     CGSize maxLabelSize = CGSizeMake(maxLabelWidth, maxLabelHeight);
 
-    CGSize labelSize = [textLabel.text sizeWithFont:textLabel.font constrainedToSize:maxLabelSize lineBreakMode:textLabel.lineBreakMode];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
+    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+
+    CGRect rect = [textLabel.text boundingRectWithSize:maxLabelSize
+                                               options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin
+                                            attributes:@{ NSFontAttributeName: textLabel.font, NSParagraphStyleAttributeName: paragraphStyle }
+                                               context:nil];
+    CGSize labelSize = CGSizeMake(ceilf(rect.size.width), ceilf(rect.size.height));
+
     textLabel.frameAligned = CGRectMake(self.accessoryView.frame.origin.x - labelSize.width - textMargin.right,
                                         (height - labelSize.height) / 2.0f,
                                         labelSize.width,

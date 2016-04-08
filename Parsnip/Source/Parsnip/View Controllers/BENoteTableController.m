@@ -56,7 +56,7 @@ static UIEdgeInsets tableSectionHeaderPadding;
     [dateToStringFormatter setDateStyle:NSDateFormatterMediumStyle];
     [dateToStringFormatter setDoesRelativeDateFormatting:YES];
 
-    calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
 }
 
 @synthesize notes = _notes;
@@ -122,7 +122,7 @@ static UIEdgeInsets tableSectionHeaderPadding;
     return YES;
 }
 
-- (NSUInteger)supportedInterfaceOrientations
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskPortrait;
 }
@@ -275,7 +275,7 @@ static UIEdgeInsets tableSectionHeaderPadding;
         NSInteger limit = MAX(noteQueryPageSize, (indexPath.row + 1) - offset);
         NSArray *notes = [BEDB get:BENote.class parameters:noteQuery orderBy:dateColumn asc:NO limit:limit offset:offset];
         if (notes && notes.count) {
-            NSInteger dateUnits = (NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit);
+            NSInteger dateUnits = (NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear);
             note = notes[0];
             NSDate *currentDate = nil;
             NSInteger row = offset;

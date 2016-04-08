@@ -5,10 +5,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "allheaders.h"
-#import "baseapi.h"
-#import "environ.h"
-#import "imageio.h"
+#import <TesseractOCR/TesseractOCR.h>
+#import <TesseractOCR/allheaders.h>
+#import <TesseractOCR/baseapi.h>
+#import <TesseractOCR/environ.h>
+#import <TesseractOCR/imageio.h>
 
 
 @interface UIImage (Pix)

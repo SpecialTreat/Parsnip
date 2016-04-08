@@ -128,7 +128,14 @@ static UIEdgeInsets _descriptionMargin;
 
 - (id)initWithDescription:(NSString *)description
 {
-    CGSize size = [description sizeWithFont:_descriptionFont forWidth:260.0f lineBreakMode:NSLineBreakByWordWrapping];
+
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
+    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+    CGRect rect = [description boundingRectWithSize:CGSizeMake(260.0f, CGFLOAT_MAX)
+                                            options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin
+                                         attributes:@{ NSFontAttributeName: _descriptionFont, NSParagraphStyleAttributeName: paragraphStyle }
+                                            context:nil];
+    CGSize size = CGSizeMake(ceilf(rect.size.width), ceilf(rect.size.height));
     CGRect frame = CGRectMake(0.0f,
                               0.0f,
                               size.width + _descriptionMargin.left + _descriptionMargin.right,
@@ -143,6 +150,7 @@ static UIEdgeInsets _descriptionMargin;
         descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
         descriptionLabel.textAlignment = NSTextAlignmentCenter;
         descriptionLabel.text = description;
+        descriptionLabel.clipsToBounds = NO;
         [self addSubview:descriptionLabel];
 
         self.backgroundColor = _backgroundColor;
