@@ -281,17 +281,28 @@ static NSString *tessdataPath;
 
 - (NSString *)tryReplacement:(SEL)selector inText:(NSString *)text strict:(BOOL)strict
 {
-    NSString *postText = objc_msgSend(self, selector, text);
-    if(postText == text) {
-        return text;
+    if ([self respondsToSelector:selector] && text != nil) {
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:
+                                    [[self class] instanceMethodSignatureForSelector:selector]];
+        [invocation setTarget:self];
+        [invocation setSelector:selector];
+        [invocation setArgument:&text atIndex:2];
+        [invocation invoke];
+
+        NSString * __unsafe_unretained tempResult = nil;
+        [invocation getReturnValue:&tempResult];
+        NSString *postText = tempResult;
+
+        if(postText == text || postText == nil) {
+            return text;
+        }
+        NSUInteger preCount = [BETextDataDetector detectDataTypesCount:text];
+        NSUInteger postCount = [BETextDataDetector detectDataTypesCount:postText];
+        if(postCount > preCount || (!strict && postCount == preCount)) {
+            return postText;
+        }
     }
-    NSUInteger preCount = [BETextDataDetector detectDataTypesCount:text];
-    NSUInteger postCount = [BETextDataDetector detectDataTypesCount:postText];
-    if(postCount > preCount || (!strict && postCount == preCount)) {
-        return postText;
-    } else {
-        return text;
-    }
+    return text;
 }
 
 - (NSString *)replaceNumberSurrounded:(NSString *)find with:(NSString *)replace inText:(NSString *)text
