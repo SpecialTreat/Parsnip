@@ -3,11 +3,8 @@
 @import "bootstrap";
 @import "mixins";
 
-$software_background: #000;
 $images_path: "images/";
 $fonts_path: "fonts/";
-
-$contact_background_color: #f0f0f0;
 
 /****************************************
  * Web Fonts
@@ -71,7 +68,7 @@ a {
 }
 
 #top-navbar, #jumbotron {
-    @include text-shadow(1px 1px 1px #606010);
+    @include text-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
 }
 
 /****************************************
@@ -139,7 +136,7 @@ a {
 }
 
 #bracingeffect-logo-light, #bracingeffect-logo-dark {
-    width: 174px;
+    width: 170px;
     height: 32px;
 }
 
@@ -158,8 +155,10 @@ a {
         border-top: 0 none transparent;
     }
 
-    .navbar-toggle .icon-bar {
-        background-color: #fff;
+    .navbar-toggle {
+        .icon-bar {
+            background-color: #fff;
+        }
     }
 
     .navbar-header a.navbar-brand, .navbar-nav > li {
@@ -171,7 +170,7 @@ a {
 
         a:hover, a:focus {
             color: $text-color;
-            opacity: 0.3;
+            opacity: 0.5;
         }
     }
 
@@ -180,7 +179,7 @@ a {
     }
 
     #bracingeffect-logo-light:hover {
-        opacity: 0.3;
+        opacity: 0.5;
     }
 
     #bracingeffect-logo-dark {
@@ -570,7 +569,7 @@ only screen and (min-resolution:2dppx) {
         .content {
             float: left;
             text-align: right;
-            padding-top: #{$iphone_bezel_height / 2}px;
+            padding-top: #{$iphone_bezel_height * 0.667}px;
             padding-right: 5%;
             width: ($content_percent) * 1%;
 
