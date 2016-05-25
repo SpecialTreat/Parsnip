@@ -36,6 +36,7 @@ body {
     height:100%;
     background-color: #000;
     color: #fff;
+    @include text-shadow(1px 1px 1px #606010);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -208,8 +209,7 @@ a {
     #website-copyright {
         color: #fff;
         text-decoration: none;
-        font-size: 14px;
-        @include text-shadow(1px 1px 1px #606010);
+        font-size: 12px;
     }
 }
 
@@ -238,8 +238,7 @@ $content_percent: 50;
         display: block;
         margin-left: 12px;
         margin-bottom: 12px;
-        font-size: 14px;
-        @include text-shadow(1px 1px 1px #606010);
+        font-size: 12px;
     }
 }
 
@@ -364,7 +363,6 @@ body.grabbing {
     color: transparent;
     display: inline-block;
     line-height: 1em;
-    text-shadow: none;
     vertical-align: middle;
 }
 
