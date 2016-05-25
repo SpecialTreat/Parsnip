@@ -37,14 +37,13 @@ $container-large-desktop:      (870px + $grid-gutter-width) !default;
 
 
 //== Bootstrap color scheme
-
-$brand-primary:         #707070 !default; // darken(#428bca, 6.5%) !default; // #337ab7
+$brand-primary:         darken(#428bca, 6.5%) !default; // #337ab7
 $brand-success:         #5cb85c !default;
 $brand-info:            #5bc0de !default;
 $brand-warning:         #f0ad4e !default;
 $brand-danger:          #d9534f !default;
 
-$modal-content-bg:      #c0c0c0 !default;
+$modal-content-bg:      #f0f0f0 !default;
 
 //== Scaffolding
 //

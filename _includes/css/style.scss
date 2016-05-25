@@ -36,7 +36,6 @@ body {
     height:100%;
     background-color: #000;
     color: #fff;
-    @include text-shadow(1px 1px 1px #606010);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -71,25 +70,23 @@ a {
     clear: both;
 }
 
+#top-navbar, #jumbotron {
+    @include text-shadow(1px 1px 1px #606010);
+}
+
 /****************************************
  * Modal
  ****************************************/
 
 .modal {
-    h1, h2, h3, h4, h5, h6 {
-        color: #000;
-    }
 
     .modal-dialog {
         margin: 70px auto;
     }
 
     .modal-content {
-        background-color: #d0d0d0;
 
         .modal-header {
-
-            background-color: #b0b0b0;
             border-top-left-radius: $border-radius-large;
             border-top-right-radius: $border-radius-large;
             border-bottom: 0px solid transparent;
@@ -103,9 +100,10 @@ a {
             }
 
             .modal-title {
+                color: #000;
                 font-size: 1.25em;
-                font-weight: 300;
-                font-variant: small-caps;
+                font-weight: normal;
+                font-variant: normal;
             }
         }
 
