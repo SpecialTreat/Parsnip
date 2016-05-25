@@ -1,0 +1,77 @@
+
+$bracing_blue: #0080ff; // rgb(0,128,255)
+$dark_bracing_blue: #0066cc; // rgb(0,102,204)
+$parsnip_green: #40C000; // rgb(64,192,0)
+$dark_parsnip_green: #309000; // rgb(48,144,0)
+$chaos_violet: #a00aa0; // rgb(160,10,160)
+$github_purple: #400440; // rgb(64,4,64)
+
+$normal_text: #f0f0f0;
+$subtle_text: #a0a0a0;
+$link_text: #a0a0a0;
+
+
+//== Media queries breakpoints
+
+$screen-sm-min:      680px !default;
+$screen-md-min:      736px !default;
+$screen-lg-min:      900px !default;
+
+$modal-lg:           706px !default;
+$modal-xl:           870px !default;
+
+$grid-gutter-width:  30px !default;
+
+//** For `$screen-sm-min` and up.
+$container-tablet:             (650px + $grid-gutter-width) !default;
+
+//** For `$screen-md-min` and up.
+$container-desktop:            (706px + $grid-gutter-width) !default;
+
+//** For `$screen-lg-min` and up.
+$container-large-desktop:      (870px + $grid-gutter-width) !default;
+
+@media (min-width: $screen-lg-min) {
+  body .modal-lg { width: $modal-xl; }
+}
+
+
+//== Bootstrap color scheme
+
+$brand-primary:         #707070 !default; // darken(#428bca, 6.5%) !default; // #337ab7
+$brand-success:         #5cb85c !default;
+$brand-info:            #5bc0de !default;
+$brand-warning:         #f0ad4e !default;
+$brand-danger:          #d9534f !default;
+
+$modal-content-bg:      #c0c0c0 !default;
+
+//== Scaffolding
+//
+//## Settings for some of the most global styles.
+
+//** Background color for `<body>`.
+$body-bg:               #000 !default;
+
+//** Global text color on `<body>`.
+$text-color:            #fff !default;
+
+//** Global textual link color.
+$link-color:            $brand-primary !default;
+//** Link hover color set via `darken()` function.
+$link-hover-color:      darken($link-color, 15%) !default;
+//** Link hover decoration.
+$link-hover-decoration: underline !default;
+
+
+//== Typography
+//
+//## Font, line-height, and color for body text, headings, and more.
+
+$icon-font-path: "fonts/" !default;
+
+$font-family-sans-serif:
+    system, -apple-system, BlinkMacSystemFont, "San Francisco",
+    "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+
+@import "bootstrap/variables";

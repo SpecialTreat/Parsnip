@@ -1,78 +1,18 @@
 
-$bracing_blue: #0080ff; // rgb(0,128,255)
-$human_yellow: #ffff80; // rgb(255,255,128)
-$parsnip_green: #40C000; // rgb(64,192,0)
-$otter_orange: #ff4500; // rgb(255,69,0)
-$otter_purple: #f00ff0; // rgb(240,15,240)
-$github_purple: #400440; // rgb(64,4,64)
-$software_background: #f7f8f9;
+@import "variables";
+@import "bootstrap";
+@import "mixins";
+
+$software_background: #000;
 $images_path: "images/";
 $fonts_path: "fonts/";
 
-
-/****************************************
- * SASS mixins
- ****************************************/
-
-@mixin text-shadow($shadows...) {
-    -webkit-text-shadow: $shadows;
-    -moz-text-shadow: $shadows;
-    -o-text-shadow: $shadows;
-    text-shadow: $shadows;
-}
-
-@mixin box-shadow($shadows...) {
-    -webkit-box-shadow: $shadows;
-    -moz-box-shadow: $shadows;
-    -o-box-shadow: $shadows;
-    box-shadow: $shadows;
-}
-
-@mixin background-size($sizes...) {
-    -webkit-background-size: $sizes;
-    -moz-background-size: $sizes;
-    -o-background-size: $sizes;
-    background-size: $sizes;
-}
-
-@mixin border-radius($radius...) {
-    -moz-border-radius: $radius;
-    -khtml-border-radius: $radius;
-    -webkit-border-radius: $radius;
-    border-radius: $radius;
-}
-
-@mixin translateZ($z) {
-    -webkit-transform: translateZ(#{$z}px);
-    -moz-transform: translateZ(#{$z}px);
-    -o-transform: translateZ(#{$z}px);
-    -khtml-transform: translateZ(#{$z}px);
-    -ms-transform: translateZ(#{$z}px);
-    transform: translateZ(#{$z}px);
-}
-
-@mixin translateZScale($z) {
-    $scale: 1 + ($z * -1) / $perspective;
-    -webkit-transform: translateZ(#{$z}px) scale($scale);
-    -moz-transform: translateZ(#{$z}px) scale($scale);
-    -o-transform: translateZ(#{$z}px) scale($scale);
-    -khtml-transform: translateZ(#{$z}px) scale($scale);
-    -ms-transform: translateZ(#{$z}px) scale($scale);
-    transform: translateZ(#{$z}px) scale($scale);
-}
-
-@mixin transform($x...) {
-    -webkit-transform: $x;
-    -moz-transform: $x;
-    -o-transform: $x;
-    -khtml-transform: $x;
-    -ms-transform: $x;
-    transform: $x;
-}
+$contact_background_color: #f0f0f0;
 
 /****************************************
  * Web Fonts
  ****************************************/
+
 @font-face {
   font-family: 'Lato';
   font-style: normal;
@@ -84,16 +24,11 @@ $fonts_path: "fonts/";
  * Global styles
  ****************************************/
 
-html {
-}
-
-body {
-}
-
 html,
 body {
-    font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: $font-family-sans-serif;
     font-weight: 300;
+    font-size: 16px;
 
     margin: 0;
     padding: 0;
@@ -104,94 +39,233 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-weight: 300;
     font-variant: small-caps;
     padding: 0 0 0 0;
     margin: 0 0 0 0;
 }
 
+em {
+    font-style: italic;
+}
+
+.glyphicon {
+    vertical-align: -0.1em;
+}
+
+a {
+    color: $link_text;
+    text-decoration: underline;
+}
+
+.nowrap {
+    white-space: nowrap
+}
+
+.subtle {
+    color: $subtle_text;
+}
+
 .clear {
     clear: both;
 }
 
-.accessibility-text {
-    height: 1px;
-    width: 1px;
-    position: absolute;
-    overflow: hidden;
-    top: -10px;
+/****************************************
+ * Modal
+ ****************************************/
+
+.modal {
+    h1, h2, h3, h4, h5, h6 {
+        color: #000;
+    }
+
+    .modal-dialog {
+        margin: 70px auto;
+    }
+
+    .modal-content {
+        background-color: #d0d0d0;
+
+        .modal-header {
+
+            background-color: #b0b0b0;
+            border-top-left-radius: $border-radius-large;
+            border-top-right-radius: $border-radius-large;
+            border-bottom: 0px solid transparent;
+
+            .close {
+                font-size: 1.5em;
+
+                span {
+                    vertical-align: middle;
+                }
+            }
+
+            .modal-title {
+                font-size: 1.25em;
+                font-weight: 300;
+                font-variant: small-caps;
+            }
+        }
+
+        .modal-footer {
+            border-top: 0px solid transparent;
+        }
+    }
 }
 
-.owl-carousel {
-    cursor: move;
-    cursor: grab;
+.modal.fade .modal-dialog {
+    @include transform(scale(0.8));
+    opacity: 0;
+    @include transition(all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55));
 }
 
-.grabbing,
-.owl-wrapper.grabbing {
-    cursor: move;
-    cursor: grabbing;
+.modal.fade.in .modal-dialog {
+    @include transform(scale(1));
+    opacity: 1;
 }
 
 /****************************************
- * Parsnip slide
+ * Header
+ ****************************************/
+
+.navbar-brand {
+    position: relative;
+    padding: 9px 15px;
+}
+
+.navbar-nav > li > a {
+    font-size: 120%;
+    font-weight: bold;
+}
+
+#bracingeffect-logo-light, #bracingeffect-logo-dark {
+    width: 174px;
+    height: 32px;
+}
+
+#bracingeffect-logo-dark {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    margin-top: -16px;
+}
+
+.navbar-fixed-top {
+    background-color: rgba(0, 0, 0, 0);
+    border-bottom: 0;
+
+    .navbar-collapse {
+        border-top: 0 none transparent;
+    }
+
+    .navbar-toggle .icon-bar {
+        background-color: #fff;
+    }
+
+    .navbar-header a.navbar-brand, .navbar-nav > li {
+        a {
+            color: $text-color;
+            padding-left: 2em;
+            text-decoration: none;
+        }
+
+        a:hover, a:focus {
+            color: $text-color;
+            opacity: 0.3;
+        }
+    }
+
+    #bracingeffect-logo-light {
+        opacity: 1;
+    }
+
+    #bracingeffect-logo-light:hover {
+        opacity: 0.3;
+    }
+
+    #bracingeffect-logo-dark {
+        opacity: 0;
+    }
+
+    @include transition(all 0.3s ease 0s);
+}
+
+.navbar-fixed-top.opaque, .navbar-fixed-top.expanded {
+    background-color: rgba(0, 0, 0, 0.8);
+    @include box-shadow(0 0 32px rgba(0, 0, 0, 0.8));
+
+    @include transition(all 0.3s ease 0s);
+}
+
+/****************************************
+ * Footer
+ ****************************************/
+
+#footer {
+    padding: 54px 0 36px 0;
+
+    #website-copyright {
+        color: #fff;
+        text-decoration: none;
+        font-size: 14px;
+        @include text-shadow(1px 1px 1px #606010);
+    }
+}
+
+/****************************************
+ * iPhone section
  ****************************************/
 
 $badge_height: 40;
 $badge_width: 135;
+$badge_container_height: $badge_height;
+$badge_container_width: ($badge_width * 2) + 10;
 $iphone_height: 754;
 $iphone_width: 368;
-$margin_top: 16;
-$margin_bottom: 32;
 $iphone_bezel_height: 92;
 $iphone_bezel_width: 24;
-$min_height: $iphone_height + $margin_top + $margin_bottom;
-$content_percent: 55;
-$content_margin_right: 32;
+$content_percent: 50;
 
-#parsnip {
-    overflow: hidden;
+#jumbotron {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+
+    #background-copyright {
+        color: #fff;
+        text-decoration: none;
+        display: block;
+        margin-left: 12px;
+        margin-bottom: 12px;
+        font-size: 14px;
+        @include text-shadow(1px 1px 1px #606010);
+    }
+}
+
+#iphone-section {
     border-top-right-radius: 1px; /* required for iOS zoom bug */
     border-top-left-radius: 1px; /* required for iOS zoom bug */
-    z-index: 0;
-    min-height: #{$min_height}px;
+    padding-top: 90px;
 
-    #content {
-        position: absolute;
-        top: #{$margin_top}px;
-        left: 0;
-        right: (100 - $content_percent) * 1%;
-        bottom: 0;
-        z-index: 99;
+    .content {
+        position: relative;
 
-        text-align: right;
-
-        .float-right {
-            right: #{$content_margin_right}px;
-        }
-
-        #header {
-            position: absolute;
-            top: #{$iphone_bezel_height}px;
-            margin-top: -5.8em;
+        .header {
             white-space: nowrap;
-            z-index: 1;
 
-            #title, #parsnip-logo {
+            .title, #parsnip-logo {
+                color: #fff;
                 display: inline-block;
+                font-family: 'Lato', $font-family-sans-serif;
                 font-size: 6em;
             }
 
-            #title {
-                margin-right: -0.1667em;
-            }
-
             #parsnip-logo {
-                margin-right: -0.3em;
-                width: 1.5em;
-                // height: 2.4375em;
-                vertical-align: -75%;
+                display: inline-block;
+                margin-right: -0.1em;
+                width: 0.9em;
+                vertical-align: -40%;
 
                 .spacer {
                     padding-top: 162.319%;
@@ -199,184 +273,89 @@ $content_margin_right: 32;
             }
         }
 
-        #text {
-            color: #fff;
-            font-size: 20px;
-            position: absolute;
-            top: 200px;
-            max-width: 12em;
-            width: (100 - (100 * 1.5 * $content_margin_right / $iphone_width)) * 1%;
+        .text {
+            color: $normal_text;
+            font-size: 1.15em;
+            line-height: normal;
             white-space: normal;
-        }
-
-        $badge_container_height: ($badge_height * 2) + 10;
-        #badge-container {
-            width: #{$badge_width}px;
-            height: #{$badge_container_height}px;
-            position: absolute;
-            top: #{$iphone_height - $iphone_bezel_height - $badge_container_height}px;
-
-            #appstore-badge {
-                margin-bottom: 10px;
-            }
-
-            #appstore-badge, #github-badge {
-                width: #{$badge_width}px;
-                height: #{$badge_height}px;
-            }
-
-            #appstore-badge .spacer, #github-badge .spacer {
-                padding-top: 29.722%;
-            }
-        }
-
-        #internal-contact-link {
-            color: #fff;
-            font-size: 1.75em;
-            text-decoration: none;
-            text-align: center;
-            white-space: nowrap;
-
-            margin-right: 4px;
-            overflow: visible;
-
-            position: absolute;
-            top: #{$iphone_height - $iphone_bezel_height + 10}px;
-
-            @include text-shadow(1px 1px 1px #606010);
         }
     }
 
     #iphone {
-        position: absolute;
-        top: #{$margin_top}px;
-        left: ($content_percent) * 1%;
-        height: #{$iphone_height}px;
-        width: #{$iphone_width}px;
+        position: relative;
+        display: block;
         z-index: 100;
 
         #slides {
             position: absolute;
-            height: 568px;
-            width: 320px;
-            top: #{$iphone_bezel_height}px;
-            left: #{$iphone_bezel_width}px;
-            overflow: hidden;
+            overflow: visible;
 
-            .screenshot {
-                height: 568px;
-                width: 320px;
+            cursor: move;
+            cursor: -webkit-grab;
+            cursor: -moz-grab;
+            cursor: grab;
+
+            .carousel-inner {
+                overflow: hidden;
+            }
+
+            .carousel-indicators {
+                bottom: -25%;
             }
         }
-
-        .owl-controls {
-            margin-top: #{$iphone_bezel_height + ($margin_bottom / 2) - (16 / 2)}px;
-            z-index: 1000;
-        }
-
-        .owl-controls .owl-pagination span {
-            background-color: #030;
-        }
-
-        .owl-controls .owl-pagination .active span {
-            background-color: #ff8;
-        }
-    }
-
-    #background-copyright {
-        color: #fff;
-        text-decoration: none;
-        position: absolute;
-        left: 12px;
-        bottom: 12px;
-        z-index: 101;
-        font-size: 14px;
-        @include text-shadow(1px 1px 1px #606010);
     }
 }
+
+body.grabbing {
+    cursor: move;
+    cursor: -webkit-grabbing;
+    cursor: -moz-grabbing;
+    cursor: grabbing;
+
+    #iphone-section {
+        #iphone {
+            #slides {
+                cursor: move;
+                cursor: -webkit-grabbing;
+                cursor: -moz-grabbing;
+                cursor: grabbing;
+            }
+        }
+    }
+}
+
 
 /****************************************
  * Contact info
  ****************************************/
-#contact,
-#contact-scroll-spacer {
-    padding-top: 18em;
-}
 
-#contact-scroll-spacer {
-    background-color: transparent;
-    width: 10px;
-    z-index: 0;
-}
+#contact-modal {
 
-#contact {
-    overflow: visible;
-    background-color: #000000;
-    color: #ffffff;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: -1;
+    .modal-body {
+        color: #000;
+        padding-top: 0.75em;
 
-    .content {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        padding-top: 3em;
-        text-align: center;
+        p {
+            margin-bottom: 1em;
+        }
 
         a {
-            color: #fff;
+            color: $bracing_blue;
+            text-decoration: none;
         }
 
-        #bracingeffect-logo-container {
-            text-align: left;
-            display: inline-block;
-            margin-bottom: 0.75em;
-
-            #bracingeffect-logo {
-                background-position: 50% 50%;
-                background-size: 100%;
-                width: 4.625em;
-                margin: -0.7em 1em 0 0;
-                display: inline;
-                float: left;
-
-                .spacer {
-                    padding-top: 167.18%
-                }
-            }
-            #bracingeffect-text {
-                float: right;
-
-                h1, h2 {
-                    font-size: 4em;
-                    line-height: 0.8em;
-                }
-
-                #effect-text {
-                    color: $bracing_blue;
-                }
-            }
-        }
-
-        .contact-method {
-            font-size: 1.25em;
-            margin-top: 0.5em;
-            width: 100%;
-
-            a {
-                color: $bracing_blue;
-            }
+        a:hover, a:focus {
+            border-bottom: 0.05em solid $dark_bracing_blue;
+            color: $dark_bracing_blue;
         }
     }
 }
 
+
 /****************************************
  * Background images
  ****************************************/
+
 .background-image {
     background-color: transparent;
     background-position: 50% 50%;
@@ -407,30 +386,22 @@ $content_margin_right: 32;
     }
 }
 
-.slide {
-    background-color: #000000;
-    color: #ffffff;
-    height: 100%;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-}
-
-.slide .slide-image {
+.section-image {
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    height: 100%;
-    width: 100%;
+    min-height: 100%;
+    min-width: 100%;
 }
 
 #iphone{background-image:url(#{$images_path}iphone.png)}
 #parsnip-logo{background-image:url(#{$images_path}parsnip-logo.png)}
 #appstore-badge{background-image:url(#{$images_path}appstore-badge.png)}
 #github-badge{background-image:url(#{$images_path}github-badge.png)}
-#bracingeffect-logo{background-image:url(#{$images_path}bracingeffect-logo.png)}
-#parsnip > .slide-image{background-image:url(#{$images_path}bg.jpg)}
+#bracingeffect-logo-light{background-image:url(#{$images_path}bracingeffect-logo-light.png)}
+#bracingeffect-logo-dark{background-image:url(#{$images_path}bracingeffect-logo-dark.png)}
+#jumbotron{background-image:url(#{$images_path}bg.jpg)}
 #screenshot01{background-image:url(#{$images_path}screenshot01.png)}
 #screenshot02{background-image:url(#{$images_path}screenshot02.png)}
 #screenshot03{background-image:url(#{$images_path}screenshot03.png)}
@@ -449,8 +420,9 @@ only screen and (min-resolution:2dppx) {
     #parsnip-logo{background-image:url(#{$images_path}parsnip-logo_2x.png)}
     #appstore-badge{background-image:url(#{$images_path}appstore-badge_2x.png)}
     #github-badge{background-image:url(#{$images_path}github-badge_2x.png)}
-    #bracingeffect-logo{background-image:url(#{$images_path}bracingeffect-logo_2x.png)}
-    #parsnip > .slide-image{background-image:url(#{$images_path}bg_2x.jpg)}
+    #bracingeffect-logo-light{background-image:url(#{$images_path}bracingeffect-logo-light_2x.png)}
+    #bracingeffect-logo-dark{background-image:url(#{$images_path}bracingeffect-logo-dark_2x.png)}
+    #jumbotron{background-image:url(#{$images_path}bg_2x.jpg)}
     #screenshot01{background-image:url(#{$images_path}screenshot01_2x.png)}
     #screenshot02{background-image:url(#{$images_path}screenshot02_2x.png)}
     #screenshot03{background-image:url(#{$images_path}screenshot03_2x.png)}
@@ -461,49 +433,188 @@ only screen and (min-resolution:2dppx) {
 /****************************************
  * Responsive breakpoints
  ****************************************/
-#title {font-size: 16px;}
-$font: 15;
-$width: 1048;
-$breakpoint: $iphone_width * (100 / (100 - $content_percent));
-@while $width >= $breakpoint and $font >= 1 {
-    @media all and (max-width: #{$width}px) {
-        #parsnip #content #header {
-            font-size: #{$font}px;
+
+.container {
+    // padding-left: 5px;
+    // padding-right: 5px;
+}
+
+#contact-modal {
+    .modal-body {
+        font-size: 2em;
+    }
+}
+
+#iphone-section {
+    font-size: 12px;
+
+    .content {
+        float: none;
+        text-align: center;
+        width: 100%;
+        padding-top: 0px;
+        padding-right: 0px;
+
+        .header {
+            .title   {
+                font-size: 4.5em;
+            }
+        }
+
+        .text {
+            margin-top: 1em;
         }
     }
-    $font: $font - 0.5;
-    $width: $width - 32;
-}
 
-$font: $font - 0.75;
-@while $width >= 530 and $font >= 1 {
-    @media all and (max-width: #{$width}px) {
-        #parsnip #content #header {
-            font-size: #{$font}px;
+    #iphone {
+        margin: 2em auto 0 auto;
+        width: 100%;
+        height: auto;
+
+        > .spacer {
+            padding-top: 204.8913%;
+        }
+
+        #slides {
+            width: (320.0 / $iphone_width) * 100%;
+            height: (568.0 / $iphone_height) * 100%;
+
+            top: ($iphone_bezel_height / $iphone_height) * 100%;
+            left: ($iphone_bezel_width / $iphone_width) * 100%;
+
+            .carousel-inner {
+
+                .screenshot {
+                    width: 100%;
+                    height: auto;
+
+                    > .spacer {
+                        padding-top: 177.5%;
+                    }
+                }
+            }
         }
     }
-    $font: $font - 0.75;
-    $width: $width - 32;
+
+    #badge-container {
+        height: #{$badge_container_height}px;
+
+        margin: 80px auto 0 auto;
+        width: #{$badge_container_width}px;
+
+        #parsnip-itunes-link, #parsnip-github-link {
+            display: inline-block;
+            float: right;
+            height: #{$badge_height}px;
+
+            #appstore-badge {
+                margin-right: 10px;
+            }
+
+            #appstore-badge, #github-badge {
+                width: #{$badge_width}px;
+                height: #{$badge_height}px;
+            }
+        }
+    }
 }
 
-@media all and (max-width: #{$breakpoint}px) {
-    #parsnip #content .float-right {
-        right: ($content_margin_right / $iphone_width) * 100%;
+.modal-body {
+    padding: 15px 5px 15px 5px;
+}
+
+
+@media (min-width: 400px) {
+
+    #iphone-section {
+        font-size: 15px;
     }
 
-    #parsnip #iphone {
-        right: 0;
-        left: auto;
-    }
+    #iphone-section {
 
-    #parsnip #content {
-        right: #{$iphone_width}px;
+        #iphone {
+            height: #{$iphone_height}px;
+            width: #{$iphone_width}px;
+
+            #slides {
+                width: 320px;
+                height: 568px;
+
+                top: #{$iphone_bezel_height}px;
+                left: #{$iphone_bezel_width}px;
+
+                .carousel-inner {
+                    .screenshot {
+                        width: 320px;
+                        height: 568px;
+                    }
+                }
+            }
+        }
     }
 }
 
-@media all and (min-height: #{$min_height}px) {
-    #parsnip #iphone,
-    #parsnip #content {
-        top: 2%;
+@media (min-width: $screen-sm-min) {
+
+    #contact-modal {
+        .modal-body {
+            font-size: 2.5em;
+        }
+    }
+}
+
+@media (min-width: $screen-md-min) {
+
+    #iphone-section {
+        font-size: 14px;
+    }
+
+    #iphone-section {
+
+        .content {
+            float: left;
+            text-align: right;
+            padding-top: #{$iphone_bezel_height / 2}px;
+            padding-right: 5%;
+            width: ($content_percent) * 1%;
+
+            .header {
+                .title   {
+                    font-size: 4.2em;
+                }
+            }
+
+            .text {
+                margin-top: 0;
+            }
+        }
+
+        #iphone {
+            margin: 0 0 0 ($content_percent) * 1%;
+        }
+
+        #badge-container {
+            $badge_margin: $iphone_bezel_height + $badge_container_height;
+
+            margin: -#{$badge_margin}px 0 #{$badge_margin}px 0;
+            width: 45%;
+        }
+    }
+}
+
+@media (min-width: $screen-lg-min) {
+
+    #iphone-section, #watch-section {
+        font-size: 16px;
+    }
+
+    #iphone-section {
+        .content {
+            .header {
+                .title   {
+                    font-size: 4.5em;
+                }
+            }
+        }
     }
 }

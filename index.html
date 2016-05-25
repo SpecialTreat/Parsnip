@@ -8,35 +8,35 @@
     <meta charset="utf-8">
     <meta name="description" content="Parsnip, everyday OCR">
     <meta name="keywords" content="iOS,iPhone,iPad,App,Apps,Parsnip,OCR,Scan,Text,Photo,Picture,Image">
-    <meta id="viewport" name="viewport">
-    <script>
-        (function(doc) {
-            if (window.matchMedia) {
-                var viewport = document.getElementById('viewport');
-                if(window.matchMedia('(max-device-width: 736px)').matches) {
-                    viewport.setAttribute('content', 'width=736');
-                } else {
-                    viewport.setAttribute('content', 'width=device-width, initial-scale=1');
-                }
-            }
-        }(document));
-    </script>
 
-    <title>Bracing Effect</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+    <title>Parsnip</title>
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="images/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="images/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="images/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="images/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="images/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="images/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="images/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="images/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="images/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="images/favicon-128.png" sizes="128x128" />
+    <meta name="application-name" content="Bracing Effect"/>
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta name="msapplication-TileImage" content="images\mstile-144x144.png" />
+    <meta name="msapplication-square70x70logo" content="images\mstile-70x70.png" />
+    <meta name="msapplication-square150x150logo" content="images\mstile-150x150.png" />
+    <meta name="msapplication-wide310x150logo" content="images\mstile-310x150.png" />
+    <meta name="msapplication-square310x310logo" content="images\mstile-310x310.png" />
 
     <style type="text/css">
 {% capture reset_css %}{% include css/reset.scss %}{% endcapture %}
 {{ reset_css | scssify }}
-    </style>
-    <style type="text/css">
-{% capture owl_carousel_css %}{% include owl-carousel/owl.carousel.css %}{% endcapture %}
-{{ owl_carousel_css | scssify }}
-    </style>
-    <style type="text/css">
-{% capture owl_theme_css %}{% include owl-carousel/owl.theme.css %}{% endcapture %}
-{{ owl_theme_css | scssify }}
     </style>
     <style type="text/css">
 {% capture style_css %}{% include css/style.scss %}{% endcapture %}
@@ -45,74 +45,136 @@
 
 </head>
 <body>
-    <div id="contact">
-        <div class="content">
-            <div id="bracingeffect-logo-container">
-                <a id="bracingeffect-root-link" href="http://bracingeffect.com">
-                    <div id="bracingeffect-logo" class="background-image">
-                        <span class="spacer"></span>
+
+<nav id="top-navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#top-navbar-content" aria-label="Expand Menu">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://bracingeffect.com" aria-label="Bracing Effect Homepage">
+                <div id="bracingeffect-logo-light" class="background-image"></div>
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="top-navbar-content">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/Jurbly/">Jurbly</a></li>
+                <li><a href="/ChaosClock/">Chaos Clock</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#contact-modal">Contact Us</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div
+    id="contact-modal"
+    class="modal fade"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="contact-title">
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 id="contact-title" class="modal-title">
+            <span class="glyphicon glyphicon-user"></span> Contact Us
+        </h4>
+      </div>
+      <div class="modal-body">
+          <div class="text-center">
+          <p>
+          <a href="https://github.com/BracingEffect/Parsnip/issues/new">
+              <span class="glyphicon glyphicon-exclamation-sign"></span> Report an issue
+          </a>
+          </p>
+          <p>
+          <a href="mailto:support@bracingeffect.com">
+              <span class="glyphicon glyphicon-envelope"></span> Email us directly
+          </a>
+          </p>
+          </div>
+      </div><!-- modal-body -->
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div><!-- modal -->
+
+<div id="jumbotron" class="jumbotron background-image section-image">
+    <div class="container">
+        <div id="iphone-section">
+            <div class="content">
+                <div class="header">
+                    <div id="parsnip-logo" class="background-image"><span class="spacer"></span></div>
+                    <h1 class="title">PARSNIP</h1>
+                </div>
+                <div class="text">
+                    Parsnip uses OCR to scan<br>
+                    printed text for phone<br>
+                    numbers, web addresses,<br>
+                    maps, contacts, and more...
+                </div>
+            </div>
+            <div id="iphone" class="background-image">
+                <span class="spacer"></span>
+                <div id="slides" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner" role="listbox">
+                        <div id="screenshot01" class="screenshot background-image item active"><span class="spacer"></span></div>
+                        <div id="screenshot02" class="screenshot background-image item"><span class="spacer"></span></div>
+                        <div id="screenshot03" class="screenshot background-image item"><span class="spacer"></span></div>
+                        <div id="screenshot04" class="screenshot background-image item"><span class="spacer"></span></div>
+                        <div id="screenshot05" class="screenshot background-image item"><span class="spacer"></span></div>
                     </div>
-                    <div id="bracingeffect-text">
-                        <h1 id="bracing-text">Bracing</h1>
-                        <h1 id="effect-text">Effect</h1>
-                    </div>
+                    <ol class="carousel-indicators">
+                        <li data-target="#slides" data-slide-to="0" class="active"></li>
+                        <li data-target="#slides" data-slide-to="1"></li>
+                        <li data-target="#slides" data-slide-to="2"></li>
+                        <li data-target="#slides" data-slide-to="3"></li>
+                        <li data-target="#slides" data-slide-to="4"></li>
+                    </ol>
+                </div>
+            </div>
+            <div id="badge-container">
+                <a
+                    id="parsnip-github-link"
+                    href="https://github.com/BracingEffect/Parsnip"
+                    aria-label="Source code on GitHub">
+                    <div id="github-badge" class="background-image"></div>
+                </a>
+                <a
+                    id="parsnip-itunes-link"
+                    href="https://itunes.apple.com/us/app/parsnip/id752725886?mt=8"
+                    aria-label="Download on the App Store">
+                    <div id="appstore-badge" class="background-image"></div>
                 </a>
             </div>
             <div class="clear"></div>
-            <div class="contact-method">
-                Contact us at <a id="bracingeffect-email-link" href="mailto:support@bracingeffect.com">support@bracingeffect.com</a>
-            </div>
-            <div class="contact-method">
-                Report bugs on <a id="github-issue-link" href="https://github.com/BracingEffect/Parsnip/issues/new">GitHub</a>
+        </div>
+        <div id="footer" class="text-center">
+            <div id="website-copyright">
+                <span class="nowrap">Copyright © 2016 Bracing Effect, LLC</span>
             </div>
         </div>
     </div>
+    <a id="background-copyright" href="http://www.flickr.com/photos/wwarby/">Meadow © 2014, William Warby</a>
+</div>
 
-    <div id="parsnip" class="slide ratio-4x3">
-        <div class="background-image slide-image">
-            <span class="spacer"></span>
-        </div>
-        <div id="content">
-            <div id="header" class="float-right">
-                <div id="parsnip-logo" class="background-image"><span class="spacer"></span></div>
-                <h1 id="title">PARSNIP</h1>
-            </div>
-            <div id="text" class="float-right">
-                Parsnip uses OCR to scan printed text for phone numbers,
-                web addresses, maps, contacts, and more...
-            </div>
-            <div id="badge-container" class="float-right">
-                <a id="parsnip-itunes-link" href="https://itunes.apple.com/us/app/parsnip/id752725886?mt=8">
-                    <span class="accessibility-text">Download on the App Store</span>
-                    <div id="appstore-badge" class="background-image"><span class="spacer"></span></div></a>
-                <a id="parsnip-github-link" href="https://github.com/BracingEffect/Parsnip">
-                    <span class="accessibility-text">Source code on GitHub</span>
-                    <div id="github-badge" class="background-image"><span class="spacer"></span></div></a>
-            </div>
-            <a id="internal-contact-link" class="float-right" href="#">Contact us</a>
-        </div>
-        <div id="iphone" class="background-image">
-            <div id="slides">
-                <div id="screenshot01" class="screenshot background-image"></div>
-                <div id="screenshot02" class="screenshot background-image"></div>
-                <div id="screenshot03" class="screenshot background-image"></div>
-                <div id="screenshot04" class="screenshot background-image"></div>
-                <div id="screenshot05" class="screenshot background-image"></div>
-            </div>
-        </div>
-        <a id="background-copyright" href="http://www.flickr.com/photos/wwarby/">Meadow © 2014, William Warby</a>
-    </div>
-
-    <div id="contact-scroll-spacer"></div>
 
 <script type="text/javascript">
 {% include js/jquery.min.js %}
 </script>
 <script type="text/javascript">
+{% include js/jquery.event.move.js %}
+</script>
+<script type="text/javascript">
+{% include js/jquery.event.swipe.js %}
+</script>
+<script type="text/javascript">
 {% include js/jquery.easing.js %}
 </script>
 <script type="text/javascript">
-{% include owl-carousel/owl.carousel.min.js %}
+{% include js/bootstrap.min.js %}
 </script>
 <script type="text/javascript">
 {% include js/main.js %}

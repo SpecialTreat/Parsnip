@@ -1,0 +1,66 @@
+
+// SASS mixins
+
+@mixin transition($transition...) {
+    -webkit-transition: $transition;
+    -moz-transition: $transition;
+    -ms-transition: $transition;
+    -o-transition: $transition;
+    transition: $transition;
+}
+
+@mixin text-shadow($shadows...) {
+    -webkit-text-shadow: $shadows;
+    -moz-text-shadow: $shadows;
+    -o-text-shadow: $shadows;
+    text-shadow: $shadows;
+}
+
+@mixin box-shadow($shadows...) {
+    -webkit-box-shadow: $shadows;
+    -moz-box-shadow: $shadows;
+    -o-box-shadow: $shadows;
+    box-shadow: $shadows;
+}
+
+@mixin background-size($sizes...) {
+    -webkit-background-size: $sizes;
+    -moz-background-size: $sizes;
+    -o-background-size: $sizes;
+    background-size: $sizes;
+}
+
+@mixin border-radius($radius...) {
+    -moz-border-radius: $radius;
+    -khtml-border-radius: $radius;
+    -webkit-border-radius: $radius;
+    border-radius: $radius;
+}
+
+@mixin translateZ($z) {
+    -webkit-transform: translateZ(#{$z}px);
+    -moz-transform: translateZ(#{$z}px);
+    -o-transform: translateZ(#{$z}px);
+    -khtml-transform: translateZ(#{$z}px);
+    -ms-transform: translateZ(#{$z}px);
+    transform: translateZ(#{$z}px);
+}
+
+@mixin translateZScale($z) {
+    $scale: 1 + ($z * -1) / $perspective;
+    -webkit-transform: translateZ(#{$z}px) scale($scale);
+    -moz-transform: translateZ(#{$z}px) scale($scale);
+    -o-transform: translateZ(#{$z}px) scale($scale);
+    -khtml-transform: translateZ(#{$z}px) scale($scale);
+    -ms-transform: translateZ(#{$z}px) scale($scale);
+    transform: translateZ(#{$z}px) scale($scale);
+}
+
+@mixin transform($x...) {
+    -webkit-transform: $x;
+    -moz-transform: $x;
+    -o-transform: $x;
+    -khtml-transform: $x;
+    -ms-transform: $x;
+    transform: $x;
+}
