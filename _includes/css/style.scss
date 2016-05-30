@@ -97,7 +97,7 @@ a {
             }
 
             .modal-title {
-                color: #000;
+                color: #444;
                 font-size: 1.25em;
                 font-weight: normal;
                 font-variant: normal;
@@ -396,7 +396,7 @@ body.grabbing {
 #github-badge{background-image:url(#{$images_path}github-badge.png)}
 #bracingeffect-logo-light{background-image:url(#{$images_path}bracingeffect-logo-light.png)}
 #bracingeffect-logo-dark{background-image:url(#{$images_path}bracingeffect-logo-dark.png)}
-#jumbotron{background-image:url(#{$images_path}bg.jpg)}
+#jumbotron{background-image:url(#{$images_path}parsnip-bg.jpg)}
 #screenshot01{background-image:url(#{$images_path}screenshot01.png)}
 #screenshot02{background-image:url(#{$images_path}screenshot02.png)}
 #screenshot03{background-image:url(#{$images_path}screenshot03.png)}
@@ -417,7 +417,7 @@ only screen and (min-resolution:2dppx) {
     #github-badge{background-image:url(#{$images_path}github-badge_2x.png)}
     #bracingeffect-logo-light{background-image:url(#{$images_path}bracingeffect-logo-light_2x.png)}
     #bracingeffect-logo-dark{background-image:url(#{$images_path}bracingeffect-logo-dark_2x.png)}
-    #jumbotron{background-image:url(#{$images_path}bg_2x.jpg)}
+    #jumbotron{background-image:url(#{$images_path}parsnip-bg_2x.jpg)}
     #screenshot01{background-image:url(#{$images_path}screenshot01_2x.png)}
     #screenshot02{background-image:url(#{$images_path}screenshot02_2x.png)}
     #screenshot03{background-image:url(#{$images_path}screenshot03_2x.png)}
