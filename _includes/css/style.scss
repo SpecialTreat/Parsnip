@@ -135,16 +135,9 @@ a {
     font-weight: bold;
 }
 
-#bracingeffect-logo-light, #bracingeffect-logo-dark {
+#bracingeffect-logo-light {
     width: 170px;
     height: 32px;
-}
-
-#bracingeffect-logo-dark {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    margin-top: -16px;
 }
 
 .navbar-fixed-top {
@@ -182,10 +175,6 @@ a {
         opacity: 0.5;
     }
 
-    #bracingeffect-logo-dark {
-        opacity: 0;
-    }
-
     @include transition(all 0.3s ease 0s);
 }
 
@@ -201,7 +190,7 @@ a {
  ****************************************/
 
 #footer {
-    padding: 54px 0 36px 0;
+    padding: 54px 0 26px 0;
 
     #website-copyright {
         color: #fff;
@@ -242,7 +231,7 @@ $content_percent: 50;
 #iphone-section {
     border-top-right-radius: 1px; /* required for iOS zoom bug */
     border-top-left-radius: 1px; /* required for iOS zoom bug */
-    padding-top: 90px;
+    padding-top: 100px;
 
     .content {
         position: relative;
@@ -271,9 +260,15 @@ $content_percent: 50;
 
         .text {
             color: $normal_text;
-            font-size: 1.15em;
-            line-height: normal;
+            font-size: 1.25em;
+            line-height: 1.25em;
             white-space: normal;
+
+            ul {
+                display: inline-block;
+                text-align: left;
+                list-style: disc;
+            }
         }
     }
 
@@ -395,7 +390,6 @@ body.grabbing {
 #appstore-badge{background-image:url(#{$images_path}appstore-badge.png)}
 #github-badge{background-image:url(#{$images_path}github-badge.png)}
 #bracingeffect-logo-light{background-image:url(#{$images_path}bracingeffect-logo-light.png)}
-#bracingeffect-logo-dark{background-image:url(#{$images_path}bracingeffect-logo-dark.png)}
 #jumbotron{background-image:url(#{$images_path}parsnip-bg.jpg)}
 #screenshot01{background-image:url(#{$images_path}screenshot01.png)}
 #screenshot02{background-image:url(#{$images_path}screenshot02.png)}
@@ -416,7 +410,6 @@ only screen and (min-resolution:2dppx) {
     #appstore-badge{background-image:url(#{$images_path}appstore-badge_2x.png)}
     #github-badge{background-image:url(#{$images_path}github-badge_2x.png)}
     #bracingeffect-logo-light{background-image:url(#{$images_path}bracingeffect-logo-light_2x.png)}
-    #bracingeffect-logo-dark{background-image:url(#{$images_path}bracingeffect-logo-dark_2x.png)}
     #jumbotron{background-image:url(#{$images_path}parsnip-bg_2x.jpg)}
     #screenshot01{background-image:url(#{$images_path}screenshot01_2x.png)}
     #screenshot02{background-image:url(#{$images_path}screenshot02_2x.png)}
