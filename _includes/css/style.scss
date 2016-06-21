@@ -267,7 +267,12 @@ $content_percent: 50;
             ul {
                 display: inline-block;
                 text-align: left;
-                list-style: disc;
+                margin-top: 0.5em;
+
+                li:before {
+                    content: '\25CF';
+                    margin-right: 0.5em;
+                }
             }
         }
     }
