@@ -443,7 +443,7 @@ static BOOL _needsInitialData;
         }
         NSString *pk = [model.class primaryKey];
         if (![model internalValueForProperty:pk]) {
-            [model setInternalValue:[NSNumber numberWithInteger:[db lastInsertRowId]] forProperty:pk markDirty:NO];
+            [model setInternalValue:[NSNumber numberWithLongLong:[db lastInsertRowId]] forProperty:pk markDirty:NO];
         }
         [model saveFiles:nil];
         return YES;
