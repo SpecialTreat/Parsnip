@@ -19,6 +19,7 @@
 #import "BEPopoverBackgroundView.h"
 #import "BEUI.h"
 #import "UIColor+Tools.h"
+#import "UIDevice+Tools.h"
 #import "UIImage+Drawing.h"
 
 
@@ -46,6 +47,11 @@
     } else {
         return topController.navigationController;
     }
+}
+
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
+{
+    return UIDevice.isIpad ? UIInterfaceOrientationMaskAll : UIInterfaceOrientationMaskAllButUpsideDown;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

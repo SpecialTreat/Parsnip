@@ -52,10 +52,24 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1.4.1</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>comgooglemaps</string>
+		<string>googlechrome</string>
+		<string>googlechromes</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Parsnip can add scanned dates to your calendar</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Parsnip can use the camera to scan for printed text</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Parsnip can add scanned info to your contacts</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2016 Bracing Effect, LLC. All rights reserved.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Select photos from your library to scan for printed text</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIPrerenderedIcon</key>
@@ -66,34 +80,17 @@
 	</array>
 	<key>UIStatusBarHidden</key>
 	<true/>
+	<key>UIInterfaceOrientation</key>
+	<string>UIInterfaceOrientationPortrait</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>comgooglemaps</string>
-		<string>googlechrome</string>
-		<string>googlechromes</string>
-	</array>
-	<key>NSCameraUsageDescription</key>
-	<string>Parsnip can use the camera to scan for printed text</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Select photos from your library to scan for printed text</string>
-	<key>NSCalendarsUsageDescription</key>
-	<string>Parsnip can add scanned dates to your calendar</string>
-	<key>NSContactsUsageDescription</key>
-	<string>Parsnip can add scanned info to your contacts</string>
 </dict>
 </plist>

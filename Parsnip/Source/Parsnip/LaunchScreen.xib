@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,29 +12,59 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Splash_Background" translatesAutoresizingMaskIntoConstraints="NO" id="WZ9-80-BwM"/>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Splash_Logo" translatesAutoresizingMaskIntoConstraints="NO" id="2Ry-IB-hJ7">
+                <toolbar clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="voj-6C-OPS">
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="2Ry-IB-hJ7" secondAttribute="height" multiplier="137:171" id="WLo-Sy-tdM"/>
+                        <constraint firstAttribute="height" constant="88" id="ejQ-Tg-kJg"/>
                     </constraints>
-                </imageView>
+                    <items>
+                        <barButtonItem style="plain" id="UVh-3J-Ux1">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="j5v-UM-l0p">
+                                <rect key="frame" x="16" y="22" width="44" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="ToolbarBackButton.png"/>
+                            </button>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Vxn-aV-JiF"/>
+                        <barButtonItem style="plain" id="2ta-ra-bqg">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="pIE-SQ-e4B">
+                                <rect key="frame" x="116" y="0.0" width="88" height="88"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="CaptureViewCameraButton.png"/>
+                            </button>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="pco-B6-ee8"/>
+                        <barButtonItem style="plain" id="a8e-88-2Jx">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1aK-M6-wtO">
+                                <rect key="frame" x="260" y="22" width="44" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="ToolbarPhotoLibraryButton.png"/>
+                            </button>
+                        </barButtonItem>
+                    </items>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="barTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                </toolbar>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kge-uC-hRq">
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="2Ry-IB-hJ7" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="8Sd-iL-UA2"/>
-                <constraint firstItem="2Ry-IB-hJ7" firstAttribute="width" relation="lessThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.8" id="BQd-bT-zIS"/>
-                <constraint firstItem="2Ry-IB-hJ7" firstAttribute="height" relation="lessThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.8" id="De5-0Z-IIs"/>
-                <constraint firstItem="WZ9-80-BwM" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="Q73-MA-xYr"/>
-                <constraint firstItem="2Ry-IB-hJ7" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="b9N-MD-MeV"/>
-                <constraint firstItem="WZ9-80-BwM" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="o8K-VU-Wd6"/>
-                <constraint firstItem="WZ9-80-BwM" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="urZ-2a-MbI"/>
-                <constraint firstItem="WZ9-80-BwM" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="yhm-0V-vJ5"/>
+                <constraint firstItem="Kge-uC-hRq" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="8kC-Hs-kmD"/>
+                <constraint firstAttribute="trailing" secondItem="Kge-uC-hRq" secondAttribute="trailing" id="I8l-6E-03J"/>
+                <constraint firstItem="voj-6C-OPS" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Iwn-Ih-A75"/>
+                <constraint firstItem="voj-6C-OPS" firstAttribute="top" secondItem="Kge-uC-hRq" secondAttribute="bottom" constant="-2" id="N9c-jf-sbd"/>
+                <constraint firstAttribute="trailing" secondItem="voj-6C-OPS" secondAttribute="trailing" id="Vqs-GT-MLa"/>
+                <constraint firstItem="Kge-uC-hRq" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="g6Y-cd-2ua"/>
+                <constraint firstAttribute="bottom" secondItem="voj-6C-OPS" secondAttribute="bottom" id="y4L-m2-tvS"/>
             </constraints>
-            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
     <resources>
-        <image name="Splash_Background" width="320" height="568"/>
-        <image name="Splash_Logo" width="274" height="342"/>
+        <image name="CaptureViewCameraButton.png" width="88" height="88"/>
+        <image name="ToolbarBackButton.png" width="44" height="44"/>
+        <image name="ToolbarPhotoLibraryButton.png" width="44" height="44"/>
     </resources>
 </document>
