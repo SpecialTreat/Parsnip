@@ -16,6 +16,12 @@
     _Pragma("clang diagnostic pop")                                     \
 
 
+#define SUPPRESS_UNDECLARED_SELECTOR_WARNING(code)            \
+_Pragma("clang diagnostic push")                              \
+_Pragma("clang diagnostic ignored \"-Wundeclared-selector\"") \
+code;                                                         \
+_Pragma("clang diagnostic pop")                               \
+
 
 @implementation NSObject (Bindable)
 
@@ -82,8 +88,13 @@
 - (NSArray *)getBindablePropertySpecs:(NSObject *)instance
 {
     NSMutableArray *bindProperties;
-    if([instance respondsToSelector:@selector(bindProperties)]) {
-        bindProperties = [instance performSelector:@selector(bindProperties)];
+    SUPPRESS_UNDECLARED_SELECTOR_WARNING(
+        SEL bindPropertiesSelector = @selector(bindProperties);
+    );
+    if([instance respondsToSelector:bindPropertiesSelector]) {
+        SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING(
+            bindProperties = [instance performSelector:bindPropertiesSelector];
+        );
     } else {
         NSArray *properties = instance.properties;
         bindProperties = [NSMutableArray arrayWithCapacity:properties.count];
