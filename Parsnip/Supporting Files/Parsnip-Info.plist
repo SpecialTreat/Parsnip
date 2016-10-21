@@ -87,5 +87,13 @@
 		<string>googlechrome</string>
 		<string>googlechromes</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Parsnip can use the camera to scan for printed text</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Select photos from your library to scan for printed text</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Parsnip can add scanned dates to your calendar</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Parsnip can add scanned info to your contacts</string>
 </dict>
 </plist>
