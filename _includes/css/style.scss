@@ -319,8 +319,12 @@ $be-logo-width: 179px;
             left: ($iphone_bezel_width / $iphone_width) * 100%;
 
             .screenshot {
-                height: 100%;
+                height: auto;
                 width: 100%;
+
+                > .spacer {
+                    padding-top: 177.5%;
+                }
             }
 
             .carousel-inner {
