@@ -5,12 +5,18 @@ jQuery(document).ready(function($) {
         $body = $('body'),
         $navbar = $('#top-navbar'),
         $navbarContent = $('#top-navbar-content'),
+        $navbarToggle = $('#top-navbar-toggle'),
         $slides = $('#slides');
 
     $navbarContent.localScroll({
         filter:'.smoothScroll',
         duration: 300,
-        hash: true
+        hash: true,
+        onBefore: function() {
+            if ($navbarToggle.is(':visible')) {
+                $navbarContent.collapse('hide');
+            }
+        }
     });
 
     $navbarContent.on('hide.bs.collapse', function () {
