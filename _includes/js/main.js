@@ -1,11 +1,3 @@
-var agent = navigator.userAgent || navigator.vendor || window.opera || '';
-var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(agent);
-var isIOS = /iPhone|iPad|iPod/i.test(agent);
-
-if (isIOS) {
-    {% include js/iosfix.js %}
-}
-
 jQuery(document).ready(function($) {
 
     var $document = $(document),
@@ -15,6 +7,12 @@ jQuery(document).ready(function($) {
         $navbarContent = $('#top-navbar-content'),
         $slides = $('#slides');
 
+    $navbarContent.localScroll({
+        filter:'.smoothScroll',
+        duration: 300,
+        hash: true
+    });
+
     $navbarContent.on('hide.bs.collapse', function () {
         $navbar.removeClass('expanded');
     });
@@ -22,6 +20,16 @@ jQuery(document).ready(function($) {
     $navbarContent.on('show.bs.collapse', function () {
         $navbar.addClass('expanded');
     });
+
+    var updateNavbarTransparency = function() {
+        if ($window.scrollTop() > 0) {
+            $navbar.addClass('opaque');
+        } else {
+            $navbar.removeClass('opaque');
+        }
+    };
+    updateNavbarTransparency();
+    $window.scroll(updateNavbarTransparency);
 
     $slides.on('movestart', function(e) {
         // If the movestart is heading off in an upwards or downwards
@@ -49,14 +57,4 @@ jQuery(document).ready(function($) {
         $slides.carousel('next');
         $body.removeClass('grabbing');
     });
-
-    var updateNavbarTransparency = function() {
-        if ($window.scrollTop() > 0) {
-            $navbar.addClass('opaque');
-        } else {
-            $navbar.removeClass('opaque');
-        }
-    };
-    updateNavbarTransparency();
-    $window.scroll(updateNavbarTransparency);
 });

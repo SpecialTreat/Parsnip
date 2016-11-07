@@ -3,364 +3,108 @@
 @import "bootstrap";
 @import "mixins";
 
-$images_path: "images/";
-$fonts_path: "fonts/";
 
-/****************************************
- * Web Fonts
- ****************************************/
+$badge_height: 40;
+$badge_width: 135;
+
+$iphone_screen_height: 568;
+$iphone_screen_width: 320;
+$iphone_bezel_height: 93;
+$iphone_bezel_width: 24;
+$iphone_height: $iphone_screen_height + ($iphone_bezel_height * 2); // 754;
+$iphone_width: $iphone_screen_width + ($iphone_bezel_width * 2); // 368;
+
+
+//-------------------------------------------------------------
+// Web Fonts
+//-------------------------------------------------------------
 
 @font-face {
   font-family: 'Lato';
   font-style: normal;
   font-weight: 300;
-  src: local('Lato Light'), local('Lato-Light'), url(#{$fonts_path}Lato-Light.ttf) format('truetype');
+  src: local('Lato Light'), local('Lato-Light'), url(#{$icon-font-path}Lato-Light.ttf) format('truetype');
 }
 
-/****************************************
- * Global styles
- ****************************************/
+
+//-------------------------------------------------------------
+// Global styles
+//-------------------------------------------------------------
 
 html,
 body {
     font-family: $font-family-sans-serif;
     font-weight: 300;
-    font-size: 16px;
 
     margin: 0;
     padding: 0;
     width: 100%;
     height:100%;
-    background-color: #000;
-    color: #fff;
+}
+
+body {
+    position: relative;
+
+    -webkit-font-smoothing: antialiased;
+    -webkit-overflow-scrolling: touch;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-weight: 300;
+    font-weight: 100;
     font-variant: small-caps;
-    padding: 0 0 0 0;
-    margin: 0 0 0 0;
+
+    margin: 0;
+    padding: 0;
 }
 
-em {
+em, i {
     font-style: italic;
 }
 
-.glyphicon {
-    vertical-align: -0.1em;
-}
-
 a {
-    color: $link_text;
-    text-decoration: underline;
-}
+    text-decoration: none;
 
-.nowrap {
-    white-space: nowrap
+    &:hover, &:focus {
+        text-decoration: underline;
+
+        .background-image {
+            @include opacity(0.8);
+        }
+    }
 }
 
 .subtle {
-    color: $subtle_text;
+    color: $subtle-color;
 }
 
 .clear {
     clear: both;
 }
 
-#top-navbar, #jumbotron {
-    @include text-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
-}
 
-/****************************************
- * Modal
- ****************************************/
-
-.modal {
-
-    .modal-dialog {
-        margin: 70px auto;
-    }
-
-    .modal-content {
-
-        .modal-header {
-            border-top-left-radius: $border-radius-large;
-            border-top-right-radius: $border-radius-large;
-            border-bottom: 0px solid transparent;
-
-            .close {
-                font-size: 1.5em;
-
-                span {
-                    vertical-align: middle;
-                }
-            }
-
-            .modal-title {
-                color: #444;
-                font-size: 1.25em;
-                font-weight: normal;
-                font-variant: normal;
-            }
-        }
-
-        .modal-footer {
-            border-top: 0px solid transparent;
-        }
-    }
-}
-
-.modal.fade .modal-dialog {
-    @include transform(scale(0.8));
-    opacity: 0;
-    @include transition(all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55));
-}
-
-.modal.fade.in .modal-dialog {
-    @include transform(scale(1));
-    opacity: 1;
-}
-
-/****************************************
- * Header
- ****************************************/
-
-.navbar-brand {
-    position: relative;
-    padding: 9px 15px;
-}
-
-.navbar-nav > li > a {
-    font-size: 120%;
-    font-weight: bold;
-}
-
-#bracingeffect-logo-light {
-    width: 170px;
-    height: 32px;
-}
-
-.navbar-fixed-top {
-    background-color: rgba(0, 0, 0, 0);
-    border-bottom: 0;
-
-    .navbar-collapse {
-        border-top: 0 none transparent;
-    }
-
-    .navbar-toggle {
-        .icon-bar {
-            background-color: #fff;
-        }
-    }
-
-    .navbar-header a.navbar-brand, .navbar-nav > li {
-        a {
-            color: $text-color;
-            padding-left: 2em;
-            text-decoration: none;
-        }
-
-        a:hover, a:focus {
-            color: $text-color;
-            opacity: 0.5;
-        }
-    }
-
-    #bracingeffect-logo-light {
-        opacity: 1;
-    }
-
-    #bracingeffect-logo-light:hover {
-        opacity: 0.5;
-    }
-
-    @include transition(all 0.3s ease 0s);
-}
-
-.navbar-fixed-top.opaque, .navbar-fixed-top.expanded {
-    background-color: rgba(0, 0, 0, 0.8);
-    @include box-shadow(0 0 32px rgba(0, 0, 0, 0.8));
-
-    @include transition(all 0.3s ease 0s);
-}
-
-/****************************************
- * Footer
- ****************************************/
-
-#footer {
-    padding: 54px 0 26px 0;
-
-    #website-copyright {
-        color: #fff;
-        text-decoration: none;
-        font-size: 12px;
-    }
-}
-
-/****************************************
- * iPhone section
- ****************************************/
-
-$badge_height: 40;
-$badge_width: 135;
-$badge_container_height: $badge_height;
-$badge_container_width: ($badge_width * 2) + 10;
-$iphone_height: 754;
-$iphone_width: 368;
-$iphone_bezel_height: 92;
-$iphone_bezel_width: 24;
-$content_percent: 50;
-
-#jumbotron {
-    padding-top: 0px;
-    padding-bottom: 0px;
-    margin-bottom: 0px;
-
-    #background-copyright {
-        color: #fff;
-        text-decoration: none;
-        display: block;
-        margin-left: 12px;
-        margin-bottom: 12px;
-        font-size: 12px;
-    }
-}
-
-#iphone-section {
-    border-top-right-radius: 1px; /* required for iOS zoom bug */
-    border-top-left-radius: 1px; /* required for iOS zoom bug */
-    padding-top: 100px;
-
-    .content {
-        position: relative;
-
-        .header {
-            white-space: nowrap;
-
-            .title, #parsnip-logo {
-                color: #fff;
-                display: inline-block;
-                font-family: 'Lato', $font-family-sans-serif;
-                font-size: 6em;
-            }
-
-            #parsnip-logo {
-                display: inline-block;
-                margin-right: -0.1em;
-                width: 0.9em;
-                vertical-align: -40%;
-
-                .spacer {
-                    padding-top: 162.319%;
-                }
-            }
-        }
-
-        .text {
-            color: $normal_text;
-            font-size: 1.25em;
-            line-height: 1.25em;
-            white-space: normal;
-
-            ul {
-                display: inline-block;
-                text-align: left;
-                margin-top: 0.5em;
-
-                li:before {
-                    content: '\25CF';
-                    margin-right: 0.5em;
-                }
-            }
-        }
-    }
-
-    #iphone {
-        position: relative;
-        display: block;
-        z-index: 100;
-
-        #slides {
-            position: absolute;
-            overflow: visible;
-
-            cursor: move;
-            cursor: -webkit-grab;
-            cursor: -moz-grab;
-            cursor: grab;
-
-            .carousel-inner {
-                overflow: hidden;
-            }
-
-            .carousel-indicators {
-                bottom: -25%;
-            }
-        }
-    }
-}
-
-body.grabbing {
-    cursor: move;
-    cursor: -webkit-grabbing;
-    cursor: -moz-grabbing;
-    cursor: grabbing;
-
-    #iphone-section {
-        #iphone {
-            #slides {
-                cursor: move;
-                cursor: -webkit-grabbing;
-                cursor: -moz-grabbing;
-                cursor: grabbing;
-            }
-        }
-    }
-}
-
-
-/****************************************
- * Contact info
- ****************************************/
-
-#contact-modal {
-
-    .modal-body {
-        color: #000;
-        padding-top: 0.75em;
-
-        p {
-            margin-bottom: 1em;
-        }
-
-        a {
-            color: $bracing_blue;
-            text-decoration: none;
-        }
-
-        a:hover, a:focus {
-            border-bottom: 0.05em solid $dark_bracing_blue;
-            color: $dark_bracing_blue;
-        }
-    }
-}
-
-
-/****************************************
- * Background images
- ****************************************/
+//-------------------------------------------------------------
+// Background images
+//-------------------------------------------------------------
 
 .background-image {
     background-color: transparent;
     background-position: 50% 50%;
     background-size: 100% auto;
     background-repeat: no-repeat;
-    color: transparent;
     display: inline-block;
-    line-height: 1em;
     vertical-align: middle;
+}
+
+.section-image {
+    background-color: transparent;
+    background-position: 50% 50%;
+    background-size: 100% auto;
+    @include background-size(cover);
+    background-repeat: no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+    min-height: 100%;
+    min-width: 100%;
 }
 
 .spacer {
@@ -381,26 +125,324 @@ body.grabbing {
     }
 }
 
-.section-image {
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    min-height: 100%;
-    min-width: 100%;
+
+//-------------------------------------------------------------
+// Sections
+//-------------------------------------------------------------
+
+.section {
+
+    p {
+        margin: 0 0 25px;
+    }
 }
 
-#iphone{background-image:url(#{$images_path}iphone.png)}
-#parsnip-logo{background-image:url(#{$images_path}parsnip-logo.png)}
-#appstore-badge{background-image:url(#{$images_path}appstore-badge.png)}
-#github-badge{background-image:url(#{$images_path}github-badge.png)}
-#bracingeffect-logo-light{background-image:url(#{$images_path}bracingeffect-logo-light.png)}
-#jumbotron{background-image:url(#{$images_path}parsnip-bg.jpg)}
+$sizes: ('xs', 'sm', 'md', 'lg');
+$media-sizes: (
+    xs: $screen-xs-min,
+    sm: $screen-sm-min,
+    md: $screen-md-min,
+    lg: $screen-lg-min
+);
+
+@each $size in $sizes {
+    .col-#{$size}-left {
+        @media (min-width: map-get($media-sizes, $size)) {
+            float: left;
+            & > * { text-align: right; }
+        }
+    }
+
+    .col-#{$size}-right {
+        @media (min-width: map-get($media-sizes, $size)) {
+            float: right;
+            & > * { text-align: left; }
+        }
+    }
+
+    .#{$size}-pull-right {
+        @media (min-width: map-get($media-sizes, $size)) {
+            float: right;
+        }
+    }
+
+    .#{$size}-pull-left {
+        @media (min-width: map-get($media-sizes, $size)) {
+            float: left;
+        }
+    }
+}
+
+
+//-------------------------------------------------------------
+// Navbar
+//-------------------------------------------------------------
+
+$be-logo-height: 34px;
+$be-logo-width: 179px;
+
+.navbar-default {
+    border-bottom: 0;
+
+    @include text-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
+
+    .navbar-toggle:hover, .navbar-toggle:focus {
+
+        .icon-bar {
+            background-color: $navbar-default-toggle-icon-bar-hover-bg;
+        }
+    }
+
+    .navbar-brand {
+        position: relative;
+        padding: (($navbar-height - $be-logo-height) / 2) 15px;
+
+        #be-logo {
+            width: $be-logo-width;
+            height: $be-logo-height;
+        }
+    }
+
+    .navbar-nav > li > a {
+        font-size: 1.1em;
+        font-style: normal;
+        font-weight: 400;
+        margin-left: 1em;
+    }
+
+    @include transition(all 0.3s ease 0s);
+}
+
+.navbar-default.opaque, .navbar-default.expanded {
+    background-color: $navbar-default-opaque-bg;
+    @include box-shadow(0 0 32px rgba(0, 0, 0, 0.8));
+}
+
+
+//-------------------------------------------------------------
+// Home
+//-------------------------------------------------------------
+
+#home {
+    padding: 100px 0 0 0;
+
+    @include text-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
+
+    #background-copyright {
+        color: #fff;
+        text-decoration: none;
+        display: inline-block;
+        margin: 60px 0 12px 12px;
+        font-size: 12px;
+    }
+
+    h1 {
+        font-family: 'Lato', $font-family-sans-serif;
+        font-size: 3em;
+        font-weight: 300;
+
+        @media (min-width: $screen-xs-min) {
+            font-size: 3.5em;
+        }
+
+        @media (min-width: $screen-lg-min) {
+            font-size: 4.5em;
+        }
+
+        margin-top: 0;
+
+        @media (min-width: $screen-md-min) {
+            margin-top: #{$iphone_bezel_height}px;
+        }
+
+        white-space: nowrap;
+    }
+
+    #parsnip-logo {
+        width: 0.9em;
+        margin-right: -0.15em;
+        vertical-align: -30%;
+
+        .spacer {
+            padding-top: 162.319%;
+        }
+    }
+
+    .description {
+        font-size: 1.15em;
+        margin: 10px 0 25px;
+
+        p {
+            margin: 0 0 15px;
+        }
+
+        ul {
+            display: inline-block;
+
+            margin: 0;
+
+            li {
+                text-align: left;
+            }
+
+            li:before {
+                margin-right: 0.5em;
+            }
+        }
+    }
+
+    .iphone {
+        position: relative;
+        z-index: 100;
+
+        height: auto;
+        width: 100%;
+
+        > .spacer {
+            padding-top: 204.8913%;
+        }
+
+        .iphone-screen {
+            position: absolute;
+            overflow: visible;
+            z-index: 101;
+
+            cursor: move;
+            cursor: -webkit-grab;
+            cursor: -moz-grab;
+            cursor: grab;
+
+            height: ($iphone_screen_height / $iphone_height) * 100%;
+            width: ($iphone_screen_width / $iphone_width) * 100%;
+
+            top: ($iphone_bezel_height / $iphone_height) * 100%;
+            left: ($iphone_bezel_width / $iphone_width) * 100%;
+
+            .screenshot {
+                height: 100%;
+                width: 100%;
+            }
+
+            .carousel-inner {
+                overflow: hidden;
+            }
+
+            .carousel-indicators {
+                bottom: -25%;
+            }
+        }
+
+        @media (min-width: $screen-xs-min) {
+            height: #{$iphone_height}px;
+            width: #{$iphone_width}px;
+
+            .iphone-screen {
+                height: #{$iphone_screen_height}px;
+                width: #{$iphone_screen_width}px;
+
+                top: #{$iphone_bezel_height}px;
+                left: #{$iphone_bezel_width}px;
+
+                .screenshot {
+                    height: #{$iphone_screen_height}px;
+                    width: #{$iphone_screen_width}px;
+                }
+            }
+        }
+    }
+
+    .badge-container {
+        margin: 80px auto 0 auto;
+
+        @media (min-width: $screen-md-min) {
+            margin: -#{$iphone_bezel_height + $badge_height}px 0 #{$iphone_bezel_height + $badge_height}px 0;
+        }
+
+        .itunes-link {
+            margin-right: 10px;
+        }
+
+        .itunes-link, .github-link, .appstore-badge, .github-badge {
+            display: inline-block;
+            width: #{$badge_width}px;
+            height: #{$badge_height}px;
+        }
+    }
+}
+
+body.grabbing {
+    cursor: move;
+    cursor: -webkit-grabbing;
+    cursor: -moz-grabbing;
+    cursor: grabbing;
+
+    #home {
+        .iphone {
+            .iphone-screen {
+                cursor: move;
+                cursor: -webkit-grabbing;
+                cursor: -moz-grabbing;
+                cursor: grabbing;
+            }
+        }
+    }
+}
+
+
+//-------------------------------------------------------------
+// Contact
+//-------------------------------------------------------------
+
+#contact {
+    color: #f8f8f8;
+    padding: 70px 0 60px;
+
+    h1 {
+        margin: 0 0 50px;
+    }
+
+    a {
+        display: inline-block;
+    }
+
+    .logo {
+        height: 40px;
+        width: 40px;
+        margin: 0 0 10px;
+    }
+}
+
+
+//-------------------------------------------------------------
+// Footer
+//-------------------------------------------------------------
+
+#footer {
+    background-color: #303030;
+    color: #909090;
+
+    padding: 20px 0;
+}
+
+
+//-------------------------------------------------------------
+// Retina images
+//-------------------------------------------------------------
+
+.jumbotron{background-image:url(#{$images_path}parsnip-bg.jpg)}
+.iphone{background-image:url(#{$images_path}iphone.png)}
+.appstore-badge{background-image:url(#{$images_path}appstore-badge.png)}
+.github-badge{background-image:url(#{$images_path}github-badge.png)}
 #screenshot01{background-image:url(#{$images_path}screenshot01.png)}
 #screenshot02{background-image:url(#{$images_path}screenshot02.png)}
 #screenshot03{background-image:url(#{$images_path}screenshot03.png)}
 #screenshot04{background-image:url(#{$images_path}screenshot04.png)}
 #screenshot05{background-image:url(#{$images_path}screenshot05.png)}
+#be-logo{background-image:url(#{$images_path}bracingeffect-logo.png)}
+#parsnip-logo{background-image:url(#{$images_path}parsnip-logo.png)}
+#email-logo{background-image:url(#{$images_path}email-logo.png)}
+#github-logo{background-image:url(#{$images_path}github-logo.png)}
+#twitter-logo{background-image:url(#{$images_path}twitter-logo.png)}
 
 @media
 only screen and (-webkit-min-device-pixel-ratio:2),
@@ -410,204 +452,18 @@ only screen and (-o-min-device-pixel-ratio:2/1),
 only screen and (min-device-pixel-ratio:2),
 only screen and (min-resolution:192dpi),
 only screen and (min-resolution:2dppx) {
-    #iphone{background-image:url(#{$images_path}iphone_2x.png)}
-    #parsnip-logo{background-image:url(#{$images_path}parsnip-logo_2x.png)}
-    #appstore-badge{background-image:url(#{$images_path}appstore-badge_2x.png)}
-    #github-badge{background-image:url(#{$images_path}github-badge_2x.png)}
-    #bracingeffect-logo-light{background-image:url(#{$images_path}bracingeffect-logo-light_2x.png)}
-    #jumbotron{background-image:url(#{$images_path}parsnip-bg.jpg)}
+    .jumbotron{background-image:url(#{$images_path}parsnip-bg.jpg)}
+    .iphone{background-image:url(#{$images_path}iphone_2x.png)}
+    .appstore-badge{background-image:url(#{$images_path}appstore-badge_2x.png)}
+    .github-badge{background-image:url(#{$images_path}github-badge_2x.png)}
     #screenshot01{background-image:url(#{$images_path}screenshot01_2x.png)}
     #screenshot02{background-image:url(#{$images_path}screenshot02_2x.png)}
     #screenshot03{background-image:url(#{$images_path}screenshot03_2x.png)}
     #screenshot04{background-image:url(#{$images_path}screenshot04_2x.png)}
     #screenshot05{background-image:url(#{$images_path}screenshot05_2x.png)}
-}
-
-/****************************************
- * Responsive breakpoints
- ****************************************/
-
-.container {
-    // padding-left: 5px;
-    // padding-right: 5px;
-}
-
-#contact-modal {
-    .modal-body {
-        font-size: 2em;
-    }
-}
-
-#iphone-section {
-    font-size: 12px;
-
-    .content {
-        float: none;
-        text-align: center;
-        width: 100%;
-        padding-top: 0px;
-        padding-right: 0px;
-
-        .header {
-            .title   {
-                font-size: 4.5em;
-            }
-        }
-
-        .text {
-            margin-top: 1em;
-        }
-    }
-
-    #iphone {
-        margin: 2em auto 0 auto;
-        width: 100%;
-        height: auto;
-
-        > .spacer {
-            padding-top: 204.8913%;
-        }
-
-        #slides {
-            width: (320.0 / $iphone_width) * 100%;
-            height: (568.0 / $iphone_height) * 100%;
-
-            top: ($iphone_bezel_height / $iphone_height) * 100%;
-            left: ($iphone_bezel_width / $iphone_width) * 100%;
-
-            .carousel-inner {
-
-                .screenshot {
-                    width: 100%;
-                    height: auto;
-
-                    > .spacer {
-                        padding-top: 177.5%;
-                    }
-                }
-            }
-        }
-    }
-
-    #badge-container {
-        height: #{$badge_container_height}px;
-
-        margin: 80px auto 0 auto;
-        width: #{$badge_container_width}px;
-
-        #parsnip-itunes-link, #parsnip-github-link {
-            display: inline-block;
-            float: right;
-            height: #{$badge_height}px;
-
-            #appstore-badge {
-                margin-right: 10px;
-            }
-
-            #appstore-badge, #github-badge {
-                width: #{$badge_width}px;
-                height: #{$badge_height}px;
-            }
-        }
-    }
-}
-
-.modal-body {
-    padding: 15px 5px 15px 5px;
-}
-
-
-@media (min-width: 400px) {
-
-    #iphone-section {
-        font-size: 15px;
-    }
-
-    #iphone-section {
-
-        #iphone {
-            height: #{$iphone_height}px;
-            width: #{$iphone_width}px;
-
-            #slides {
-                width: 320px;
-                height: 568px;
-
-                top: #{$iphone_bezel_height}px;
-                left: #{$iphone_bezel_width}px;
-
-                .carousel-inner {
-                    .screenshot {
-                        width: 320px;
-                        height: 568px;
-                    }
-                }
-            }
-        }
-    }
-}
-
-@media (min-width: $screen-sm-min) {
-
-    #contact-modal {
-        .modal-body {
-            font-size: 2.5em;
-        }
-    }
-}
-
-@media (min-width: $screen-md-min) {
-
-    #iphone-section {
-        font-size: 14px;
-    }
-
-    #iphone-section {
-
-        .content {
-            float: left;
-            text-align: right;
-            padding-top: #{$iphone_bezel_height * 0.667}px;
-            padding-right: 5%;
-            width: ($content_percent) * 1%;
-
-            .header {
-                .title   {
-                    font-size: 4.2em;
-                }
-            }
-
-            .text {
-                margin-top: 0;
-            }
-        }
-
-        #iphone {
-            margin: 0 0 0 ($content_percent) * 1%;
-        }
-
-        #badge-container {
-            $badge_margin: $iphone_bezel_height + $badge_container_height;
-
-            margin: -#{$badge_margin}px 0 #{$badge_margin}px 0;
-            width: 45%;
-        }
-    }
-}
-
-@media (min-width: $screen-lg-min) {
-
-    #iphone-section, #watch-section {
-        font-size: 16px;
-    }
-
-    #iphone-section {
-        .content {
-            .header {
-                .title   {
-                    font-size: 4.5em;
-                }
-            }
-        }
-    }
+    #be-logo{background-image:url(#{$images_path}bracingeffect-logo_2x.png)}
+    #parsnip-logo{background-image:url(#{$images_path}parsnip-logo_2x.png)}
+    #email-logo{background-image:url(#{$images_path}email-logo_2x.png)}
+    #github-logo{background-image:url(#{$images_path}github-logo_2x.png)}
+    #twitter-logo{background-image:url(#{$images_path}twitter-logo_2x.png)}
 }

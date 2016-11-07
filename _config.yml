@@ -2,10 +2,8 @@ exclude: [LICENSE, Resources, Gemfile, Gemfile.lock]
 baseurl: /Parsnip
 sass:
 
-    # loading path from site root
-    # default to _sass
+    # loading path from site root (defaults to _sass)
     sass_dir: _includes/css
 
-    # style : nested (default), compact, compressed, expanded
-    #         :nested, :compact, :compressed, :expanded also works
+    # style: :nested (default), :compact, :compressed, :expanded
     style: :compressed
