@@ -65,11 +65,7 @@ a {
     text-decoration: none;
 
     &:hover, &:focus {
-        text-decoration: underline;
-
-        .background-image {
-            @include opacity(0.8);
-        }
+        @include opacity(0.8);
     }
 }
 
@@ -184,7 +180,7 @@ $be-logo-width: 179px;
 .navbar-default {
     border-bottom: 0;
 
-    @include text-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
+    @include text-shadow(1px 1px 0 $text-shadow-color);
 
     .navbar-toggle:hover, .navbar-toggle:focus {
 
@@ -224,15 +220,21 @@ $be-logo-width: 179px;
 //-------------------------------------------------------------
 
 #home {
-    padding: 100px 0 0 0;
+    position: relative;
 
-    @include text-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
+    padding: 100px 0;
+
+    @include text-shadow(1px 1px 0 $text-shadow-color);
 
     #background-copyright {
+        position: absolute;
+        bottom: 12px;
+        left: 12px;
+
+        display: inline-block;
+
         color: #fff;
         text-decoration: none;
-        display: inline-block;
-        margin: 60px 0 12px 12px;
         font-size: 12px;
     }
 
@@ -267,7 +269,7 @@ $be-logo-width: 179px;
     }
 
     .description {
-        font-size: 1.15em;
+        font-size: 1.3em;
         margin: 10px 0 25px;
 
         p {
@@ -437,7 +439,7 @@ body.grabbing {
 // Retina images
 //-------------------------------------------------------------
 
-.jumbotron{background-image:url(#{$images_path}parsnip-bg.jpg)}
+#home{background-image:url(#{$images_path}parsnip-bg.jpg)}
 .iphone{background-image:url(#{$images_path}iphone.png)}
 .appstore-badge{background-image:url(#{$images_path}appstore-badge.png)}
 .github-badge{background-image:url(#{$images_path}github-badge.png)}
@@ -460,7 +462,7 @@ only screen and (-o-min-device-pixel-ratio:2/1),
 only screen and (min-device-pixel-ratio:2),
 only screen and (min-resolution:192dpi),
 only screen and (min-resolution:2dppx) {
-    .jumbotron{background-image:url(#{$images_path}parsnip-bg.jpg)}
+    #home{background-image:url(#{$images_path}parsnip-bg.jpg)}
     .iphone{background-image:url(#{$images_path}iphone_2x.png)}
     .appstore-badge{background-image:url(#{$images_path}appstore-badge_2x.png)}
     .github-badge{background-image:url(#{$images_path}github-badge_2x.png)}

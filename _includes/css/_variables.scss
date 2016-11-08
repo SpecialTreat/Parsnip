@@ -20,13 +20,14 @@ $brand-info:    #5bc0de !default;
 $brand-warning: #f0ad4e !default;
 $brand-danger:  #d9534f !default;
 
-$text-color:    #fff !default;
-$subtle-color:  darken($text-color, 33%) !default;
+$text-color:        #fff !default;
+$text-shadow-color: #002000 !default;
+$subtle-color:      darken($text-color, 33%) !default;
 
 $body-bg:       #000 !default;
 
 $link-color:            #999 !default;
-$link-hover-color:      darken($link-color, 15%) !default;
+$link-hover-color:      #999 !default;
 $link-hover-decoration: underline !default;
 
 
@@ -79,17 +80,17 @@ $navbar-default-border:    transparent !default;
 $navbar-default-opaque-bg: rgba(0, 0, 0, 0.8) !default;
 
 $navbar-default-link-color:        #fff !default;
-$navbar-default-link-hover-color:  darken($navbar-default-link-color, 20%) !default;
+$navbar-default-link-hover-color:  #fff !default;
 $navbar-default-link-hover-bg:     transparent !default;
 $navbar-default-link-active-color: #fff !default;
 $navbar-default-link-active-bg:    $parsnip_green !default;
 
 $navbar-default-brand-hover-color: $navbar-default-link-hover-color;
 
-$navbar-default-toggle-hover-bg:          #ddd !default;
+$navbar-default-toggle-hover-bg:          #fff !default;
 $navbar-default-toggle-icon-bar-bg:       #fff !default;
-$navbar-default-toggle-icon-bar-hover-bg: #888 !default;
-$navbar-default-toggle-border-color:      #ddd !default;
+$navbar-default-toggle-icon-bar-hover-bg: $text-shadow-color;
+$navbar-default-toggle-border-color:      #fff !default;
 
 
 //-------------------------------------------------------------
