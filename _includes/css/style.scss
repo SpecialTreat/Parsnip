@@ -182,6 +182,18 @@ $be-logo-width: 179px;
 
     @include text-shadow(1px 1px 0 $text-shadow-color);
 
+    &.opaque {
+        background-color: $navbar-default-opaque-bg;
+        @include box-shadow(0 0 32px rgba(0, 0, 0, 0.8));
+    }
+
+    &.expanded {
+        @media (max-width: $screen-xs-max) {
+            background-color: $navbar-default-opaque-bg;
+            @include box-shadow(0 0 32px rgba(0, 0, 0, 0.8));
+        }
+    }
+
     .navbar-toggle:hover, .navbar-toggle:focus {
 
         .icon-bar {
@@ -207,11 +219,6 @@ $be-logo-width: 179px;
     }
 
     @include transition(all 0.3s ease 0s);
-}
-
-.navbar-default.opaque, .navbar-default.expanded {
-    background-color: $navbar-default-opaque-bg;
-    @include box-shadow(0 0 32px rgba(0, 0, 0, 0.8));
 }
 
 
